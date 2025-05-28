@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-primary-blue: #293462;
+  --color-primary-navy: #0B1023;
+  --color-primary-teal: #007981;
+  --color-primary-cream: #F8F4EF;
+  --color-secondary-purple: #5B29D9;
+  --color-secondary-light-purple: #C5B3FF;
+  --color-secondary-light-teal: #68EEEA;
+  --color-neutral-white: #FFF;
+  --color-neutral-light-gray: #DBDEE6;
+  --color-neutral-gray: #A8ADB6;
+  --color-neutral-medium-gray: #6A6C74;
+  --color-neutral-dark-gray: #43454C;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: 'elza', sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --leading-100: 100%;
+  --leading-110: 110%;
+  --leading-120: 120%;
+  --leading-130: 130%;
+  --leading-135: 135%;
+  --leading-140: 140%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-neutral-white);
+  color: var(--color-primary-navy);
+  font-family: var(--font-sans);
+}
+
+@utility bg-custom-gradient {
+  background: linear-gradient(270deg, #222f62 0%, #0b1023 100%);
+}
+
+@utility bg-gradient-podcast {
+  background: linear-gradient(135deg, #FBEDE4 1.06%, #F6D5BB 100%);
 }
