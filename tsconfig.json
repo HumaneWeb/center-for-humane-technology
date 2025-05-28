@@ -20,7 +20,7 @@
       {
         "name": "gql.tada/ts-plugin",
         "schema": "./schema.graphql",
-        "tadaOutputLocation": "./src/lib/cms/graphql-env.d.ts"
+        "tadaOutputLocation": "./lib/cms/graphql-env.d.ts"
       }
     ],
     "paths": {
