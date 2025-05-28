@@ -7,11 +7,10 @@ import ImpactBlock from '@/components/blocks/impact-block';
 import MediaBlock from '@/components/blocks/media-block';
 import NarrativeBlock from '@/components/blocks/narrative-block';
 import NewsletterBlock from '@/components/blocks/newsletter-block';
-import Footer from '@/components/layout/footer';
-import Header from '@/components/layout/header';
 import HomepageHero from '@/components/layout/homepage-hero';
 // import { performRequest } from '@/lib/cms/datocms';
 // import { PAGE_CONTENT_QUERY } from '@/lib/cms/query';
+import { toNextMetadata } from 'react-datocms';
 
 export default async function Home() {
   // const { homepage } = await performRequest(PAGE_CONTENT_QUERY);
@@ -38,7 +37,6 @@ export default async function Home() {
 
   return (
     <div>
-      <Header />
       <HomepageHero {...heroData} />
       <NewsletterBlock {...newsletterData} />
       <ImpactBlock />
@@ -49,7 +47,6 @@ export default async function Home() {
       <DepthAreasBlock />
       <MediaBlock />
       <DonateBlock />
-      <Footer />
     </div>
   );
 }

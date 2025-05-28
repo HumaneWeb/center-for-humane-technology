@@ -1,16 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface HeaderProps {
-  logoText: string;
-  navigationItems: Array<{
-    label: string;
-    href: string;
-  }>;
-  ctaText: string;
-  ctaHref: string;
-}
-
 const navigationItems = [
   { label: 'THE ISSUES', href: '/about' },
   { label: 'WHAT WE DO', href: '/research' },
@@ -18,7 +8,7 @@ const navigationItems = [
   { label: 'ABOUT US', href: '/contact' },
 ];
 
-export default function Header({ logoText, ctaText, ctaHref }: HeaderProps) {
+export default function Header() {
   return (
     <header className="border-primary-navy bg-neutral-white border-b-[1px] pl-10">
       <div className="flex h-16 items-center justify-between">
@@ -26,7 +16,7 @@ export default function Header({ logoText, ctaText, ctaHref }: HeaderProps) {
           <Link href="/" className="text-xl font-bold text-gray-900">
             <Image
               src="https://www.datocms-assets.com/160835/1748441837-logo.svg"
-              alt={logoText}
+              alt={'Center for Humane Technology logo'}
               width={372}
               height={40}
             />

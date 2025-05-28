@@ -11,9 +11,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint && prettier --check .",
-    "format": "npx prettier . --write"
+    "format": "npx prettier . --write",
+    "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $NEXT_DATOCMS_API_TOKEN\"'"
   },
   "dependencies": {
+    "gql.tada": "^1.8.10",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-datocms": "^7.2.2",
@@ -28,6 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "prettier": "^3.5.3",
