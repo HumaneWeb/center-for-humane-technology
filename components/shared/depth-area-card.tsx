@@ -1,23 +1,24 @@
-import Image from 'next/image';
+import CustomImage, { CustomImageProps } from './custom-image';
 
-export default function DepthAreaCard() {
+type Props = {
+  title: string;
+  introduction: string;
+  image: CustomImageProps;
+  link: any; // TODO
+};
+
+export default function DepthAreaCard({ title, introduction, image, link }: Props) {
   return (
     <article className="grid grid-cols-[1fr_1.5fr] gap-1">
       <div className="bg-primary-cream px-8 pt-8">
-        <Image
-          src="https://www.datocms-assets.com/160835/1748432867-group.png"
-          alt="CHT in the media 1"
-          width={330}
-          height={390}
-        />
+        <CustomImage {...image} />
       </div>
       <div className="bg-primary-cream p-8">
-        <h2 className="text-primary-navy font-sans text-4xl leading-130 font-semibold">
-          In-depth Area 1
-        </h2>
-        <p className="text-primary-navy font-sans text-xl leading-140 font-normal">
-          Use this component whenever you want to feature any specific content.{' '}
-        </p>
+        <h2 className="text-primary-navy font-sans text-4xl leading-130 font-semibold">{title}</h2>
+        <div
+          className="text-primary-navy font-sans text-xl leading-140 font-normal"
+          dangerouslySetInnerHTML={{ __html: introduction }}
+        />
       </div>
     </article>
   );

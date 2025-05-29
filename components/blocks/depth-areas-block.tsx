@@ -1,23 +1,32 @@
 import DepthAreaCard from '../shared/depth-area-card';
+import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { DepthAreasBlockFragment } from '@/lib/cms/query';
 
-export default function DepthAreasBlock() {
+type Props = FragmentOf<typeof DepthAreasBlockFragment>;
+
+export default function DepthAreasBlock(data: Props) {
+  const { title, introduction, items } = readFragment(DepthAreasBlockFragment, data);
+
   return (
-    <section>
-      <div className="mx-auto max-w-7xl">
+    <section className="mb-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-[1fr_2fr] items-start gap-15">
           <div>
             <h2 className="text-primary-navy mb-1.5 font-sans text-5xl leading-130 font-semibold">
-              In-depth areas
+              {title}
             </h2>
-            <p className="text-primary-navy font-sans text-xl leading-140">
-              Figma ipsum component variant main layer. Ellipse export star distribute edit.
-              Rectangle underline auto rotate align selection scale invite device shadow.
-            </p>
+            {introduction && (
+              <div
+                className="text-primary-navy font-sans text-xl leading-140 [&>p]:mb-4"
+                dangerouslySetInnerHTML={{ __html: introduction }}
+              />
+            )}
           </div>
 
           <div className="flex flex-col gap-11">
-            <DepthAreaCard />
-            <DepthAreaCard />
+            {items.map((item) => (
+              <DepthAreaCard key={item.id} {...item} />
+            ))}
           </div>
         </div>
       </div>

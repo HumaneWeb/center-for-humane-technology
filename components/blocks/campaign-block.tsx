@@ -1,31 +1,37 @@
 import Cta from '../shared/cta';
+import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { CampaignBlockFragment } from '@/lib/cms/query';
+import CustomImage from '../shared/custom-image';
 
-export default function CampaignBlock() {
+type Props = FragmentOf<typeof CampaignBlockFragment>;
+
+export default function CampaignBlock(data: Props) {
+  const { title, introduction, cta, image } = readFragment(CampaignBlockFragment, data);
+
   return (
-    <section className="mx-auto my-20 max-w-[1400px]">
+    <section className="mx-auto mt-24 mb-36 max-w-[1400px] px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl bg-[#007981]">
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           <div className="pl-12">
             <h2 className="text-neutral-white mb-10 font-sans text-5xl leading-110 font-semibold">
-              This is what CHT has to say about AI
+              {title}
             </h2>
             <div>
-              <p className="text-neutral-white mb-10 font-sans text-xl leading-140">
-                Use this component whenever you want to feature any specific content. For instance,
-                you can use it for “The Social Dilemma, an upcoming TED talk, a special
-                announcement, or pretty much any other content you want to give a higher visual
-                hierarchy.
-              </p>
-              <Cta label="Link to AI & Society" href="/ai-and-society" />
+              {introduction && (
+                <div
+                  className="text-neutral-white mb-10 font-sans text-xl leading-140 [&>p]:mb-4"
+                  dangerouslySetInnerHTML={{
+                    __html: introduction,
+                  }}
+                />
+              )}
+              {cta && <Cta {...cta} />}
             </div>
           </div>
 
-          <div
-            className="aspect-square bg-cover bg-no-repeat"
-            style={{
-              backgroundImage: `url('https://www.datocms-assets.com/160835/1748352206-rectangle-360.png')`,
-            }}
-          />
+          <div className="aspect-square">
+            <CustomImage {...image} extraClass="w-full h-full" />
+          </div>
         </div>
       </div>
     </section>

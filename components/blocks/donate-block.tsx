@@ -1,7 +1,13 @@
-import Image from 'next/image';
+import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { DonateBlockFragment } from '@/lib/cms/query';
 import Cta from '../shared/cta';
+import CustomImage from '../shared/custom-image';
 
-export default function DonateBlock() {
+type Props = FragmentOf<typeof DonateBlockFragment>;
+
+export default function DonateBlock(data: Props) {
+  const { title, cta, image } = readFragment(DonateBlockFragment, data);
+
   return (
     <section
       className="bg-primary-navy bg-contain bg-right bg-no-repeat py-10"
@@ -11,19 +17,16 @@ export default function DonateBlock() {
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           <div>
             <h2 className="text-neutral-white mb-5 font-sans text-3xl leading-140 font-semibold">
-              Help us design a better future at the intersection of technology and humanity
+              {title}
             </h2>
-            <Cta label="Make a donation" href="/donate" />
+            {cta && <Cta {...cta} />}
           </div>
 
-          <div className="flex justify-end">
-            <Image
-              src="https://www.datocms-assets.com/160835/1748352368-graohic-1.svg"
-              alt="Donate to CHT"
-              width={293}
-              height={208}
-            />
-          </div>
+          {image && (
+            <div className="flex justify-end">
+              <CustomImage {...image} />
+            </div>
+          )}
         </div>
       </div>
     </section>

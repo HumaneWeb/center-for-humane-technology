@@ -1,34 +1,35 @@
-import Image from 'next/image';
-import Cta from '../shared/cta';
+import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { NarrativeBlockFragment } from '@/lib/cms/query';
+import CustomImage from '../shared/custom-image';
+import CtaList from '../shared/cta-list';
 
-export default function NarrativeBlock() {
+type Props = FragmentOf<typeof NarrativeBlockFragment>;
+
+export default function NarrativeBlock(data: Props) {
+  const { title, introduction, ctas, image } = readFragment(NarrativeBlockFragment, data);
+
   return (
-    <section className="py-12">
-      <div className="mx-auto max-w-7xl">
+    <section className="pb-36">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
-          <div>
-            <Image
-              src="https://www.datocms-assets.com/160835/1748352206-rectangle-360.png"
-              alt="AI and Society"
-              width={624}
-              height={494}
-            />
-          </div>
+          {image && (
+            <div>
+              <CustomImage {...image} />
+            </div>
+          )}
 
           <div>
             <h2 className="text-primary-navy mb-8 font-sans text-5xl leading-110 font-semibold">
-              This is what CHT has to say about AI
+              {title}
             </h2>
             <div>
-              <p className="text-primary-navy mb-4 font-sans text-xl leading-140">
-                Social media fractured how we communicate; AI now influences decisions that shape
-                our well-being.
-              </p>
-              <p className="text-primary-navy mb-8 font-sans text-xl leading-140">
-                We don’t need to slow innovation — we need to raise its standards — just as we’ve
-                done in medicine, aviation, and other fields that put public trust and safety first.
-              </p>
-              <Cta label="Link to AI & Society" href="/ai-and-society" />
+              {introduction && (
+                <div
+                  className="text-primary-navy mb-8 font-sans text-xl leading-140 [&>p]:mb-4"
+                  dangerouslySetInnerHTML={{ __html: introduction }}
+                />
+              )}
+              {ctas && <CtaList items={ctas} />}
             </div>
           </div>
         </div>

@@ -2,16 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import Cta from '../shared/cta';
+import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { HighlightTextBlockFragment } from '@/lib/cms/query';
 
-export default function HighlightTextBlock() {
-  const texts = [
-    'moving the needle in the right direction',
-    'creating positive change worldwide',
-    'building a better digital future',
-    'empowering communities everywhere',
-    'transforming lives through technology',
-    'making a meaningful impact',
-  ];
+type Props = FragmentOf<typeof HighlightTextBlockFragment>;
+
+export default function HighlightTextBlock(data: Props) {
+  const { title, introduction, dynamicTexts, cta } = readFragment(HighlightTextBlockFragment, data);
+
+  const texts = dynamicTexts.split(',');
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
@@ -31,11 +30,11 @@ export default function HighlightTextBlock() {
 
   return (
     <section className="bg-custom-gradient my-5 py-20">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 items-start gap-15 lg:grid-cols-2">
           <div>
             <h2 className="text-primary-cream font-sans text-5xl leading-110 font-semibold">
-              Together, we are{' '}
+              {title}{' '}
               <span
                 className={`text-secondary-light-teal block transition-opacity duration-800 ${
                   isVisible ? 'opacity-100' : 'opacity-0'
@@ -46,13 +45,15 @@ export default function HighlightTextBlock() {
             </h2>
           </div>
           <div>
-            <p className="text-neutral-white mb-5 font-sans text-xl leading-140">
-              An estimated <strong className="text-secondary-light-teal">100 million people</strong>{' '}
-              watched The Social Dilemma. Among them,{' '}
-              <strong className="text-secondary-light-teal">42 attorney generals</strong> that took
-              action and sued Meta for their design practices.
-            </p>
-            <Cta label="More about our impact" href="/impact" />
+            {introduction && (
+              <div
+                className="text-neutral-white [&_strong]:text-secondary-light-teal mb-5 font-sans text-xl leading-140 [&>p]:mb-4"
+                dangerouslySetInnerHTML={{
+                  __html: introduction,
+                }}
+              />
+            )}
+            {cta && <Cta {...cta} />}
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "next lint && prettier --check .",
     "format": "npx prettier . --write",
-    "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $NEXT_DATOCMS_API_TOKEN\"'"
+    "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\"'"
   },
   "dependencies": {
     "gql.tada": "^1.8.10",
@@ -20,6 +20,7 @@
     "react": "^19.0.0",
     "react-datocms": "^7.2.2",
     "react-dom": "^19.0.0",
+    "react-paginate": "^8.3.0",
     "serialize-error": "^12.0.0"
   },
   "devDependencies": {

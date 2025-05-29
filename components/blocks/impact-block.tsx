@@ -1,52 +1,65 @@
 import Cta from '../shared/cta';
+import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { ImpactBlockFragment } from '@/lib/cms/query';
 
-export default function ImpactBlock() {
+type Props = FragmentOf<typeof ImpactBlockFragment>;
+
+export default function ImpactBlock(data: Props) {
+  const { title, introduction, items } = readFragment(ImpactBlockFragment, data);
+  const [firstItem, secondItem] = items;
+
   return (
-    <section className="py-12">
-      <div className="mx-auto max-w-7xl">
+    <section className="mt-20 mb-48">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-[840px]">
           <h2 className="text-primary-navy mb-5 font-sans text-5xl leading-110 font-semibold">
-            We work to shift the incentives shaping technology’s design and impact.
+            {title}
           </h2>
-          <p className="text-primary-navy mb-28 font-sans text-xl leading-140">
-            Our strategy operates across three reinforcing fronts: changing public narratives,
-            informing policy, and engaging with industry to raise internal standards. These efforts
-            form a reinforcing feedback loop that moves the tech ecosystem toward long-term,
-            structural change.
-          </p>
+          {introduction && (
+            <div
+              className="text-primary-navy mb-28 font-sans text-xl leading-140"
+              dangerouslySetInnerHTML={{ __html: introduction }}
+            />
+          )}
         </div>
 
         <div className="mx-auto flex w-full max-w-6xl justify-between gap-10">
           <div>
             <h3 className="text-primary-teal mb-1 font-sans text-3xl leading-100 font-semibold">
-              Public Awareness
+              {firstItem.title}
             </h3>
             <span className="text-primary-teal mb-3.5 block font-sans text-xl leading-120 font-semibold">
-              Cultivate an engaged society
+              {firstItem.subtitle}
             </span>
-            <p className="text-primary-navy mb-3.5 font-sans text-[16px] leading-135 font-normal">
-              We inspire public engagement by demystifying the causes of our digital challenges,
-              offering a clear vision for humane technology, and building a sustained constituency
-              for change.
-            </p>
-            <Cta label="Read more" href="/" />
+            {firstItem.introduction && (
+              <div
+                className="text-primary-navy mb-3.5 font-sans text-[16px] leading-135 font-normal"
+                dangerouslySetInnerHTML={{
+                  __html: firstItem.introduction,
+                }}
+              />
+            )}
+            {firstItem.cta && <Cta {...firstItem.cta} />}
           </div>
           <div>
             <GraphicImpact />
           </div>
           <div className="self-end">
             <h3 className="text-primary-blue mb-1 font-sans text-3xl leading-100 font-semibold">
-              Policy & Law
+              {secondItem.title}
             </h3>
             <span className="text-primary-blue mb-3.5 block font-sans text-xl leading-120 font-semibold">
-              Shift Key incentives
+              {secondItem.subtitle}
             </span>
-            <p className="text-primary-navy mb-3.5 font-sans text-[16px] leading-135 font-normal">
-              We work across sectors to build bipartisan coalitions, advise global leaders, support
-              policymakers through education and legislative drafting, and help lay the groundwork
-              for impact litigation.
-            </p>
-            <Cta label="Read more" href="/" />
+            {secondItem.introduction && (
+              <div
+                className="text-primary-navy mb-3.5 font-sans text-[16px] leading-135 font-normal"
+                dangerouslySetInnerHTML={{
+                  __html: secondItem.introduction,
+                }}
+              />
+            )}
+            {secondItem.cta && <Cta {...secondItem.cta} />}
           </div>
         </div>
       </div>

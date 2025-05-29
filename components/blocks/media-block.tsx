@@ -1,131 +1,42 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { MediaBlockFragment } from '@/lib/cms/query';
+import CustomImage from '../shared/custom-image';
+import CustomLink from '../shared/custom-link';
 
-export default function MediaBlock() {
+type Props = FragmentOf<typeof MediaBlockFragment>;
+
+export default function MediaBlock(data: Props) {
+  const { title, items, information } = readFragment(MediaBlockFragment, data);
+
   return (
-    <section className="my-20">
-      <div className="mx-auto max-w-7xl">
+    <section className="my-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div>
           <h2 className="text-primary-navy mb-12 text-center font-sans text-3xl leading-135 font-semibold">
-            CHT in the media
+            {title}
           </h2>
 
           <div className="mb-16 flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>{' '}
-            <div>
-              <Image
-                src="https://www.datocms-assets.com/160835/1748432407-axios_logo-2020-1.svg"
-                alt="CHT in the media 1"
-                width={110}
-                height={30}
-              />
-            </div>
+            {items.map((item) => {
+              if (item.link) {
+                return (
+                  <CustomLink key={item.id} {...item.link}>
+                    <CustomImage {...item.image} />
+                  </CustomLink>
+                );
+              }
+
+              return (
+                <div key={item.id}>
+                  <CustomImage {...item.image} />
+                </div>
+              );
+            })}
           </div>
 
-          <div className="text-center">
-            <Link
-              href="/media"
-              className="text-primary-teal mb-8 inline-block font-sans text-xl leading-120 font-bold underline"
-            >
-              View all media appearances
-            </Link>
-            <p className="text-primary-navy font-sans text-xl leading-120">
-              Journalist or media enquiry?{' '}
-              <Link
-                href="/contact"
-                className="text-primary-teal mb-8 font-sans text-xl leading-120 font-bold underline"
-              >
-                Get in touch
-              </Link>
-            </p>
-          </div>
+          {information && (
+            <div className="text-center" dangerouslySetInnerHTML={{ __html: information }} />
+          )}
         </div>
       </div>
     </section>

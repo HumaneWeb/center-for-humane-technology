@@ -1,3 +1,102 @@
+type AltFileField implements FileFieldInterface {
+  _createdAt: DateTime!
+
+  """
+  The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request
+  """
+  _editingUrl: String
+  _updatedAt: DateTime!
+  alt(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  author: String
+  basename: String!
+  blurUpThumb(
+    """
+    Controls the "punch" value (~contrast) of the blurhash decoding algorithm (defaults to 1.0)
+    """
+    punch: Float! = 1
+
+    """Maximum image dimension (defaults to 24px)"""
+    size: Int! = 24
+
+    """Image quality (defaults to 70%)"""
+    quality: Int! = 70
+
+    """Imgix transformations to apply to the image"""
+    imgixParams: ImgixParams
+  ): String
+  blurhash: String
+  colors: [ColorField!]!
+  copyright: String
+  customData(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): CustomData!
+  exifInfo: CustomData!
+  filename: String!
+  focalPoint(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): focalPoint
+  format: String!
+  height: IntType
+  id: UploadId!
+  md5: String!
+  mimeType: String!
+  notes: String
+  responsiveImage(
+    """Imgix transformations to apply to the image"""
+    imgixParams: ImgixParams
+
+    """Specify a custom `sizes` attribute for the image"""
+    sizes: String
+
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): ResponsiveImage
+  size: IntType!
+  smartTags: [String!]!
+  tags: [String!]!
+  thumbhash: String
+  title(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String
+  url(
+    """Imgix transformations to apply to the image"""
+    imgixParams: ImgixParams
+  ): String!
+  video: UploadVideoField
+  width: IntType
+}
+
 """Block of type Awareness Block (awareness_block)"""
 type AwarenessBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -381,7 +480,7 @@ type DepthAreasBlockRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
-  items: [String!]!
+  items: [DepthAreaItemRecord!]!
   title: String!
 }
 
@@ -620,6 +719,31 @@ Represents signed double-precision fractional values as specified by [IEEE 754](
 """
 scalar FloatType
 
+"""Block of type Footer Columns (footer_column)"""
+type FooterColumnRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  headline: String!
+  id: ItemId!
+  links: [GlobalLinkRecord!]!
+}
+
 """Record of type Footer (footer)"""
 type FooterRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -640,7 +764,17 @@ type FooterRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  columns: [FooterColumnRecord!]!
+  copyrightText: String
+  extraLinks: [GlobalLinkRecord!]!
+  facebookUrl: String
+  generalQuestionsEmail: String!
   id: ItemId!
+  linkedinUrl: String
+  logo: FileField
+  mediaInquiriesEmail: String!
+  twitterXUrl: String
+  youtubeUrl: String
 }
 
 union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | HomepageRecord | PodcastRecord | ResourceRecord
@@ -742,6 +876,10 @@ type HighlightTextBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   cta: CtaRecord
+  dynamicTexts(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -782,6 +920,31 @@ type HomepageRecord implements RecordInterface {
   ): String
   seo: SeoField
   title: String!
+}
+
+"""Block of type Image Block (image_block)"""
+type ImageBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  image: AltFileField!
+  link: GlobalLinkRecord
 }
 
 input ImgixParams {
@@ -2750,6 +2913,36 @@ enum ImgixParamsTxtFit {
   max
 }
 
+"""Block of type Impact Block Item (impact_block_item)"""
+type ImpactBlockItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  cta: CtaRecord
+  id: ItemId!
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  subtitle: String
+  title: String!
+}
+
 """Block of type Impact Block  (impact_block)"""
 type ImpactBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -2775,6 +2968,7 @@ type ImpactBlockRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  items: [ImpactBlockItemRecord!]!
   title: String!
 }
 
@@ -2857,7 +3051,91 @@ type MediaBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  information(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  items: [ImageBlockRecord!]!
   title: String
+}
+
+input MenuItemModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  parent: ParentFilter
+  position: PositionFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  asButton: BooleanFilter
+  externalUrl: StringFilter
+  label: StringFilter
+  link: LinkFilter
+  OR: [MenuItemModelFilter]
+  AND: [MenuItemModelFilter]
+}
+
+enum MenuItemModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  position_ASC
+  position_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  asButton_ASC
+  asButton_DESC
+  externalUrl_ASC
+  externalUrl_DESC
+  label_ASC
+  label_DESC
+}
+
+"""Record of type Menu Item (menu_item)"""
+type MenuItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  asButton: BooleanType!
+  children: [MenuItemRecord!]!
+  externalUrl: String
+  id: ItemId!
+  label: String!
+  link: BasicPageRecord
+  parent: MenuItemRecord
+  position: IntType
 }
 
 scalar MetaTagAttributes
@@ -2898,29 +3176,6 @@ type NarrativeBlockRecord implements RecordInterface {
   title: String!
 }
 
-"""Record of type Navbar (navbar)"""
-type NavbarRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  id: ItemId!
-}
-
 """Specifies how to filter by image orientation"""
 input OrientationFilter {
   """Search uploads with the specified orientation"""
@@ -2928,6 +3183,17 @@ input OrientationFilter {
 
   """Exclude uploads with the specified orientation"""
   neq: UploadOrientation
+}
+
+"""Specifies how to filter by parent (tree-like collections only)"""
+input ParentFilter {
+  """
+  Filter records children of the specified record. Value must be a Record ID
+  """
+  eq: ItemId
+
+  """Filter records with a parent record or not"""
+  exists: BooleanType
 }
 
 """Record of type Podcasts (podcast_list)"""
@@ -3011,6 +3277,33 @@ type PodcastRecord implements RecordInterface {
   id: ItemId!
 }
 
+"""Specifies how to filter by position (sorted and tree-like collections)"""
+input PositionFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: IntType
+
+  """Filter records with a value that's less than the one specified"""
+  lt: IntType
+
+  """
+  Filter records with a value that's greater than or equal to the one specified
+  """
+  gte: IntType
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: IntType
+
+  """Search for records with an exact match"""
+  eq: IntType
+
+  """Exclude records with an exact match"""
+  neq: IntType
+}
+
 """Specifies how to filter by publication datetime"""
 input PublishedAtFilter {
   """
@@ -3070,6 +3363,13 @@ type Query {
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
     filter: GlobalLinkModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
+  _allMenuItemsMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: MenuItemModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
@@ -3160,6 +3460,25 @@ type Query {
     filter: GlobalLinkModelFilter
     orderBy: [GlobalLinkModelOrderBy] = [_updatedAt_DESC]
   ): [GlobalLinkRecord!]!
+
+  """Returns a collection of records"""
+  allMenuItems(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: MenuItemModelFilter
+    orderBy: [MenuItemModelOrderBy] = [position_ASC]
+  ): [MenuItemRecord!]!
 
   """Returns a collection of records"""
   allPodcasts(
@@ -3301,8 +3620,8 @@ type Query {
     fallbackLocales: [SiteLocale!]
   ): HomepageRecord
 
-  """Returns the single instance record"""
-  navbar(
+  """Returns a specific record"""
+  menuItem(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -3310,7 +3629,9 @@ type Query {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): NavbarRecord
+    filter: MenuItemModelFilter
+    orderBy: [MenuItemModelOrderBy] = [position_ASC]
+  ): MenuItemRecord
 
   """Returns a specific record"""
   podcast(
