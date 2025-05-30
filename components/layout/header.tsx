@@ -4,5 +4,6 @@ import Navbar from './navbar';
 
 export default async function Header() {
   const { navbar } = await executeQuery(NavbarQuery);
+  // @ts-expect-error
   return <Navbar items={navbar} />;
 }

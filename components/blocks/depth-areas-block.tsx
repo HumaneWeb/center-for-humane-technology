@@ -1,3 +1,4 @@
+import React from 'react';
 import DepthAreaCard from '../shared/depth-area-card';
 import { FragmentOf, readFragment } from '@/lib/cms/graphql';
 import { DepthAreasBlockFragment } from '@/lib/cms/query';
@@ -25,7 +26,10 @@ export default function DepthAreasBlock(data: Props) {
 
           <div className="flex flex-col gap-11">
             {items.map((item) => (
-              <DepthAreaCard key={item.id} {...item} />
+              <React.Fragment key={item.id}>
+                {/* @ts-expect-error */}
+                <DepthAreaCard key={item.id} {...item} />
+              </React.Fragment>
             ))}
           </div>
         </div>

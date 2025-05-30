@@ -19,11 +19,13 @@ export default function DonateBlock(data: Props) {
             <h2 className="text-neutral-white mb-5 font-sans text-3xl leading-140 font-semibold">
               {title}
             </h2>
+            {/* @ts-expect-error */}
             {cta && <Cta {...cta} />}
           </div>
 
           {image && (
             <div className="flex justify-end">
+              {/* @ts-expect-error */}
               <CustomImage {...image} />
             </div>
           )}

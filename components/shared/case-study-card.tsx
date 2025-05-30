@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Cta from './cta';
+import CustomImage from './custom-image';
 
 export default function CaseStudyCard() {
   return (
@@ -11,8 +11,8 @@ export default function CaseStudyCard() {
         Vermont Kids Code
       </h2>
       <div className="mb-7">
-        <Image
-          src="https://www.datocms-assets.com/160835/1748435125-image.png"
+        <CustomImage
+          url="https://www.datocms-assets.com/160835/1748435125-image.png"
           alt="CHT in the media 1"
           width={516}
           height={252}
@@ -22,7 +22,7 @@ export default function CaseStudyCard() {
         Read more about how CHT provided expert guidance to Vermont lawmakers advancing legislation
         to protect children online, helping shape policy efforts to reduce digital harm.
       </p>
-      <Cta label="Read the full case study" href="#" />
+      <Cta label="Read the full case study" />
     </article>
   );
 }

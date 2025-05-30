@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import { ResultOf } from '@/lib/cms/graphql';
 import { CTAFragment } from '@/lib/cms/query';
+import type { Optional } from '@/lib/utils/types';
 
-export type CtaProps = ResultOf<typeof CTAFragment> & {
-  extraClass?: string;
-};
+export type CtaProps = Optional<
+  ResultOf<typeof CTAFragment> & {
+    extraClass?: string;
+  }
+>;
 
 export default function Cta({ label, extraClass }: CtaProps) {
   return (

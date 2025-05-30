@@ -5,14 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import CustomImage from '../shared/custom-image';
 import CustomLink from '../shared/custom-link';
 import SearchEngine from './search-engine';
+import type { NavbarChildren } from '@/lib/utils/types';
 
 type Props = {
-  items: {
-    id: string;
-    label: string;
-    asButton: boolean;
-    children: { id: string; label: string };
-  }[];
+  items: NavbarChildren[];
 };
 
 export default function Navbar({ items }: Props) {
@@ -118,7 +114,7 @@ export default function Navbar({ items }: Props) {
     index,
     extraClassnames,
   }: {
-    item: any;
+    item: NavbarChildren;
     index: number;
     extraClassnames?: string;
   }) => {
@@ -149,7 +145,9 @@ export default function Navbar({ items }: Props) {
       return (
         <div className="relative">
           <button
-            ref={(el) => (buttonRefs.current[index] = el)}
+            ref={(el) => {
+              buttonRefs.current[index] = el;
+            }}
             onClick={() => toggleDropdown(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             className="text-primary-navy border-primary-navy tracking-018 flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold"
@@ -171,7 +169,9 @@ export default function Navbar({ items }: Props) {
 
           {isOpen && (
             <div
-              ref={(el) => (dropdownRefs.current[index] = el)}
+              ref={(el) => {
+                dropdownRefs.current[index] = el;
+              }}
               id={`dropdown-${index}`}
               className="bg-neutral-white border-primary-navy absolute top-full left-0 z-50 flex w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm"
               role="menu"
@@ -181,8 +181,7 @@ export default function Navbar({ items }: Props) {
               {item.children!.map((dropdownItem, dropdownIndex) => (
                 <CustomLink
                   key={dropdownIndex}
-                  href={dropdownItem.href}
-                  className="block px-4 py-3 text-sm text-gray-700 transition-colors duration-200 hover:bg-gray-50 hover:text-gray-900 focus:bg-gray-50 focus:text-gray-900 focus:outline-none"
+                  // href={dropdownItem.href}
                   role="menuitem"
                   onClick={() => setOpenDropdown(null)}
                 >
@@ -231,8 +230,33 @@ export default function Navbar({ items }: Props) {
           </Link>
         </div>
 
+        {/* Mobile Menu Button */}
+        <button
+          className="p-2 md:hidden"
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          aria-label="Toggle menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M3 6h18M3 12h18M3 18h18"
+              stroke="#0B1023"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
         {/* Desktop Navigation */}
-        <nav className="hidden h-full items-stretch md:flex">
+        <nav
+          className={`hidden h-full items-stretch md:flex ${isMobileMenuOpen ? 'flex' : 'hidden'}`}
+        >
           {normal.map((item, index) => (
             <NavItemComponent key={index} item={item} index={index} />
           ))}
@@ -269,6 +293,23 @@ export default function Navbar({ items }: Props) {
           ))}
         </nav>
       </div>
+
+      {/* Mobile Navigation */}
+      {isMobileMenuOpen && (
+        <div className="flex flex-col md:hidden">
+          {normal.map((item, index) => (
+            <NavItemComponent key={index} item={item} index={index} />
+          ))}
+          {asButtons.map((item, index) => (
+            <NavItemComponent
+              key={index}
+              item={item}
+              index={index}
+              extraClassnames="bg-secondary-light-teal"
+            />
+          ))}
+        </div>
+      )}
 
       {openSearchEngine && <SearchEngine onClose={() => setOpenSearchEngine(false)} />}
     </header>

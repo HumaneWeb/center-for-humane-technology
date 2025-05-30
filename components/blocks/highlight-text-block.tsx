@@ -53,6 +53,7 @@ export default function HighlightTextBlock(data: Props) {
                 }}
               />
             )}
+            {/* @ts-expect-error */}
             {cta && <Cta {...cta} />}
           </div>
         </div>

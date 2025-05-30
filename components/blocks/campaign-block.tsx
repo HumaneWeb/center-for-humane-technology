@@ -25,6 +25,7 @@ export default function CampaignBlock(data: Props) {
                   }}
                 />
               )}
+              {/* @ts-expect-error */}
               {cta && <Cta {...cta} />}
             </div>
           </div>

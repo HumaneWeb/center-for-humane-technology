@@ -280,18 +280,24 @@ export const HomepageQuery = graphql(
   ],
 );
 
+// Layout
 export const FooterQuery = graphql(
   `
     query FooterQuery {
       footer {
         id
         logo {
-          ...ImageFragment
+          id
+          url
+          alt
+          width
+          height
         }
         mediaInquiriesEmail
         generalQuestionsEmail
         copyrightText
         extraLinks {
+          id
           ...GlobalLinkFragment
         }
         columns {
@@ -299,6 +305,7 @@ export const FooterQuery = graphql(
             id
             headline
             links {
+              id
               ...GlobalLinkFragment
             }
           }
@@ -310,7 +317,7 @@ export const FooterQuery = graphql(
       }
     }
   `,
-  [ImageFragment, GlobalLinkFragment],
+  [GlobalLinkFragment],
 );
 
 export const NavbarQuery = graphql(`

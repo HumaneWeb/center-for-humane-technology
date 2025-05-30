@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Cta from './cta';
+import CustomImage from './custom-image';
 
 export default function PodcastCard() {
   return (
@@ -8,12 +8,12 @@ export default function PodcastCard() {
         PODCAST
       </h6>
       <h2 className="text-primary-blue tracking-049 mb-7 flex items-center font-sans text-5xl leading-110 font-semibold">
-        <Image
-          src="https://www.datocms-assets.com/160835/1748435621-image-13.png"
+        <CustomImage
+          url="https://www.datocms-assets.com/160835/1748435621-image-13.png"
           alt="Podcast Icon"
           width={65}
           height={65}
-          className="mr-2 inline-block"
+          extraClass="mr-2 inline-block"
         />
         Your Undivided Attention
       </h2>
@@ -22,8 +22,8 @@ export default function PodcastCard() {
         to protect children online, helping shape policy efforts to reduce digital harm.
       </p>
       <div className="mb-7 flex gap-5">
-        <Image
-          src="https://www.datocms-assets.com/160835/1748435645-group-9.png"
+        <CustomImage
+          url="https://www.datocms-assets.com/160835/1748435645-group-9.png"
           alt="Podcast Cover"
           width={211}
           height={210}
@@ -39,7 +39,7 @@ export default function PodcastCard() {
         </div>
       </div>
 
-      <Cta label="Explore all episodes" href="#" />
+      <Cta label="Explore all episodes" />
     </article>
   );
 }

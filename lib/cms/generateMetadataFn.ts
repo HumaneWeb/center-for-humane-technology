@@ -16,7 +16,7 @@ export function generateMetadataFn<PageProps, Result, Variables>(
     pageProps: PageProps,
     parent: ResolvingMetadata,
   ): Promise<Metadata> {
-    // @ts-ignore
+    // @ts-expect-error
     const { isEnabled: isDraftModeEnabled } = draftMode();
 
     const variables = options.buildQueryVariables?.(pageProps) || ({} as Variables);

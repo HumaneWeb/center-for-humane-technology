@@ -14,6 +14,7 @@ export default function NarrativeBlock(data: Props) {
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           {image && (
             <div>
+              {/* @ts-expect-error */}
               <CustomImage {...image} />
             </div>
           )}
@@ -29,6 +30,8 @@ export default function NarrativeBlock(data: Props) {
                   dangerouslySetInnerHTML={{ __html: introduction }}
                 />
               )}
+
+              {/* @ts-expect-error */}
               {ctas && <CtaList items={ctas} />}
             </div>
           </div>

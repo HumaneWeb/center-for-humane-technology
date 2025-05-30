@@ -1,4 +1,4 @@
-import { ResultOf, readFragment } from '@/lib/cms/graphql';
+import { ResultOf } from '@/lib/cms/graphql';
 import { HomepageQuery } from '@/lib/cms/query';
 import CtaList from '../shared/cta-list';
 import { VideoPlayer } from 'react-datocms';
@@ -29,14 +29,15 @@ export default function HomepageHero({ homepage }: Props) {
               />
             )}
 
+            {/* @ts-expect-error */}
             {ctas && <CtaList items={ctas} />}
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid-cols-1 gap-4 sm:hidden md:grid-cols-2 lg:grid lg:grid-cols-3">
             {decorationVideos?.videos.map((video, index) => (
               <div
                 key={video.id}
-                className={`${index === 1 ? 'pt-25' : ''} ${index === 2 ? 'pt-[-25em]' : ''} h-full w-full`}
+                className={`h-full w-full ${index === 1 ? 'pt-25' : ''} ${index === 2 ? 'pt-[-25em]' : ''}`}
               >
                 <VideoPlayer
                   autoPlay

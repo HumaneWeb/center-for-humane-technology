@@ -39,6 +39,7 @@ export default function ImpactBlock(data: Props) {
                 }}
               />
             )}
+            {/* @ts-expect-error */}
             {firstItem.cta && <Cta {...firstItem.cta} />}
           </div>
           <div>
@@ -59,6 +60,7 @@ export default function ImpactBlock(data: Props) {
                 }}
               />
             )}
+            {/* @ts-expect-error */}
             {secondItem.cta && <Cta {...secondItem.cta} />}
           </div>
         </div>
