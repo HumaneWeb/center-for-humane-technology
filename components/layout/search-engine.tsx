@@ -17,7 +17,7 @@ export default function SearchEngine({ onClose }: SearchEngineProps) {
   const { state, error, data } = useSiteSearch({
     client,
     initialState: { locale: 'en' },
-    buildTriggerId: '7497',
+    buildTriggerId: process.env.NEXT_PUBLIC_DATOCMS_BUILD_TRIGGER_ID!,
     resultsPerPage: 10,
   });
 

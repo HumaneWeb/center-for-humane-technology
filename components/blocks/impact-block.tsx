@@ -1,3 +1,5 @@
+'use client';
+
 import Cta from '../shared/cta';
 import { FragmentOf, readFragment } from '@/lib/cms/graphql';
 import { ImpactBlockFragment } from '@/lib/cms/query';
@@ -70,44 +72,69 @@ export default function ImpactBlock(data: Props) {
 }
 
 const GraphicImpact = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="467"
-    height="467"
-    viewBox="0 0 467 467"
-    fill="none"
-  >
-    <path
-      d="M398.689 398.689C307.608 489.77 159.392 489.77 68.311 398.689C-22.7703 307.608 -22.7703 159.392 68.311 68.311C159.392 -22.7703 307.608 -22.7703 398.689 68.311C489.77 159.392 489.77 307.608 398.689 398.689ZM134.875 134.875C80.4922 189.257 80.4922 277.743 134.875 332.125C189.257 386.508 277.743 386.508 332.125 332.125C386.508 277.743 386.508 189.257 332.125 134.875C277.743 80.4922 189.257 80.4922 134.875 134.875Z"
-      fill="url(#paint0_linear_3161_856)"
-    />
-    <path
-      d="M398.689 398.689C307.608 489.77 159.392 489.77 68.311 398.689L123.038 385.875L134.875 332.125C189.257 386.508 277.743 386.508 332.125 332.125C386.508 277.743 386.508 189.257 332.125 134.875L347.047 84.2087L398.689 68.311C489.77 159.392 489.77 307.608 398.689 398.689Z"
-      fill="url(#paint1_linear_3161_856)"
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_3161_856"
-        x1="432.187"
-        y1="168.925"
-        x2="12.9351"
-        y2="145.318"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#0D787D" />
-        <stop offset="1" stopColor="#18DAE3" />
-      </linearGradient>
-      <linearGradient
-        id="paint1_linear_3161_856"
-        x1="409.775"
-        y1="146.913"
-        x2="126.317"
-        y2="431.738"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#6F87EE" />
-        <stop offset="1" stopColor="#293462" />
-      </linearGradient>
-    </defs>
-  </svg>
+  <div className="relative">
+    <style jsx>{`
+      @keyframes rotate-counterclockwise {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      .inner-ring {
+        animation: rotate-counterclockwise 8s linear infinite;
+        transform-origin: 233.5px 233.5px;
+      }
+    `}</style>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="467"
+      height="467"
+      viewBox="0 0 467 467"
+      fill="none"
+      className="drop-shadow-lg"
+    >
+      <g className="outer-ring">
+        <path
+          d="M398.689 398.689C307.608 489.77 159.392 489.77 68.311 398.689C-22.7703 307.608 -22.7703 159.392 68.311 68.311C159.392 -22.7703 307.608 -22.7703 398.689 68.311C489.77 159.392 489.77 307.608 398.689 398.689ZM134.875 134.875C80.4922 189.257 80.4922 277.743 134.875 332.125C189.257 386.508 277.743 386.508 332.125 332.125C386.508 277.743 386.508 189.257 332.125 134.875C277.743 80.4922 189.257 80.4922 134.875 134.875Z"
+          fill="url(#paint0_linear_3161_856)"
+        />
+      </g>
+
+      <g className="inner-ring">
+        <path
+          d="M398.689 398.689C307.608 489.77 159.392 489.77 68.311 398.689L123.038 385.875L134.875 332.125C189.257 386.508 277.743 386.508 332.125 332.125C386.508 277.743 386.508 189.257 332.125 134.875L347.047 84.2087L398.689 68.311C489.77 159.392 489.77 307.608 398.689 398.689Z"
+          fill="url(#paint1_linear_3161_856)"
+        />
+      </g>
+
+      <defs>
+        <linearGradient
+          id="paint0_linear_3161_856"
+          x1="232.187"
+          y1="168.925"
+          x2="12.9351"
+          y2="145.318"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#0D787D" />
+          <stop offset="1" stopColor="#18DAE3" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_3161_856"
+          x1="409.775"
+          y1="146.913"
+          x2="126.317"
+          y2="431.738"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#6F87EE" />
+          <stop offset="1" stopColor="#293462" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
 );
