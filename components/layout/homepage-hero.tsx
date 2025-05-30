@@ -18,7 +18,7 @@ export default function HomepageHero({ homepage }: Props) {
       <div className="mx-auto flex h-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div className="space-y-0">
-            <h1 className="text-primary-navy mb-9 font-sans text-4xl leading-110 font-semibold lg:text-6xl">
+            <h1 className="text-primary-navy tracking-061 mb-9 font-sans text-4xl leading-110 font-semibold lg:text-6xl">
               {title}
             </h1>
 

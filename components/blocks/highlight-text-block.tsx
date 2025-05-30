@@ -33,7 +33,7 @@ export default function HighlightTextBlock(data: Props) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-15 lg:grid-cols-2">
           <div>
-            <h2 className="text-primary-cream font-sans text-5xl leading-110 font-semibold">
+            <h2 className="text-primary-cream tracking-049 font-sans text-5xl leading-110 font-semibold">
               {title}{' '}
               <span
                 className={`text-secondary-light-teal block transition-opacity duration-800 ${

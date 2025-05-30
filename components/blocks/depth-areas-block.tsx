@@ -12,7 +12,7 @@ export default function DepthAreasBlock(data: Props) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-[1fr_2fr] items-start gap-15">
           <div>
-            <h2 className="text-primary-navy mb-1.5 font-sans text-5xl leading-130 font-semibold">
+            <h2 className="text-primary-navy tracking-049 mb-1.5 font-sans text-5xl leading-130 font-semibold">
               {title}
             </h2>
             {introduction && (

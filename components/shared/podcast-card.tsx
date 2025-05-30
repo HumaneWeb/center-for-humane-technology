@@ -4,10 +4,10 @@ import Cta from './cta';
 export default function PodcastCard() {
   return (
     <article>
-      <h6 className="text-primary-blue mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
+      <h6 className="text-primary-blue tracking-075 mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
         PODCAST
       </h6>
-      <h2 className="text-primary-blue mb-7 flex items-center font-sans text-5xl leading-110 font-semibold">
+      <h2 className="text-primary-blue tracking-049 mb-7 flex items-center font-sans text-5xl leading-110 font-semibold">
         <Image
           src="https://www.datocms-assets.com/160835/1748435621-image-13.png"
           alt="Podcast Icon"
@@ -30,7 +30,7 @@ export default function PodcastCard() {
         />
 
         <div>
-          <h5 className="text-primary-blue mb-2 font-sans text-[15px] leading-135 font-semibold uppercase">
+          <h5 className="text-primary-blue tracking-075 mb-2 font-sans text-[15px] leading-135 font-semibold uppercase">
             Latest Episode
           </h5>
           <h3 className="text-primary-teal font-sans text-2xl leading-120 font-semibold">

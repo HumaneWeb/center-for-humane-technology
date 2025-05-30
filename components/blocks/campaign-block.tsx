@@ -13,7 +13,7 @@ export default function CampaignBlock(data: Props) {
       <div className="mx-auto max-w-7xl bg-[#007981]">
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           <div className="pl-12">
-            <h2 className="text-neutral-white mb-10 font-sans text-5xl leading-110 font-semibold">
+            <h2 className="text-neutral-white tracking-049 mb-10 font-sans text-5xl leading-110 font-semibold">
               {title}
             </h2>
             <div>

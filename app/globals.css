@@ -22,6 +22,14 @@
   --leading-130: 130%;
   --leading-135: 135%;
   --leading-140: 140%;
+
+  --tracking-018: 0.18px;
+  --tracking-013: 0.13px;
+  --tracking-02: 0.2px;
+  --tracking-031: -0.31px;
+  --tracking-049: -0.49px;
+  --tracking-061: -0.61px;
+  --tracking-075: 0.75px;
 }
 
 body {

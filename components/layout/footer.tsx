@@ -102,7 +102,9 @@ export default async function Footer() {
         <div className="grid grid-cols-4 gap-8 border-b-[1px] border-[#4F5984]">
           <div className="flex flex-col gap-10 border-r-[1px] border-[#4F5984] pt-9 pb-20">
             <div>
-              <h3 className="mb-4 font-sans text-xl leading-120 font-semibold">Media Inquiries</h3>
+              <h3 className="tracking-02 mb-4 font-sans text-xl leading-120 font-semibold">
+                Media Inquiries
+              </h3>
               <p>
                 <a
                   href={`mailto:${mediaInquiriesEmail}`}
@@ -114,7 +116,7 @@ export default async function Footer() {
             </div>
 
             <div>
-              <h3 className="mb-4 font-sans text-xl leading-120 font-semibold">
+              <h3 className="tracking-02 mb-4 font-sans text-xl leading-120 font-semibold">
                 General Questions
               </h3>
               <p>
@@ -129,7 +131,7 @@ export default async function Footer() {
           </div>
           {columns.map((column) => (
             <div key={column.id} className="pt-9">
-              <h3 className="mb-4 font-sans text-xl leading-120 font-semibold">
+              <h3 className="tracking-02 mb-4 font-sans text-xl leading-120 font-semibold">
                 {column.headline}
               </h3>
               <ul>
@@ -149,7 +151,7 @@ export default async function Footer() {
         </div>
 
         <div className="flex items-center justify-between pt-9">
-          <p className="font-sans text-sm leading-120 font-medium">
+          <p className="tracking-013 font-sans text-[13px] leading-120 font-medium">
             {extraLinks.map((extraLink) => (
               <React.Fragment key={extraLink.id}>
                 <CustomLink extraClass="underline">TODO: ADD LABEL</CustomLink>
@@ -158,7 +160,10 @@ export default async function Footer() {
             ))}
             © {new Date().getFullYear()} {copyrightText}
           </p>
-          <Link href="https://tectonica.co" className="font-sans text-sm leading-120 font-medium">
+          <Link
+            href="https://tectonica.co"
+            className="tracking-013 font-sans text-[13px] leading-120 font-medium"
+          >
             Built by Tectonica
           </Link>
         </div>

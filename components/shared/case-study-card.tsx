@@ -4,10 +4,10 @@ import Cta from './cta';
 export default function CaseStudyCard() {
   return (
     <article>
-      <h6 className="text-primary-cream mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
+      <h6 className="text-primary-cream tracking-075 mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
         CASE STUDY
       </h6>
-      <h2 className="text-primary-cream mb-7 font-sans text-3xl leading-110 font-semibold">
+      <h2 className="text-primary-cream tracking-031 mb-7 font-sans text-3xl leading-110 font-semibold">
         Vermont Kids Code
       </h2>
       <div className="mb-7">

@@ -19,7 +19,7 @@ export default function NarrativeBlock(data: Props) {
           )}
 
           <div>
-            <h2 className="text-primary-navy mb-8 font-sans text-5xl leading-110 font-semibold">
+            <h2 className="text-primary-navy tracking-049 mb-8 font-sans text-5xl leading-110 font-semibold">
               {title}
             </h2>
             <div>

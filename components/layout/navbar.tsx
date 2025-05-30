@@ -62,7 +62,7 @@ export default function Navbar({ items }: Props) {
   // Handle keyboard navigation
   const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
     const item = items[index];
-    if (!item.dropdown) return;
+    if (!item.children) return;
 
     switch (event.key) {
       case 'Enter':
@@ -128,7 +128,7 @@ export default function Navbar({ items }: Props) {
     if (!hasDropdown) {
       return (
         <CustomLink
-          extraClass={`text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold ${extraClassnames ? extraClassnames : ''}`}
+          extraClass={`text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`}
         >
           {item.label}
 
@@ -152,7 +152,7 @@ export default function Navbar({ items }: Props) {
             ref={(el) => (buttonRefs.current[index] = el)}
             onClick={() => toggleDropdown(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="text-primary-navy border-primary-navy flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold"
+            className="text-primary-navy border-primary-navy tracking-018 flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold"
             aria-expanded={isOpen}
             aria-haspopup="true"
             aria-controls={`dropdown-${index}`}
@@ -186,7 +186,7 @@ export default function Navbar({ items }: Props) {
                   role="menuitem"
                   onClick={() => setOpenDropdown(null)}
                 >
-                  <div className="text-primary-navy flex items-center justify-between font-sans text-[18px] leading-120 font-medium">
+                  <div className="text-primary-navy tracking-02 flex items-center justify-between font-sans text-[18px] leading-120 font-medium">
                     {dropdownItem.label}
 
                     <svg

@@ -12,7 +12,7 @@ export default function ImpactBlock(data: Props) {
     <section className="mt-20 mb-48">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-[840px]">
-          <h2 className="text-primary-navy mb-5 font-sans text-5xl leading-110 font-semibold">
+          <h2 className="text-primary-navy tracking-049 mb-5 font-sans text-5xl leading-110 font-semibold">
             {title}
           </h2>
           {introduction && (
