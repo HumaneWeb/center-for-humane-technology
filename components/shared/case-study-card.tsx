@@ -1,28 +1,35 @@
+import { type ResultOf } from '@/lib/cms/graphql';
 import Cta from './cta';
 import CustomImage from './custom-image';
+import { AwarenessBlockFragment } from '@/lib/cms/query';
 
-export default function CaseStudyCard() {
+type Props = ResultOf<typeof AwarenessBlockFragment>;
+
+export default function CaseStudyCard({ title, preTitle, image, introduction, cta }: Props) {
   return (
     <article>
-      <h6 className="text-primary-cream tracking-075 mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
-        CASE STUDY
-      </h6>
-      <h2 className="text-primary-cream tracking-031 mb-7 font-sans text-3xl leading-110 font-semibold">
-        Vermont Kids Code
-      </h2>
-      <div className="mb-7">
-        <CustomImage
-          url="https://www.datocms-assets.com/160835/1748435125-image.png"
-          alt="CHT in the media 1"
-          width={516}
-          height={252}
+      {preTitle && (
+        <h6 className="text-primary-cream tracking-075 mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
+          {preTitle}
+        </h6>
+      )}
+      {title && (
+        <h2 className="text-primary-cream tracking-031 mb-7 font-sans text-3xl leading-110 font-semibold">
+          {title}
+        </h2>
+      )}
+      {image && (
+        <div className="mb-7">
+          <CustomImage {...image} />
+        </div>
+      )}
+      {introduction && (
+        <div
+          className="text-neutral-white mb-7 font-sans text-xl leading-140 font-normal"
+          dangerouslySetInnerHTML={{ __html: introduction }}
         />
-      </div>
-      <p className="text-neutral-white mb-7 font-sans text-xl leading-140 font-normal">
-        Read more about how CHT provided expert guidance to Vermont lawmakers advancing legislation
-        to protect children online, helping shape policy efforts to reduce digital harm.
-      </p>
-      <Cta label="Read the full case study" />
+      )}
+      {cta && <Cta {...cta} />}
     </article>
   );
 }

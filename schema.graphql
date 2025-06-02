@@ -117,7 +117,9 @@ type AwarenessBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  caseStudyCard: GenericCardRecord!
   id: ItemId!
+  podcastCard: PodcastCardRecord!
 }
 
 input BasicPageModelFilter {
@@ -775,6 +777,37 @@ type FooterRecord implements RecordInterface {
   mediaInquiriesEmail: String!
   twitterXUrl: String
   youtubeUrl: String
+}
+
+"""Block of type Generic Card (generic_card)"""
+type GenericCardRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  cta: CtaRecord
+  id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  preTitle: String
+  title: String
 }
 
 union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | HomepageRecord | PodcastRecord | ResourceRecord
@@ -3072,7 +3105,6 @@ input MenuItemModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   asButton: BooleanFilter
-  externalUrl: StringFilter
   label: StringFilter
   link: LinkFilter
   OR: [MenuItemModelFilter]
@@ -3102,8 +3134,6 @@ enum MenuItemModelOrderBy {
   _isValid_DESC
   asButton_ASC
   asButton_DESC
-  externalUrl_ASC
-  externalUrl_DESC
   label_ASC
   label_DESC
 }
@@ -3130,10 +3160,9 @@ type MenuItemRecord implements RecordInterface {
   _updatedAt: DateTime!
   asButton: BooleanType!
   children: [MenuItemRecord!]!
-  externalUrl: String
   id: ItemId!
   label: String!
-  link: BasicPageRecord
+  link: GlobalLinkRecord
   parent: MenuItemRecord
   position: IntType
 }
@@ -3194,6 +3223,38 @@ input ParentFilter {
 
   """Filter records with a parent record or not"""
   exists: BooleanType
+}
+
+"""Block of type Podcast Card (podcast_card)"""
+type PodcastCardRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  cta: CtaRecord
+  higlightedPodcast: PodcastRecord
+  icon: FileField
+  id: ItemId!
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  preTitle: String
+  title: String
 }
 
 """Record of type Podcasts (podcast_list)"""

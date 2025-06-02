@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import CustomImage from '../shared/custom-image';
 import CustomLink from '../shared/custom-link';
 import SearchEngine from './search-engine';
@@ -34,8 +34,8 @@ export default function Navbar({ items }: Props) {
   );
 
   // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
       if (openDropdown !== null) {
         const dropdownElement = dropdownRefs.current[openDropdown];
         const buttonElement = buttonRefs.current[openDropdown];
@@ -49,11 +49,14 @@ export default function Navbar({ items }: Props) {
           setOpenDropdown(null);
         }
       }
-    };
+    },
+    [openDropdown],
+  );
 
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [openDropdown]);
+  }, []);
 
   // Handle keyboard navigation
   const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
@@ -124,6 +127,8 @@ export default function Navbar({ items }: Props) {
     if (!hasDropdown) {
       return (
         <CustomLink
+          // @ts-expect-error
+          content={item.link}
           extraClass={`text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`}
         >
           {item.label}
@@ -181,7 +186,8 @@ export default function Navbar({ items }: Props) {
               {item.children!.map((dropdownItem, dropdownIndex) => (
                 <CustomLink
                   key={dropdownIndex}
-                  // href={dropdownItem.href}
+                  // @ts-expect-error
+                  content={dropdownItem.link}
                   role="menuitem"
                   onClick={() => setOpenDropdown(null)}
                 >

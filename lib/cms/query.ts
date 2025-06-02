@@ -4,10 +4,12 @@ import { graphql } from '@/lib/cms/graphql';
 export const GlobalLinkFragment = graphql(`
   fragment GlobalLinkFragment on GlobalLinkRecord {
     id
+    internalTitle
     externalUrl
     content {
-      ... on RecordInterface {
-        id
+      __typename
+      ... on BasicPageRecord {
+        slug
       }
     }
   }
@@ -114,12 +116,48 @@ export const HighlightTextBlockFragment = graphql(
   [CTAFragment],
 );
 
-export const AwarenessBlockFragment = graphql(`
-  fragment AwarenessBlockFragment on AwarenessBlockRecord {
-    __typename
-    id
-  }
-`);
+export const AwarenessBlockFragment = graphql(
+  `
+    fragment AwarenessBlockFragment on AwarenessBlockRecord {
+      __typename
+      id
+      caseStudyCard {
+        ... on GenericCardRecord {
+          id
+          title
+          preTitle
+          introduction
+          image {
+            ...ImageFragment
+          }
+          cta {
+            ...CTAFragment
+          }
+        }
+      }
+      podcastCard {
+        ... on PodcastCardRecord {
+          id
+          title
+          preTitle
+          introduction
+          cta {
+            ...CTAFragment
+          }
+          icon {
+            ...ImageFragment
+          }
+          higlightedPodcast {
+            ... on PodcastRecord {
+              id
+            }
+          }
+        }
+      }
+    }
+  `,
+  [CTAFragment, ImageFragment],
+);
 
 export const CampaignBlockFragment = graphql(
   `
@@ -298,6 +336,7 @@ export const FooterQuery = graphql(
         copyrightText
         extraLinks {
           id
+          internalTitle
           ...GlobalLinkFragment
         }
         columns {
@@ -306,6 +345,7 @@ export const FooterQuery = graphql(
             headline
             links {
               id
+              internalTitle
               ...GlobalLinkFragment
             }
           }
@@ -320,17 +360,25 @@ export const FooterQuery = graphql(
   [GlobalLinkFragment],
 );
 
-export const NavbarQuery = graphql(`
-  query NavbarQuery {
-    navbar: allMenuItems(filter: { parent: { exists: false } }, orderBy: position_ASC) {
-      id
-      label
-      asButton
-      children {
+export const NavbarQuery = graphql(
+  `
+    query NavbarQuery {
+      navbar: allMenuItems(filter: { parent: { exists: false } }, orderBy: position_ASC) {
         id
         label
-        position
+        asButton
+        link {
+          ...GlobalLinkFragment
+        }
+        children {
+          id
+          label
+          link {
+            ...GlobalLinkFragment
+          }
+        }
       }
     }
-  }
-`);
+  `,
+  [GlobalLinkFragment],
+);

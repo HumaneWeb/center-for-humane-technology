@@ -20,7 +20,8 @@ export default function MediaBlock(data: Props) {
             {items.map((item) => {
               if (item.link) {
                 return (
-                  <CustomLink key={item.id} {...item.link}>
+                  // @ts-expect-error
+                  <CustomLink key={item.id} content={item.link}>
                     <CustomImage {...item.image} />
                   </CustomLink>
                 );
@@ -35,7 +36,10 @@ export default function MediaBlock(data: Props) {
           </div>
 
           {information && (
-            <div className="text-center" dangerouslySetInnerHTML={{ __html: information }} />
+            <div
+              className="tracking-02 [&>p>a]:text-primary-teal text-center font-sans text-xl leading-120 [&>p]:mb-8 [&>p>a]:font-bold [&>p>a]:underline"
+              dangerouslySetInnerHTML={{ __html: information }}
+            />
           )}
         </div>
       </div>
