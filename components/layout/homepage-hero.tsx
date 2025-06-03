@@ -33,18 +33,18 @@ export default function HomepageHero({ homepage }: Props) {
             {ctas && <CtaList items={ctas} />}
           </div>
 
-          <div className="grid-cols-1 gap-4 sm:hidden md:grid-cols-2 lg:grid lg:grid-cols-3">
+          <div className="grid-cols-1 gap-5 sm:hidden md:grid-cols-2 lg:grid lg:grid-cols-3">
             {decorationVideos?.videos.map((video, index) => (
               <div
                 key={video.id}
-                className={`h-full w-full ${index === 1 ? 'pt-25' : ''} ${index === 2 ? 'pt-[-25em]' : ''}`}
+                className={`h-full w-full ${index === 0 ? 'pt-20' : ''} ${index === 1 ? 'ml-20 pt-48' : ''} ${index === 2 ? 'ml-40 pt-[-25em]' : ''} relative`}
               >
                 <VideoPlayer
                   autoPlay
                   loop
                   muted
                   data={video.video}
-                  style={{ aspectRatio: '1 / 2.2' }}
+                  className="relative h-[490px] w-[265px]"
                 />
               </div>
             ))}
