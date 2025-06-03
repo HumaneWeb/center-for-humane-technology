@@ -11,8 +11,8 @@ export default function PodcastCard({ title, preTitle, introduction, cta, icon }
       <h6 className="text-primary-blue tracking-075 mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
         {preTitle}
       </h6>
-      <h2 className="text-primary-blue tracking-049 mb-7 flex items-center font-sans text-5xl leading-110 font-semibold">
-        {icon && <CustomImage {...icon} extraClass="mr-2 inline-block" />}
+      <h2 className="text-primary-blue tracking-049 mb-7 flex items-start font-sans text-5xl leading-110 font-semibold">
+        {icon && <CustomImage {...icon} extraClass="mt-2 mr-3 inline-block" />}
         {title}
       </h2>
       <div

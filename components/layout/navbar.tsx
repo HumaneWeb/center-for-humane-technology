@@ -34,29 +34,24 @@ export default function Navbar({ items }: Props) {
   );
 
   // Close dropdown when clicking outside
-  const handleClickOutside = useCallback(
-    (event: MouseEvent) => {
-      if (openDropdown !== null) {
-        const dropdownElement = dropdownRefs.current[openDropdown];
-        const buttonElement = buttonRefs.current[openDropdown];
+  const handleClickOutside = (event: MouseEvent) => {
+    const dropdownElement = dropdownRefs.current[openDropdown!];
+    const buttonElement = buttonRefs.current[openDropdown!];
 
-        if (
-          dropdownElement &&
-          buttonElement &&
-          !dropdownElement.contains(event.target as Node) &&
-          !buttonElement.contains(event.target as Node)
-        ) {
-          setOpenDropdown(null);
-        }
-      }
-    },
-    [openDropdown],
-  );
+    if (
+      dropdownElement &&
+      buttonElement &&
+      !dropdownElement.contains(event.target as Node) &&
+      !buttonElement.contains(event.target as Node)
+    ) {
+      setOpenDropdown(null);
+    }
+  };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [openDropdown]);
 
   // Handle keyboard navigation
   const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
@@ -129,7 +124,7 @@ export default function Navbar({ items }: Props) {
         <CustomLink
           // @ts-expect-error
           content={item.link}
-          extraClass={`text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`}
+          extraClass={`uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`}
         >
           {item.label}
 
@@ -155,7 +150,7 @@ export default function Navbar({ items }: Props) {
             }}
             onClick={() => toggleDropdown(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="text-primary-navy border-primary-navy tracking-018 flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold"
+            className="text-primary-navy border-primary-navy tracking-018 flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold uppercase"
             aria-expanded={isOpen}
             aria-haspopup="true"
             aria-controls={`dropdown-${index}`}
