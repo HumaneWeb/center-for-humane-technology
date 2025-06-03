@@ -80,3 +80,7 @@ body {
 
   --media-object-fit: cover;
 }
+
+#custom-substack-embed .custom-substack-widget {
+  max-width: 100%;
+}

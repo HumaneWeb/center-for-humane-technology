@@ -23,7 +23,7 @@ export default function HighlightTextBlock(data: Props) {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
         setIsVisible(true);
       }, 800);
-    }, 6000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [texts.length]);

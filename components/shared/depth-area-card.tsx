@@ -1,4 +1,5 @@
 import CustomImage, { CustomImageProps } from './custom-image';
+import CustomLink from './custom-link';
 
 type Props = {
   title: string;
@@ -8,7 +9,7 @@ type Props = {
 };
 
 export default function DepthAreaCard({ title, introduction, image, link }: Props) {
-  return (
+  const mainContent = () => (
     <article className="grid grid-cols-[1fr_1.5fr] gap-1">
       <div className="bg-primary-cream px-8 pt-8">
         <CustomImage {...image} />
@@ -22,4 +23,10 @@ export default function DepthAreaCard({ title, introduction, image, link }: Prop
       </div>
     </article>
   );
+
+  if (link) {
+    return <CustomLink content={link}>{mainContent()}</CustomLink>;
+  }
+
+  return mainContent();
 }
