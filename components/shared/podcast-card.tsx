@@ -5,7 +5,7 @@ import { AwarenessBlockFragment } from '@/lib/cms/query';
 
 type Props = ResultOf<typeof AwarenessBlockFragment>;
 
-export default function PodcastCard({ title, preTitle, introduction, cta, icon }: Props) {
+export default function PodcastCard({ title, preTitle, introduction, cta, icon }: any) {
   return (
     <article>
       <h6 className="text-primary-blue tracking-075 mb-7 font-sans text-[15px] leading-135 font-medium uppercase">

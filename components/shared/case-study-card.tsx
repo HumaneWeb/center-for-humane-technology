@@ -5,7 +5,7 @@ import { AwarenessBlockFragment } from '@/lib/cms/query';
 
 type Props = ResultOf<typeof AwarenessBlockFragment>;
 
-export default function CaseStudyCard({ title, preTitle, image, introduction, cta }: Props) {
+export default function CaseStudyCard({ title, preTitle, image, introduction, cta }: any) {
   return (
     <article>
       {preTitle && (

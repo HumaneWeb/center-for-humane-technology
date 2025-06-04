@@ -12,6 +12,7 @@ export default function NewsletterBlock(data: Props) {
     <section className="flex w-full flex-col md:flex-row">
       <div
         className="flex w-full items-end justify-end bg-cover bg-center bg-no-repeat px-12 pt-44 pb-7 md:w-1/2"
+        // @ts-expect-error
         style={{ backgroundImage: `url(${featuredImage!.url})` }}
       >
         <div className="max-w-sm text-center md:max-w-[560px]">
