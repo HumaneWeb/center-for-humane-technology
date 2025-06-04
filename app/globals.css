@@ -84,3 +84,32 @@ body {
 #custom-substack-embed .custom-substack-widget {
   max-width: 100%;
 }
+
+.substack-feed-widget {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.substack-feed-widget a:nth-child(-n+3) {
+  width: calc((100% - 2rem) / 3);
+  background-color: rgb(183, 172, 255);
+
+  flex-direction: column;
+  padding: 0;
+}
+
+.substack-feed-widget a:nth-child(-n+3)>div:nth-child(1) {
+  width: 100%;
+  height: 250px;
+}
+
+.substack-feed-widget a:nth-child(-n+3)>div:nth-child(2) {
+  padding: 1rem 1rem 2rem 1rem;
+}
+
+.substack-feed-widget a:nth-child(n+4) {
+  width: 100%;
+  margin: 1rem 0;
+}
