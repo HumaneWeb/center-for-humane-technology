@@ -182,6 +182,7 @@ type BasicPageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  blocks: [SubstackManualFeedRecord!]!
   id: ItemId!
   seo: SeoField
   slug: String!
@@ -308,6 +309,100 @@ type CampaignBlockRecord implements RecordInterface {
   title: String!
 }
 
+input CareerModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  introduction: TextFilter
+  seo: SeoFilter
+  slug: SlugFilter
+  title: StringFilter
+  OR: [CareerModelFilter]
+  AND: [CareerModelFilter]
+}
+
+enum CareerModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  title_ASC
+  title_DESC
+}
+
+"""Record of type Career (career)"""
+type CareerRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  seo: SeoField
+  slug: String!
+  title: String!
+}
+
+"""Record of type Careers (careers_lit)"""
+type CareersLitRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+}
+
 type CollectionMetadata {
   count: IntType!
 }
@@ -356,7 +451,15 @@ type ConfigurationRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  donateCta: CtaRecord
+  donateImage: FileField
+  donateTitle: String
   id: ItemId!
+  newsletterIntroduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  newsletterTitle: String
 }
 
 """Specifies how to filter by creation datetime"""
@@ -714,6 +817,30 @@ interface FileFieldInterface {
   ): String!
   video: UploadVideoField
   width: IntType
+}
+
+"""Specifies how to filter Single-file/image fields"""
+input FileFilter {
+  """
+  Search for records with an exact match. The specified value must be an Upload ID
+  """
+  eq: UploadId
+
+  """
+  Exclude records with an exact match. The specified value must be an Upload ID
+  """
+  neq: UploadId
+
+  """Filter records that have one of the specified uploads"""
+  in: [UploadId]
+
+  """Filter records that do not have one of the specified uploads"""
+  notIn: [UploadId]
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
 }
 
 """
@@ -2996,6 +3123,7 @@ type ImpactBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  cta: CtaRecord
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -3038,6 +3166,8 @@ enum ItemStatus {
   updated
   published
 }
+
+scalar JsonField
 
 """Specifies how to filter Single-link fields"""
 input LinkFilter {
@@ -3277,7 +3407,16 @@ type PodcastListRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  decoratorIcon: FileField
   id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  seo: SeoField
+  slug: String!
+  title: String!
 }
 
 input PodcastModelFilter {
@@ -3290,6 +3429,11 @@ input PodcastModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  image: FileFilter
+  introduction: TextFilter
+  seo: SeoFilter
+  slug: SlugFilter
+  title: StringFilter
   OR: [PodcastModelFilter]
   AND: [PodcastModelFilter]
 }
@@ -3313,6 +3457,8 @@ enum PodcastModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  title_ASC
+  title_DESC
 }
 
 """Record of type Podcast (podcast)"""
@@ -3336,6 +3482,14 @@ type PodcastRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  seo: SeoField
+  slug: String!
+  title: String!
 }
 
 """Specifies how to filter by position (sorted and tree-like collections)"""
@@ -3420,6 +3574,13 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
+  _allCareersMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: CareerModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
   _allGlobalLinksMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -3445,6 +3606,13 @@ type Query {
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
     filter: ResourceModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
+  _allTeamMembersMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: TeamMemberModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding an assets collection"""
@@ -3502,6 +3670,25 @@ type Query {
     filter: BlogModelFilter
     orderBy: [BlogModelOrderBy] = [_updatedAt_DESC]
   ): [BlogRecord!]!
+
+  """Returns a collection of records"""
+  allCareers(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: CareerModelFilter
+    orderBy: [CareerModelOrderBy] = [_updatedAt_DESC]
+  ): [CareerRecord!]!
 
   """Returns a collection of records"""
   allGlobalLinks(
@@ -3579,6 +3766,25 @@ type Query {
     orderBy: [ResourceModelOrderBy] = [_updatedAt_DESC]
   ): [ResourceRecord!]!
 
+  """Returns a collection of records"""
+  allTeamMembers(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: TeamMemberModelFilter
+    orderBy: [TeamMemberModelOrderBy] = [_updatedAt_DESC]
+  ): [TeamMemberRecord!]!
+
   """Returns a collection of assets"""
   allUploads(
     """The locale to use to fetch the field's content"""
@@ -3634,6 +3840,30 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): BlogListRecord
+
+  """Returns a specific record"""
+  career(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: CareerModelFilter
+    orderBy: [CareerModelOrderBy] = [_updatedAt_DESC]
+  ): CareerRecord
+
+  """Returns the single instance record"""
+  careersLit(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): CareersLitRecord
 
   """Returns the single instance record"""
   configuration(
@@ -3741,6 +3971,30 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): ResourceListRecord
+
+  """Returns the single instance record"""
+  teamBoard(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): TeamBoardRecord
+
+  """Returns a specific record"""
+  teamMember(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: TeamMemberModelFilter
+    orderBy: [TeamMemberModelOrderBy] = [_updatedAt_DESC]
+  ): TeamMemberRecord
 
   """Returns a specific asset"""
   upload(
@@ -4038,10 +4292,249 @@ input StringMatchesFilter {
   regexp: BooleanType = true
 }
 
+"""Specifies how to filter Structured Text fields values"""
+input StructuredTextFilter {
+  """Filter records based on a regular expression"""
+  matches: StringMatchesFilter
+
+  """Exclude records based on a regular expression"""
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field set as blank (null or single empty paragraph)
+  """
+  isBlank: BooleanType
+
+  """
+  Filter records with the specified field present (neither null, nor empty string)
+  """
+  isPresent: BooleanType
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
+  """
+  exists: BooleanType
+}
+
+"""Block of type Substack Card (substack_card)"""
+type SubstackCardRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  title: String!
+  url: String!
+  variant: String
+}
+
+"""Block of type Substack Manual Feed (substack_manual_feed)"""
+type SubstackManualFeedRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  backgroundColor: String
+  cta: CtaRecord
+  id: ItemId!
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  items: [SubstackCardRecord!]!
+  title: String
+  variant: String
+}
+
 type Tag {
   attributes: MetaTagAttributes
   content: String
   tag: String!
+}
+
+"""Record of type Team & Board (team_board)"""
+type TeamBoardRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  careers: [CareerRecord!]!
+  id: ItemId!
+  seo: SeoField
+  slug: String!
+  title: String!
+}
+
+input TeamMemberModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  category: StringFilter
+  email: StringFilter
+  fullName: StringFilter
+  image: FileFilter
+  information: StructuredTextFilter
+  linkedinUrl: StringFilter
+  organization: StringFilter
+  seo: SeoFilter
+  slug: SlugFilter
+  teamPosition: StringFilter
+  twitterXUrl: StringFilter
+  OR: [TeamMemberModelFilter]
+  AND: [TeamMemberModelFilter]
+}
+
+type TeamMemberModelInformationField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+enum TeamMemberModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  category_ASC
+  category_DESC
+  email_ASC
+  email_DESC
+  fullName_ASC
+  fullName_DESC
+  linkedinUrl_ASC
+  linkedinUrl_DESC
+  organization_ASC
+  organization_DESC
+  teamPosition_ASC
+  teamPosition_DESC
+  twitterXUrl_ASC
+  twitterXUrl_DESC
+}
+
+"""Record of type Team Member (team_member)"""
+type TeamMemberRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  category: String!
+  email: String
+  fullName: String!
+  id: ItemId!
+  image: FileField
+  information: TeamMemberModelInformationField
+  linkedinUrl: String
+  organization: String
+  seo: SeoField
+  slug: String!
+  teamPosition: String
+  twitterXUrl: String
+}
+
+"""Specifies how to filter text fields"""
+input TextFilter {
+  """Filter records based on a regular expression"""
+  matches: StringMatchesFilter
+
+  """Exclude records based on a regular expression"""
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field set as blank (null or empty string)
+  """
+  isBlank: BooleanType
+
+  """
+  Filter records with the specified field present (neither null, nor empty string)
+  """
+  isPresent: BooleanType
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
+  """
+  exists: BooleanType
 }
 
 """Specifies how to filter by upload type"""

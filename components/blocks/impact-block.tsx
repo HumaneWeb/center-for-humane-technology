@@ -1,5 +1,3 @@
-'use client';
-
 import Cta from '../shared/cta';
 import { FragmentOf, readFragment } from '@/lib/cms/graphql';
 import { ImpactBlockFragment } from '@/lib/cms/query';
@@ -7,7 +5,7 @@ import { ImpactBlockFragment } from '@/lib/cms/query';
 type Props = FragmentOf<typeof ImpactBlockFragment>;
 
 export default function ImpactBlock(data: Props) {
-  const { title, introduction, items } = readFragment(ImpactBlockFragment, data);
+  const { title, introduction, items, cta } = readFragment(ImpactBlockFragment, data);
   const [firstItem, secondItem] = items;
 
   return (
@@ -19,14 +17,15 @@ export default function ImpactBlock(data: Props) {
           </h2>
           {introduction && (
             <div
-              className="text-primary-navy mb-28 font-sans text-xl leading-140"
+              className="text-primary-navy mb-5 font-sans text-xl leading-140"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
           )}
+          {cta && <Cta {...cta} extraClass="mb-28" />}
         </div>
 
-        <div className="mx-auto flex w-full max-w-6xl justify-between gap-10">
-          <div>
+        <div className="flex w-full items-center justify-between gap-10">
+          <div className="text-right">
             <h3 className="text-primary-teal mb-1 font-sans text-3xl leading-100 font-semibold">
               {firstItem.title}
             </h3>
@@ -41,13 +40,11 @@ export default function ImpactBlock(data: Props) {
                 }}
               />
             )}
-            {/* @ts-expect-error */}
-            {firstItem.cta && <Cta {...firstItem.cta} />}
           </div>
+
+          <GraphicImpact />
+
           <div>
-            <GraphicImpact />
-          </div>
-          <div className="self-end">
             <h3 className="text-primary-blue mb-1 font-sans text-3xl leading-100 font-semibold">
               {secondItem.title}
             </h3>
@@ -62,8 +59,6 @@ export default function ImpactBlock(data: Props) {
                 }}
               />
             )}
-            {/* @ts-expect-error */}
-            {secondItem.cta && <Cta {...secondItem.cta} />}
           </div>
         </div>
       </div>
@@ -73,22 +68,6 @@ export default function ImpactBlock(data: Props) {
 
 const GraphicImpact = () => (
   <div className="relative">
-    <style jsx>{`
-      @keyframes rotate-counterclockwise {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(-360deg);
-        }
-      }
-
-      .inner-ring {
-        animation: rotate-counterclockwise 8s linear infinite;
-        transform-origin: 233.5px 233.5px;
-      }
-    `}</style>
-
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="467"

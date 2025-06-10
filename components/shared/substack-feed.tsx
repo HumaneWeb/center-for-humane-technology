@@ -3,7 +3,11 @@
 import Script from 'next/script';
 import { useEffect } from 'react';
 
-export default function SubstackFeed() {
+type Props = {
+  children?: React.ReactElement;
+};
+
+export default function SubstackFeed({ children }: Props) {
   // useEffect(() => {
   //   const intervalId = setInterval(() => {
   //     const container = document.getElementById('substack-feed-embed');
@@ -61,21 +65,20 @@ export default function SubstackFeed() {
   // }, []);
 
   return (
-    <section className="mx-auto max-w-7xl py-20">
-      <h1>substack feed example</h1>
-
+    <section className="mx-auto max-w-7xl py-14">
       <div id="substack-feed-embed"></div>
+      {children && children}
 
       <Script id="substack-config">
         {` 
           window.SubstackFeedWidget = {
             substackUrl: "centerforhumanetechnology.substack.com",
             posts: 12,
-            filter: "new"
+            filter: "new",
+            hidden: ["reactions", "comments"]
           };
         `}
       </Script>
-      <Script src="https://substackapi.com/embeds/feed.js" strategy="afterInteractive" />
     </section>
   );
 }

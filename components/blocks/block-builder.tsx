@@ -8,6 +8,7 @@ import ImpactBlock from './impact-block';
 import MediaBlock from './media-block';
 import NarrativeBlock from './narrative-block';
 import NewsletterBlock from './newsletter-block';
+import SubstackManualFeed from './substack-manual-feed';
 
 type Props = {
   components: {
@@ -28,6 +29,7 @@ const BaseComponents: Record<string, any> = {
   DepthAreasBlockRecord: DepthAreasBlock,
   MediaBlockRecord: MediaBlock,
   DonateBlockRecord: DonateBlock,
+  SubstackManualFeedRecord: SubstackManualFeed,
 };
 
 const BlockBuilder: React.FC<Props> = ({ components = [] }) => {
@@ -39,7 +41,7 @@ const BlockBuilder: React.FC<Props> = ({ components = [] }) => {
 
         if (!BlockComponent) {
           logWarning(`Block component not found for __typename: ${__typename}`);
-          return <></>;
+          return null;
         }
 
         return <BlockComponent key={id} {...rest} />;

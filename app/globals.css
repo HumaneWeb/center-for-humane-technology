@@ -23,10 +23,13 @@
   --leading-135: 135%;
   --leading-140: 140%;
 
+  --tracking-08: 0.8px;
   --tracking-018: 0.18px;
   --tracking-013: 0.13px;
+  --tracking-016: 0.16px;
   --tracking-02: 0.2px;
   --tracking-031: -0.31px;
+  --tracking-039: -0.39px;
   --tracking-049: -0.49px;
   --tracking-061: -0.61px;
   --tracking-075: 0.75px;
@@ -44,6 +47,18 @@ body {
 
 @utility bg-gradient-podcast {
   background: linear-gradient(135deg, #FBEDE4 1.06%, #F6D5BB 100%);
+}
+
+@utility bg-gradient-podcast-list {
+  background: linear-gradient(135deg, #FBEDE4 1.06%, #F6D5BB 100%);
+}
+
+@utility testing {
+  opacity: 0.35;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 100%), url("https://www.datocms-assets.com/160835/1749477555-photo-1.png") lightgray 30% / cover no-repeat;
+  background-position: center;
+  background-size: contain;
+  mix-blend-mode: hard-light;
 }
 
 .homepage-hero mux-player {
@@ -81,6 +96,7 @@ body {
   --media-object-fit: cover;
 }
 
+/* Substack widget */
 #custom-substack-embed .custom-substack-widget {
   max-width: 100%;
 }
@@ -88,28 +104,132 @@ body {
 .substack-feed-widget {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 24px;
   margin-top: 2rem;
 }
 
 .substack-feed-widget a:nth-child(-n+3) {
-  width: calc((100% - 2rem) / 3);
-  background-color: rgb(183, 172, 255);
-
+  width: calc((100% - 48px) / 3);
   flex-direction: column;
+  gap: 0;
   padding: 0;
 }
 
 .substack-feed-widget a:nth-child(-n+3)>div:nth-child(1) {
   width: 100%;
-  height: 250px;
+  height: 260px;
+  border-radius: unset;
 }
 
 .substack-feed-widget a:nth-child(-n+3)>div:nth-child(2) {
-  padding: 1rem 1rem 2rem 1rem;
+  padding: 30px 10px;
+  flex-direction: column-reverse;
+  flex: initial;
+  gap: 10px;
+}
+
+.substack-feed-widget a:nth-child(-n+3)>div:nth-child(2)>div:nth-child(2) {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+  color: var(--CHT-2---Blue, #293462);
+}
+
+.substack-feed-widget a:nth-child(-n+3)>div:nth-child(2)>div:nth-child(1) {
+  gap: 10px;
+}
+
+.substack-feed-widget a:nth-child(-n+3)>div:nth-child(2)>div:nth-child(1) div {
+  color: var(--CHT-2---Teal, #007981);
+  font-family: Elza;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+}
+
+.substack-feed-widget a:nth-child(-n+3)>div:nth-child(2)>div:nth-child(1) p {
+  color: var(--CHT-2---Navy, #0B1023);
+  font-family: Elza;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.substack-feed-widget a:nth-child(4) {
+  margin-top: 4rem !important;
 }
 
 .substack-feed-widget a:nth-child(n+4) {
+  max-width: 980px;
   width: 100%;
-  margin: 1rem 0;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 11px;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.substack-feed-widget a:nth-child(n+4)>div:nth-child(1) {
+  width: 300px;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  border-radius: unset;
+}
+
+.substack-feed-widget a:nth-child(n+4)>div:nth-child(2) {
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+
+.substack-feed-widget a:nth-child(n+4)>div:nth-child(2)>div:nth-child(2) {
+  color: var(--CHT-2---Blue, #293462);
+  font-family: Elza;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.substack-feed-widget a:nth-child(n+4)>div:nth-child(2)>div:nth-child(1)>div:nth-child(1) {
+  color: var(--CHT-2---Teal, #007981);
+  font-family: Elza;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  margin-bottom: 10px;
+}
+
+.substack-feed-widget a:nth-child(n+4)>div:nth-child(2)>div:nth-child(1) p {
+  color: var(--CHT-2---Navy, #0B1023);
+  font-family: Elza;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+/* Animations */
+@keyframes rotate-counterclockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.inner-ring {
+  animation: rotate-counterclockwise 8s linear infinite;
+  transform-origin: 233.5px 233.5px;
 }

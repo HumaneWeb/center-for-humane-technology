@@ -10,15 +10,6 @@ const nextConfig: NextConfig = {
       new URL('https://www.datocms-assets.com/**'),
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/example',
-        destination: '/to',
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;

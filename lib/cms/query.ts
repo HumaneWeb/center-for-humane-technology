@@ -66,6 +66,9 @@ export const ImpactBlockFragment = graphql(
       id
       title
       introduction
+      cta {
+        ...CTAFragment
+      }
       items {
         ... on ImpactBlockItemRecord {
           id
@@ -94,6 +97,35 @@ export const NarrativeBlockFragment = graphql(
       }
       image {
         ...ImageFragment
+      }
+    }
+  `,
+  [CTAFragment, ImageFragment],
+);
+
+export const SubstackManualFeedFragment = graphql(
+  `
+    fragment SubstackManualFeedFragment on SubstackManualFeedRecord {
+      __typename
+      id
+      title
+      introduction
+      backgroundColor
+      variant
+      cta {
+        ...CTAFragment
+      }
+      items {
+        ... on SubstackCardRecord {
+          id
+          title
+          introduction
+          url
+          variant
+          image {
+            ...ImageFragment
+          }
+        }
       }
     }
   `,
@@ -316,6 +348,209 @@ export const HomepageQuery = graphql(
     TagFragment,
     CTAFragment,
   ],
+);
+
+export const TeamAndBoardQuery = graphql(
+  `
+    query TeamAndBoardQuery {
+      page: teamBoard {
+        id
+        title
+        careers {
+          ... on CareerRecord {
+            id
+            title
+            introduction
+          }
+        }
+      }
+      teamList: allTeamMembers(filter: { category: { eq: "team" } }) {
+        id
+        fullName
+        teamPosition
+        image {
+          ...ImageFragment
+        }
+        slug
+        _modelApiKey
+      }
+      boardList: allTeamMembers(filter: { category: { eq: "board" } }) {
+        id
+        fullName
+        teamPosition
+        organization
+        image {
+          ...ImageFragment
+        }
+        slug
+        _modelApiKey
+      }
+      configuration {
+        newsletterTitle
+        newsletterIntroduction
+        donateTitle
+        donateCta {
+          ...CTAFragment
+        }
+        donateImage {
+          ...ImageFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment],
+);
+
+export const TeamDetailQuery = graphql(
+  `
+    query TeamDetailQuery($slug: String) {
+      teamBoard: teamBoard {
+        title
+        slug
+        __typename
+      }
+      member: teamMember(filter: { slug: { eq: $slug } }) {
+        fullName
+        teamPosition
+        organization
+        information {
+          value
+        }
+        image {
+          ...ImageFragment
+        }
+        twitterXUrl
+        linkedinUrl
+        email
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment],
+);
+
+export const SubstackQuery = graphql(
+  `
+    query SubstackQuery {
+      configuration {
+        newsletterTitle
+        newsletterIntroduction
+        donateTitle
+        donateCta {
+          ...CTAFragment
+        }
+        donateImage {
+          ...ImageFragment
+        }
+      }
+    }
+  `,
+  [CTAFragment, ImageFragment],
+);
+
+export const BasicPageQuery = graphql(
+  `
+    query BasicPageQuery($slug: String) {
+      page: basicPage(filter: { slug: { eq: $slug } }) {
+        title
+        blocks {
+          __typename
+          ...SubstackManualFeedFragment
+        }
+      }
+    }
+  `,
+  [SubstackManualFeedFragment],
+);
+
+export const PodcastListQuery = graphql(
+  `
+    query PodcastListQuery {
+      page: podcastList {
+        title
+        introduction
+        image {
+          ...ImageFragment
+        }
+        decoratorIcon {
+          ...ImageFragment
+        }
+      }
+      podcasts: allPodcasts {
+        ... on PodcastRecord {
+          id
+          title
+          introduction
+          image {
+            ...ImageFragment
+          }
+          slug
+          _modelApiKey
+        }
+      }
+      configuration {
+        newsletterTitle
+        newsletterIntroduction
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment],
+);
+
+export const PodcastDetailQuery = graphql(
+  `
+    query PodcastDetailQuery($slug: String) {
+      teamBoard: teamBoard {
+        title
+        slug
+        __typename
+      }
+      podcast(filter: { slug: { eq: $slug } }) {
+        title
+        introduction
+        image {
+          ...ImageFragment
+        }
+      }
+      moreReading: allPodcasts(filter: { slug: { neq: $slug } }) {
+        id
+        title
+        introduction
+        image {
+          ...ImageFragment
+        }
+        slug
+        _modelApiKey
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+        newsletterTitle
+        newsletterIntroduction
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment],
 );
 
 // Layout

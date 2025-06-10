@@ -3,6 +3,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 
 import './globals.css';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Center for Humane Technology',
@@ -29,6 +30,9 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+
+        <Script src="https://substackapi.com/widget.js" strategy="afterInteractive" />
+        <Script src="https://substackapi.com/embeds/feed.js" strategy="afterInteractive" />
       </body>
     </html>
   );

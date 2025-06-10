@@ -9,12 +9,12 @@ import { HomepageQuery } from '@/lib/cms/query';
 //   pickSeoMetaTags: (data) => data.homepage?._seoMetaTags,
 // });
 
-export default async function Home() {
+export default async function HomePage() {
   const { homepage } = await executeQuery(HomepageQuery);
 
   return (
     <div>
-      <HomepageHero homepage={homepage} />
+      {/* <HomepageHero homepage={homepage} /> */}
       {/* @ts-expect-error */}
       <BlockBuilder components={homepage?.blocks} />
     </div>

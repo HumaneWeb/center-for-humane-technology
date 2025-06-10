@@ -34,27 +34,9 @@ export default function NewsletterBlock(data: Props) {
             />
           )}
 
-          <div id="custom-substack-embed"></div>
+          <SubstackNewsletterWidget />
         </div>
       </div>
-
-      <Script id="substack-config">
-        {`
-          window.CustomSubstackWidget = {
-            substackUrl: "centerforhumanetechnology.substack.com",
-            placeholder: "Enter your email",
-            buttonText: "Subscribe",
-            theme: "custom",
-            colors: {
-              primary: "#293462",
-              input: "#9E5F5F00",
-              email: "#293462",
-              text: "#FFFFFF",
-            },
-          };
-        `}
-      </Script>
-      <Script src="https://substackapi.com/widget.js" strategy="afterInteractive" />
     </section>
   );
 
@@ -78,11 +60,18 @@ export default function NewsletterBlock(data: Props) {
             )}
           </div>
           <div>
-            <div id="custom-substack-embed"></div>
+            <SubstackNewsletterWidget />
           </div>
         </div>
       </div>
+    </section>
+  );
+}
 
+export const SubstackNewsletterWidget = () => {
+  return (
+    <>
+      <div id="custom-substack-embed"></div>
       <Script id="substack-config">
         {`
           window.CustomSubstackWidget = {
@@ -99,7 +88,6 @@ export default function NewsletterBlock(data: Props) {
           };
         `}
       </Script>
-      <Script src="https://substackapi.com/widget.js" strategy="afterInteractive" />
-    </section>
+    </>
   );
-}
+};
