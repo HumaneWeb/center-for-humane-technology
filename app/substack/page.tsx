@@ -13,16 +13,18 @@ export default async function SubstackPage() {
     <>
       <BasicHero title="Substack">{/* <SubstackNewsletterWidget /> */}</BasicHero>
 
-      <SubstackFeed>
-        <Cta
-          label="Explore more articles"
-          link={{
-            // @ts-expect-error
-            externalUrl: 'https://centerforhumanetechnology.substack.com/',
-          }}
-          extraClass="mt-25"
-        />
-      </SubstackFeed>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SubstackFeed>
+          <Cta
+            label="Explore more articles"
+            link={{
+              // @ts-expect-error
+              externalUrl: 'https://centerforhumanetechnology.substack.com/',
+            }}
+            extraClass="mt-25"
+          />
+        </SubstackFeed>
+      </div>
 
       <NewsletterBlock
         // @ts-expect-error
