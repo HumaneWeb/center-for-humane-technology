@@ -97,6 +97,37 @@ type AltFileField implements FileFieldInterface {
   width: IntType
 }
 
+"""Block of type Approach Block (approach_block)"""
+type ApproachBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  backgroundColor: String
+  cta: CtaRecord
+  headline: String
+  id: ItemId!
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  title: String
+}
+
 """Block of type Awareness Block (awareness_block)"""
 type AwarenessBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -122,6 +153,15 @@ type AwarenessBlockRecord implements RecordInterface {
   podcastCard: PodcastCardRecord!
 }
 
+union BasicPageModelContentBlocksField = ApproachBlockRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | GalleryImageInformationBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | SignUpBlockRecord | StatsBlockRecord | SubstackManualFeedRecord | ThinkingBlockRecord
+
+type BasicPageModelContentField {
+  blocks: [BasicPageModelContentBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
 input BasicPageModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -132,6 +172,12 @@ input BasicPageModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  backgroundColor: StringFilter
+  content: StructuredTextFilter
+  contentBackgroundColor: StringFilter
+  image: FileFilter
+  introduction: TextFilter
+  preTitle: StringFilter
   seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
@@ -158,6 +204,12 @@ enum BasicPageModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  backgroundColor_ASC
+  backgroundColor_DESC
+  contentBackgroundColor_ASC
+  contentBackgroundColor_DESC
+  preTitle_ASC
+  preTitle_DESC
   title_ASC
   title_DESC
 }
@@ -182,8 +234,17 @@ type BasicPageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  backgroundColor: String!
   blocks: [SubstackManualFeedRecord!]!
+  content: BasicPageModelContentField
+  contentBackgroundColor: String
   id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  preTitle: String
   seo: SeoField
   slug: String!
   title: String!
@@ -431,6 +492,59 @@ type ColorField {
   red: IntType!
 }
 
+"""Block of type Column Item (column_item)"""
+type ColumnItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  title: String
+}
+
+"""Block of type Columns Block (columns_block)"""
+type ColumnsBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  items: [ColumnItemRecord!]!
+  title: String
+}
+
 """Record of type Configuration (configuration)"""
 type ConfigurationRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -520,9 +634,11 @@ type CtaRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  helperLabel: String
   id: ItemId!
   label: String!
   link: GlobalLinkRecord!
+  variant: String
 }
 
 scalar CustomData
@@ -906,6 +1022,42 @@ type FooterRecord implements RecordInterface {
   youtubeUrl: String
 }
 
+"""
+Block of type Gallery Image + Information Block (gallery_image_information_block)
+"""
+type GalleryImageInformationBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  ctas: [CtaRecord!]!
+  highlightedInformation(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  id: ItemId!
+  information(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  items: [ImageInformationItemRecord!]!
+  title: String
+}
+
 """Block of type Generic Card (generic_card)"""
 type GenericCardRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -1105,6 +1257,60 @@ type ImageBlockRecord implements RecordInterface {
   id: ItemId!
   image: AltFileField!
   link: GlobalLinkRecord
+}
+
+"""Block of type Image + Content Block (image_content_block)"""
+type ImageContentBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
+  id: ItemId!
+  image: FileField!
+}
+
+"""Block of type Image Information Item (image_information_item)"""
+type ImageInformationItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  image: ImageBlockRecord!
+  preTitle: String
+  title: String
 }
 
 input ImgixParams {
@@ -3130,7 +3336,7 @@ type ImpactBlockRecord implements RecordInterface {
     markdown: Boolean
   ): String
   items: [ImpactBlockItemRecord!]!
-  title: String!
+  title: String
 }
 
 """Specifies how to filter by usage"""
@@ -3191,6 +3397,31 @@ input LinkFilter {
   Filter records with the specified field defined (i.e. with any value) or not
   """
   exists: BooleanType
+}
+
+"""Block of type Links Block (links_block)"""
+type LinksBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  ctas: [CtaRecord!]!
+  id: ItemId!
+  title: String
 }
 
 """Block of type Media Block (media_block)"""
@@ -3328,6 +3559,7 @@ type NarrativeBlockRecord implements RecordInterface {
   ctas: [CtaRecord!]!
   id: ItemId!
   image: FileField
+  imagePosition: String
   introduction(
     """Process content as markdown"""
     markdown: Boolean
@@ -3429,6 +3661,7 @@ input PodcastModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  episode: StringFilter
   image: FileFilter
   introduction: TextFilter
   seo: SeoFilter
@@ -3457,6 +3690,8 @@ enum PodcastModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  episode_ASC
+  episode_DESC
   title_ASC
   title_DESC
 }
@@ -3481,6 +3716,7 @@ type PodcastRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  episode: String
   id: ItemId!
   image: FileField
   introduction(
@@ -4235,6 +4471,56 @@ input SlugFilter {
   notIn: [String]
 }
 
+"""Block of type Stat Item (stat_item)"""
+type StatItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  label: String!
+  value: String!
+}
+
+"""Block of type Stats Block (stats_block)"""
+type StatsBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  items: [StatItemRecord!]!
+  title: String
+}
+
 """Specifies how to filter by status"""
 input StatusFilter {
   """Search the record with the specified status"""
@@ -4347,7 +4633,7 @@ type SubstackCardRecord implements RecordInterface {
   variant: String
 }
 
-"""Block of type Substack Manual Feed (substack_manual_feed)"""
+"""Block of type Generic Cards Grid (substack_manual_feed)"""
 type SubstackManualFeedRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4407,6 +4693,7 @@ type TeamBoardRecord implements RecordInterface {
   _updatedAt: DateTime!
   careers: [CareerRecord!]!
   id: ItemId!
+  preTitle: String
   seo: SeoField
   slug: String!
   title: String!
@@ -4535,6 +4822,61 @@ input TextFilter {
   Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
   """
   exists: BooleanType
+}
+
+"""Block of type Thinking Block (thinking_block)"""
+type ThinkingBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  items: [ThinkingCardRecord!]!
+  title: String
+}
+
+"""Block of type Thinking Card (thinking_card)"""
+type ThinkingCardRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  link: GlobalLinkRecord
+  title: String!
 }
 
 """Specifies how to filter by upload type"""

@@ -1,12 +1,8 @@
-import { type ResultOf } from '@/lib/cms/graphql';
 import Cta from './cta';
 import CustomImage from './custom-image';
-import { AwarenessBlockFragment } from '@/lib/cms/query';
 import PodcastMinimalCard from './podcast-minimal-card';
 
-type Props = ResultOf<typeof AwarenessBlockFragment>;
-
-export default function PodcastCard({ title, preTitle, introduction, cta, icon }: any) {
+export default function PodcastCard({ title, preTitle, introduction, cta, icon, podcast }: any) {
   return (
     <article>
       {preTitle && (
@@ -22,16 +18,16 @@ export default function PodcastCard({ title, preTitle, introduction, cta, icon }
       )}
       {introduction && (
         <div
-          className="text-primary-blue mb-7 font-sans text-xl leading-140 font-normal"
+          className="text-primary-blue mb-7 font-sans text-xl leading-140 font-medium"
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
       )}
 
-      {/* TODO: */}
-      <div className="mb-7">
-        {/* @ts-expect-error */}
-        <PodcastMinimalCard />
-      </div>
+      {podcast && (
+        <div className="mb-7">
+          <PodcastMinimalCard {...podcast} variant="small" />
+        </div>
+      )}
 
       {cta && <Cta {...cta} />}
     </article>

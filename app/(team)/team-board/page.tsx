@@ -10,11 +10,11 @@ import { TeamAndBoardQuery } from '@/lib/cms/query';
 export default async function TeamListPage() {
   const { page, teamList, boardList, configuration } = await executeQuery(TeamAndBoardQuery);
 
-  const { title, careers } = page!;
+  const { title, preTitle, careers } = page!;
 
   return (
     <>
-      <BasicHero title={title} preTitle="About us" variant="purple" />
+      <BasicHero title={title} preTitle={preTitle} variant="purple" />
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-36">
           <h2 className="tracking-049 text-primary-navy mb-12 font-sans text-5xl leading-110 font-semibold">

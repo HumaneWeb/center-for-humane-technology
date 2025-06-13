@@ -29,7 +29,7 @@ export default function HighlightTextBlock(data: Props) {
   }, [texts.length]);
 
   return (
-    <section className="bg-custom-gradient my-5 py-20">
+    <section className="bg-custom-gradient my-5 min-h-[320px] py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-15 lg:grid-cols-2">
           <div>

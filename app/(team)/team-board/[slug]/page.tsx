@@ -4,8 +4,9 @@ import CustomLink from '@/components/shared/custom-link';
 import CustomStructuredText from '@/components/shared/custom-structured-text';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { TeamDetailQuery } from '@/lib/cms/query';
+import type { PageSlug } from '@/lib/utils/types';
 
-export default async function TeamDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function TeamDetailPage({ params }: PageSlug) {
   const { slug } = await params;
 
   const { member, teamBoard, configuration } = await executeQuery(TeamDetailQuery, {

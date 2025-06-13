@@ -6,8 +6,9 @@ import CustomLink from '@/components/shared/custom-link';
 import PodcastMinimalCard from '@/components/shared/podcast-minimal-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { PodcastDetailQuery } from '@/lib/cms/query';
+import type { PageSlug } from '@/lib/utils/types';
 
-export default async function PodcastDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function PodcastDetailPage({ params }: PageSlug) {
   const { slug } = await params;
 
   const { podcast, moreReading, configuration } = await executeQuery(PodcastDetailQuery, {

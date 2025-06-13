@@ -3,7 +3,7 @@ import React from 'react';
 
 type Props = {
   title: string;
-  preTitle?: string;
+  preTitle: string | null;
   variant?: 'default' | 'purple';
   children?: React.ReactElement;
 };

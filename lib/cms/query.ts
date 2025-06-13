@@ -20,6 +20,8 @@ export const CTAFragment = graphql(
     fragment CTAFragment on CtaRecord {
       id
       label
+      helperLabel
+      variant
       link {
         ...GlobalLinkFragment
       }
@@ -98,6 +100,7 @@ export const NarrativeBlockFragment = graphql(
       image {
         ...ImageFragment
       }
+      imagePosition
     }
   `,
   [CTAFragment, ImageFragment],
@@ -182,6 +185,14 @@ export const AwarenessBlockFragment = graphql(
           higlightedPodcast {
             ... on PodcastRecord {
               id
+              title
+              episode
+              introduction
+              image {
+                ...ImageFragment
+              }
+              slug
+              _modelApiKey
             }
           }
         }
@@ -356,6 +367,7 @@ export const TeamAndBoardQuery = graphql(
       page: teamBoard {
         id
         title
+        preTitle
         careers {
           ... on CareerRecord {
             id
@@ -461,14 +473,165 @@ export const BasicPageQuery = graphql(
     query BasicPageQuery($slug: String) {
       page: basicPage(filter: { slug: { eq: $slug } }) {
         title
-        blocks {
-          __typename
-          ...SubstackManualFeedFragment
+        preTitle
+        introduction
+        backgroundColor
+        contentBackgroundColor
+        image {
+          ...ImageFragment
+        }
+        content {
+          value
+          blocks {
+            __typename
+            ... on RecordInterface {
+              id
+            }
+            ... on CtaRecord {
+              ...CTAFragment
+            }
+            ... on ImageBlockRecord {
+              image {
+                url
+                width
+                height
+                alt
+              }
+            }
+            ... on ImageContentBlockRecord {
+              content
+              image {
+                ...ImageFragment
+              }
+            }
+            ... on NarrativeBlockRecord {
+              title
+              introduction
+              ctas {
+                ...CTAFragment
+              }
+              image {
+                ...ImageFragment
+              }
+              imagePosition
+            }
+            ... on ApproachBlockRecord {
+              headline
+              title
+              introduction
+              cta {
+                ...CTAFragment
+              }
+              backgroundColor
+            }
+            ... on SignUpBlockRecord {
+              title
+              introduction
+              withFeaturedContent
+              featuredTitle
+              featuredImage {
+                ...ImageFragment
+              }
+              featuredLink {
+                ...GlobalLinkFragment
+              }
+            }
+            ... on ThinkingBlockRecord {
+              title
+              items {
+                ... on ThinkingCardRecord {
+                  id
+                  title
+                  introduction
+                  image {
+                    ...ImageFragment
+                  }
+                  link {
+                    ...GlobalLinkFragment
+                  }
+                }
+              }
+            }
+            ... on StatsBlockRecord {
+              title
+              items {
+                ... on StatItemRecord {
+                  id
+                  value
+                  label
+                }
+              }
+            }
+            ...ImpactBlockFragment
+            ... on ColumnsBlockRecord {
+              title
+              items {
+                ... on ColumnItemRecord {
+                  id
+                  title
+                  introduction
+                }
+              }
+            }
+            ... on SubstackManualFeedRecord {
+              title
+              introduction
+              variant
+              cta {
+                ...CTAFragment
+              }
+              items {
+                ... on SubstackCardRecord {
+                  id
+                  title
+                  introduction
+                  variant
+                  image {
+                    ...ImageFragment
+                  }
+                }
+              }
+            }
+            ... on GalleryImageInformationBlockRecord {
+              title
+              highlightedInformation
+              information
+              ctas {
+                ...CTAFragment
+              }
+              items {
+                id
+                preTitle
+                title
+                image {
+                  id
+                  image {
+                    url
+                  }
+                }
+              }
+            }
+            ... on LinksBlockRecord {
+              title
+              ctas {
+                ...CTAFragment
+              }
+            }
+          }
+        }
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
         }
       }
     }
   `,
-  [SubstackManualFeedFragment],
+  [ImageFragment, CTAFragment, ImpactBlockFragment],
 );
 
 export const PodcastListQuery = graphql(
@@ -551,6 +714,26 @@ export const PodcastDetailQuery = graphql(
     }
   `,
   [ImageFragment, CTAFragment],
+);
+
+// Utils
+export const LatestPodcastQuery = graphql(
+  `
+    query LatestPodcastQuery {
+      podcast(orderBy: _createdAt_ASC) {
+        id
+        title
+        episode
+        introduction
+        image {
+          ...ImageFragment
+        }
+        slug
+        _modelApiKey
+      }
+    }
+  `,
+  [ImageFragment],
 );
 
 // Layout

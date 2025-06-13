@@ -1,8 +1,3 @@
-'use client';
-
-import Script from 'next/script';
-import { useEffect } from 'react';
-
 type Props = {
   children?: React.ReactElement;
 };
@@ -66,19 +61,8 @@ export default function SubstackFeed({ children }: Props) {
 
   return (
     <section className="mx-auto max-w-7xl py-14">
-      <div id="substack-feed-embed"></div>
+      <div data-supascribe-embed-id="834706015840" data-supascribe-feed></div>
       {children && children}
-
-      <Script id="substack-config">
-        {` 
-          window.SubstackFeedWidget = {
-            substackUrl: "centerforhumanetechnology.substack.com",
-            posts: 12,
-            filter: "new",
-            hidden: ["reactions", "comments"]
-          };
-        `}
-      </Script>
     </section>
   );
 }

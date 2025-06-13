@@ -12,19 +12,21 @@ export default function ImpactBlock(data: Props) {
     <section className="mt-20 mb-48">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-[840px]">
-          <h2 className="text-primary-navy tracking-049 mb-5 font-sans text-5xl leading-110 font-semibold">
-            {title}
-          </h2>
+          {title && (
+            <h2 className="text-primary-navy tracking-049 mb-5 font-sans text-5xl leading-110 font-semibold">
+              {title}
+            </h2>
+          )}
           {introduction && (
             <div
-              className="text-primary-navy mb-5 font-sans text-xl leading-140"
+              className="text-primary-navy mb-5 font-sans text-xl leading-140 font-medium"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
           )}
           {cta && <Cta {...cta} extraClass="mb-28" />}
         </div>
 
-        <div className="flex w-full items-center justify-between gap-10">
+        <div className="flex w-full items-center justify-between gap-16">
           <div className="text-right">
             <h3 className="text-primary-teal mb-1 font-sans text-3xl leading-100 font-semibold">
               {firstItem.title}
@@ -34,7 +36,7 @@ export default function ImpactBlock(data: Props) {
             </span>
             {firstItem.introduction && (
               <div
-                className="text-primary-navy mb-3.5 font-sans text-[16px] leading-135 font-normal"
+                className="text-primary-navy mb-3.5 max-w-[340px] font-sans text-[16px] leading-135 font-normal"
                 dangerouslySetInnerHTML={{
                   __html: firstItem.introduction,
                 }}
@@ -53,7 +55,7 @@ export default function ImpactBlock(data: Props) {
             </span>
             {secondItem.introduction && (
               <div
-                className="text-primary-navy mb-3.5 font-sans text-[16px] leading-135 font-normal"
+                className="text-primary-navy mb-3.5 max-w-[340px] font-sans text-[16px] leading-135 font-normal"
                 dangerouslySetInnerHTML={{
                   __html: secondItem.introduction,
                 }}

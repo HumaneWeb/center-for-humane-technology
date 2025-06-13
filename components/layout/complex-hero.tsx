@@ -1,0 +1,51 @@
+import { cn } from '@/lib/utils/css.utils';
+
+type Props = {
+  preTitle: string;
+  title: string;
+  introduction: string;
+  image: any;
+  variant: 'blue' | 'green' | 'purple';
+};
+
+export default function ComplexHero({ title, preTitle, introduction, image, variant }: Props) {
+  return (
+    <section
+      id="complex-hero"
+      className={cn(
+        variant === 'blue' && 'bg-complex-hero-blue',
+        variant === 'green' && 'bg-complex-hero-green',
+        variant === 'purple' && 'bg-complex-hero-purple',
+      )}
+    >
+      <div
+        className="bg-contain bg-bottom-right bg-no-repeat"
+        style={{ backgroundImage: `url(${image.url})` }}
+      >
+        <div className="mx-auto flex h-full min-h-[600px] max-w-7xl items-end px-4 pb-24 sm:px-6 lg:px-8">
+          <div className="max-w-[628px]">
+            <h2
+              className={cn(
+                'mb-3.5 font-sans text-xl leading-135 font-semibold tracking-[1px] text-[#93C0FF] uppercase',
+                variant === 'green' && 'text-[#ACFFFC]',
+              )}
+            >
+              {preTitle}
+            </h2>
+            <h1
+              className={cn(
+                'text-primary-cream tracking-061 mb-5 font-sans text-6xl leading-110 font-semibold',
+              )}
+            >
+              {title}
+            </h1>
+            <div
+              className="text-neutral-white font-sans text-2xl leading-140"
+              dangerouslySetInnerHTML={{ __html: introduction }}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

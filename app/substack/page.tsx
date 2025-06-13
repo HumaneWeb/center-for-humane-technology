@@ -11,7 +11,14 @@ export default async function SubstackPage() {
 
   return (
     <>
-      <BasicHero title="Substack">{/* <SubstackNewsletterWidget /> */}</BasicHero>
+      <BasicHero title="Substack">
+        <div className="w-[515px]">
+          <h4 className="mb-3.5 font-sans text-xl leading-120 font-semibold text-[#262626]">
+            Stay up to date
+          </h4>
+          <SubstackNewsletterWidget />
+        </div>
+      </BasicHero>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SubstackFeed>

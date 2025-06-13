@@ -34,7 +34,7 @@ export default function HomepageHero({ homepage }: Props) {
           </div>
 
           <div className="grid-cols-1 gap-5 sm:hidden md:grid-cols-2 lg:grid lg:grid-cols-3">
-            {decorationVideos?.videos.map((video, index) => (
+            {/* {decorationVideos?.videos.map((video, index) => (
               <div
                 key={video.id}
                 className={`h-full w-full ${index === 0 ? 'pt-20' : ''} ${index === 1 ? 'ml-20 pt-48' : ''} ${index === 2 ? 'ml-40 pt-[-25em]' : ''} relative`}
@@ -47,7 +47,7 @@ export default function HomepageHero({ homepage }: Props) {
                   className="relative h-[490px] w-[265px]"
                 />
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

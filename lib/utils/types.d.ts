@@ -12,3 +12,7 @@ export type NavbarChildren = {
     href: string;
   }[];
 };
+
+export type PageSlug = {
+  params: Promise<{ slug: string }>;
+};

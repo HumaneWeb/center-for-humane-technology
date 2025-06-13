@@ -31,8 +31,8 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
 
-        <Script src="https://substackapi.com/widget.js" strategy="afterInteractive" />
-        <Script src="https://substackapi.com/embeds/feed.js" strategy="afterInteractive" />
+        <Script src="https://js.supascribe.com/v1/loader/0PyjPA3c4Cew9C80vN0BMFKcpWn1.js" async />
+        {/* <Script src="https://substackapi.com/embeds/feed.js" strategy="afterInteractive" /> */}
       </body>
     </html>
   );

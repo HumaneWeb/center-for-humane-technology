@@ -4,6 +4,7 @@ import CustomImage from './custom-image';
 type Props = {
   id: string;
   title: string;
+  episode?: string;
   introduction: string | null;
   image: any | null;
   slug: string;
@@ -13,6 +14,7 @@ type Props = {
 
 export default function PodcastMinimalCard({
   title,
+  episode,
   introduction,
   image,
   variant = 'default',
@@ -26,12 +28,16 @@ export default function PodcastMinimalCard({
         extraClass={cn('w-[300px] aspect-square', variant === 'small' && 'w-[211px] h-[210px]')}
       />
       <div className={cn('pt-5', variant === 'small' && 'pt-0')}>
-        <h5 className="text-primary-blue tracking-075 mb-2 font-sans text-[15px] leading-135 font-semibold uppercase">
-          Latest Episode
-        </h5>
-        <h3 className="text-primary-teal mb-2 font-sans text-2xl leading-120 font-semibold">
-          {title}
-        </h3>
+        {episode && (
+          <h5 className="text-primary-blue tracking-075 mb-2 font-sans text-[15px] leading-135 font-semibold uppercase">
+            {episode}
+          </h5>
+        )}
+        {title && (
+          <h3 className="text-primary-teal mb-2 font-sans text-2xl leading-120 font-semibold">
+            {title}
+          </h3>
+        )}
         {introduction && variant == 'default' && (
           <div
             className="text-primary-navy font-sans text-[16px] leading-140"

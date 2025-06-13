@@ -14,7 +14,7 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* <HomepageHero homepage={homepage} /> */}
+      <HomepageHero homepage={homepage} />
       {/* @ts-expect-error */}
       <BlockBuilder components={homepage?.blocks} />
     </div>
