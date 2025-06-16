@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import Script from 'next/script';
 
 import './globals.css';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Center for Humane Technology',
@@ -32,7 +32,6 @@ export default function RootLayout({
         <Footer />
 
         <Script src="https://js.supascribe.com/v1/loader/0PyjPA3c4Cew9C80vN0BMFKcpWn1.js" async />
-        {/* <Script src="https://substackapi.com/embeds/feed.js" strategy="afterInteractive" /> */}
       </body>
     </html>
   );

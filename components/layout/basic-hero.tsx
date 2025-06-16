@@ -15,7 +15,7 @@ const variantClasses: Record<NonNullable<Props['variant']>, string> = {
 
 export default function BasicHero({ title, preTitle, variant = 'default', children }: Props) {
   return (
-    <section id="basic-hero" className={cn(variantClasses[variant], 'pt-32 pb-14')}>
+    <section id="basic-hero" className={cn(variantClasses[variant], 'pt-52 pb-14')}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div>
           {preTitle && (

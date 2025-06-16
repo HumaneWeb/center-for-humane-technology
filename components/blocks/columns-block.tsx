@@ -9,7 +9,7 @@ type Props = {
 
 export default function ColumnsBlock({ title, items }: Props) {
   return (
-    <section className="my-30">
+    <section className="my-31">
       <div className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
         <h3 className="tracking-049 text-primary-navy mb-10 font-sans text-5xl leading-110 font-semibold">
           {title}

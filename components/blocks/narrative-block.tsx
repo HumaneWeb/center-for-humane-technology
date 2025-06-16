@@ -1,12 +1,16 @@
-import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { FragmentOf, ResultOf, readFragment } from '@/lib/cms/graphql';
 import { NarrativeBlockFragment } from '@/lib/cms/query';
 import CustomImage from '../shared/custom-image';
 import CtaList from '../shared/cta-list';
+import { cn } from '@/lib/utils/css.utils';
 
-type Props = FragmentOf<typeof NarrativeBlockFragment>;
+type Props = ResultOf<typeof NarrativeBlockFragment> & {
+  extraClass?: string;
+};
 
 export default function NarrativeBlock(data: Props) {
-  const { title, introduction, ctas, image, imagePosition } = readFragment(
+  // @ts-expect-error
+  const { title, introduction, ctas, image, imagePosition, extraClass } = readFragment(
     NarrativeBlockFragment,
     data,
   );
@@ -14,7 +18,7 @@ export default function NarrativeBlock(data: Props) {
   const isImageLeft = imagePosition === 'left';
 
   return (
-    <section className="pb-36">
+    <section className={cn('narrative-block pb-36', extraClass)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           {image && (

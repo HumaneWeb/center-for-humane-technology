@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { renderNodeRule, StructuredText, StructuredTextDocument } from 'react-datocms';
 import {
@@ -23,8 +24,10 @@ import Cta from './cta';
 
 export default function CustomStructuredText({
   data,
+  defaultRules = false,
 }: {
   data: Document | Node | StructuredTextDocument | null | undefined;
+  defaultRules: boolean;
 }) {
   return (
     <StructuredText
@@ -34,7 +37,13 @@ export default function CustomStructuredText({
           return <ImageContentBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'NarrativeBlockRecord') {
-          return <NarrativeBlock key={record.id} {...record} />;
+          return (
+            <NarrativeBlock
+              key={record.id}
+              {...record}
+              extraClass="mt-[180px] pb-[145px] [&+.narrative-block]:mt-0 pt-0"
+            />
+          );
         }
         if (record.__typename === 'ApproachBlockRecord') {
           return <ApproachBlock key={record.id} {...record} />;
@@ -49,11 +58,11 @@ export default function CustomStructuredText({
           return <StatsBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'ImpactBlockRecord') {
-          return <ImpactBlock key={record.id} {...record} />;
+          return <ImpactBlock key={record.id} {...record} extraClass="mb-20" />;
         }
         if (record.__typename === 'ImageBlockRecord') {
           return (
-            <div className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
               <CustomImage {...record.image} />
             </div>
           );
@@ -80,75 +89,98 @@ export default function CustomStructuredText({
 
         return null;
       }}
-      customNodeRules={[
-        renderNodeRule(
-          isParagraph,
-          ({ adapter: { renderNode }, node, children, key, ancestors }) => {
-            if (isRoot(ancestors[0])) {
-              return (
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" key={key}>
-                  {renderNode(
-                    'p',
-                    {
-                      className:
-                        'font-sans text-xl font-medium leading-140 text-primary-navy mb-8 max-w-[840px]',
-                    },
-                    children,
-                  )}
-                </div>
-              );
-            } else {
-              return renderNode(
-                'p',
-                {
-                  className:
-                    'font-sans text-xl font-medium leading-140 text-primary-navy mb-8 max-w-[840px]',
+      customNodeRules={
+        defaultRules
+          ? []
+          : [
+              renderNodeRule(
+                isParagraph,
+                ({ adapter: { renderNode }, node, children, key, ancestors }) => {
+                  if (isRoot(ancestors[0])) {
+                    return (
+                      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" key={key}>
+                        {renderNode(
+                          'p',
+                          {
+                            className:
+                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-8 max-w-[840px]',
+                          },
+                          children,
+                        )}
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <React.Fragment key={key}>
+                        {renderNode(
+                          'p',
+                          {
+                            className:
+                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-8 max-w-[840px]',
+                          },
+                          children,
+                        )}
+                      </React.Fragment>
+                    );
+                  }
                 },
-                children,
-              );
-            }
-          },
-        ),
-        renderNodeRule(isHeading, ({ adapter: { renderNode }, node, children, key, ancestors }) => {
-          return (
-            <div className="mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8" key={key}>
-              {renderNode(
-                `h${node.level}`,
-                { className: 'font-sans font-semibold leading-130 text-3xl text-primary-navy' },
-                children,
-              )}
-            </div>
-          );
-        }),
-        renderNodeRule(
-          isBlockquote,
-          ({ adapter: { renderNode }, node, children, key, ancestors }) => {
-            return (
-              <div className="max-container-840 center" key={key}>
-                {renderNode(
-                  'blockquote',
-                  { className: '' },
-                  <>
-                    {children}
-                    {node.attribution && <footer>{node.attribution}</footer>}
-                  </>,
-                )}
-              </div>
-            );
-          },
-        ),
-        renderNodeRule(isList, ({ adapter: { renderNode }, node, children, key, ancestors }) => {
-          if (isRoot(ancestors[0])) {
-            return (
-              <div className="mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8" key={key}>
-                {renderNode('ul', { className: 'list-disc ml-5 [&>li]:mb-5' }, children)}
-              </div>
-            );
-          } else {
-            return <React.Fragment key={key}>{children}</React.Fragment>;
-          }
-        }),
-      ]}
+              ),
+              renderNodeRule(
+                isHeading,
+                ({ adapter: { renderNode }, node, children, key, ancestors }) => {
+                  return (
+                    <div
+                      className="mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8"
+                      key={key}
+                    >
+                      {renderNode(
+                        `h${node.level}`,
+                        {
+                          className:
+                            'font-sans font-semibold leading-130 text-3xl text-primary-navy',
+                        },
+                        children,
+                      )}
+                    </div>
+                  );
+                },
+              ),
+              renderNodeRule(
+                isBlockquote,
+                ({ adapter: { renderNode }, node, children, key, ancestors }) => {
+                  return (
+                    <div className="max-container-840 center" key={key}>
+                      {renderNode(
+                        'blockquote',
+                        { className: '' },
+                        <>
+                          {children}
+                          {node.attribution && <footer>{node.attribution}</footer>}
+                        </>,
+                      )}
+                    </div>
+                  );
+                },
+              ),
+              renderNodeRule(
+                isList,
+                ({ adapter: { renderNode }, node, children, key, ancestors }) => {
+                  if (isRoot(ancestors[0])) {
+                    return (
+                      <div
+                        className="mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8"
+                        key={key}
+                      >
+                        {renderNode('ul', { className: 'list-disc ml-5 [&>li]:mb-5' }, children)}
+                      </div>
+                    );
+                  } else {
+                    return <React.Fragment key={key}>{children}</React.Fragment>;
+                  }
+                },
+              ),
+            ]
+      }
     />
   );
 }

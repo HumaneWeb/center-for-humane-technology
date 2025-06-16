@@ -35,9 +35,10 @@ export default function ApproachBlock({
           </div>
 
           <div>
-            <h4 className="text-primary-navy mb-5 font-sans text-2xl leading-140 font-medium">
-              {title}
-            </h4>
+            <div
+              className="text-primary-navy [&>p>strong]:text-primary-blue mb-5 font-sans text-2xl leading-140 font-medium"
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
 
             <div
               className="text-primary-navy mb-5 font-sans text-xl leading-140 font-medium [&>p]:mb-4"

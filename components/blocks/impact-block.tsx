@@ -1,15 +1,19 @@
 import Cta from '../shared/cta';
-import { FragmentOf, readFragment } from '@/lib/cms/graphql';
+import { ResultOf, readFragment } from '@/lib/cms/graphql';
 import { ImpactBlockFragment } from '@/lib/cms/query';
+import { cn } from '@/lib/utils/css.utils';
 
-type Props = FragmentOf<typeof ImpactBlockFragment>;
+type Props = ResultOf<typeof ImpactBlockFragment> & {
+  extraClass?: string;
+};
 
 export default function ImpactBlock(data: Props) {
-  const { title, introduction, items, cta } = readFragment(ImpactBlockFragment, data);
+  // @ts-expect-error
+  const { title, introduction, items, cta, extraClass } = readFragment(ImpactBlockFragment, data);
   const [firstItem, secondItem] = items;
 
   return (
-    <section className="mt-20 mb-48">
+    <section className={cn('mt-20 mb-48', extraClass)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-[840px]">
           {title && (

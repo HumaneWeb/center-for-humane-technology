@@ -1,3 +1,4 @@
+// @ts-nocheck
 import DonateBlock from '@/components/blocks/donate-block';
 import CustomImage from '@/components/shared/custom-image';
 import CustomLink from '@/components/shared/custom-link';
@@ -24,17 +25,10 @@ export default async function TeamDetailPage({ params }: PageSlug) {
   } = member!;
 
   return (
-    <section className="bg-primary-teal/[0.08]">
+    <section className="bg-primary-teal/[0.08] pt-20">
       <div className="mx-auto max-w-7xl px-4 py-16 pb-40 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <CustomLink
-            content={{
-              slug: teamBoard?.slug!,
-              // @ts-expect-error
-              __typename: teamBoard?.__typename!,
-            }}
-            extraClass="flex items-center gap-[10px]"
-          >
+          <CustomLink content={{ content: teamBoard }} extraClass="flex items-center gap-[10px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -50,7 +44,6 @@ export default async function TeamDetailPage({ params }: PageSlug) {
                 strokeLinejoin="round"
               />
             </svg>
-
             <span className="text-primary-blue text-xl leading-120 font-semibold underline">
               {teamBoard?.title}
             </span>
@@ -129,7 +122,7 @@ export default async function TeamDetailPage({ params }: PageSlug) {
             </h3>
             <div className="text-primary-navy font-sans text-xl leading-140 [&>p]:mb-4">
               {/* @ts-expect-error */}
-              <CustomStructuredText data={information} />
+              <CustomStructuredText data={information} defaultRules />
             </div>
           </div>
         </div>

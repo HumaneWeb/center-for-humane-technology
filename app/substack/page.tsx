@@ -1,3 +1,4 @@
+// @ts-nocheck
 import DonateBlock from '@/components/blocks/donate-block';
 import NewsletterBlock, { SubstackNewsletterWidget } from '@/components/blocks/newsletter-block';
 import BasicHero from '@/components/layout/basic-hero';

@@ -34,7 +34,7 @@ export default function GalleryImageInformationBlock({
               dangerouslySetInnerHTML={{ __html: highlightedInformation }}
             />
             <div
-              className="text-primary-navy mb-3.5 font-sans text-xl leading-140 font-medium"
+              className="text-primary-navy mb-5 font-sans text-xl leading-140 font-medium"
               dangerouslySetInnerHTML={{ __html: information }}
             />
             <CtaList items={ctas} extraClassnames="flex-col items-start gap-8" variant="minimal" />

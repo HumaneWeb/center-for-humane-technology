@@ -9,7 +9,7 @@ type Props = {
   image: CustomImageProps;
   type: 'team' | 'board';
   slug: string;
-  _modelApiKey: string;
+  __typename: string;
 };
 
 export default function TeamCard({
@@ -18,21 +18,21 @@ export default function TeamCard({
   teamPosition,
   organization,
   slug,
-  _modelApiKey,
+  __typename,
   type,
 }: Props) {
   const isTeam = type === 'team';
 
   return (
     // @ts-expect-error
-    <CustomLink content={{ slug, __typename: _modelApiKey }}>
-      <article>
+    <CustomLink content={{ content: { slug, __typename } }} extraClass="group">
+      <article className="transition-all duration-200">
         <div className="mb-5">
-          <CustomImage {...image} extraClass="aspect-square" />
+          <CustomImage {...image} extraClass="aspect-square group-hover:grayscale" />
         </div>
         <h3
           className={cn(
-            'mb-2 font-sans leading-120 font-semibold',
+            'group-hover:text-primary-navy mb-2 font-sans leading-120 font-semibold',
             isTeam ? 'text-primary-teal text-2xl' : 'text-primary-navy text-xl',
           )}
         >

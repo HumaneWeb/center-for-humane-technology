@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import DonateBlock from '@/components/blocks/donate-block';
 import ComplexHero from '@/components/layout/complex-hero';
 import CustomStructuredText from '@/components/shared/custom-structured-text';

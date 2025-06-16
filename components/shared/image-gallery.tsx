@@ -52,8 +52,6 @@ export default function ImageGallery({ images, autoPlayInterval = 5000 }: ImageG
     }
   };
 
-  console.log({ image: images[0] });
-
   return (
     <div className="mx-auto w-full max-w-6xl">
       <div className="relative mb-4 aspect-square overflow-hidden">
@@ -102,7 +100,7 @@ export default function ImageGallery({ images, autoPlayInterval = 5000 }: ImageG
             className={`h-[15px] cursor-pointer transition-all duration-300 ${
               index === currentIndex
                 ? 'bg-primary-teal w-12 flex-[2]'
-                : 'bg-primary-blue w-8 flex-1 hover:bg-blue-700/80'
+                : 'bg-primary-blue hover:bg-primary-navy w-8 flex-1'
             }`}
             aria-label={`Go to image ${index + 1}`}
           />

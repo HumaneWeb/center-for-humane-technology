@@ -11,6 +11,12 @@ export const GlobalLinkFragment = graphql(`
       ... on BasicPageRecord {
         slug
       }
+      ... on TeamBoardRecord {
+        slug
+      }
+      ... on PodcastListRecord {
+        slug
+      }
     }
   }
 `);
@@ -384,7 +390,7 @@ export const TeamAndBoardQuery = graphql(
           ...ImageFragment
         }
         slug
-        _modelApiKey
+        __typename
       }
       boardList: allTeamMembers(filter: { category: { eq: "board" } }) {
         id
@@ -395,7 +401,7 @@ export const TeamAndBoardQuery = graphql(
           ...ImageFragment
         }
         slug
-        _modelApiKey
+        __typename
       }
       configuration {
         newsletterTitle
@@ -577,6 +583,7 @@ export const BasicPageQuery = graphql(
               title
               introduction
               variant
+              backgroundColor
               cta {
                 ...CTAFragment
               }
@@ -636,10 +643,14 @@ export const BasicPageQuery = graphql(
 
 export const PodcastListQuery = graphql(
   `
-    query PodcastListQuery {
+    query PodcastListQuery($searchQuery: String!) {
       page: podcastList {
         title
         introduction
+        extraInformation
+        applePodcastsUrl
+        spotifyUrl
+        youtubeUrl
         image {
           ...ImageFragment
         }
@@ -647,7 +658,7 @@ export const PodcastListQuery = graphql(
           ...ImageFragment
         }
       }
-      podcasts: allPodcasts {
+      podcasts: allPodcasts(filter: { title: { matches: { pattern: $searchQuery } } }) {
         ... on PodcastRecord {
           id
           title
@@ -656,7 +667,7 @@ export const PodcastListQuery = graphql(
             ...ImageFragment
           }
           slug
-          _modelApiKey
+          __typename
         }
       }
       configuration {
@@ -678,14 +689,21 @@ export const PodcastListQuery = graphql(
 export const PodcastDetailQuery = graphql(
   `
     query PodcastDetailQuery($slug: String) {
-      teamBoard: teamBoard {
-        title
+      podcastList {
         slug
         __typename
       }
       podcast(filter: { slug: { eq: $slug } }) {
         title
         introduction
+        episode
+        date
+        applePodcastsUrl
+        spotifyUrl
+        youtubeUrl
+        episodeUrl
+        substackUrl
+        videoUrl
         image {
           ...ImageFragment
         }
@@ -698,7 +716,7 @@ export const PodcastDetailQuery = graphql(
           ...ImageFragment
         }
         slug
-        _modelApiKey
+        __typename
       }
       configuration {
         donateTitle

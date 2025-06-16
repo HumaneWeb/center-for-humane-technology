@@ -125,7 +125,10 @@ type ApproachBlockRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
-  title: String
+  title(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
 }
 
 """Block of type Awareness Block (awareness_block)"""
@@ -643,6 +646,41 @@ type CtaRecord implements RecordInterface {
 
 scalar CustomData
 
+"""A ISO 8601 compliant date value"""
+scalar Date
+
+"""Specifies how to filter Date fields"""
+input DateFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: Date
+
+  """Filter records with a value that's less than the one specified"""
+  lt: Date
+
+  """
+  Filter records with a value that's greater than or equal to the one specified
+  """
+  gte: Date
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: Date
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """Search for records with an exact match"""
+  eq: Date
+
+  """Exclude records with an exact match"""
+  neq: Date
+}
+
 """A ISO 8601 compliant datetime value"""
 scalar DateTime
 
@@ -1089,7 +1127,7 @@ type GenericCardRecord implements RecordInterface {
   title: String
 }
 
-union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | HomepageRecord | PodcastRecord | ResourceRecord
+union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersLitRecord | HomepageRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord
 
 input GlobalLinkModelFilter {
   _createdAt: CreatedAtFilter
@@ -3639,7 +3677,12 @@ type PodcastListRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  applePodcastsUrl: String
   decoratorIcon: FileField
+  extraInformation(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
   id: ItemId!
   image: FileField
   introduction(
@@ -3648,7 +3691,9 @@ type PodcastListRecord implements RecordInterface {
   ): String
   seo: SeoField
   slug: String!
+  spotifyUrl: String
   title: String!
+  youtubeUrl: String
 }
 
 input PodcastModelFilter {
@@ -3661,12 +3706,19 @@ input PodcastModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  applePodcastsUrl: StringFilter
+  date: DateFilter
   episode: StringFilter
+  episodeUrl: StringFilter
   image: FileFilter
   introduction: TextFilter
   seo: SeoFilter
   slug: SlugFilter
+  spotifyUrl: StringFilter
+  substackUrl: StringFilter
   title: StringFilter
+  videoUrl: StringFilter
+  youtubeUrl: StringFilter
   OR: [PodcastModelFilter]
   AND: [PodcastModelFilter]
 }
@@ -3690,10 +3742,24 @@ enum PodcastModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  applePodcastsUrl_ASC
+  applePodcastsUrl_DESC
+  date_ASC
+  date_DESC
   episode_ASC
   episode_DESC
+  episodeUrl_ASC
+  episodeUrl_DESC
+  spotifyUrl_ASC
+  spotifyUrl_DESC
+  substackUrl_ASC
+  substackUrl_DESC
   title_ASC
   title_DESC
+  videoUrl_ASC
+  videoUrl_DESC
+  youtubeUrl_ASC
+  youtubeUrl_DESC
 }
 
 """Record of type Podcast (podcast)"""
@@ -3716,7 +3782,10 @@ type PodcastRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  applePodcastsUrl: String
+  date: Date
   episode: String
+  episodeUrl: String
   id: ItemId!
   image: FileField
   introduction(
@@ -3725,7 +3794,11 @@ type PodcastRecord implements RecordInterface {
   ): String
   seo: SeoField
   slug: String!
+  spotifyUrl: String
+  substackUrl: String
   title: String!
+  videoUrl: String
+  youtubeUrl: String
 }
 
 """Specifies how to filter by position (sorted and tree-like collections)"""

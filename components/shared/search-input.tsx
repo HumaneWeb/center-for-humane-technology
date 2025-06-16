@@ -1,20 +1,41 @@
-import React from 'react';
+'use client';
+
+import type React from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
 type FilterInputProps = {
   value: string;
-  // onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
 };
 
 export const SearchInput: React.FC<FilterInputProps> = ({
   value,
-  // onChange,
   placeholder = 'Search...',
   className = '',
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const searchValue = formData.get('search') as string;
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (searchValue.trim()) {
+      params.set('search', searchValue.trim());
+    } else {
+      params.delete('search');
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   return (
-    <div className={`relative ${className}`}>
+    <form onSubmit={handleSubmit} className={`relative ${className}`}>
       <div className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -34,11 +55,12 @@ export const SearchInput: React.FC<FilterInputProps> = ({
       </div>
       <input
         type="text"
+        name="search"
         placeholder={placeholder}
         className="text-primary-blue tracking-016 focus:to-primary-navy w-full rounded-[5px] border p-3.5 font-sans text-[16px] leading-135 focus:ring-1 focus:outline-none"
-        value={value}
-        // onChange={(e) => onChange(e.target.value)}
+        defaultValue={value}
+        autoComplete="off"
       />
-    </div>
+    </form>
   );
 };

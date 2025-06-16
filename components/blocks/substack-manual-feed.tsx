@@ -16,7 +16,7 @@ export default function SubstackManualFeed(data: Props) {
     <div className="bg-neutral-white overflow-x-hidden">
       <section
         className={cn(
-          'pt-12 pb-24',
+          'mb-2.5 pt-12 pb-24',
           backgroundColor === 'light-purple'
             ? 'bg-secondary-light-purple/20'
             : 'bg-primary-teal/[0.06] text-primary-navy text-xl',
@@ -34,20 +34,19 @@ export default function SubstackManualFeed(data: Props) {
             />
           )}
 
-          <div className=" ">
-            <div
-              className={cn(
-                'grid',
-                variant === 'minimal' && 'flex snap-x snap-mandatory gap-6 overflow-x-visible pb-5',
-                variant === 'default' && 'grid-cols-2 gap-x-32',
-              )}
-            >
-              {items.map((item) => (
-                // @ts-expect-error
-                <SubstackCard {...item} key={item.id} variant={variant} />
-              ))}
-            </div>
+          <div
+            className={cn(
+              'grid',
+              variant === 'minimal' && 'flex snap-x snap-mandatory gap-6 overflow-x-visible pb-5',
+              variant === 'default' && 'grid-cols-2 gap-x-32',
+            )}
+          >
+            {items.map((item) => (
+              // @ts-expect-error
+              <SubstackCard {...item} key={item.id} variant={variant} />
+            ))}
           </div>
+
           {cta && <Cta {...cta} extraClass="mt-16" />}
         </div>
       </section>
