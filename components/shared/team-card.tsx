@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils/css.utils';
-import CustomImage, { CustomImageProps } from './custom-image';
+import CustomImage, { type CustomImageProps } from './custom-image';
 import CustomLink from './custom-link';
 
 type Props = {
@@ -26,14 +26,19 @@ export default function TeamCard({
   return (
     // @ts-expect-error
     <CustomLink content={{ content: { slug, __typename } }} extraClass="group">
-      <article className="transition-all duration-200">
-        <div className="mb-5">
-          <CustomImage {...image} extraClass="aspect-square group-hover:grayscale" />
+      <article>
+        <div className="mb-5 overflow-hidden">
+          <CustomImage
+            {...image}
+            extraClass="aspect-square transition-all duration-500 ease-in-out group-hover:grayscale group-hover:scale-105"
+          />
         </div>
         <h3
           className={cn(
-            'group-hover:text-primary-navy mb-2 font-sans leading-120 font-semibold',
-            isTeam ? 'text-primary-teal text-2xl' : 'text-primary-navy text-xl',
+            'mb-2 font-sans leading-120 font-semibold transition-colors duration-200 ease-in-out',
+            isTeam
+              ? 'text-primary-teal group-hover:text-primary-navy text-2xl'
+              : 'text-primary-navy group-hover:text-primary-teal text-xl',
           )}
         >
           {fullName}

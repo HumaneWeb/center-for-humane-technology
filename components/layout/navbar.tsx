@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import CustomImage from '../shared/custom-image';
 import CustomLink from '../shared/custom-link';
 import SearchEngine from './search-engine';
 import type { NavbarChildren } from '@/lib/utils/types';
@@ -178,7 +177,7 @@ export default function Navbar({ items }: Props) {
             }}
             onClick={() => toggleDropdown(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="text-primary-navy border-primary-navy tracking-018 flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold uppercase"
+            className="text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold uppercase transition-all duration-200"
             aria-expanded={isOpen}
             aria-haspopup="true"
             aria-controls={`dropdown-${index}`}
@@ -191,7 +190,7 @@ export default function Navbar({ items }: Props) {
               viewBox="0 0 14 15"
               fill="none"
             >
-              <path d="M6.5 11.5L1.73686 6.25L11.2631 6.25L6.5 11.5Z" fill="#0B1023" />
+              <path d="M6.5 11.5L1.73686 6.25L11.2631 6.25L6.5 11.5Z" fill="currentColor" />
             </svg>
           </button>
 
@@ -217,7 +216,7 @@ export default function Navbar({ items }: Props) {
                 onClick={() => setOpenDropdown(null)}
                 withActiveClass
               >
-                <div className="text-primary-navy tracking-02 flex items-center justify-between font-sans text-[18px] leading-120 font-medium">
+                <div className="text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between font-sans text-[18px] leading-120 font-medium transition-all duration-200">
                   {dropdownItem.label}
 
                   <svg
@@ -230,7 +229,7 @@ export default function Navbar({ items }: Props) {
                   >
                     <path
                       d="M15.75 5.25L24.5 14M24.5 14L15.75 22.75M24.5 14H3.5"
-                      stroke="#0B1023"
+                      stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="square"
                     />
@@ -415,7 +414,7 @@ export default function Navbar({ items }: Props) {
 
           {/* Search engine */}
           <button
-            className="cursor-pointer border-l-[1px] px-8"
+            className="hover:text-primary-teal cursor-pointer border-l-[1px] px-8 transition-all duration-200"
             onClick={() => setOpenSearchEngine((prev) => !prev)}
           >
             <svg
@@ -427,7 +426,7 @@ export default function Navbar({ items }: Props) {
             >
               <path
                 d="M21 21.5L15.2258 15.7258M15.2258 15.7258C16.7886 14.163 17.6666 12.0434 17.6666 9.83328C17.6666 7.62316 16.7886 5.50356 15.2258 3.94076C13.663 2.37797 11.5434 1.5 9.33328 1.5C7.12316 1.5 5.00356 2.37797 3.44076 3.94076C1.87797 5.50356 1 7.62316 1 9.83328C1 12.0434 1.87797 14.163 3.44076 15.7258C5.00356 17.2886 7.12316 18.1666 9.33328 18.1666C11.5434 18.1666 13.663 17.2886 15.2258 15.7258Z"
-                stroke="#0B1023"
+                stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
