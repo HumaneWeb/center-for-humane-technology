@@ -1,11 +1,11 @@
-import CustomImage from '../shared/custom-image';
+import CustomImage, { CustomImageProps } from '../shared/custom-image';
 
 type Props = {
   title: string;
   introduction: string | null;
   extraInformation: string | null;
-  image: any | null;
-  decoratorIcon: any | null;
+  image: CustomImageProps | null;
+  decoratorIcon: CustomImageProps | null;
   applePodcastsUrl: string | null;
   spotifyUrl: string | null;
   youtubeUrl: string | null;
@@ -25,12 +25,14 @@ export default function PodcastListHero({
     <section className="bg-gradient-podcast-list pt-20">
       <div
         className="min-h-[700px] bg-contain bg-bottom-right bg-no-repeat"
-        style={{ backgroundImage: `url(${image.url})` }}
+        style={{ backgroundImage: `url(${image?.url})` }}
       >
         <div className="relative mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
-          <div className="absolute left-[-60px] pt-3">
-            <CustomImage {...decoratorIcon} />
-          </div>
+          {decoratorIcon && (
+            <div className="absolute left-[-60px] pt-3">
+              <CustomImage {...decoratorIcon} />
+            </div>
+          )}
           <div className="max-w-[620px]">
             <h1 className="text-primary-blue tracking-061 mb-7 font-sans text-6xl leading-110 font-semibold">
               {title}

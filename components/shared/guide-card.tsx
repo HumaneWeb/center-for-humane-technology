@@ -1,10 +1,10 @@
-import CustomImage from './custom-image';
+import CustomImage, { CustomImageProps } from './custom-image';
 
 type Props = {
   title: string;
   introduction: string;
   guideNumber: string;
-  icon: any;
+  icon: CustomImageProps;
 };
 
 export default function GuideCard({ title, introduction, guideNumber, icon }: Props) {

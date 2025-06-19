@@ -1,20 +1,27 @@
-import { FragmentOf, ResultOf, readFragment } from '@/lib/cms/graphql';
-import { NarrativeBlockFragment } from '@/lib/cms/query';
-import CustomImage from '../shared/custom-image';
+import CustomImage, { CustomImageProps } from '../shared/custom-image';
 import CtaList from '../shared/cta-list';
 import { cn } from '@/lib/utils/css.utils';
 
-type Props = ResultOf<typeof NarrativeBlockFragment> & {
+type Props = {
+  id: string;
+  title: string;
+  introduction: string;
+  ctas: any;
+  image: CustomImageProps;
+  imagePosition: 'right' | 'left';
   extraClass?: string;
+  textExtraClass?: string;
 };
 
-export default function NarrativeBlock(data: Props) {
-  // @ts-expect-error
-  const { title, introduction, ctas, image, imagePosition, extraClass } = readFragment(
-    NarrativeBlockFragment,
-    data,
-  );
-
+export default function NarrativeBlock({
+  title,
+  introduction,
+  ctas,
+  image,
+  imagePosition,
+  extraClass,
+  textExtraClass,
+}: Props) {
   const isImageLeft = imagePosition === 'left';
 
   return (
@@ -23,24 +30,29 @@ export default function NarrativeBlock(data: Props) {
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           {image && (
             <div className={isImageLeft ? 'order-1' : 'order-2'}>
-              {/* @ts-expect-error */}
               <CustomImage {...image} />
             </div>
           )}
 
           <div className={isImageLeft ? 'order-2' : 'order-1'}>
-            <h2 className="text-primary-navy tracking-049 mb-8 font-sans text-5xl leading-110 font-semibold">
+            <h2
+              className={cn(
+                'text-primary-navy tracking-049 mb-8 font-sans text-5xl leading-110 font-semibold',
+                textExtraClass,
+              )}
+            >
               {title}
             </h2>
             <div>
               {introduction && (
                 <div
-                  className="text-primary-navy mb-8 font-sans text-xl leading-140 font-medium [&>p]:mb-4"
+                  className={cn(
+                    'text-primary-navy mb-8 font-sans text-xl leading-140 font-medium [&>p]:mb-4',
+                    textExtraClass,
+                  )}
                   dangerouslySetInnerHTML={{ __html: introduction }}
                 />
               )}
-
-              {/* @ts-expect-error */}
               {ctas && <CtaList items={ctas} />}
             </div>
           </div>

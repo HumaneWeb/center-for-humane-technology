@@ -1,13 +1,19 @@
-import { FragmentOf, readFragment } from '@/lib/cms/graphql';
-import { MediaBlockFragment } from '@/lib/cms/query';
-import CustomImage from '../shared/custom-image';
-import CustomLink from '../shared/custom-link';
+import CustomImage, { CustomImageProps } from '../shared/custom-image';
+import CustomLink, { CustomLinkProps } from '../shared/custom-link';
 
-type Props = FragmentOf<typeof MediaBlockFragment>;
+type Props = {
+  id: string;
+  title: string;
+  information: string;
+  items: {
+    id: string;
+    title: string;
+    image: CustomImageProps | null;
+    link: CustomLinkProps | null;
+  }[];
+};
 
-export default function MediaBlock(data: Props) {
-  const { title, items, information } = readFragment(MediaBlockFragment, data);
-
+export default function MediaBlock({ title, items, information }: Props) {
   return (
     <section className="my-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -17,10 +23,9 @@ export default function MediaBlock(data: Props) {
           </h2>
 
           <div className="mb-16 flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
-            {items.map((item) => {
+            {items.map((item: any) => {
               if (item.link) {
                 return (
-                  // @ts-expect-error
                   <CustomLink key={item.id} content={item.link}>
                     <CustomImage {...item.image} />
                   </CustomLink>

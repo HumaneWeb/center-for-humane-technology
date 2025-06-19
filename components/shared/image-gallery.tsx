@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, type PanInfo } from 'motion/react';
+import type { CustomImageProps } from './custom-image';
 
 interface ImageGalleryProps {
   images: {
     id: string;
     preTitle: string;
     title: string;
-    image: any;
+    image: CustomImageProps;
   }[];
   autoPlayInterval?: number;
 }

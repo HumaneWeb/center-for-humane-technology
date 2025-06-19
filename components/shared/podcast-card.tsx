@@ -1,8 +1,17 @@
 import Cta from './cta';
-import CustomImage from './custom-image';
+import CustomImage, { CustomImageProps } from './custom-image';
 import PodcastMinimalCard from './podcast-minimal-card';
 
-export default function PodcastCard({ title, preTitle, introduction, cta, icon, podcast }: any) {
+type Props = {
+  title?: string;
+  preTitle?: string;
+  introduction?: string | null;
+  cta?: any;
+  icon: CustomImageProps | null;
+  podcast?: any;
+};
+
+export default function PodcastCard({ title, preTitle, introduction, cta, icon, podcast }: Props) {
   return (
     <article>
       {preTitle && (

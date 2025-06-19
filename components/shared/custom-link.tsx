@@ -2,22 +2,24 @@
 
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { ResultOf } from '@/lib/cms/graphql';
-import { GlobalLinkFragment } from '@/lib/cms/query';
-import type { Optional } from '@/lib/utils/types';
 import { getLinkCmsUrl } from '@/lib/utils/cms.utils';
 import { cn } from '@/lib/utils/css.utils';
 import { usePathname } from 'next/navigation';
 
-type Props = Optional<
-  ResultOf<typeof GlobalLinkFragment> & {
-    children: ReactNode;
-    extraClass?: string;
-    role?: string;
-    onClick?: () => void;
-    withActiveClass?: boolean;
-  }
->;
+export type CustomLinkProps = {
+  id: string;
+  internalTitle: string;
+  externalUrl: string | null;
+  content: {
+    __typename: string;
+    slug: string;
+  };
+  children: ReactNode;
+  extraClass?: string;
+  role?: string;
+  onClick?: () => void;
+  withActiveClass?: boolean;
+};
 
 export default function CustomLink({
   extraClass,
@@ -26,7 +28,7 @@ export default function CustomLink({
   role,
   onClick,
   withActiveClass = false,
-}: Props) {
+}: CustomLinkProps) {
   const pathname = usePathname();
 
   // @ts-expect-error

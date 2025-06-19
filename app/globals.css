@@ -28,6 +28,7 @@
   --tracking-013: 0.13px;
   --tracking-016: 0.16px;
   --tracking-02: 0.2px;
+  --tracking-025: 0.25px;
   --tracking-031: -0.31px;
   --tracking-039: -0.39px;
   --tracking-049: -0.49px;
@@ -88,6 +89,14 @@ body {
   background-position: center;
   background-size: contain;
   mix-blend-mode: hard-light;
+}
+
+@utility bg-landing-page {
+  background: linear-gradient(19deg, #2B3F89 25.9%, #000 86.74%);
+}
+
+@utility bg-landing-stats {
+  background: linear-gradient(132deg, #A68FF4 -56.72%, #2E3F85 83.57%);
 }
 
 .homepage-hero mux-player {

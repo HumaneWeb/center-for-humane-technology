@@ -1,18 +1,27 @@
-import Script from 'next/script';
-import { FragmentOf, readFragment } from '@/lib/cms/graphql';
-import { SignupBlockFragment } from '@/lib/cms/query';
+import type { CustomImageProps } from '../shared/custom-image';
 
-type Props = FragmentOf<typeof SignupBlockFragment>;
+type Props = {
+  id: string;
+  title: string;
+  introduction: string;
+  withFeaturedContent: boolean;
+  featuredTitle: string;
+  featuredImage: CustomImageProps;
+  featuredLink: any;
+};
 
-export default function NewsletterBlock(data: Props) {
-  const { title, introduction, withFeaturedContent, featuredTitle, featuredImage, featuredLink } =
-    readFragment(SignupBlockFragment, data);
-
+export default function NewsletterBlock({
+  title,
+  introduction,
+  withFeaturedContent,
+  featuredTitle,
+  featuredImage,
+  featuredLink,
+}: Props) {
   const renderFeaturedBlock = () => (
     <section className="flex w-full flex-col md:flex-row">
       <div
         className="flex w-full items-end justify-end bg-cover bg-center bg-no-repeat px-12 pt-44 pb-7 md:w-1/2"
-        // @ts-expect-error
         style={{ backgroundImage: `url(${featuredImage!.url})` }}
       >
         <div className="max-w-sm text-center md:max-w-[560px]">

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useTransform, animate, useInView } from 'motion/react';
+import { cn } from '@/lib/utils/css.utils';
 
 type Props = {
   title: string;
@@ -10,6 +11,7 @@ type Props = {
     value: string;
     label: string;
   }[];
+  variant?: 'default' | 'landing';
 };
 
 function AnimatedValue({ value }: { value: string }) {
@@ -44,24 +46,40 @@ function AnimatedValue({ value }: { value: string }) {
   }
 
   return (
-    <span ref={ref} className="font-sans text-7xl leading-[78%] font-semibold text-[#93F2EF]">
+    <span ref={ref} className="w-fit font-sans text-7xl leading-[78%] font-semibold text-[#93F2EF]">
       <motion.span>{rounded}</motion.span>
       {textValue && <span>{textValue}</span>}
     </span>
   );
 }
 
-export default function StatsBlock({ title, items }: Props) {
+export default function StatsBlock({ title, items, variant = 'default' }: Props) {
   return (
-    <section className="bg-primary-blue mt-20 mb-32 pt-14 pb-20">
+    // bg-landing-stats
+    <section
+      className={cn(
+        'bg-primary-blue mt-20 mb-32 pt-14 pb-20',
+        variant === 'landing' && 'bg-landing-stats w-full',
+      )}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h3 className="text-primary-cream mb-14 font-sans text-2xl leading-130 font-semibold">
+        <h3
+          className={cn(
+            'text-primary-cream mb-14 font-sans text-2xl leading-130 font-semibold',
+            variant === 'landing' && 'tracking-025 text-center leading-110 font-medium',
+          )}
+        >
           {title}
         </h3>
 
-        <div className="grid grid-cols-3 gap-20">
+        <div
+          className={cn(
+            'grid grid-cols-3 gap-20',
+            variant === 'landing' && 'flex items-center justify-between',
+          )}
+        >
           {items.map((item) => (
-            <div key={item.id} className="flex items-end gap-2.5">
+            <div key={item.id} className="flex w-fit items-end gap-2.5">
               <h4>
                 <AnimatedValue value={item.value} />
               </h4>

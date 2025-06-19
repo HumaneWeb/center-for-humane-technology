@@ -1,8 +1,8 @@
-import CustomImage from '../shared/custom-image';
+import CustomImage, { CustomImageProps } from '../shared/custom-image';
 
 type Props = {
   content: string;
-  image: any;
+  image: CustomImageProps;
 };
 
 export default function ImageContentBlock({ content, image }: Props) {

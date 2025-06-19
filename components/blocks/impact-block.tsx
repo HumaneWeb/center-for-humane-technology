@@ -1,15 +1,22 @@
 import Cta from '../shared/cta';
-import { ResultOf, readFragment } from '@/lib/cms/graphql';
-import { ImpactBlockFragment } from '@/lib/cms/query';
 import { cn } from '@/lib/utils/css.utils';
 
-type Props = ResultOf<typeof ImpactBlockFragment> & {
+type Props = {
+  id: string;
+  title: string;
+  introduction: string;
+  cta: any;
+  items: {
+    id: string;
+    title: string;
+    subtitle: string;
+    introduction: string;
+    cta: any;
+  }[];
   extraClass?: string;
 };
 
-export default function ImpactBlock(data: Props) {
-  // @ts-expect-error
-  const { title, introduction, items, cta, extraClass } = readFragment(ImpactBlockFragment, data);
+export default function ImpactBlock({ title, introduction, items, cta, extraClass }: Props) {
   const [firstItem, secondItem] = items;
 
   return (

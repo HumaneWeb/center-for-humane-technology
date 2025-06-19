@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import Cta from '../shared/cta';
-import { FragmentOf, readFragment } from '@/lib/cms/graphql';
-import { HighlightTextBlockFragment } from '@/lib/cms/query';
 
-type Props = FragmentOf<typeof HighlightTextBlockFragment>;
+type Props = {
+  id: string;
+  title: string;
+  introduction: string;
+  dynamicTexts: string;
+  cta: any;
+};
 
-export default function HighlightTextBlock(data: Props) {
-  const { title, introduction, dynamicTexts, cta } = readFragment(HighlightTextBlockFragment, data);
-
+export default function HighlightTextBlock({ title, introduction, dynamicTexts, cta }: Props) {
   const texts = dynamicTexts.split(',');
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,7 +55,6 @@ export default function HighlightTextBlock(data: Props) {
                 }}
               />
             )}
-            {/* @ts-expect-error */}
             {cta && <Cta {...cta} />}
           </div>
         </div>

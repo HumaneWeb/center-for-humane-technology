@@ -1,13 +1,21 @@
 import React from 'react';
 import DepthAreaCard from '../shared/depth-area-card';
-import { FragmentOf, readFragment } from '@/lib/cms/graphql';
-import { DepthAreasBlockFragment } from '@/lib/cms/query';
+import type { CustomImageProps } from '../shared/custom-image';
 
-type Props = FragmentOf<typeof DepthAreasBlockFragment>;
+type Props = {
+  id: string;
+  title: string;
+  introduction: string;
+  items: {
+    id: string;
+    title: string;
+    introduction: string;
+    image: CustomImageProps;
+    link: any;
+  }[];
+};
 
-export default function DepthAreasBlock(data: Props) {
-  const { title, introduction, items } = readFragment(DepthAreasBlockFragment, data);
-
+export default function DepthAreasBlock({ title, introduction, items }: Props) {
   return (
     <section className="mb-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -27,7 +35,6 @@ export default function DepthAreasBlock(data: Props) {
           <div className="flex flex-col gap-11">
             {items.map((item) => (
               <React.Fragment key={item.id}>
-                {/* @ts-expect-error */}
                 <DepthAreaCard key={item.id} {...item} />
               </React.Fragment>
             ))}

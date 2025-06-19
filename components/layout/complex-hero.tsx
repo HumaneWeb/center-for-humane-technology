@@ -1,10 +1,11 @@
 import { cn } from '@/lib/utils/css.utils';
+import type { CustomImageProps } from '../shared/custom-image';
 
 type Props = {
   preTitle: string;
   title: string;
   introduction: string;
-  image: any;
+  image: CustomImageProps;
   variant: 'blue' | 'green' | 'purple';
 };
 

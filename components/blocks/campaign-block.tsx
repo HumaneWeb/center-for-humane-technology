@@ -1,13 +1,15 @@
 import Cta from '../shared/cta';
-import { FragmentOf, readFragment } from '@/lib/cms/graphql';
-import { CampaignBlockFragment } from '@/lib/cms/query';
-import CustomImage from '../shared/custom-image';
+import CustomImage, { CustomImageProps } from '../shared/custom-image';
 
-type Props = FragmentOf<typeof CampaignBlockFragment>;
+type Props = {
+  id: string;
+  title: string;
+  introduction: string;
+  cta: any;
+  image: CustomImageProps;
+};
 
-export default function CampaignBlock(data: Props) {
-  const { title, introduction, cta, image } = readFragment(CampaignBlockFragment, data);
-
+export default function CampaignBlock({ title, introduction, cta, image }: Props) {
   return (
     <section className="mx-auto mt-24 mb-36 max-w-[1400px] px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl bg-[#007981]">
@@ -25,7 +27,6 @@ export default function CampaignBlock(data: Props) {
                   }}
                 />
               )}
-              {/* @ts-expect-error */}
               {cta && <Cta {...cta} />}
             </div>
           </div>

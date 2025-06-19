@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils/css.utils';
-import CustomImage from './custom-image';
+import CustomImage, { CustomImageProps } from './custom-image';
 
 type Props = {
   content: string;
   footer: string;
-  image?: any;
+  image?: CustomImageProps;
 };
 
 export default function Blockquote({ content, footer, image }: Props) {

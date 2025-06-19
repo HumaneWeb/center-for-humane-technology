@@ -1,16 +1,17 @@
 import Image from 'next/image';
-import { ResultOf } from '@/lib/cms/graphql';
-import { ImageFragment } from '@/lib/cms/query';
-import type { Optional } from '@/lib/utils/types';
 import { logWarning } from '@/lib/utils/logs.utils';
 import { cn } from '@/lib/utils/css.utils';
 
-export type CustomImageProps = Optional<
-  ResultOf<typeof ImageFragment> & {
-    withCaption?: boolean;
-    extraClass?: string;
-  }
->;
+export type CustomImageProps = {
+  id: string;
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+  title: string;
+  withCaption?: boolean;
+  extraClass?: string;
+};
 
 export default function CustomImage({
   url,

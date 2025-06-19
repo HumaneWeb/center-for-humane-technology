@@ -8,7 +8,7 @@ import ImpactBlock from './impact-block';
 import MediaBlock from './media-block';
 import NarrativeBlock from './narrative-block';
 import NewsletterBlock from './newsletter-block';
-import SubstackManualFeed from './substack-manual-feed';
+import SubstackManualFeed from './generic-cards-grid';
 
 type Props = {
   components: {
@@ -18,8 +18,6 @@ type Props = {
 };
 
 const BaseComponents: Record<string, any> = {
-  // Add DatoCms blocks here... (Use __typename as key of the map)
-  // Eg: RichTextBlock
   SignUpBlockRecord: NewsletterBlock,
   ImpactBlockRecord: ImpactBlock,
   NarrativeBlockRecord: NarrativeBlock,

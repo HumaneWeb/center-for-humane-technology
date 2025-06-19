@@ -1,13 +1,13 @@
 import { cn } from '@/lib/utils/css.utils';
 import CustomImage, { CustomImageProps } from './custom-image';
-import CustomLink from './custom-link';
+import CustomLink, { CustomLinkProps } from './custom-link';
 
 type Props = {
   title: string;
   introduction: string;
   image: CustomImageProps;
-  link: any; // TODO
-  variant: 'default' | 'vertical';
+  link: CustomLinkProps;
+  variant?: 'default' | 'vertical';
 };
 
 export default function DepthAreaCard({

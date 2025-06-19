@@ -1,15 +1,15 @@
-import { type FragmentOf, readFragment } from '@/lib/cms/graphql';
 import CaseStudyCard from '../shared/case-study-card';
 import PodcastCard from '../shared/podcast-card';
-import { AwarenessBlockFragment, LatestPodcastQuery } from '@/lib/cms/query';
+import { LatestPodcastQuery } from '@/lib/cms/query';
 import { executeQuery } from '@/lib/cms/executeQuery';
 
-type Props = FragmentOf<typeof AwarenessBlockFragment>;
+type Props = {
+  id: string;
+  caseStudyCard: any;
+  podcastCard: any;
+};
 
-export default async function AwarenessBlock(data: Props) {
-  const unmaskedData = readFragment(AwarenessBlockFragment, data);
-  const { caseStudyCard, podcastCard } = unmaskedData;
-
+export default async function AwarenessBlock({ caseStudyCard, podcastCard }: Props) {
   const { podcast } = await executeQuery(LatestPodcastQuery);
 
   return (

@@ -1,12 +1,17 @@
-import { type ResultOf } from '@/lib/cms/graphql';
-import Cta from './cta';
-import CustomImage from './custom-image';
-import { AwarenessBlockFragment } from '@/lib/cms/query';
+import CustomImage, { CustomImageProps } from './custom-image';
 import CtaList from './cta-list';
 
-type Props = ResultOf<typeof AwarenessBlockFragment>;
+type Props = {
+  id: string;
+  title: string;
+  preTitle: string;
+  introduction: string;
+  image: CustomImageProps;
+  cta: any;
+  variant: string;
+};
 
-export default function CaseStudyCard({ title, preTitle, image, introduction, cta }: any) {
+export default function CaseStudyCard({ title, preTitle, image, introduction, cta }: Props) {
   return (
     <article>
       {preTitle && (

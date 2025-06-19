@@ -1,4 +1,5 @@
 import CtaList from '../shared/cta-list';
+import type { CustomImageProps } from '../shared/custom-image';
 import ImageGallery from '../shared/image-gallery';
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
     id: string;
     preTitle: string;
     title: string;
-    image: any;
+    image: CustomImageProps;
   }[];
 };
 

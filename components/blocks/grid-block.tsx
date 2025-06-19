@@ -8,11 +8,11 @@ type Props = {
 export default function GridBlock({ firstColumn, secondColumn }: Props) {
   return (
     <div className="grid grid-cols-2 gap-6">
-      <div>
-        <CustomStructuredText data={firstColumn} />
+      <div className="h-full">
+        <CustomStructuredText data={firstColumn} isInnerContainer />
       </div>
-      <div>
-        <CustomStructuredText data={secondColumn} />
+      <div className="h-full">
+        <CustomStructuredText data={secondColumn} isInnerContainer />
       </div>
     </div>
   );

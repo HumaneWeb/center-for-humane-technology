@@ -1,6 +1,5 @@
-// @ts-nocheck
 import { cn } from '@/lib/utils/css.utils';
-import CustomImage from './custom-image';
+import CustomImage, { CustomImageProps } from './custom-image';
 import CustomLink from './custom-link';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
   title: string;
   episode?: string;
   introduction: string | null;
-  image: any | null;
+  image: CustomImageProps | null;
   slug: string;
   __typename: string;
   variant?: 'default' | 'small';
@@ -26,10 +25,13 @@ export default function PodcastMinimalCard({
   return (
     <CustomLink content={{ content: { __typename, slug } }}>
       <div className="group flex gap-5">
-        <CustomImage
-          {...image}
-          extraClass={cn('w-[300px] aspect-square', variant === 'small' && 'w-[211px] h-[210px]')}
-        />
+        {image && (
+          <CustomImage
+            {...image}
+            extraClass={cn('w-[300px] aspect-square', variant === 'small' && 'w-[211px] h-[210px]')}
+          />
+        )}
+
         <div className={cn('pt-5', variant === 'small' && 'pt-0')}>
           {episode && (
             <h5 className="text-primary-blue tracking-075 mb-2 font-sans text-[15px] leading-135 font-semibold uppercase">

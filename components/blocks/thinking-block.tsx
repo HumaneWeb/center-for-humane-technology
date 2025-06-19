@@ -1,3 +1,4 @@
+import type { CustomImageProps } from '../shared/custom-image';
 import DepthAreaCard from '../shared/depth-area-card';
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
     id: string;
     title: string;
     introduction: string;
-    image: any;
+    image: CustomImageProps;
     link: any;
   }[];
 };

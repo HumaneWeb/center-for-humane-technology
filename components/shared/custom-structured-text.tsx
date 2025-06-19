@@ -17,7 +17,6 @@ import StatsBlock from '../blocks/stats-block';
 import ImpactBlock from '../blocks/impact-block';
 import CustomImage from './custom-image';
 import ColumnsBlock from '../blocks/columns-block';
-import SubstackManualFeed from '../blocks/substack-manual-feed';
 import GalleryImageInformationBlock from '../blocks/gallery-image-information-block';
 import LinksBlock from '../blocks/links-block';
 import Cta from './cta';
@@ -29,15 +28,20 @@ import { cn } from '@/lib/utils/css.utils';
 import Footnote from './footnote';
 import GridBlock from '../blocks/grid-block';
 import GuideCard from './guide-card';
-import SubstackCard from './generic-card';
 import GenericCard from './generic-card';
+import GenericCardsGrid from '../blocks/generic-cards-grid';
+import { is } from 'date-fns/locale';
 
 export default function CustomStructuredText({
   data,
   defaultRules = false,
+  isInnerContainer = false,
+  centerContent = false,
 }: {
   data: Document | Node | StructuredTextDocument | null | undefined;
   defaultRules: boolean;
+  isInnerContainer?: boolean;
+  centerContent?: boolean;
 }) {
   return (
     <StructuredText
@@ -76,6 +80,7 @@ export default function CustomStructuredText({
               className={cn(
                 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
                 record.alignment !== 'left' && record.alignment !== 'right' && 'my-10',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
               )}
               key={record.id}
             >
@@ -93,8 +98,8 @@ export default function CustomStructuredText({
         if (record.__typename === 'ColumnsBlockRecord') {
           return <ColumnsBlock key={record.id} {...record} />;
         }
-        if (record.__typename === 'SubstackManualFeedRecord') {
-          return <SubstackManualFeed key={record.id} {...record} />;
+        if (record.__typename === 'GenericCardsGridRecord') {
+          return <GenericCardsGrid key={record.id} {...record} />;
         }
         if (record.__typename === 'GalleryImageInformationBlockRecord') {
           return <GalleryImageInformationBlock key={record.id} {...record} />;
@@ -111,21 +116,40 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'AccordionBlockRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                isInnerContainer && 'my-0 max-w-full px-0 sm:px-0 lg:px-0',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
               <AccordionBlock {...record} />
             </div>
           );
         }
         if (record.__typename === 'TableRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
               <TableBlock {...record} />
             </div>
           );
         }
         if (record.__typename === 'BlockquoteRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
               <Blockquote {...record} />
             </div>
           );
@@ -133,21 +157,39 @@ export default function CustomStructuredText({
 
         if (record.__typename === 'HighlightedBlockRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
               <HighlightedBlock {...record} />
             </div>
           );
         }
         if (record.__typename === 'FootnoteRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
               <Footnote {...record} />
             </div>
           );
         }
         if (record.__typename === 'GridRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
               <GridBlock {...record} />
             </div>
           );
@@ -157,7 +199,14 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'GenericCardRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <div
+              className={cn(
+                'mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8',
+                isInnerContainer && 'my-0 h-full max-w-full px-0 sm:px-0 lg:px-0',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
               <GenericCard {...record} />
             </div>
           );
@@ -174,12 +223,21 @@ export default function CustomStructuredText({
                 ({ adapter: { renderNode }, node, children, key, ancestors }) => {
                   if (isRoot(ancestors[0])) {
                     return (
-                      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" key={key}>
+                      <div
+                        className={cn(
+                          'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
+                          isInnerContainer && 'max-w-full px-0 sm:px-0 lg:px-0',
+                          centerContent && 'mx-auto',
+                        )}
+                        key={key}
+                      >
                         {renderNode(
                           'p',
                           {
-                            className:
-                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-8 max-w-[840px]',
+                            className: cn(
+                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              centerContent && 'mx-auto',
+                            ),
                           },
                           children,
                         )}
@@ -191,8 +249,10 @@ export default function CustomStructuredText({
                         {renderNode(
                           'p',
                           {
-                            className:
-                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-8 max-w-[840px]',
+                            className: cn(
+                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              centerContent && 'mx-auto',
+                            ),
                           },
                           children,
                         )}
@@ -206,33 +266,21 @@ export default function CustomStructuredText({
                 ({ adapter: { renderNode }, node, children, key, ancestors }) => {
                   return (
                     <div
-                      className="mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8"
+                      className={cn(
+                        'mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                        isInnerContainer && 'my-0 max-w-full px-0 sm:px-0 lg:px-0',
+                      )}
                       key={key}
                     >
                       {renderNode(
                         `h${node.level}`,
                         {
-                          className:
-                            'font-sans font-semibold leading-130 text-3xl text-primary-navy',
+                          className: cn(
+                            'font-sans font-semibold leading-130 text-3xl text-primary-navy  max-w-[840px]',
+                            centerContent && 'mx-auto',
+                          ),
                         },
                         children,
-                      )}
-                    </div>
-                  );
-                },
-              ),
-              renderNodeRule(
-                isBlockquote,
-                ({ adapter: { renderNode }, node, children, key, ancestors }) => {
-                  return (
-                    <div className="max-container-840 center" key={key}>
-                      {renderNode(
-                        'blockquote',
-                        { className: '' },
-                        <>
-                          {children}
-                          {node.attribution && <footer>{node.attribution}</footer>}
-                        </>,
                       )}
                     </div>
                   );
@@ -244,7 +292,10 @@ export default function CustomStructuredText({
                   if (isRoot(ancestors[0])) {
                     return (
                       <div
-                        className="mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8"
+                        className={cn(
+                          'mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                          centerContent && 'max-auto max-w-[840px]',
+                        )}
                         key={key}
                       >
                         {renderNode('ul', { className: 'list-disc ml-5 [&>li]:mb-5' }, children)}

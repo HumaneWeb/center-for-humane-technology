@@ -31,6 +31,7 @@ export const CTAFragment = graphql(
       label
       helperLabel
       variant
+      icon
       link {
         ...GlobalLinkFragment
       }
@@ -49,22 +50,6 @@ export const ImageFragment = graphql(`
     title
   }
 `);
-
-export const SubstackCardFragment = graphql(
-  `
-    fragment SubstackCardFragment on SubstackCardRecord {
-      id
-      title
-      introduction
-      url
-      variant
-      image {
-        ...ImageFragment
-      }
-    }
-  `,
-  [ImageFragment],
-);
 
 export const GenericCardFragment = graphql(
   `
@@ -333,9 +318,9 @@ export const ColumnsBlockFragment = graphql(`
   }
 `);
 
-export const SubstackManualFeedFragment = graphql(
+export const GenericCardsGridFragment = graphql(
   `
-    fragment SubstackManualFeedFragment on SubstackManualFeedRecord {
+    fragment GenericCardsGridFragment on GenericCardsGridRecord {
       title
       introduction
       variant
@@ -344,11 +329,11 @@ export const SubstackManualFeedFragment = graphql(
         ...CTAFragment
       }
       items {
-        ...SubstackCardFragment
+        ...GenericCardFragment
       }
     }
   `,
-  [CTAFragment, SubstackCardFragment],
+  [CTAFragment, GenericCardFragment],
 );
 
 export const GalleryImageInformationFragment = graphql(
@@ -763,7 +748,7 @@ export const BasicPageQuery = graphql(
             ...StatsBlockFragment
             ...ImpactBlockFragment
             ...ColumnsBlockFragment
-            ...SubstackManualFeedFragment
+            ...GenericCardsGridFragment
             ...GalleryImageInformationFragment
             ...LinksBlockFragment
           }
@@ -792,7 +777,7 @@ export const BasicPageQuery = graphql(
     StatsBlockFragment,
     ImpactBlockFragment,
     ColumnsBlockFragment,
-    SubstackManualFeedFragment,
+    GenericCardsGridFragment,
     GalleryImageInformationFragment,
     LinksBlockFragment,
   ],
@@ -897,6 +882,7 @@ export const BlogDetailPageQuery = graphql(
         backgroundImage {
           ...ImageFragment
         }
+        variant
         content {
           value
           blocks {
@@ -940,6 +926,52 @@ export const BlogDetailPageQuery = graphql(
     GenericCardFragment,
     GridFragment,
   ],
+);
+
+export const LandingPageQuery = graphql(
+  `
+    query LandingPageQuery {
+      landing {
+        logo {
+          ...ImageFragment
+        }
+        title
+        youtubeUrl {
+          title
+          url
+          thumbnailUrl
+        }
+        cta {
+          ...CTAFragment
+        }
+        contentTitle
+        contentInformation
+        logos {
+          ...ImageFragment
+        }
+        stats {
+          ...StatsBlockFragment
+        }
+        narrativeBlocks {
+          ...NarrativeBlockFragment
+        }
+
+        higlightBlockCta
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+        newsletterTitle
+        newsletterIntroduction
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment, StatsBlockFragment, NarrativeBlockFragment],
 );
 
 // Utils
