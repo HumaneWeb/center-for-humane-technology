@@ -32,6 +32,7 @@
   --tracking-039: -0.39px;
   --tracking-049: -0.49px;
   --tracking-061: -0.61px;
+  --tracking-065: 0.65px;
   --tracking-075: 0.75px;
 }
 
@@ -63,6 +64,10 @@ body {
 
 @utility bg-complex-hero-purple {
   background: linear-gradient(261deg, #8A9FF7 0%, #41519D 100%);
+}
+
+@utility bg-guide-card {
+  background: var(--Linear, linear-gradient(115deg, #546AC8 10.83%, #293462 89.12%));
 }
 
 @utility bg-basic-page {
@@ -319,4 +324,9 @@ body {
 .approach-text-top,
 .approach-text-bottom {
   animation: none;
+}
+
+hr {
+  color: #A8ADB6;
+  margin: 0 2rem;
 }

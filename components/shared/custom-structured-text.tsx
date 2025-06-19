@@ -21,6 +21,16 @@ import SubstackManualFeed from '../blocks/substack-manual-feed';
 import GalleryImageInformationBlock from '../blocks/gallery-image-information-block';
 import LinksBlock from '../blocks/links-block';
 import Cta from './cta';
+import AccordionBlock from '../blocks/accordion-block';
+import TableBlock from '../blocks/table-block';
+import Blockquote from './blockquote';
+import HighlightedBlock from '../blocks/highlighted-block';
+import { cn } from '@/lib/utils/css.utils';
+import Footnote from './footnote';
+import GridBlock from '../blocks/grid-block';
+import GuideCard from './guide-card';
+import SubstackCard from './generic-card';
+import GenericCard from './generic-card';
 
 export default function CustomStructuredText({
   data,
@@ -62,8 +72,21 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'ImageBlockRecord') {
           return (
-            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
-              <CustomImage {...record.image} />
+            <div
+              className={cn(
+                'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
+                record.alignment !== 'left' && record.alignment !== 'right' && 'my-10',
+              )}
+              key={record.id}
+            >
+              <div
+                className={cn(
+                  record.alignment === 'left' && 'float-left clear-left mr-6 mb-5 max-w-[410px]',
+                  record.alignment === 'right' && 'float-right clear-right mr-5 mb-5 max-w-[410px]',
+                )}
+              >
+                <CustomImage {...record.image} withCaption />
+              </div>
             </div>
           );
         }
@@ -83,6 +106,59 @@ export default function CustomStructuredText({
           return (
             <div className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
               <Cta {...record} />
+            </div>
+          );
+        }
+        if (record.__typename === 'AccordionBlockRecord') {
+          return (
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <AccordionBlock {...record} />
+            </div>
+          );
+        }
+        if (record.__typename === 'TableRecord') {
+          return (
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <TableBlock {...record} />
+            </div>
+          );
+        }
+        if (record.__typename === 'BlockquoteRecord') {
+          return (
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <Blockquote {...record} />
+            </div>
+          );
+        }
+
+        if (record.__typename === 'HighlightedBlockRecord') {
+          return (
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <HighlightedBlock {...record} />
+            </div>
+          );
+        }
+        if (record.__typename === 'FootnoteRecord') {
+          return (
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <Footnote {...record} />
+            </div>
+          );
+        }
+        if (record.__typename === 'GridRecord') {
+          return (
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <GridBlock {...record} />
+            </div>
+          );
+        }
+        if (record.__typename === 'GuideCardRecord') {
+          return <GuideCard key={record.id} {...record} />;
+        }
+        if (record.__typename === 'GenericCardRecord') {
+          return (
+            <div className="mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <GenericCard {...record} />
             </div>
           );
         }

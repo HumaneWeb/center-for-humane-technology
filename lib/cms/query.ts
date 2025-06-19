@@ -11,10 +11,13 @@ export const GlobalLinkFragment = graphql(`
       ... on BasicPageRecord {
         slug
       }
-      ... on TeamBoardRecord {
+      ... on PodcastListRecord {
         slug
       }
-      ... on PodcastListRecord {
+      ... on PodcastRecord {
+        slug
+      }
+      ... on TeamBoardRecord {
         slug
       }
     }
@@ -43,10 +46,345 @@ export const ImageFragment = graphql(`
     alt
     width
     height
+    title
   }
 `);
 
+export const SubstackCardFragment = graphql(
+  `
+    fragment SubstackCardFragment on SubstackCardRecord {
+      id
+      title
+      introduction
+      url
+      variant
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export const GenericCardFragment = graphql(
+  `
+    fragment GenericCardFragment on GenericCardRecord {
+      id
+      title
+      preTitle
+      introduction
+      image {
+        ...ImageFragment
+      }
+      cta {
+        ...CTAFragment
+      }
+      variant
+    }
+  `,
+  [ImageFragment, CTAFragment],
+);
+
+export const PodcastFragment = graphql(
+  `
+    fragment PodcastFragment on PodcastRecord {
+      id
+      title
+      episode
+      introduction
+      image {
+        ...ImageFragment
+      }
+      slug
+      __typename
+    }
+  `,
+  [ImageFragment],
+);
+
+export const PodcastCardFragment = graphql(
+  `
+    fragment PodcastCardFragment on PodcastCardRecord {
+      id
+      title
+      preTitle
+      introduction
+      cta {
+        ...CTAFragment
+      }
+      icon {
+        ...ImageFragment
+      }
+      highlightedPodcast {
+        ...PodcastFragment
+      }
+    }
+  `,
+  [PodcastFragment],
+);
+
+export const ImageBlockFragment = graphql(
+  `
+    fragment ImageBlockFragment on ImageBlockRecord {
+      id
+      image {
+        ... on AltFileField {
+          id
+          alt
+          width
+          height
+          url
+          title
+        }
+      }
+      alignment
+      link {
+        ...GlobalLinkFragment
+      }
+    }
+  `,
+  [GlobalLinkFragment],
+);
+
+export const ImageContentBlockFragment = graphql(
+  `
+    fragment ImageContentBlockFragment on ImageContentBlockRecord {
+      content
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
 // Blocks
+export const AccordionBlockFragment = graphql(`
+  fragment AccordionBlockFragment on AccordionBlockRecord {
+    items {
+      ... on AccordionItemRecord {
+        id
+        title
+        content
+      }
+    }
+  }
+`);
+
+export const BlockquoteFragment = graphql(
+  `
+    fragment BlockquoteFragment on BlockquoteRecord {
+      content
+      footer
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export const HighlightedBlockFragment = graphql(`
+  fragment HighlightedBlockFragment on HighlightedBlockRecord {
+    title
+    content
+    backgroundColor
+  }
+`);
+
+export const TableFragment = graphql(`
+  fragment TableFragment on TableRecord {
+    content
+  }
+`);
+
+export const FootnoteFragment = graphql(`
+  fragment FootnoteFragment on FootnoteRecord {
+    title
+    content
+  }
+`);
+
+export const GuideFragment = graphql(
+  `
+    fragment GuideFragment on GuideCardRecord {
+      title
+      introduction
+      guideNumber
+      icon {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export const GridFragment = graphql(
+  `
+    fragment GridFragment on GridRecord {
+      firstColumn {
+        value
+        blocks {
+          __typename
+          ... on RecordInterface {
+            id
+          }
+          ...GuideFragment
+          ...GenericCardFragment
+          ...AccordionBlockFragment
+        }
+      }
+      secondColumn {
+        value
+        blocks {
+          __typename
+          ... on RecordInterface {
+            id
+          }
+
+          ...GuideFragment
+          ...GenericCardFragment
+          ...AccordionBlockFragment
+        }
+      }
+    }
+  `,
+  [GuideFragment, GenericCardFragment, AccordionBlockFragment],
+);
+
+export const ApproachBlockFragment = graphql(
+  `
+    fragment ApproachBlockFragment on ApproachBlockRecord {
+      headline
+      title
+      introduction
+      cta {
+        ...CTAFragment
+      }
+      backgroundColor
+    }
+  `,
+  [CTAFragment],
+);
+
+export const SignUpBlockFragment = graphql(
+  `
+    fragment SignUpBlockFragment on SignUpBlockRecord {
+      title
+      introduction
+      withFeaturedContent
+      featuredTitle
+      featuredImage {
+        ...ImageFragment
+      }
+      featuredLink {
+        ...GlobalLinkFragment
+      }
+    }
+  `,
+  [ImageFragment, GlobalLinkFragment],
+);
+
+export const ThinkingBlockFragment = graphql(
+  `
+    fragment ThinkingBlockFragment on ThinkingBlockRecord {
+      title
+      items {
+        ... on ThinkingCardRecord {
+          id
+          title
+          introduction
+          image {
+            ...ImageFragment
+          }
+          link {
+            ...GlobalLinkFragment
+          }
+        }
+      }
+    }
+  `,
+  [ImageFragment, GlobalLinkFragment],
+);
+
+export const StatsBlockFragment = graphql(`
+  fragment StatsBlockFragment on StatsBlockRecord {
+    title
+    items {
+      ... on StatItemRecord {
+        id
+        value
+        label
+      }
+    }
+  }
+`);
+
+export const ColumnsBlockFragment = graphql(`
+  fragment ColumnsBlockFragment on ColumnsBlockRecord {
+    title
+    items {
+      ... on ColumnItemRecord {
+        id
+        title
+        introduction
+      }
+    }
+  }
+`);
+
+export const SubstackManualFeedFragment = graphql(
+  `
+    fragment SubstackManualFeedFragment on SubstackManualFeedRecord {
+      title
+      introduction
+      variant
+      backgroundColor
+      cta {
+        ...CTAFragment
+      }
+      items {
+        ...SubstackCardFragment
+      }
+    }
+  `,
+  [CTAFragment, SubstackCardFragment],
+);
+
+export const GalleryImageInformationFragment = graphql(
+  `
+    fragment GalleryImageInformationFragment on GalleryImageInformationBlockRecord {
+      title
+      highlightedInformation
+      information
+      ctas {
+        ...CTAFragment
+      }
+      items {
+        id
+        preTitle
+        title
+        image {
+          ...ImageBlockFragment
+        }
+      }
+    }
+  `,
+  [CTAFragment, ImageBlockFragment],
+);
+
+export const LinksBlockFragment = graphql(
+  `
+    fragment LinksBlockFragment on LinksBlockRecord {
+      title
+      ctas {
+        ...CTAFragment
+      }
+    }
+  `,
+  [CTAFragment],
+);
+
 export const SignupBlockFragment = graphql(
   `
     fragment SignupBlockFragment on SignUpBlockRecord {
@@ -112,35 +450,6 @@ export const NarrativeBlockFragment = graphql(
   [CTAFragment, ImageFragment],
 );
 
-export const SubstackManualFeedFragment = graphql(
-  `
-    fragment SubstackManualFeedFragment on SubstackManualFeedRecord {
-      __typename
-      id
-      title
-      introduction
-      backgroundColor
-      variant
-      cta {
-        ...CTAFragment
-      }
-      items {
-        ... on SubstackCardRecord {
-          id
-          title
-          introduction
-          url
-          variant
-          image {
-            ...ImageFragment
-          }
-        }
-      }
-    }
-  `,
-  [CTAFragment, ImageFragment],
-);
-
 export const HighlightTextBlockFragment = graphql(
   `
     fragment HighlightTextBlockFragment on HighlightTextBlockRecord {
@@ -163,49 +472,14 @@ export const AwarenessBlockFragment = graphql(
       __typename
       id
       caseStudyCard {
-        ... on GenericCardRecord {
-          id
-          title
-          preTitle
-          introduction
-          image {
-            ...ImageFragment
-          }
-          cta {
-            ...CTAFragment
-          }
-        }
+        ...GenericCardFragment
       }
       podcastCard {
-        ... on PodcastCardRecord {
-          id
-          title
-          preTitle
-          introduction
-          cta {
-            ...CTAFragment
-          }
-          icon {
-            ...ImageFragment
-          }
-          higlightedPodcast {
-            ... on PodcastRecord {
-              id
-              title
-              episode
-              introduction
-              image {
-                ...ImageFragment
-              }
-              slug
-              _modelApiKey
-            }
-          }
-        }
+        ...PodcastCardFragment
       }
     }
   `,
-  [CTAFragment, ImageFragment],
+  [GenericCardFragment, PodcastCardFragment],
 );
 
 export const CampaignBlockFragment = graphql(
@@ -259,25 +533,11 @@ export const MediaBlockFragment = graphql(
       title
       information
       items {
-        ... on ImageBlockRecord {
-          id
-          image {
-            ... on AltFileField {
-              id
-              alt
-              width
-              height
-              url
-            }
-          }
-          link {
-            ...GlobalLinkFragment
-          }
-        }
+        ...ImageBlockFragment
       }
     }
   `,
-  [GlobalLinkFragment],
+  [ImageBlockFragment],
 );
 
 export const DonateBlockFragment = graphql(
@@ -493,137 +753,19 @@ export const BasicPageQuery = graphql(
             ... on RecordInterface {
               id
             }
-            ... on CtaRecord {
-              ...CTAFragment
-            }
-            ... on ImageBlockRecord {
-              image {
-                url
-                width
-                height
-                alt
-              }
-            }
-            ... on ImageContentBlockRecord {
-              content
-              image {
-                ...ImageFragment
-              }
-            }
-            ... on NarrativeBlockRecord {
-              title
-              introduction
-              ctas {
-                ...CTAFragment
-              }
-              image {
-                ...ImageFragment
-              }
-              imagePosition
-            }
-            ... on ApproachBlockRecord {
-              headline
-              title
-              introduction
-              cta {
-                ...CTAFragment
-              }
-              backgroundColor
-            }
-            ... on SignUpBlockRecord {
-              title
-              introduction
-              withFeaturedContent
-              featuredTitle
-              featuredImage {
-                ...ImageFragment
-              }
-              featuredLink {
-                ...GlobalLinkFragment
-              }
-            }
-            ... on ThinkingBlockRecord {
-              title
-              items {
-                ... on ThinkingCardRecord {
-                  id
-                  title
-                  introduction
-                  image {
-                    ...ImageFragment
-                  }
-                  link {
-                    ...GlobalLinkFragment
-                  }
-                }
-              }
-            }
-            ... on StatsBlockRecord {
-              title
-              items {
-                ... on StatItemRecord {
-                  id
-                  value
-                  label
-                }
-              }
-            }
+            ...CTAFragment
+            ...ImageBlockFragment
+            ...ImageContentBlockFragment
+            ...NarrativeBlockFragment
+            ...ApproachBlockFragment
+            ...SignUpBlockFragment
+            ...ThinkingBlockFragment
+            ...StatsBlockFragment
             ...ImpactBlockFragment
-            ... on ColumnsBlockRecord {
-              title
-              items {
-                ... on ColumnItemRecord {
-                  id
-                  title
-                  introduction
-                }
-              }
-            }
-            ... on SubstackManualFeedRecord {
-              title
-              introduction
-              variant
-              backgroundColor
-              cta {
-                ...CTAFragment
-              }
-              items {
-                ... on SubstackCardRecord {
-                  id
-                  title
-                  introduction
-                  variant
-                  image {
-                    ...ImageFragment
-                  }
-                }
-              }
-            }
-            ... on GalleryImageInformationBlockRecord {
-              title
-              highlightedInformation
-              information
-              ctas {
-                ...CTAFragment
-              }
-              items {
-                id
-                preTitle
-                title
-                image {
-                  id
-                  image {
-                    url
-                  }
-                }
-              }
-            }
-            ... on LinksBlockRecord {
-              title
-              ctas {
-                ...CTAFragment
-              }
-            }
+            ...ColumnsBlockFragment
+            ...SubstackManualFeedFragment
+            ...GalleryImageInformationFragment
+            ...LinksBlockFragment
           }
         }
       }
@@ -638,7 +780,22 @@ export const BasicPageQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment, ImpactBlockFragment],
+  [
+    CTAFragment,
+    ImageBlockFragment,
+    ImageContentBlockFragment,
+    NarrativeBlockFragment,
+    ImpactBlockFragment,
+    ApproachBlockFragment,
+    SignUpBlockFragment,
+    ThinkingBlockFragment,
+    StatsBlockFragment,
+    ImpactBlockFragment,
+    ColumnsBlockFragment,
+    SubstackManualFeedFragment,
+    GalleryImageInformationFragment,
+    LinksBlockFragment,
+  ],
 );
 
 export const PodcastListQuery = graphql(
@@ -659,16 +816,7 @@ export const PodcastListQuery = graphql(
         }
       }
       podcasts: allPodcasts(filter: { title: { matches: { pattern: $searchQuery } } }) {
-        ... on PodcastRecord {
-          id
-          title
-          introduction
-          image {
-            ...ImageFragment
-          }
-          slug
-          __typename
-        }
+        ...PodcastFragment
       }
       configuration {
         newsletterTitle
@@ -683,7 +831,7 @@ export const PodcastListQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment],
+  [ImageFragment, CTAFragment, PodcastFragment],
 );
 
 export const PodcastDetailQuery = graphql(
@@ -734,6 +882,66 @@ export const PodcastDetailQuery = graphql(
   [ImageFragment, CTAFragment],
 );
 
+export const BlogDetailPageQuery = graphql(
+  `
+    query BlogDetailPageQuery($slug: String) {
+      page: blog(filter: { slug: { eq: $slug } }) {
+        title
+        introduction
+        backCta {
+          ...CTAFragment
+        }
+        cta {
+          ...CTAFragment
+        }
+        backgroundImage {
+          ...ImageFragment
+        }
+        content {
+          value
+          blocks {
+            __typename
+            ... on RecordInterface {
+              id
+            }
+            ...CTAFragment
+            ...ImageBlockFragment
+            ...AccordionBlockFragment
+            ...BlockquoteFragment
+            ...HighlightedBlockFragment
+            ...TableFragment
+            ...FootnoteFragment
+            ...GenericCardFragment
+            ...GridFragment
+          }
+        }
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [
+    ImageFragment,
+    ImageBlockFragment,
+    AccordionBlockFragment,
+    CTAFragment,
+    AccordionBlockFragment,
+    BlockquoteFragment,
+    HighlightedBlockFragment,
+    TableFragment,
+    FootnoteFragment,
+    GenericCardFragment,
+    GridFragment,
+  ],
+);
+
 // Utils
 export const LatestPodcastQuery = graphql(
   `
@@ -761,11 +969,7 @@ export const FooterQuery = graphql(
       footer {
         id
         logo {
-          id
-          url
-          alt
-          width
-          height
+          ...ImageFragment
         }
         mediaInquiriesEmail
         generalQuestionsEmail
@@ -793,7 +997,7 @@ export const FooterQuery = graphql(
       }
     }
   `,
-  [GlobalLinkFragment],
+  [GlobalLinkFragment, ImageFragment],
 );
 
 export const NavbarQuery = graphql(

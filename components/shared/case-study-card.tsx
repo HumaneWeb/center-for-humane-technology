@@ -2,6 +2,7 @@ import { type ResultOf } from '@/lib/cms/graphql';
 import Cta from './cta';
 import CustomImage from './custom-image';
 import { AwarenessBlockFragment } from '@/lib/cms/query';
+import CtaList from './cta-list';
 
 type Props = ResultOf<typeof AwarenessBlockFragment>;
 
@@ -29,7 +30,7 @@ export default function CaseStudyCard({ title, preTitle, image, introduction, ct
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
       )}
-      {cta && <Cta {...cta} />}
+      {cta && <CtaList items={cta} />}
     </article>
   );
 }

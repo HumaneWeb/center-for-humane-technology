@@ -14,6 +14,7 @@ type SearchEngineProps = {
 
 export default function SearchEngine({ onClose }: SearchEngineProps) {
   const [query, setQuery] = useState<string>('');
+  const [sent, setIsSent] = useState<boolean>(false);
 
   const { state, error, data } = useSiteSearch({
     client,
@@ -46,6 +47,7 @@ export default function SearchEngine({ onClose }: SearchEngineProps) {
           onSubmit={(e) => {
             e.preventDefault();
             state.setQuery(query);
+            setIsSent(true);
           }}
           className="flex flex-col gap-3"
         >

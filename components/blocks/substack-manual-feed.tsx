@@ -1,6 +1,6 @@
 import { FragmentOf, readFragment } from '@/lib/cms/graphql';
 import { SubstackManualFeedFragment } from '@/lib/cms/query';
-import SubstackCard from '../shared/substack-card';
+import SubstackCard from '../shared/generic-card';
 import Cta from '../shared/cta';
 import { cn } from '@/lib/utils/css.utils';
 

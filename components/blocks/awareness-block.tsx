@@ -28,7 +28,7 @@ export default async function AwarenessBlock(data: Props) {
             introduction={podcastCard.introduction}
             cta={podcastCard.cta}
             icon={podcastCard.icon}
-            podcast={podcastCard.higlightedPodcast ?? podcast}
+            podcast={podcastCard.highlightedPodcast ?? podcast}
           />
         </div>
       </div>

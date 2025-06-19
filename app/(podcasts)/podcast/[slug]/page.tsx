@@ -228,27 +228,27 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
             <div className="flex flex-col gap-5">
               <a
                 href=""
-                className="text-primary-teal font-sans text-xl leading-120 font-medium underline"
+                className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
               >
                 This is a piece of thought leadership by CHT or an intervention or a case study
               </a>
               <a
                 href=""
-                className="text-primary-teal font-sans text-xl leading-120 font-medium underline"
+                className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
               >
                 This is a piece of thought leadership by CHT or an intervention or a case study
               </a>
             </div>
           </div>
           <div>
-            <h2 className="text-primary-blue mb-8 font-sans text-3xl leading-130 font-semibold">
+            <h2 className="text-primary-blue hover:text-primary-navy mb-8 font-sans text-3xl leading-130 font-semibold transition-all duration-200 ease-in">
               Other recommended reading
             </h2>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-[5px]">
                 <a
                   href=""
-                  className="text-primary-teal font-sans text-xl leading-120 font-medium underline"
+                  className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
                 >
                   Further reading on the rise of addictive intelligence
                 </a>
@@ -259,7 +259,7 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
               <div className="flex flex-col gap-[5px]">
                 <a
                   href=""
-                  className="text-primary-teal font-sans text-xl leading-120 font-medium underline"
+                  className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
                 >
                   More information on Melvin Kranzberg’s laws of technology
                 </a>
