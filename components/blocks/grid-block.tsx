@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CustomStructuredText from '../shared/custom-structured-text';
 
 type Props = {

@@ -29,12 +29,12 @@ export default function NarrativeBlock({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           {image && (
-            <div className={isImageLeft ? 'order-1' : 'order-2'}>
+            <div className={isImageLeft ? 'order-2' : 'order-1'}>
               <CustomImage {...image} />
             </div>
           )}
 
-          <div className={isImageLeft ? 'order-2' : 'order-1'}>
+          <div className={isImageLeft ? 'order-1' : 'order-2'}>
             <h2
               className={cn(
                 'text-primary-navy tracking-049 mb-8 font-sans text-5xl leading-110 font-semibold',

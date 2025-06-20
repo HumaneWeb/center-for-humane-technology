@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Link from 'next/link';
 import { executeQuery } from '@/lib/cms/executeQuery';

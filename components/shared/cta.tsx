@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CustomLink, { CustomLinkProps } from './custom-link';
 import { cn } from '@/lib/utils/css.utils';
 

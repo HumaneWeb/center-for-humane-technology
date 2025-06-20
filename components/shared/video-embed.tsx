@@ -35,8 +35,8 @@ export default function VideoEmbed({ title, url, thumbnailUrl }: YouTubeEmbedPro
               alt={title}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="bg-opacity-30 group-hover:bg-opacity-40 absolute inset-0 flex items-center justify-center bg-black transition-opacity duration-300">
-              <div className="transform p-4 shadow-lg transition-transform duration-300 group-hover:scale-110">
+            <div className="bg-opacity-30 group-hover:bg-opacity-40 absolute top-0 left-0 flex h-full w-full items-center justify-center transition-opacity duration-300">
+              <div className="transform shadow-lg transition-transform duration-300 group-hover:scale-110">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="161"

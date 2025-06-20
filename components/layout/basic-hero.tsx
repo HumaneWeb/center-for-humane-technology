@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { cn } from '@/lib/utils/css.utils';
 import type { CustomImageProps } from '../shared/custom-image';

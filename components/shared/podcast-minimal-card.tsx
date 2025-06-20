@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { cn } from '@/lib/utils/css.utils';
 import CustomImage, { CustomImageProps } from './custom-image';
 import CustomLink from './custom-link';

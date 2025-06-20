@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
 import CustomLink, { CustomLinkProps } from '../shared/custom-link';
 

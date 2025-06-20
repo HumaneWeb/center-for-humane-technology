@@ -84,10 +84,10 @@ body {
 }
 
 @utility testing {
-  opacity: 0.35;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 100%), url("https://www.datocms-assets.com/160835/1749477555-photo-1.png") lightgray 30% / cover no-repeat;
+  /* opacity: 0.35; */
+  background: radial-gradient(0% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 100%), url("https://www.datocms-assets.com/160835/1749477555-photo-1.png") lightgray 30% / cover no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   mix-blend-mode: hard-light;
 }
 
