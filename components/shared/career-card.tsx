@@ -6,8 +6,8 @@ type Props = {
 
 export default function CareerCard({ title, introduction }: Props) {
   return (
-    <article>
-      <h3 className="text-primary-teal mb-2 font-sans text-2xl leading-130 font-semibold">
+    <article className="group">
+      <h3 className="text-primary-teal group-hover:text-primary-navy mb-2 font-sans text-2xl leading-130 font-semibold transition-all duration-200 ease-in">
         {title}
       </h3>
       {introduction && (
