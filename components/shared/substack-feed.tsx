@@ -60,7 +60,7 @@ export default function SubstackFeed({ children }: Props) {
   // }, []);
 
   return (
-    <section className="mx-auto max-w-7xl py-14">
+    <section className="mx-auto max-w-7xl pb-14">
       <div data-supascribe-embed-id="834706015840" data-supascribe-feed></div>
       {children && children}
     </section>

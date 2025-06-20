@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
 import Script from 'next/script';
 
 import './globals.css';
@@ -27,10 +25,7 @@ export default function RootLayout({
       </head>
 
       <body className={`flex min-h-screen flex-col antialiased`}>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-
+        {children}
         <Script src="https://js.supascribe.com/v1/loader/0PyjPA3c4Cew9C80vN0BMFKcpWn1.js" async />
       </body>
     </html>

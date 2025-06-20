@@ -55,18 +55,22 @@ function AnimatedValue({ value }: { value: string }) {
 
 export default function StatsBlock({ title, items, variant = 'default' }: Props) {
   return (
-    // bg-landing-stats
     <section
       className={cn(
         'bg-primary-blue mt-20 mb-32 pt-14 pb-20',
         variant === 'landing' && 'bg-landing-stats w-full',
       )}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div
+        className={cn(
+          'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
+          variant === 'landing' && 'lg:px-16',
+        )}
+      >
         <h3
           className={cn(
             'text-primary-cream mb-14 font-sans text-2xl leading-130 font-semibold',
-            variant === 'landing' && 'tracking-025 text-center leading-110 font-medium',
+            variant === 'landing' && 'tracking-025 mb-20 text-center leading-110 font-medium',
           )}
         >
           {title}

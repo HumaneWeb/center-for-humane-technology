@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils/css.utils';
 import { useState } from 'react';
 
 type Props = {
@@ -7,9 +8,10 @@ type Props = {
     title: string;
     content: string;
   }[];
+  variant?: 'default' | 'small';
 };
 
-export default function AccordionBlock({ items }: Props) {
+export default function AccordionBlock({ items, variant = 'default' }: Props) {
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
   const toggleItem = (itemId: string) => {
@@ -28,12 +30,20 @@ export default function AccordionBlock({ items }: Props) {
             <h2 id={`accordion-collapse-heading-${item.id}`}>
               <button
                 type="button"
-                className={`flex w-full cursor-pointer items-center justify-between gap-3 bg-[#F0F7F7] px-8 py-6 font-medium text-gray-500 transition-colors duration-200`}
+                className={cn(
+                  'flex w-full cursor-pointer items-center justify-between gap-3 bg-[#F0F7F7] px-8 py-6 font-medium text-gray-500 transition-colors duration-200',
+                  variant === 'small' && 'px-4 py-3',
+                )}
                 onClick={() => toggleItem(item.id)}
                 aria-expanded={isActive}
                 aria-controls={`accordion-collapse-body-${item.id}`}
               >
-                <span className="font-sans text-2xl leading-120 font-semibold text-[#262626]">
+                <span
+                  className={cn(
+                    'font-sans text-2xl leading-120 font-semibold text-[#262626]',
+                    variant === 'small' && 'text-[16px]',
+                  )}
+                >
                   {item.title}
                 </span>
                 <svg
@@ -42,9 +52,12 @@ export default function AccordionBlock({ items }: Props) {
                   height="31"
                   viewBox="0 0 30 31"
                   fill="none"
-                  className={`shrink-0 transition-transform duration-300 ${
-                    isActive ? 'rotate-180' : 'rotate-0'
-                  }`}
+                  className={cn(
+                    `shrink-0 transition-transform duration-300 ${
+                      isActive ? 'rotate-180' : 'rotate-0'
+                    }`,
+                    variant === 'small' && 'h-5 w-5',
+                  )}
                 >
                   <path
                     d="M24.375 10.979L15 20.354L5.625 10.979"
@@ -58,13 +71,19 @@ export default function AccordionBlock({ items }: Props) {
             </h2>
             <div
               id={`accordion-collapse-body-${item.id}`}
-              className={`overflow-hidden bg-[#F0F7F7] px-8 transition-all duration-300 ease-in-out ${
-                isActive ? 'max-h-max py-4 opacity-100' : 'max-h-0 opacity-0'
-              }`}
+              className={cn(
+                `overflow-hidden bg-[#F0F7F7] px-8 transition-all duration-300 ease-in-out ${
+                  isActive ? 'max-h-max py-4 opacity-100' : 'max-h-0 opacity-0'
+                }`,
+                variant === 'small' && 'px-4 py-3',
+              )}
               aria-labelledby={`accordion-collapse-heading-${item.id}`}
             >
               <div
-                className="text-primary-navy [&>ul>li>a]:text-primary-teal text-xl leading-140 [&>p]:mb-4 [&>ul>li>a]:font-semibold"
+                className={cn(
+                  'text-primary-navy [&>ul>li>a]:text-primary-teal text-xl leading-140 [&>p]:mb-4 [&>ul>li>a]:font-semibold',
+                  variant === 'small' && 'text-base',
+                )}
                 dangerouslySetInnerHTML={{ __html: item.content }}
               />
             </div>

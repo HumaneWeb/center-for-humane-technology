@@ -83,6 +83,10 @@ body {
   background: linear-gradient(180deg, rgba(248, 244, 239, 0.00) 0%, #F8F4EF 30%);
 }
 
+@utility bg-basic-hero-blue {
+  background: linear-gradient(261deg, #546AC8 0%, #293462 100%);
+}
+
 @utility testing {
   /* opacity: 0.35; */
   background: radial-gradient(0% 50% at 50% 50%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 100%), url("https://www.datocms-assets.com/160835/1749477555-photo-1.png") lightgray 30% / cover no-repeat;
@@ -337,5 +341,5 @@ body {
 
 hr {
   color: #A8ADB6;
-  margin: 0 2rem;
+  margin: 60px 2rem;
 }

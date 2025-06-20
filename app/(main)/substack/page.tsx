@@ -21,7 +21,10 @@ export default async function SubstackPage() {
         </div>
       </BasicHero>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pt-17 sm:px-6 lg:px-8">
+        <h4 className="text-primary-navy font-sans text-[29px] leading-130 font-semibold">
+          Latest
+        </h4>
         <SubstackFeed>
           <Cta
             label="Explore more articles"

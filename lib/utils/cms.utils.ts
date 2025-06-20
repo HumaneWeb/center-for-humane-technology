@@ -2,8 +2,7 @@ const CMS_MODELS_ROUTE_MAP = {
   BasicPageRecord: '',
   PodcastRecord: '/podcast',
   TeamMemberRecord: '/team-board',
-  event: '/event',
-  post: '/posts',
+  LandingRecord: '/landing',
 } as const;
 
 type CmsModelKey = keyof typeof CMS_MODELS_ROUTE_MAP;

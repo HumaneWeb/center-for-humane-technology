@@ -124,7 +124,7 @@ export default function CustomStructuredText({
               )}
               key={record.id}
             >
-              <AccordionBlock {...record} />
+              <AccordionBlock {...record} variant={isInnerContainer ? 'small' : 'default'} />
             </div>
           );
         }
@@ -201,7 +201,7 @@ export default function CustomStructuredText({
           return (
             <div
               className={cn(
-                'mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8',
+                'generic-card-record mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8 [&+.generic-card-record]:mt-4 [&:has(+.generic-card-record)]:mb-0',
                 isInnerContainer && 'my-0 h-full max-w-full px-0 sm:px-0 lg:px-0',
                 centerContent && 'mx-auto max-w-[840px] px-0!',
               )}
@@ -237,6 +237,7 @@ export default function CustomStructuredText({
                             className: cn(
                               'font-sans text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
                               centerContent && 'mx-auto',
+                              isInnerContainer && 'text-[16px]',
                             ),
                           },
                           children,
@@ -267,8 +268,8 @@ export default function CustomStructuredText({
                   return (
                     <div
                       className={cn(
-                        'mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
-                        isInnerContainer && 'my-0 max-w-full px-0 sm:px-0 lg:px-0',
+                        'mx-auto mb-6 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                        isInnerContainer && 'mb-0 max-w-full px-0 sm:px-0 lg:px-0',
                       )}
                       key={key}
                     >
@@ -278,6 +279,7 @@ export default function CustomStructuredText({
                           className: cn(
                             'font-sans font-semibold leading-130 text-3xl text-primary-navy  max-w-[840px]',
                             centerContent && 'mx-auto',
+                            isInnerContainer && 'text-2xl mb-2',
                           ),
                         },
                         children,

@@ -12,7 +12,7 @@ type Props = {
   cta?: CustomLinkProps | null;
   backCta?: string | null;
   backgroundImage?: CustomImageProps | null;
-  variant?: 'default' | 'purple' | 'white' | 'dark';
+  variant?: 'default' | 'purple' | 'white' | 'dark' | 'blue';
   children?: React.ReactElement;
 };
 
@@ -21,6 +21,7 @@ const variantClasses: Record<NonNullable<Props['variant']>, string> = {
   purple: 'bg-[linear-gradient(261deg,_#A68FF4_0%,_#49419D_100%)]',
   white: 'bg-neutral-white pt-40 pb-15',
   dark: 'pt-40 pb-15',
+  blue: 'bg-basic-hero-blue',
 };
 
 export default function BasicHero({
@@ -66,6 +67,7 @@ export default function BasicHero({
               variant === 'purple' && 'text-primary-cream',
               variant === 'white' && 'tracking-049 text-neutral-white text-[49px] leading-110',
               variant === 'dark' && 'text-primary-navy tracking-049 text-[49px] leading-110',
+              variant === 'blue' && 'text-primary-cream',
             )}
           >
             {title}

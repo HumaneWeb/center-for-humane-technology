@@ -20,6 +20,12 @@ export const GlobalLinkFragment = graphql(`
       ... on TeamBoardRecord {
         slug
       }
+      ... on LandingRecord {
+        slug
+      }
+      ... on DonateRecord {
+        slug
+      }
     }
   }
 `);
@@ -972,6 +978,21 @@ export const LandingPageQuery = graphql(
     }
   `,
   [ImageFragment, CTAFragment, StatsBlockFragment, NarrativeBlockFragment],
+);
+
+export const DonatePageQuery = graphql(
+  `
+    query DonatePageQuery {
+      donate {
+        title
+        information
+        helpItems {
+          ...AccordionBlockFragment
+        }
+      }
+    }
+  `,
+  [AccordionBlockFragment],
 );
 
 // Utils
