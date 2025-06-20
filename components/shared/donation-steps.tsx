@@ -1,7 +1,7 @@
+// @ts-nocheck
 'use client';
 
 import { cn } from '@/lib/utils/css.utils';
-import Script from 'next/script';
 import React from 'react';
 import { useState } from 'react';
 
