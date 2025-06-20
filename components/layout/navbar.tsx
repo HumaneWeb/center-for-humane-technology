@@ -250,8 +250,8 @@ export default function Navbar({ items }: Props) {
     <motion.header
       className="border-primary-navy bg-neutral-white fixed top-0 right-0 left-0 z-40 border-b-[1px] pl-10"
       initial={{ y: 0 }}
-      animate={{ y: isVisible ? 0 : -100 }}
-      transition={{ duration: 0.3, ease: [0.4, 0.0, 0.2, 1] }}
+      animate={{ y: isVisible ? 0 : -1000 }}
+      transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
     >
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center">
