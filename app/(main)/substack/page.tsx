@@ -3,7 +3,8 @@ import DonateBlock from '@/components/blocks/donate-block';
 import NewsletterBlock, { SubstackNewsletterWidget } from '@/components/blocks/newsletter-block';
 import BasicHero from '@/components/layout/basic-hero';
 import Cta from '@/components/shared/cta';
-import SubstackFeed from '@/components/shared/substack-feed';
+import RSSFeedReader from '@/components/shared/rss-feed-reader';
+import SubstackFeed, { BlogFeed } from '@/components/shared/substack-feed';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { SubstackQuery } from '@/lib/cms/query';
 
@@ -21,20 +22,19 @@ export default async function SubstackPage() {
         </div>
       </BasicHero>
 
-      <div className="mx-auto max-w-7xl px-4 pt-17 sm:px-6 lg:px-8">
-        <h4 className="text-primary-navy font-sans text-[29px] leading-130 font-semibold">
+      <div className="mx-auto max-w-7xl px-4 pt-17 pb-30 sm:px-6 lg:px-8">
+        <h4 className="text-primary-navy mb-6 font-sans text-[29px] leading-130 font-semibold">
           Latest
         </h4>
-        <SubstackFeed>
-          <Cta
-            label="Explore more articles"
-            link={{
-              // @ts-expect-error
-              externalUrl: 'https://centerforhumanetechnology.substack.com/',
-            }}
-            extraClass="mt-25"
-          />
-        </SubstackFeed>
+        <RSSFeedReader />
+        <Cta
+          label="Explore more articles"
+          link={{
+            // @ts-expect-error
+            externalUrl: 'https://centerforhumanetechnology.substack.com/',
+          }}
+          extraClass="mt-25"
+        />
       </div>
 
       <NewsletterBlock

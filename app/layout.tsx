@@ -26,7 +26,7 @@ export default function RootLayout({
 
       <body className={`flex min-h-screen flex-col antialiased`}>
         {children}
-        <Script src="https://js.supascribe.com/v1/loader/0PyjPA3c4Cew9C80vN0BMFKcpWn1.js" async />
+        <Script src="https://js.supascribe.com/v1/loader/0PyjPA3c4Cew9C80vN0BMFKcpWn1.js" />
       </body>
     </html>
   );

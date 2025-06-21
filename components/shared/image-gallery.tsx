@@ -78,7 +78,7 @@ export default function ImageGallery({ images, autoPlayInterval = 5000 }: ImageG
                 draggable="false"
                 loading="eager"
               />
-              <div className="text-primary-cream absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+              <div className="text-primary-cream absolute right-0 bottom-0 left-0 flex h-[250px] flex-col items-start justify-end bg-gradient-to-t from-black to-transparent p-6">
                 <div className="font-sans text-sm leading-140 font-semibold uppercase">
                   {images[currentIndex].preTitle}
                 </div>

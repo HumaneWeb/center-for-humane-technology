@@ -16,3 +16,19 @@ export type NavbarChildren = {
 export type PageSlug = {
   params: Promise<{ slug: string }>;
 };
+
+export interface RSSItem {
+  title: string;
+  description: string;
+  link: string;
+  imageUrl?: string;
+  pubDate: string;
+  author?: string;
+  guid?: string;
+}
+
+export interface RSSFeed {
+  title?: string;
+  description?: string;
+  items: RSSItem[];
+}
