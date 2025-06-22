@@ -26,6 +26,9 @@ export const GlobalLinkFragment = graphql(`
       ... on DonateRecord {
         slug
       }
+      ... on ContactRecord {
+        slug
+      }
     }
   }
 `);
@@ -994,6 +997,17 @@ export const DonatePageQuery = graphql(
   `,
   [AccordionBlockFragment],
 );
+
+export const ContactPageQuery = graphql(`
+  query ContactPageQuery {
+    page: contact {
+      id
+      title
+      preTitle
+      information
+    }
+  }
+`);
 
 // Utils
 export const LatestPodcastQuery = graphql(
