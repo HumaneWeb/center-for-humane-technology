@@ -1,8 +1,11 @@
+import Footer from '@/components/layout/footer';
+import Header from '@/components/layout/header';
 import Link from 'next/link';
 
 const NotFound = () => {
   return (
     <>
+      <Header />
       <section className="pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
         <div className="container m-auto">
           <div className="-mx-4 flex flex-wrap">
@@ -26,6 +29,7 @@ const NotFound = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };
