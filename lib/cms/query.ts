@@ -551,6 +551,20 @@ export const DonateBlockFragment = graphql(
   [CTAFragment, ImageFragment],
 );
 
+export const SocialNetworksFragment = graphql(`
+  fragment SocialNetworksFragment on SocialNetworksBlockRecord {
+    id
+    facebookUrl
+    facebookLabel
+    twitterXUrl
+    twitterXLabel
+    linkedinUrl
+    linkedinLabel
+    youtubeUrl
+    youtubeLabel
+  }
+`);
+
 export const TagFragment = graphql(`
   fragment TagFragment on Tag {
     tag
@@ -998,16 +1012,22 @@ export const DonatePageQuery = graphql(
   [AccordionBlockFragment],
 );
 
-export const ContactPageQuery = graphql(`
-  query ContactPageQuery {
-    page: contact {
-      id
-      title
-      preTitle
-      information
+export const ContactPageQuery = graphql(
+  `
+    query ContactPageQuery {
+      page: contact {
+        id
+        title
+        preTitle
+        information
+        networks {
+          ...SocialNetworksFragment
+        }
+      }
     }
-  }
-`);
+  `,
+  [SocialNetworksFragment],
+);
 
 // Utils
 export const LatestPodcastQuery = graphql(
