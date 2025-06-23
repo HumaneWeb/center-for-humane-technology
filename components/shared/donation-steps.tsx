@@ -89,7 +89,7 @@ export default function DonationSteps() {
             <RadioGroupItem value="monthly" id="monthly" />
             <Label
               htmlFor="monthly"
-              className="text-primary-navy flex-1 cursor-pointer text-xl leading-140 font-medium"
+              className="text-primary-navy flex-1 cursor-pointer text-[18px] leading-140 font-medium"
             >
               Donate monthly
             </Label>
@@ -98,7 +98,7 @@ export default function DonationSteps() {
             <RadioGroupItem value="once" id="once" />
             <Label
               htmlFor="once"
-              className="text-primary-navy flex-1 cursor-pointer text-xl leading-140 font-medium"
+              className="text-primary-navy flex-1 cursor-pointer text-[18px] leading-140 font-medium"
             >
               Donate once
             </Label>
@@ -106,7 +106,7 @@ export default function DonationSteps() {
         </RadioGroup>
 
         {formData.frequency === 'once' && (
-          <div className="mb-8 text-[16px] leading-140 text-[#0B1023]">
+          <div className="mb-8 text-[15px] leading-140 text-[#0B1023]">
             Monthly donations help us plan ahead and make a bigger difference.{' '}
             <button
               className="cursor-pointer underline"
@@ -158,7 +158,10 @@ export default function DonationSteps() {
               handleInputChange('coverFees', checked as boolean)
             }
           />
-          <Label htmlFor="cover-fees" className="text-primary-navy text-[16px] leading-140">
+          <Label
+            htmlFor="cover-fees"
+            className="text-primary-navy text-[14px] leading-140 font-normal"
+          >
             I'd like to cover the processing fee so that all of my gift will go to CHT
           </Label>
         </div>
@@ -210,7 +213,7 @@ export default function DonationSteps() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('firstName', e.target.value)
             }
-            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-xl leading-140 font-medium"
+            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-medium"
           />
         </div>
 
@@ -222,7 +225,7 @@ export default function DonationSteps() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('lastName', e.target.value)
             }
-            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-xl leading-140 font-medium"
+            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-medium"
           />
         </div>
 
@@ -235,7 +238,7 @@ export default function DonationSteps() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('email', e.target.value)
             }
-            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-xl leading-140 font-medium"
+            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-medium"
           />
         </div>
 

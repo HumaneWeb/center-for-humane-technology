@@ -199,7 +199,7 @@ export default function ContactForm() {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group inline-block cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
+          className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group inline-block min-w-[216px] cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
         >
           Send Message
         </button>
