@@ -143,6 +143,7 @@ export const ImageBlockFragment = graphql(
 export const ImageContentBlockFragment = graphql(
   `
     fragment ImageContentBlockFragment on ImageContentBlockRecord {
+      id
       content
       image {
         ...ImageFragment
@@ -178,13 +179,41 @@ export const BlockquoteFragment = graphql(
   [ImageFragment],
 );
 
-export const HighlightedBlockFragment = graphql(`
-  fragment HighlightedBlockFragment on HighlightedBlockRecord {
-    title
-    content
-    backgroundColor
-  }
-`);
+export const HighlightedBlockFragment = graphql(
+  `
+    fragment HighlightedBlockFragment on HighlightedBlockRecord {
+      title
+      content
+      backgroundColor
+      variant
+      cta {
+        ...CTAFragment
+      }
+    }
+  `,
+  [CTAFragment],
+);
+
+export const RelatedAnchorBlockFragment = graphql(
+  `
+    fragment RelatedAnchorBlockFragment on RelatedAnchorBlockRecord {
+      items {
+        id
+        title
+        introduction
+        image {
+          ...ImageFragment
+        }
+        items {
+          ...ImageContentBlockFragment
+        }
+        information
+      }
+      information
+    }
+  `,
+  [ImageFragment, ImageContentBlockFragment],
+);
 
 export const TableFragment = graphql(`
   fragment TableFragment on TableRecord {
@@ -774,6 +803,8 @@ export const BasicPageQuery = graphql(
             ...GenericCardsGridFragment
             ...GalleryImageInformationFragment
             ...LinksBlockFragment
+            ...HighlightedBlockFragment
+            ...RelatedAnchorBlockFragment
           }
         }
       }
@@ -803,6 +834,8 @@ export const BasicPageQuery = graphql(
     GenericCardsGridFragment,
     GalleryImageInformationFragment,
     LinksBlockFragment,
+    HighlightedBlockFragment,
+    RelatedAnchorBlockFragment,
   ],
 );
 

@@ -1,4 +1,5 @@
 import Footer from '@/components/layout/footer';
+import Script from 'next/script';
 
 export default function DonateLayout({
   children,
@@ -9,6 +10,7 @@ export default function DonateLayout({
     <>
       <main className="flex-1">{children}</main>
       <Footer />
+      <Script src="https://js.stripe.com/v3" />
     </>
   );
 }

@@ -28,17 +28,37 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({ className, onCheckedChange, checked, ...props }, ref) => {
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
+    React.useImperativeHandle(ref, () => inputRef.current!);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onCheckedChange?.(e.target.checked);
       props.onChange?.(e);
     };
 
+    const handleDivClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (props.disabled) return;
+
+      inputRef.current?.click();
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        if (!props.disabled) {
+          inputRef.current?.click();
+        }
+      }
+    };
+
     return (
-      <div className="relative inline-flex items-center">
+      <label className="relative inline-flex cursor-pointer items-center">
         <input
           type="checkbox"
           className="sr-only"
-          ref={ref}
+          ref={inputRef}
           checked={checked}
           onChange={handleChange}
           {...props}
@@ -50,10 +70,16 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             checked && 'border-primary-blue bg-primary-blue text-white',
             className,
           )}
+          onClick={handleDivClick}
+          onKeyDown={handleKeyDown}
+          tabIndex={props.disabled ? -1 : 0}
+          role="checkbox"
+          aria-checked={checked}
+          aria-disabled={props.disabled}
         >
           {checked && <CheckIcon className="h-3 w-3" />}
         </div>
-      </div>
+      </label>
     );
   },
 );

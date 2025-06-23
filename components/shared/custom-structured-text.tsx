@@ -31,6 +31,7 @@ import GuideCard from './guide-card';
 import GenericCard from './generic-card';
 import GenericCardsGrid from '../blocks/generic-cards-grid';
 import { is } from 'date-fns/locale';
+import RelatedAnchorBlock from '../blocks/related-anchor-block';
 
 export default function CustomStructuredText({
   data,
@@ -157,14 +158,17 @@ export default function CustomStructuredText({
 
         if (record.__typename === 'HighlightedBlockRecord') {
           return (
-            <div
-              className={cn(
-                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
-                centerContent && 'mx-auto max-w-[840px] px-0!',
-              )}
-              key={record.id}
-            >
-              <HighlightedBlock {...record} />
+            <div className={cn(record.variant === 'with-container-color' && 'py-32')}>
+              <div
+                className={cn(
+                  'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                  centerContent && 'mx-auto max-w-[840px] px-0!',
+                  record.variant === 'with-container-color' && 'my-0',
+                )}
+                key={record.id}
+              >
+                <HighlightedBlock {...record} />
+              </div>
             </div>
           );
         }
@@ -208,6 +212,19 @@ export default function CustomStructuredText({
               key={record.id}
             >
               <GenericCard {...record} />
+            </div>
+          );
+        }
+        if (record.__typename === 'RelatedAnchorBlockRecord') {
+          return (
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'mx-auto max-w-[840px] px-0!',
+              )}
+              key={record.id}
+            >
+              <RelatedAnchorBlock {...record} />
             </div>
           );
         }

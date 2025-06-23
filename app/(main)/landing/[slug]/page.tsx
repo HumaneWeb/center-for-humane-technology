@@ -59,8 +59,8 @@ export default async function LandingPage() {
           </div>
         </div>
 
-        <div className="testing">
-          <div className="mx-auto mb-50 flex min-h-[973px] max-w-7xl flex-col justify-end px-4 sm:px-6 lg:px-8">
+        <div className="">
+          <div className="mx-auto mb-50 flex min-h-[800px] max-w-7xl flex-col justify-end px-4 sm:px-6 lg:px-8">
             <h3 className="text-neutral-white tracking-049 mb-16 font-sans text-[49px] leading-110 font-semibold">
               The Impact
             </h3>

@@ -1,18 +1,28 @@
 import { cn } from '@/lib/utils/css.utils';
 import CustomImage, { CustomImageProps } from './custom-image';
 import CtaList from './cta-list';
+import { CtaProps } from './cta';
 
 type Props = {
   id: string;
   title: string;
   preTitle?: string;
   introduction: string | null;
-  cta: any;
+  cta?: CtaProps[];
   variant: 'default' | 'minimal' | 'basic' | 'vertical';
   image: CustomImageProps | null;
+  extraClassnames?: string;
 };
 
-export default function GenericCard({ title, preTitle, introduction, image, cta, variant }: Props) {
+export default function GenericCard({
+  title,
+  preTitle,
+  introduction,
+  image,
+  cta,
+  variant,
+  extraClassnames,
+}: Props) {
   return (
     <div className="h-full">
       <article
@@ -21,6 +31,7 @@ export default function GenericCard({ title, preTitle, introduction, image, cta,
           variant === 'minimal' && 'bg-neutral-white hover:bg-primary-blue w-[400px] p-7',
           variant === 'basic' && 'grid grid-cols-[1fr_2fr] gap-6',
           variant === 'vertical' && 'bg-[#F0F7F7] p-[30px]',
+          extraClassnames,
         )}
       >
         {image && <CustomImage {...image} extraClass="h-[252px] w-full mb-5 object-cover" />}

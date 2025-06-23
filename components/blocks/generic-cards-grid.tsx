@@ -21,10 +21,10 @@ export default function GenericCardsGrid({
 }: Props) {
   if (variant === 'minimal') {
     return (
-      <div className="bg-neutral-white overflow-x-hidden">
+      <div className="bg-neutral-white my-20 overflow-x-hidden">
         <section
           className={cn(
-            'mb-2.5 pt-12 pb-24',
+            'mb-2.5 pt-20 pb-24',
             backgroundColor === 'light-purple'
               ? 'bg-secondary-light-purple/20'
               : 'bg-primary-teal/[0.06] text-primary-navy text-xl',
@@ -52,10 +52,11 @@ export default function GenericCardsGrid({
               ))}
             </div>
           </div>
-
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            {cta && <Cta {...cta} extraClass="mt-16" />}
-          </div>
+          {cta && (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <Cta {...cta} extraClass="mt-16" />
+            </div>
+          )}
         </section>
       </div>
     );

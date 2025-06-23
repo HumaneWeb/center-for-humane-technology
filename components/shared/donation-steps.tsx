@@ -1,13 +1,16 @@
-// @ts-nocheck
 'use client';
 
-import { cn } from '@/lib/utils/css.utils';
-import React from 'react';
+import type React from 'react';
 import { useState } from 'react';
-import Input from './forms/input';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { RadioGroup, RadioGroupItem } from './forms/radio-group';
 import Label from './forms/label';
+import Input from './forms/input';
 import { Checkbox } from './forms/checkbox';
+import { redirect } from 'next/navigation';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export interface DonationFormData {
   frequency: 'monthly' | 'once';
@@ -16,15 +19,88 @@ export interface DonationFormData {
   firstName: string;
   lastName: string;
   email: string;
-  cardNumber: string;
-  expiryDate: string;
-  cvv: string;
-  billingZip: string;
 }
+
 export type DonationStep = 1 | 2 | 3;
+
+function PaymentForm({
+  formData,
+  onBack,
+  onSuccess,
+}: {
+  formData: DonationFormData;
+  onBack: () => void;
+  onSuccess: () => void;
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsProcessing(true);
+    setErrorMessage('');
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/thank-you`,
+      },
+    });
+
+    if (error) {
+      setErrorMessage(error.message || 'An error occurred during payment');
+      setIsProcessing(false);
+    } else {
+      onSuccess();
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="text-primary-navy mb-4 font-sans text-xl leading-140 font-medium">
+        Payment Information
+      </div>
+
+      <div className="mb-6">
+        <PaymentElement
+          options={{
+            layout: 'tabs',
+          }}
+        />
+      </div>
+
+      {errorMessage && <div className="mb-4 text-sm text-red-600">{errorMessage}</div>}
+
+      <div className="flex justify-between space-x-3 pt-4">
+        <button
+          type="button"
+          onClick={onBack}
+          className="text-primary-teal hover:text-primary-navy tracking-02 group mb-4 h-auto cursor-pointer rounded-[5px] border-none bg-white p-0 text-xl leading-120 font-semibold underline transition-all duration-200 ease-in"
+        >
+          Back
+        </button>
+        <button
+          type="submit"
+          disabled={!stripe || isProcessing}
+          className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb-4 inline-block min-w-[215px] cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
+        >
+          {isProcessing ? 'Processing...' : `Donate $${formData.amount}`}
+        </button>
+      </div>
+    </form>
+  );
+}
 
 export default function DonationSteps() {
   const [currentStep, setCurrentStep] = useState<DonationStep>(1);
+  const [clientSecret, setClientSecret] = useState<string>('');
   const [formData, setFormData] = useState<DonationFormData>({
     frequency: 'once',
     amount: '50',
@@ -32,10 +108,6 @@ export default function DonationSteps() {
     firstName: '',
     lastName: '',
     email: '',
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    billingZip: '',
   });
 
   const validateStep = (step: DonationStep): boolean => {
@@ -45,14 +117,47 @@ export default function DonationSteps() {
       case 2:
         return formData.firstName !== '' && formData.lastName !== '' && formData.email !== '';
       case 3:
-        return formData.cardNumber !== '' && formData.expiryDate !== '' && formData.cvv !== '';
+        return true;
       default:
         return false;
     }
   };
 
-  const handleNext = (): void => {
-    if (validateStep(currentStep) && currentStep < 3) {
+  const handleNext = async (): Promise<void> => {
+    if (!validateStep(currentStep)) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    if (currentStep === 2) {
+      // Create payment intent when moving to step 3
+      try {
+        const response = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: Number(formData.amount),
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            frequency: formData.frequency,
+            coverFees: formData.coverFees,
+          }),
+        });
+
+        const { clientSecret, error } = await response.json();
+
+        if (clientSecret) {
+          setClientSecret(clientSecret);
+          setCurrentStep(3);
+        } else {
+          alert('Error creating payment: ' + (error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      }
+    } else if (currentStep < 3) {
       setCurrentStep((currentStep + 1) as DonationStep);
     }
   };
@@ -68,6 +173,10 @@ export default function DonationSteps() {
       ...prev,
       [field]: value,
     }));
+  };
+
+  const handlePaymentSuccess = () => {
+    redirect('/thank-you');
   };
 
   const renderStep1 = () => (
@@ -262,15 +371,19 @@ export default function DonationSteps() {
 
   const renderStep3 = () => (
     <div className="w-full max-w-md">
-      <div>
-        <div className="text-primary-navy mb-4 font-sans text-xl leading-140 font-medium">
-          Card Information
-        </div>
-        <div id="payment-element"></div>
-        <button id="submit-payment" className="dono-button">
-          Donate Now
-        </button>
-      </div>
+      {clientSecret && (
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret,
+            appearance: {
+              theme: 'stripe',
+            },
+          }}
+        >
+          <PaymentForm formData={formData} onBack={handleBack} onSuccess={handlePaymentSuccess} />
+        </Elements>
+      )}
     </div>
   );
 

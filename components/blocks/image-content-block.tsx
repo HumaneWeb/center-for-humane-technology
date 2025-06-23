@@ -1,11 +1,12 @@
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
 
-type Props = {
+export type ImageContentProps = {
+  id?: string;
   content: string;
   image: CustomImageProps;
 };
 
-export default function ImageContentBlock({ content, image }: Props) {
+export default function ImageContentBlock({ content, image }: ImageContentProps) {
   return (
     <div className="mx-auto mt-20 mb-36 max-w-7xl items-end px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-2 items-center gap-12">
