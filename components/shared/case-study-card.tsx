@@ -35,7 +35,7 @@ export default function CaseStudyCard({ title, preTitle, image, introduction, ct
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
       )}
-      {cta && <CtaList items={cta} />}
+      {cta && <CtaList items={cta} ctaExtraClassnames="hover:bg-[#0B1023]" />}
     </article>
   );
 }

@@ -23,7 +23,7 @@ export default function ComplexHero({ title, preTitle, introduction, image, vari
         className="bg-contain bg-bottom-right bg-no-repeat"
         style={{ backgroundImage: image ? `url(${image.url})` : undefined }}
       >
-        <div className="mx-auto flex h-full min-h-[600px] max-w-7xl items-end px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-[620px] max-w-7xl items-end px-4 pb-25 sm:px-6 lg:px-8">
           <div className="max-w-[750px]">
             {preTitle && (
               <h2

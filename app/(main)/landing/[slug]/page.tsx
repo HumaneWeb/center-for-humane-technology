@@ -49,7 +49,7 @@ export default async function LandingPage({ params }: PageSlug) {
               {title}
             </h1>
             <VideoEmbed {...youtubeUrl} />
-            <div className="mb-14">
+            <div className="my-14">
               <Cta {...cta} />
             </div>
           </div>
@@ -59,7 +59,7 @@ export default async function LandingPage({ params }: PageSlug) {
           </h2>
           <div
             dangerouslySetInnerHTML={{ __html: contentInformation }}
-            className="text-neutral-white mx-auto mb-14 max-w-[840px] font-sans text-[25px] leading-140 [&>p]:mb-4"
+            className="text-neutral-white mx-auto mb-20 max-w-[840px] text-center font-sans text-[25px] leading-140 [&>p]:mb-4"
           />
 
           <div className="mb-20 flex items-center justify-center gap-24">
@@ -76,22 +76,22 @@ export default async function LandingPage({ params }: PageSlug) {
             <h3 className="text-neutral-white tracking-049 mb-16 font-sans text-[49px] leading-110 font-semibold">
               The Impact
             </h3>
-            <div className="mb-24 grid grid-cols-2 gap-24">
+            <div className="mb-28 grid grid-cols-2 gap-24">
               <div>
-                <p className="text-neutral-white mb-6 font-sans text-[29px] leading-130 font-semibold">
+                <p className="text-neutral-white mb-6 font-sans text-[25px] leading-140 font-normal">
                   “It is the most consequential documentary I have seen in the past three or four
                   years… It is mind-blowing.”
                 </p>
-                <span className="text-secondary-light-teal font-sans text-xl leading-135 tracking-[1px] uppercase">
+                <span className="text-neutral-white font-sans text-xl leading-135 font-semibold tracking-[1px] uppercase">
                   - today show
                 </span>
               </div>
               <div>
-                <p className="text-neutral-white mb-6 font-sans text-[29px] leading-130 font-semibold">
+                <p className="text-neutral-white mb-6 font-sans text-[25px] leading-140 font-normal">
                   “Remarkably effective in sounding the alarm about the incursion of data mining and
                   manipulative technology into our social lives and beyond.”
                 </p>
-                <span className="text-secondary-light-teal font-sans text-xl leading-135 tracking-[1px] uppercase">
+                <span className="text-neutral-white font-sans text-xl leading-135 font-semibold tracking-[1px] uppercase">
                   - the new york times
                 </span>
               </div>

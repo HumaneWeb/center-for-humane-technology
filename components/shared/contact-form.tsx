@@ -63,7 +63,9 @@ export default function ContactForm() {
           <RadioGroupItem value="option1" id="option1" className="h-[18px] w-[18px]" />
           <Label
             htmlFor="option1"
-            className="text-primary-blue text-[16px] leading-135 font-medium"
+            className={`text-[16px] leading-135 font-medium ${
+              formData.contactOption === 'option1' ? 'text-primary-blue' : 'text-primary-navy'
+            }`}
           >
             This is a option for contact
           </Label>
@@ -72,7 +74,9 @@ export default function ContactForm() {
           <RadioGroupItem value="option2" id="option2" className="h-[18px] w-[18px]" />
           <Label
             htmlFor="option2"
-            className="text-primary-blue text-[16px] leading-135 font-medium"
+            className={`text-[16px] leading-135 font-medium ${
+              formData.contactOption === 'option2' ? 'text-primary-blue' : 'text-primary-navy'
+            }`}
           >
             This is a option for contact different
           </Label>
@@ -81,7 +85,9 @@ export default function ContactForm() {
           <RadioGroupItem value="option3" id="option3" className="h-[18px] w-[18px]" />
           <Label
             htmlFor="option3"
-            className="text-primary-blue text-[16px] leading-135 font-medium"
+            className={`text-[16px] leading-135 font-medium ${
+              formData.contactOption === 'option3' ? 'text-primary-blue' : 'text-primary-navy'
+            }`}
           >
             This is a option for contact
           </Label>

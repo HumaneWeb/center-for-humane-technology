@@ -43,7 +43,7 @@ export default function MediaBlock({ title, items, information }: Props) {
 
           {information && (
             <div
-              className="tracking-02 [&>p>a]:text-primary-teal text-center font-sans text-xl leading-120 [&>p]:mb-8 [&>p>a]:font-bold [&>p>a]:underline"
+              className="tracking-02 [&>p>a]:text-primary-teal [&>p>a]:hover:text-primary-blue text-center font-sans text-xl leading-120 [&>p]:mb-8 [&>p>a]:font-bold [&>p>a]:underline [&>p>a]:transition-all [&>p>a]:duration-200 [&>p>a]:ease-in"
               dangerouslySetInnerHTML={{ __html: information }}
             />
           )}

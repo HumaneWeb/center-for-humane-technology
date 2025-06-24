@@ -37,7 +37,7 @@ export default function CustomLink({
   return (
     <Link
       href={path}
-      // target={external ? '_blank' : undefined}
+      target={external ? '_blank' : undefined}
       className={cn(
         withActiveClass &&
           pathname.replace('/', '') === path.replace('/', '') &&

@@ -15,11 +15,17 @@ export const getLinkCmsUrl = (rawLink: {
   };
 }) => {
   const { externalUrl, content } = rawLink || {};
-  if (externalUrl)
+  if (externalUrl) {
+    const isExternal =
+      externalUrl.startsWith('http://') ||
+      externalUrl.startsWith('https://') ||
+      externalUrl.includes('www.');
+
     return {
-      external: true,
+      external: isExternal,
       path: externalUrl,
     };
+  }
 
   const { __typename, slug } = content || {};
   if (__typename in CMS_MODELS_ROUTE_MAP) {
