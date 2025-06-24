@@ -35,6 +35,10 @@
   --tracking-061: -0.61px;
   --tracking-065: 0.65px;
   --tracking-075: 0.75px;
+
+  /* Custom breakpoints */
+  --breakpoint-sxl: 1300px;
+  --breakpoint-xl: 1450px;
 }
 
 body {

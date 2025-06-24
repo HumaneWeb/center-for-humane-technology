@@ -151,7 +151,7 @@ export default function Navbar({ items }: Props) {
         <CustomLink
           // @ts-expect-error
           content={item.link}
-          extraClass={`uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`}
+          extraClass={`uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`}
           withActiveClass
         >
           {item.label}
@@ -178,7 +178,7 @@ export default function Navbar({ items }: Props) {
             }}
             onClick={() => toggleDropdown(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-8 font-sans text-[18px] leading-140 font-semibold uppercase transition-all duration-200"
+            className="text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[18px]"
             aria-expanded={isOpen}
             aria-haspopup="true"
             aria-controls={`dropdown-${index}`}
@@ -217,7 +217,7 @@ export default function Navbar({ items }: Props) {
                 onClick={() => setOpenDropdown(null)}
                 withActiveClass
               >
-                <div className="text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between font-sans text-[18px] leading-120 font-medium transition-all duration-200">
+                <div className="text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between font-sans text-[16px] leading-120 font-medium transition-all duration-200 xl:text-[18px]">
                   {dropdownItem.label}
 
                   <svg
@@ -255,7 +255,7 @@ export default function Navbar({ items }: Props) {
     >
       <div className="flex h-16 items-center justify-between">
         <div className="flex items-center">
-          <Link href="/">
+          <Link href="/" className="w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="372"
@@ -384,7 +384,7 @@ export default function Navbar({ items }: Props) {
 
         {/* Mobile Menu Button */}
         <button
-          className="p-2 md:hidden"
+          className="sxl:hidden p-2"
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
@@ -407,7 +407,7 @@ export default function Navbar({ items }: Props) {
 
         {/* Desktop Navigation */}
         <nav
-          className={`hidden h-full items-stretch md:flex ${isMobileMenuOpen ? 'flex' : 'hidden'}`}
+          className={`sxl:flex hidden h-full items-stretch ${isMobileMenuOpen ? 'flex' : 'hidden'}`}
         >
           {normal.map((item, index) => (
             <NavItemComponent key={index} item={item} index={index} />
@@ -415,7 +415,7 @@ export default function Navbar({ items }: Props) {
 
           {/* Search engine */}
           <button
-            className="hover:text-primary-teal cursor-pointer border-l-[1px] px-8 transition-all duration-200"
+            className="hover:text-primary-teal cursor-pointer border-l-[1px] px-5 transition-all duration-200 xl:px-8"
             onClick={() => setOpenSearchEngine((prev) => !prev)}
           >
             <svg
@@ -450,7 +450,7 @@ export default function Navbar({ items }: Props) {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="flex flex-col md:hidden"
+            className="sxl:hidden flex flex-col"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}

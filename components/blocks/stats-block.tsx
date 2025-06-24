@@ -58,7 +58,7 @@ export default function StatsBlock({ title, items, variant = 'default' }: Props)
     <section
       className={cn(
         'bg-primary-blue mt-20 mb-32 pt-14 pb-20',
-        variant === 'landing' && 'bg-landing-stats w-full',
+        variant === 'landing' && 'bg-landing-stats mb-0 w-full',
       )}
     >
       <div

@@ -473,6 +473,24 @@ export const NarrativeBlockFragment = graphql(
   [CTAFragment, ImageFragment],
 );
 
+export const LandingHighlightTexFragment = graphql(
+  `
+    fragment LandingHighlightTexFragment on LandingHighlightTextRecord {
+      __typename
+      title
+      firstQuote
+      firstQuoteAuthor
+      secondQuote
+      secondQuoteAuthor
+      headlineBlock
+      cta {
+        ...CTAFragment
+      }
+    }
+  `,
+  [CTAFragment],
+);
+
 export const HighlightTextBlockFragment = graphql(
   `
     fragment HighlightTextBlockFragment on HighlightTextBlockRecord {
@@ -789,6 +807,7 @@ export const BasicPageQuery = graphql(
         image {
           ...ImageFragment
         }
+        variant
         content {
           value
           blocks {
@@ -1031,7 +1050,9 @@ export const LandingPageQuery = graphql(
         narrativeBlocks {
           ...NarrativeBlockFragment
         }
-        higlightBlockCta
+        highlightBlockCta {
+          ...LandingHighlightTexFragment
+        }
         _seoMetaTags {
           ...TagFragment
         }
@@ -1049,7 +1070,14 @@ export const LandingPageQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment, StatsBlockFragment, NarrativeBlockFragment, TagFragment],
+  [
+    ImageFragment,
+    CTAFragment,
+    StatsBlockFragment,
+    NarrativeBlockFragment,
+    TagFragment,
+    LandingHighlightTexFragment,
+  ],
 );
 
 export const DonatePageQuery = graphql(
