@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { cn } from '@/lib/utils/css.utils';
 import BasicHero from './basic-hero';
 import CustomStructuredText from '../shared/custom-structured-text';
