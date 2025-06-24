@@ -8,7 +8,13 @@ import Cta from '@/components/shared/cta';
 import SocialNetworks from '@/components/shared/social-networks';
 import TeamCard from '@/components/shared/team-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { ContactPageQuery } from '@/lib/cms/query';
+
+export const generateMetadata = generateMetadataFn({
+  query: ContactPageQuery,
+  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
+});
 
 export default async function ContactPage() {
   const { page } = await executeQuery(ContactPageQuery);

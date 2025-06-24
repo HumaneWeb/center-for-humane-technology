@@ -7,9 +7,16 @@ import CustomImage from '@/components/shared/custom-image';
 import CustomLink from '@/components/shared/custom-link';
 import PodcastMinimalCard from '@/components/shared/podcast-minimal-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { PodcastDetailQuery } from '@/lib/cms/query';
 import { formatDate } from '@/lib/utils/date.utils';
 import type { PageSlug } from '@/lib/utils/types';
+
+export const generateMetadata = generateMetadataFn({
+  query: PodcastDetailQuery,
+  buildQueryVariables: ({ params }) => ({ slug: params.slug }),
+  pickSeoMetaTags: (data) => data.podcast?._seoMetaTags,
+});
 
 export default async function PodcastDetailPage({ params }: PageSlug) {
   const { slug } = await params;

@@ -16,16 +16,14 @@ export function generateMetadataFn<PageProps, Result, Variables>(
     pageProps: PageProps,
     parent: ResolvingMetadata,
   ): Promise<Metadata> {
-    // @ts-expect-error
-    const { isEnabled: isDraftModeEnabled } = draftMode();
-
+    // const { isEnabled: isDraftModeEnabled } = draftMode();
     const variables = options.buildQueryVariables?.(pageProps) || ({} as Variables);
 
     const [parentMetadata, data] = await Promise.all([
       parent,
       executeQuery(options.query, {
         variables,
-        includeDrafts: isDraftModeEnabled,
+        // includeDrafts: isDraftModeEnabled,
       }),
     ]);
 

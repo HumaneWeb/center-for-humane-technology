@@ -1,12 +1,18 @@
 // @ts-nocheck
-
 import DonateBlock from '@/components/blocks/donate-block';
 import ComplexHero from '@/components/layout/complex-hero';
 import CustomStructuredText from '@/components/shared/custom-structured-text';
 import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { BasicPageQuery } from '@/lib/cms/query';
 import { cn } from '@/lib/utils/css.utils';
 import type { PageSlug } from '@/lib/utils/types';
+
+export const generateMetadata = generateMetadataFn({
+  query: BasicPageQuery,
+  buildQueryVariables: ({ params }) => ({ slug: params.slug }),
+  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
+});
 
 export default async function BasicPage({ params }: PageSlug) {
   const { slug } = await params;

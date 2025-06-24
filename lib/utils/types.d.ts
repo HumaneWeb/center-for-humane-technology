@@ -32,3 +32,9 @@ export interface RSSFeed {
   description?: string;
   items: RSSItem[];
 }
+
+export interface PodcastListPageProps {
+  searchParams: Promise<{
+    search?: string;
+  }>;
+}

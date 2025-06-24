@@ -7,10 +7,22 @@ import Cta from '@/components/shared/cta';
 import CustomImage from '@/components/shared/custom-image';
 import VideoEmbed from '@/components/shared/video-embed';
 import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { LandingPageQuery } from '@/lib/cms/query';
+import { PageSlug } from '@/lib/utils/types';
 
-export default async function LandingPage() {
-  const { landing, configuration } = await executeQuery(LandingPageQuery);
+export const generateMetadata = generateMetadataFn({
+  query: LandingPageQuery,
+  buildQueryVariables: ({ params }) => ({ slug: params.slug }),
+  pickSeoMetaTags: (data) => data.landing?._seoMetaTags,
+});
+
+export default async function LandingPage({ params }: PageSlug) {
+  const { slug } = await params;
+
+  const { landing, configuration } = await executeQuery(LandingPageQuery, {
+    variables: { slug },
+  });
 
   const {
     logo,

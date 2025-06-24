@@ -3,9 +3,16 @@ import DonateBlock from '@/components/blocks/donate-block';
 import BasicHero from '@/components/layout/basic-hero';
 import CustomStructuredText from '@/components/shared/custom-structured-text';
 import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { BlogDetailPageQuery } from '@/lib/cms/query';
 import { cn } from '@/lib/utils/css.utils';
 import type { PageSlug } from '@/lib/utils/types';
+
+export const generateMetadata = generateMetadataFn({
+  query: BlogDetailPageQuery,
+  buildQueryVariables: ({ params }) => ({ slug: params.slug }),
+  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
+});
 
 export default async function BlogDetailPagePage({ params }: PageSlug) {
   const { slug } = await params;

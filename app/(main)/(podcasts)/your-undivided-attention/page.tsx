@@ -7,12 +7,14 @@ import PodcastMinimalCard from '@/components/shared/podcast-minimal-card';
 import { SearchInput } from '@/components/shared/search-input';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { PodcastListQuery } from '@/lib/cms/query';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
+import type { PodcastListPageProps } from '@/lib/utils/types';
 
-interface PodcastListPageProps {
-  searchParams: Promise<{
-    search?: string;
-  }>;
-}
+export const generateMetadata = generateMetadataFn({
+  query: PodcastListQuery,
+  buildQueryVariables: ({ params }) => ({ searchQuery: '' }),
+  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
+});
 
 export default async function PodcastListPage({ searchParams }: PodcastListPageProps) {
   const searchQuery = (await searchParams.search?.toLowerCase()) || '';

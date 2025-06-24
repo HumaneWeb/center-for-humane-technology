@@ -678,6 +678,9 @@ export const TeamAndBoardQuery = graphql(
             introduction
           }
         }
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
       teamList: allTeamMembers(filter: { category: { eq: "team" } }) {
         id
@@ -713,7 +716,7 @@ export const TeamAndBoardQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment],
+  [ImageFragment, CTAFragment, TagFragment],
 );
 
 export const TeamDetailQuery = graphql(
@@ -737,6 +740,9 @@ export const TeamDetailQuery = graphql(
         twitterXUrl
         linkedinUrl
         email
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
       configuration {
         donateTitle
@@ -749,7 +755,7 @@ export const TeamDetailQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment],
+  [ImageFragment, CTAFragment, TagFragment],
 );
 
 export const SubstackQuery = graphql(
@@ -807,6 +813,9 @@ export const BasicPageQuery = graphql(
             ...RelatedAnchorBlockFragment
           }
         }
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
       configuration {
         donateTitle
@@ -820,6 +829,7 @@ export const BasicPageQuery = graphql(
     }
   `,
   [
+    TagFragment,
     CTAFragment,
     ImageBlockFragment,
     ImageContentBlockFragment,
@@ -855,6 +865,9 @@ export const PodcastListQuery = graphql(
         decoratorIcon {
           ...ImageFragment
         }
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
       podcasts: allPodcasts(filter: { title: { matches: { pattern: $searchQuery } } }) {
         ...PodcastFragment
@@ -872,7 +885,7 @@ export const PodcastListQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment, PodcastFragment],
+  [ImageFragment, CTAFragment, PodcastFragment, TagFragment],
 );
 
 export const PodcastDetailQuery = graphql(
@@ -895,6 +908,9 @@ export const PodcastDetailQuery = graphql(
         videoUrl
         image {
           ...ImageFragment
+        }
+        _seoMetaTags {
+          ...TagFragment
         }
       }
       moreReading: allPodcasts(filter: { slug: { neq: $slug } }) {
@@ -920,7 +936,7 @@ export const PodcastDetailQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment],
+  [ImageFragment, CTAFragment, TagFragment],
 );
 
 export const BlogDetailPageQuery = graphql(
@@ -957,6 +973,9 @@ export const BlogDetailPageQuery = graphql(
             ...GridFragment
           }
         }
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
       configuration {
         donateTitle
@@ -970,6 +989,7 @@ export const BlogDetailPageQuery = graphql(
     }
   `,
   [
+    TagFragment,
     ImageFragment,
     ImageBlockFragment,
     AccordionBlockFragment,
@@ -986,8 +1006,8 @@ export const BlogDetailPageQuery = graphql(
 
 export const LandingPageQuery = graphql(
   `
-    query LandingPageQuery {
-      landing {
+    query LandingPageQuery($slug: String) {
+      landing(filter: { slug: { eq: $slug } }) {
         logo {
           ...ImageFragment
         }
@@ -1011,8 +1031,10 @@ export const LandingPageQuery = graphql(
         narrativeBlocks {
           ...NarrativeBlockFragment
         }
-
         higlightBlockCta
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
       configuration {
         donateTitle
@@ -1027,7 +1049,7 @@ export const LandingPageQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment, StatsBlockFragment, NarrativeBlockFragment],
+  [ImageFragment, CTAFragment, StatsBlockFragment, NarrativeBlockFragment, TagFragment],
 );
 
 export const DonatePageQuery = graphql(
@@ -1039,10 +1061,13 @@ export const DonatePageQuery = graphql(
         helpItems {
           ...AccordionBlockFragment
         }
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
     }
   `,
-  [AccordionBlockFragment],
+  [AccordionBlockFragment, TagFragment],
 );
 
 export const ContactPageQuery = graphql(
@@ -1056,10 +1081,13 @@ export const ContactPageQuery = graphql(
         networks {
           ...SocialNetworksFragment
         }
+        _seoMetaTags {
+          ...TagFragment
+        }
       }
     }
   `,
-  [SocialNetworksFragment],
+  [SocialNetworksFragment, TagFragment],
 );
 
 // Utils

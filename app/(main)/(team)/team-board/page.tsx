@@ -6,7 +6,13 @@ import CareerCard from '@/components/shared/career-card';
 import Cta from '@/components/shared/cta';
 import TeamCard from '@/components/shared/team-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { TeamAndBoardQuery } from '@/lib/cms/query';
+
+export const generateMetadata = generateMetadataFn({
+  query: TeamAndBoardQuery,
+  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
+});
 
 export default async function TeamListPage() {
   const { page, teamList, boardList, configuration } = await executeQuery(TeamAndBoardQuery);

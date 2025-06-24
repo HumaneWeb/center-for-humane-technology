@@ -2,8 +2,15 @@ import AccordionBlock from '@/components/blocks/accordion-block';
 import BasicHero from '@/components/layout/basic-hero';
 import DonationSteps from '@/components/shared/donation-steps';
 import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { DonatePageQuery } from '@/lib/cms/query';
 import Link from 'next/link';
+
+export const generateMetadata = generateMetadataFn({
+  query: DonatePageQuery,
+  // @ts-expect-error
+  pickSeoMetaTags: (data) => data.donate?._seoMetaTags,
+});
 
 export default async function DonatePage() {
   const { donate } = await executeQuery(DonatePageQuery);

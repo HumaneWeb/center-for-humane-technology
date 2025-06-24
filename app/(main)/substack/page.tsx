@@ -7,6 +7,11 @@ import RSSFeedReader from '@/components/shared/rss-feed-reader';
 import SubstackFeed, { BlogFeed } from '@/components/shared/substack-feed';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { SubstackQuery } from '@/lib/cms/query';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Substack',
+};
 
 export default async function SubstackPage() {
   const { configuration } = await executeQuery(SubstackQuery);
