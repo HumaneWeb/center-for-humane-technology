@@ -14,7 +14,7 @@ type Props = {
   variant?: 'default' | 'landing';
 };
 
-function AnimatedValue({ value }: { value: string }) {
+function AnimatedValue({ value, variant }: { value: string; variant?: 'default' | 'landing' }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -23,13 +23,25 @@ function AnimatedValue({ value }: { value: string }) {
   const textValue = match ? match[2] : value;
 
   const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.round(latest));
+
+  const smoothRounded = useTransform(count, (latest) => {
+    let step;
+    if (numericValue >= 1000) {
+      step = Math.max(10, Math.floor(numericValue / 100));
+    } else if (numericValue >= 100) {
+      step = Math.max(2, Math.floor(numericValue / 50));
+    } else {
+      step = 1;
+    }
+
+    return Math.floor(latest / step) * step;
+  });
 
   useEffect(() => {
     if (isInView && numericValue > 0) {
       const controls = animate(count, numericValue, {
-        duration: 2.5,
-        ease: [0.25, 0.1, 0.25, 1],
+        duration: 1.8,
+        ease: [0.25, 0.1, 0.25, 0.9],
         delay: 0.1,
       });
 
@@ -39,15 +51,15 @@ function AnimatedValue({ value }: { value: string }) {
 
   if (!match || numericValue === 0) {
     return (
-      <span ref={ref} className="font-sans text-7xl leading-[78%] font-semibold text-[#93F2EF]">
+      <span ref={ref} className="font-sans text-[71px] leading-[78%] font-bold text-[#93F2EF]">
         {value}
       </span>
     );
   }
 
   return (
-    <span ref={ref} className="w-fit font-sans text-7xl leading-[78%] font-semibold text-[#93F2EF]">
-      <motion.span>{rounded}</motion.span>
+    <span ref={ref} className="w-fit font-sans text-[71px] leading-[78%] font-bold text-[#93F2EF]">
+      <motion.span>{smoothRounded}</motion.span>
       {textValue && <span>{textValue}</span>}
     </span>
   );
@@ -87,7 +99,12 @@ export default function StatsBlock({ title, items, variant = 'default' }: Props)
               <h4>
                 <AnimatedValue value={item.value} />
               </h4>
-              <h6 className="text-primary-cream max-w-24 font-sans text-xl leading-110 font-semibold">
+              <h6
+                className={cn(
+                  'text-primary-cream max-w-24 font-sans text-xl leading-110 font-semibold',
+                  variant === 'landing' && 'leading-120',
+                )}
+              >
                 {item.label}
               </h6>
             </div>

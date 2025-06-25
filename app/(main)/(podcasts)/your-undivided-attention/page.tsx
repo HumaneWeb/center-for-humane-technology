@@ -39,10 +39,17 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
 
         {searchQuery && (
           <div className="mb-8">
-            <p className="text-gray-600">
-              {podcasts.length > 0
-                ? `Found ${podcasts.length} podcast${podcasts.length !== 1 ? 's' : ''} for "${searchParams.search}"`
-                : `No podcasts found for "${searchParams.search}"`}
+            <p className="font-sans text-xl leading-140 font-medium">
+              {podcasts.length > 0 ? (
+                <>
+                  Found {podcasts.length} result{podcasts.length !== 1 ? 's' : ''} for:{' '}
+                  <strong>{searchParams.search}</strong>
+                </>
+              ) : (
+                <>
+                  No results found for "<strong>{searchParams.search}</strong>"
+                </>
+              )}
             </p>
           </div>
         )}
