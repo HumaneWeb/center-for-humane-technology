@@ -65,7 +65,7 @@ export default async function BlogDetailPagePage({ params }: PageSlug) {
             </div>
           )}
 
-          <div>
+          <div className={cn(isTopBar && 'max-w-[948px]')}>
             <CustomStructuredText data={page?.content} centerContent={isTopBar} />
           </div>
         </div>
