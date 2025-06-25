@@ -28,6 +28,7 @@ export default async function LandingPage({ params }: PageSlug) {
     logo,
     title,
     youtubeUrl,
+    thumbnail,
     cta,
     contentTitle,
     contentInformation,
@@ -51,7 +52,12 @@ export default async function LandingPage({ params }: PageSlug) {
                 {title}
               </h1>
             )}
-            {youtubeUrl && <VideoEmbed {...youtubeUrl} />}
+            {youtubeUrl && (
+              <VideoEmbed
+                {...youtubeUrl}
+                thumbnailUrl={thumbnail?.url || youtubeUrl.thumbnailUrl}
+              />
+            )}
             {cta && (
               <div className="my-14">
                 <Cta {...cta} />

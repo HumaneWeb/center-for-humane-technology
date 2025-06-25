@@ -27,7 +27,7 @@ export default function VideoEmbed({ title, url, thumbnailUrl }: YouTubeEmbedPro
 
   return (
     <div className="mx-auto mb-9 w-full max-w-4xl">
-      <div className="relative aspect-video overflow-hidden rounded-lg bg-black shadow-lg">
+      <div className="relative aspect-video overflow-hidden bg-black shadow-lg">
         {!isLoaded ? (
           <div className="group relative h-full w-full cursor-pointer" onClick={handlePlay}>
             <img

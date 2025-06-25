@@ -1054,6 +1054,9 @@ export const LandingPageQuery = graphql(
           url
           thumbnailUrl
         }
+        thumbnail {
+          ...ImageFragment
+        }
         cta {
           ...CTAFragment
         }
