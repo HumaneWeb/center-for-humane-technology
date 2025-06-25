@@ -364,5 +364,5 @@ hr {
 }
 
 .paragraph:has(+ .generic-cards-grid) {
-  margin: 160px;
+  margin-bottom: 160px;
 }
