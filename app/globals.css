@@ -362,3 +362,7 @@ hr {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.paragraph:has(+ .generic-cards-grid) {
+  margin: 160px;
+}

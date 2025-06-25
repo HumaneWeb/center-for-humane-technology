@@ -46,7 +46,7 @@ export default function GenericCardsGrid({
 
   if (variant === 'minimal') {
     return (
-      <div className="bg-neutral-white overflow-x-hidden">
+      <div className="generic-cards-grid bg-neutral-white overflow-x-hidden">
         <section
           className={cn(
             'mb-2.5x pt-[71px] pb-10',
@@ -143,7 +143,7 @@ export default function GenericCardsGrid({
   }
 
   return (
-    <div className="bg-neutral-white overflow-x-hidden">
+    <div className="generic-cards-grid bg-neutral-white overflow-x-hidden">
       <section
         className={cn(
           'mb-2.5 pt-[73px] pb-24',

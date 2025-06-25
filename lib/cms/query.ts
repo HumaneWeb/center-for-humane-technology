@@ -60,6 +60,19 @@ export const ImageFragment = graphql(`
   }
 `);
 
+export const AnchorItemFragment = graphql(`
+  fragment AnchorItemFragment on AnchorItemRecord {
+    id
+    headline
+    sublinks {
+      ... on AnchorItemRecord {
+        id
+        headline
+      }
+    }
+  }
+`);
+
 export const GenericCardFragment = graphql(
   `
     fragment GenericCardFragment on GenericCardRecord {
@@ -808,6 +821,10 @@ export const BasicPageQuery = graphql(
           ...ImageFragment
         }
         variant
+        contentAnchors
+        anchors {
+          ...AnchorItemFragment
+        }
         content {
           value
           blocks {
@@ -850,6 +867,7 @@ export const BasicPageQuery = graphql(
   [
     TagFragment,
     CTAFragment,
+    AnchorItemFragment,
     ImageBlockFragment,
     ImageContentBlockFragment,
     NarrativeBlockFragment,

@@ -38,3 +38,14 @@ export interface PodcastListPageProps {
     search?: string;
   }>;
 }
+
+export interface SidebarSubLink {
+  id: string;
+  headline: string;
+}
+
+export interface SidebarItem {
+  id: string;
+  headline: string;
+  sublinks: SidebarSubLink[];
+}
