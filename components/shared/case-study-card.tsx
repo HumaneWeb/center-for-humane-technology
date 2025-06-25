@@ -15,23 +15,23 @@ export default function CaseStudyCard({ title, preTitle, image, introduction, ct
   return (
     <article>
       {preTitle && (
-        <h6 className="text-primary-cream tracking-075 mb-7 font-sans text-[15px] leading-135 font-medium uppercase">
+        <h6 className="text-primary-cream mb:leading-135 tracking-08 mb:mb-7 mb-5 font-sans text-[16px] leading-120 font-medium uppercase">
           {preTitle}
         </h6>
       )}
       {title && (
-        <h2 className="text-primary-cream tracking-031 mb-7 font-sans text-3xl leading-110 font-semibold">
+        <h2 className="text-primary-cream tracking-031 mb:text-3xl mb:leading-110 mb:mb-7 mb-5 font-sans text-[23px] leading-120 font-semibold">
           {title}
         </h2>
       )}
       {image && (
-        <div className="mb-7">
+        <div className="mb:mb-7 mb-5">
           <CustomImage {...image} />
         </div>
       )}
       {introduction && (
         <div
-          className="text-neutral-white mb-7 font-sans text-xl leading-140 font-medium"
+          className="text-neutral-white mb:text-xl mb-7 font-sans text-[18px] leading-140 font-medium"
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
       )}

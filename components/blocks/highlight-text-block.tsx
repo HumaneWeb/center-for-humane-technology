@@ -31,11 +31,11 @@ export default function HighlightTextBlock({ title, introduction, dynamicTexts, 
   }, [texts.length]);
 
   return (
-    <section className="bg-custom-gradient my-5 min-h-[320px] py-20">
+    <section className="bg-custom-gradient mb:min-h-[320px] mb:py-20 my-3 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-start gap-20 lg:grid-cols-2">
+        <div className="mb:gap-20 grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
           <div>
-            <h2 className="text-primary-cream tracking-049 font-sans text-5xl leading-110 font-semibold">
+            <h2 className="text-primary-cream tracking-049 mb:text-5xl mb:leading-110 font-sans text-[29px] leading-120 font-semibold">
               {title}{' '}
               <span
                 className={`text-secondary-light-teal block transition-opacity duration-800 ${
@@ -49,7 +49,7 @@ export default function HighlightTextBlock({ title, introduction, dynamicTexts, 
           <div>
             {introduction && (
               <div
-                className="text-neutral-white [&_strong]:text-secondary-light-teal mb-5 font-sans text-xl leading-140 [&>p]:mb-4"
+                className="text-neutral-white [&_strong]:text-secondary-light-teal mb:text-xl mb-5 font-sans text-[18px] leading-140 [&>p]:mb-4"
                 dangerouslySetInnerHTML={{
                   __html: introduction,
                 }}

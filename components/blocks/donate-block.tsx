@@ -11,14 +11,14 @@ type Props = {
 export default function DonateBlock({ title, cta, image }: Props) {
   return (
     <section
-      className="bg-primary-navy bg-contain bg-right bg-no-repeat py-10"
+      className="bg-primary-navy mb:py-10 bg-contain bg-right bg-no-repeat py-8"
       style={{ backgroundImage: 'url(/donate-bg.png)' }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           <div>
             {title && (
-              <h2 className="text-neutral-white mb-5 font-sans text-3xl leading-140 font-semibold">
+              <h2 className="text-neutral-white mb:text-3xl mb:leading-140 mb-5 font-sans text-[25px] leading-110 font-semibold">
                 {title}
               </h2>
             )}
@@ -26,7 +26,7 @@ export default function DonateBlock({ title, cta, image }: Props) {
           </div>
 
           {image && (
-            <div className="flex justify-end">
+            <div className="mb:flex hidden justify-end">
               <CustomImage {...image} />
             </div>
           )}

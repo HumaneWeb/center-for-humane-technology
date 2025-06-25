@@ -16,14 +16,14 @@ type Props = {
 
 export default function MediaBlock({ title, items, information }: Props) {
   return (
-    <section className="my-24">
+    <section className="mb:my-24 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div>
-          <h2 className="text-primary-navy mb-12 text-center font-sans text-3xl leading-135 font-semibold">
+          <h2 className="text-primary-navy mb:text-center mb:text-3xl mb:leading-135 mb:mb-12 mb-10 font-sans text-[23px] leading-120 font-semibold">
             {title}
           </h2>
 
-          <div className="mb-16 flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
+          <div className="mb:justify-center mb-16 flex flex-wrap items-center gap-x-16 gap-y-8">
             {items.map((item: any) => {
               if (item.link) {
                 return (
@@ -43,7 +43,7 @@ export default function MediaBlock({ title, items, information }: Props) {
 
           {information && (
             <div
-              className="tracking-02 [&>p>a]:text-primary-teal [&>p>a]:hover:text-primary-blue text-center font-sans text-xl leading-120 [&>p]:mb-8 [&>p>a]:font-bold [&>p>a]:underline [&>p>a]:transition-all [&>p>a]:duration-200 [&>p>a]:ease-in"
+              className="tracking-02 [&>p>a]:text-primary-teal [&>p>a]:hover:text-primary-blue mb:text-xl [&>p]:mb:mb-8 mb:text-center font-sans text-[18px] leading-120 [&>p]:mb-4 [&>p>a]:font-bold [&>p>a]:underline [&>p>a]:transition-all [&>p>a]:duration-200 [&>p>a]:ease-in"
               dangerouslySetInnerHTML={{ __html: information }}
             />
           )}

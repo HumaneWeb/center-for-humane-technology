@@ -17,22 +17,22 @@ type Props = {
 
 export default function DepthAreasBlock({ title, introduction, items }: Props) {
   return (
-    <section className="mb-24">
+    <section className="mb:mb-24 mb-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-[1fr_2fr] items-start gap-15">
+        <div className="mb:grid-cols-[1fr_2fr] mb:gap-15 grid grid-cols-1 items-start gap-5">
           <div>
-            <h2 className="text-primary-navy tracking-049 mb-1.5 font-sans text-5xl leading-130 font-semibold">
+            <h2 className="text-primary-navy tracking-049 mb:text-5xl mb:leading-110 mb:mb-1.5 mb-5 font-sans text-[29px] leading-120 font-semibold">
               {title}
             </h2>
             {introduction && (
               <div
-                className="text-primary-navy font-sans text-xl leading-140 [&>p]:mb-4"
+                className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 [&>p]:mb-4"
                 dangerouslySetInnerHTML={{ __html: introduction }}
               />
             )}
           </div>
 
-          <div className="flex flex-col gap-11">
+          <div className="mb:gap-11 flex flex-col gap-3">
             {items.map((item) => (
               <React.Fragment key={item.id}>
                 <DepthAreaCard key={item.id} {...item} />

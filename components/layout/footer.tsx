@@ -22,9 +22,9 @@ export default async function Footer() {
   } = footer!;
 
   return (
-    <footer className="bg-primary-blue text-neutral-white py-12">
+    <footer className="bg-primary-blue text-neutral-white mb:py-12 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between border-b-[1px] border-[#4F5984] pb-12">
+        <div className="mb:flex-row mb:justify-between mb:items-center mb:gap-5 mb:pb-12 flex flex-col gap-10 border-b-[1px] border-[#4F5984] pb-5">
           <Link href="/">
             <CustomImage {...logo} />
           </Link>
@@ -136,16 +136,16 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-8 border-b-[1px] border-[#4F5984]">
-          <div className="flex flex-col gap-10 border-r-[1px] border-[#4F5984] pt-9 pb-20">
+        <div className="mb:grid-cols-4 mb:pb-0 mb:gap-8 grid grid-cols-1 gap-5 border-b-[1px] border-[#4F5984] pb-5">
+          <div className="mb:pt-9 mb:pb-20 mb:gap-10 mb:border-r-[1px] flex flex-col gap-5 border-r-0 border-[#4F5984] pt-5 pb-5">
             <div>
-              <h3 className="tracking-02 mb-4 font-sans text-xl leading-120 font-semibold">
+              <h3 className="tracking-02 mb:text-xl mb:mb-4 mb-2 font-sans text-[18px] leading-120 font-semibold">
                 Media Inquiries
               </h3>
               <p>
                 <a
                   href={`mailto:${mediaInquiriesEmail}`}
-                  className="text-neutral-white font-sans text-lg font-medium underline"
+                  className="text-neutral-white mb:text-lg mb-[16px] font-sans font-medium underline"
                 >
                   {mediaInquiriesEmail}
                 </a>
@@ -153,13 +153,13 @@ export default async function Footer() {
             </div>
 
             <div>
-              <h3 className="tracking-02 mb-4 font-sans text-xl leading-120 font-semibold">
+              <h3 className="tracking-02 mb:text-xl mb:mb-4 mb-2 font-sans text-[18px] leading-120 font-semibold">
                 General Questions
               </h3>
               <p>
                 <a
                   href={`mailto:${generalQuestionsEmail}`}
-                  className="text-neutral-white font-sans text-lg font-medium underline"
+                  className="text-neutral-white mb:text-lg mb-[16px] font-sans font-medium underline"
                 >
                   {generalQuestionsEmail}
                 </a>
@@ -167,17 +167,17 @@ export default async function Footer() {
             </div>
           </div>
           {columns.map((column) => (
-            <div key={column.id} className="pt-9">
-              <h3 className="tracking-02 mb-4 font-sans text-xl leading-120 font-semibold">
+            <div key={column.id} className="mb:pt-9 pt-0">
+              <h3 className="tracking-02 mb:mb-4 mb:text-xl mb-2 font-sans text-[18px] leading-120 font-semibold">
                 {column.headline}
               </h3>
               <ul>
                 {column.links.map((link) => (
-                  <li key={link.id} className="mb-4">
+                  <li key={link.id} className="mb:mb-4 mb-2">
                     <CustomLink
                       // @ts-expect-error
                       content={link}
-                      extraClass="text-neutral-white font-sans text-lg leading-135 font-normal transition-all duration-200 hover:underline"
+                      extraClass="text-neutral-white font-sans text-[16px] mb:text-lg leading-135 font-normal transition-all duration-200 hover:underline"
                     >
                       {link.internalTitle}
                     </CustomLink>
@@ -188,7 +188,7 @@ export default async function Footer() {
           ))}
         </div>
 
-        <div className="flex items-center justify-between pt-9">
+        <div className="mb:flex-row mb:gap-0 mb:items-center flex flex-col justify-between gap-5 pt-9">
           <p className="tracking-013 font-sans text-[13px] leading-120 font-medium">
             {extraLinks.map((extraLink) => (
               <React.Fragment key={extraLink.id}>
@@ -199,7 +199,9 @@ export default async function Footer() {
                 {' | '}
               </React.Fragment>
             ))}
-            © {new Date().getFullYear()} {copyrightText}
+            <span className="mb:inline mb:mt-0 mt-2 block">
+              © {new Date().getFullYear()} {copyrightText}
+            </span>
           </p>
           <Link
             href="https://tectonica.co"

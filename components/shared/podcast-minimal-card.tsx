@@ -25,25 +25,25 @@ export default function PodcastMinimalCard({
 }: Props) {
   return (
     <CustomLink content={{ content: { __typename, slug } }}>
-      <div className="group flex gap-5">
+      <div className="group mb:flex-row flex flex-col gap-5">
         {image && (
           <CustomImage
             {...image}
             extraClass={cn(
-              'w-[300px] h-[300px] aspect-square',
-              variant === 'small' && 'w-[211px] h-[210px]',
+              'mb:w-[300px] mb:h-[300px] aspect-square',
+              variant === 'small' && 'mb:w-[211px] mb:h-[210px]',
             )}
           />
         )}
 
         <div className={cn('pt-5', variant === 'small' && 'pt-0')}>
           {episode && (
-            <h5 className="text-primary-blue tracking-075 mb-2 font-sans text-[15px] leading-135 font-semibold uppercase">
+            <h5 className="text-primary-blue tracking-08 mb:leading-135 mb-2 font-sans text-[16px] leading-120 font-semibold uppercase">
               {episode}
             </h5>
           )}
           {title && (
-            <h3 className="text-primary-teal group-hover:text-primary-blue mb-2 font-sans text-2xl leading-120 font-semibold transition-all duration-200">
+            <h3 className="text-primary-teal group-hover:text-primary-blue mb:text-2xl mb:leading-135 mb-2 font-sans text-xl leading-120 font-semibold transition-all duration-200">
               {title}
             </h3>
           )}

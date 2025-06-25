@@ -11,17 +11,17 @@ type Props = {
 
 export default function CampaignBlock({ title, introduction, cta, image }: Props) {
   return (
-    <section className="mx-auto mt-24 mb-36 max-w-[1400px] px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl bg-[#007981]">
-        <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
-          <div className="pl-12">
-            <h2 className="text-neutral-white tracking-049 mb-10 font-sans text-5xl leading-110 font-semibold">
+    <section className="mb:mt-24 mb:mb-36 mx-auto my-8 max-w-[1400px] lg:px-8">
+      <div className="mb:p-0 mx-auto max-w-7xl bg-[#007981] pt-8">
+        <div className="mb:gap-15 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
+          <div className="mb:pl-12 mb:pr-0 px-4">
+            <h2 className="text-neutral-white tracking-049 mb:mb-10 mb:text-5xl mb:leading-110 mb-5 font-sans text-[29px] leading-120 font-semibold">
               {title}
             </h2>
             <div>
               {introduction && (
                 <div
-                  className="text-neutral-white mb-10 font-sans text-xl leading-140 [&>p]:mb-4"
+                  className="text-neutral-white mb:text-xl mb:mb-10 mb-5 font-sans text-[18px] leading-140 [&>p]:mb-4"
                   dangerouslySetInnerHTML={{
                     __html: introduction,
                   }}

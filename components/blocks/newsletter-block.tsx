@@ -5,6 +5,7 @@ import type { CustomImageProps } from '../shared/custom-image';
 import Input from '../shared/forms/input';
 import LoadingSpinner from '../shared/loading-spinner';
 import { cn } from '@/lib/utils/css.utils';
+import CustomLink from '../shared/custom-link';
 
 type Props = {
   id: string;
@@ -27,24 +28,27 @@ export default function NewsletterBlock({
   const renderFeaturedBlock = () => (
     <section className="flex w-full flex-col md:flex-row">
       <div
-        className="flex w-full items-end justify-end bg-cover bg-center bg-no-repeat px-12 pt-44 pb-7 md:w-1/2"
+        className="mb:justify-end mb:px-12 mb:pb-7 mb:pt-44 flex w-full items-end bg-cover bg-center bg-no-repeat px-7 py-4 pt-20 md:w-1/2"
         style={{ backgroundImage: `url(${featuredImage!.url})` }}
       >
         <div className="max-w-sm text-center md:max-w-[560px]">
-          <h2 className="text-primary-cream text-left font-sans text-[29px] leading-130 font-semibold">
-            {featuredTitle}
-          </h2>
+          {/* @ts-expect-error */}
+          <CustomLink content={featuredLink}>
+            <h2 className="text-primary-cream mb:text-[29px] text-left font-sans text-[23px] leading-130 font-semibold">
+              {featuredTitle}
+            </h2>
+          </CustomLink>
         </div>
       </div>
 
-      <div className="bg-secondary-light-purple/20 flex w-full items-center justify-start px-7 py-14 md:w-1/2">
+      <div className="bg-secondary-light-purple/20 mb:w-1/2 mb:py-14 flex w-full items-center justify-start px-7 py-8">
         <div className="w-full md:max-w-[560px]">
-          <h2 className="text-primary-blue mb-3 font-sans text-3xl leading-130 font-semibold">
+          <h2 className="text-primary-blue mb:text-[29px] mb:mb-3 mb-5 font-sans text-[23px] leading-130 font-semibold">
             {title}
           </h2>
           {introduction && (
             <div
-              className="text-primary-navy mb-5 font-sans text-[16px] leading-135"
+              className="text-primary-navy mb:text-[16px] mb-5 font-sans text-[18px] leading-135"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
           )}
@@ -61,16 +65,16 @@ export default function NewsletterBlock({
 
   return (
     <div className="bg-neutral-white">
-      <section className="bg-secondary-light-purple/20 py-12">
+      <section className="bg-secondary-light-purple/20 mb:py-12 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-20 lg:grid-cols-2">
+          <div className="mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
             <div>
-              <h2 className="text-primary-blue mb-3 font-sans text-3xl leading-130 font-semibold">
+              <h2 className="text-primary-blue mb:text-3xl mb:mb-3 mb:leading-130 mb-5 font-sans text-[23px] leading-120 font-semibold">
                 {title}
               </h2>
               {introduction && (
                 <div
-                  className="text-primary-navy font-sans text-xl leading-140 font-medium"
+                  className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 font-medium"
                   dangerouslySetInnerHTML={{ __html: introduction }}
                 />
               )}
@@ -143,11 +147,9 @@ export const SubstackNewsletterWidget = () => {
     return emailRegex.test(email);
   };
 
-  // return <div data-supascribe-embed-id="853810951530" data-supascribe-subscribe />;
-
   return (
     <form onSubmit={handleSubmit} className="max-w-[500px] space-y-3">
-      <div className="border-primary-blue flex gap-0 overflow-hidden rounded-[5px] border-2">
+      <div className="border-primary-blue mb:flex-row flex flex-col gap-0 overflow-hidden rounded-[5px] border-2">
         <Input
           type="email"
           placeholder="example@email.com"
@@ -160,7 +162,7 @@ export const SubstackNewsletterWidget = () => {
           type="submit"
           disabled={isLoading}
           className={cn(
-            'bg-primary-blue tracking-02 text-neutral-white hover:bg-primary-navy flex w-[170px] cursor-pointer items-center justify-center gap-5 rounded-none px-9.5 py-3 text-xl leading-120 font-semibold',
+            'bg-primary-blue tracking-02 text-neutral-white hover:bg-primary-navy mb:w-[170px] mb:text-xl flex cursor-pointer items-center justify-center gap-5 rounded-none px-9.5 py-3 leading-120 font-semibold',
             isLoading && 'pointer-events-none',
           )}
         >

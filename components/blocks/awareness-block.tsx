@@ -13,15 +13,15 @@ export default async function AwarenessBlock({ caseStudyCard, podcastCard }: Pro
   const { podcast } = await executeQuery(LatestPodcastQuery);
 
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-      <div className="bg-primary-blue flex items-start justify-end py-20">
-        <div className="mr-[90px] w-full max-w-[500px]">
+    <div className="mb:grid-cols-2 mb:gap-5 grid grid-cols-1 gap-2.5">
+      <div className="bg-primary-blue mb:py-20 flex items-start justify-end py-8">
+        <div className="mb:mr-[90px] mb:px-0 mb:max-w-[500px] mx-auto w-full max-w-7xl px-4 sm:px-6">
           <CaseStudyCard {...caseStudyCard} />
         </div>
       </div>
 
-      <div className="bg-gradient-podcast flex items-start justify-start py-20">
-        <div className="ml-[90px] w-full max-w-[500px]">
+      <div className="bg-gradient-podcast mb:py-20 flex items-start justify-start py-8">
+        <div className="mb:ml-[90px] mb:px-0 mb:max-w-[500px] mx-auto w-full max-w-7xl px-4 sm:px-6">
           <PodcastCard
             title={podcastCard.title}
             preTitle={podcastCard.preTitle}

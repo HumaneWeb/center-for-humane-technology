@@ -22,11 +22,14 @@ export default function DepthAreaCard({
 
   const mainContent = () => (
     <article
-      className={cn('group grid grid-cols-[1fr_1.5fr] gap-1', isVertical && 'flex flex-col gap-5')}
+      className={cn(
+        'group mb:grid-cols-[1fr_1.5fr] grid gap-1',
+        isVertical && 'flex flex-col gap-5',
+      )}
     >
       <div
         className={cn(
-          'bg-primary-cream flex items-center justify-center px-8 pt-8 transition-all duration-200',
+          'bg-primary-cream mb:px-8 mb:pt-8 flex items-center justify-center px-4 pt-4 transition-all duration-200',
           !isVertical && 'group-hover:bg-primary-blue',
           isVertical && 'group-hover:bg-neutral-white',
         )}
@@ -35,13 +38,13 @@ export default function DepthAreaCard({
       </div>
       <div
         className={cn(
-          'bg-primary-cream p-8 transition-all duration-200',
+          'bg-primary-cream mb:p-8 p-4 transition-all duration-200',
           !isVertical && 'group-hover:bg-primary-blue',
         )}
       >
         <h2
           className={cn(
-            'text-primary-navy group-hover:text-neutral-white font-sans text-4xl leading-130 font-semibold',
+            'text-primary-navy group-hover:text-neutral-white mb:text-4xl mb:leading-130 mb:mb-0 mb-2 font-sans text-[26px] leading-120 font-semibold',
             isVertical && 'text-primary-teal group-hover:text-primary-blue text-2xl',
           )}
         >
@@ -49,7 +52,7 @@ export default function DepthAreaCard({
         </h2>
         <div
           className={cn(
-            'text-primary-navy font-sans text-xl leading-140 font-medium',
+            'text-primary-navy mb:text-xl font-sans text-[16px] leading-140 font-medium',
             !isVertical && 'group-hover:text-neutral-white',
           )}
           dangerouslySetInnerHTML={{ __html: introduction }}
