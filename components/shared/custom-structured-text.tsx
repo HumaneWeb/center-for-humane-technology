@@ -285,7 +285,7 @@ export default function CustomStructuredText({
                   return (
                     <div
                       className={cn(
-                        'mx-auto mb-6 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                        'mx-auto my-6 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
                         isInnerContainer && 'mb-0 max-w-full px-0 sm:px-0 lg:px-0',
                       )}
                       key={key}

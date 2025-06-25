@@ -6,7 +6,7 @@ type Props = {
   title: string;
   introduction: string;
   image: CustomImageProps;
-  variant: 'blue' | 'green' | 'purple';
+  variant: 'blue' | 'light-blue' | 'green' | 'purple';
 };
 
 export default function ComplexHero({ title, preTitle, introduction, image, variant }: Props) {
@@ -15,6 +15,7 @@ export default function ComplexHero({ title, preTitle, introduction, image, vari
       id="complex-hero"
       className={cn(
         variant === 'blue' && 'bg-complex-hero-blue',
+        variant === 'light-blue' && 'bg-complex-hero-light-blue',
         variant === 'green' && 'bg-complex-hero-green',
         variant === 'purple' && 'bg-complex-hero-purple',
       )}

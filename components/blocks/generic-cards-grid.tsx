@@ -3,7 +3,7 @@
 import GenericCard from '../shared/generic-card';
 import Cta from '../shared/cta';
 import { cn } from '@/lib/utils/css.utils';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 type Props = {
   title: string;
@@ -23,16 +23,6 @@ export default function GenericCardsGrid({
   items,
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const checkScrollButtons = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -54,29 +44,15 @@ export default function GenericCardsGrid({
     }
   };
 
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      checkScrollButtons();
-      scrollContainer.addEventListener('scroll', checkScrollButtons);
-      window.addEventListener('resize', checkScrollButtons);
-
-      return () => {
-        scrollContainer.removeEventListener('scroll', checkScrollButtons);
-        window.removeEventListener('resize', checkScrollButtons);
-      };
-    }
-  }, [items]);
-
   if (variant === 'minimal') {
     return (
       <div className="bg-neutral-white overflow-x-hidden">
         <section
           className={cn(
-            'mb-2.5 pt-[71px] pb-10',
+            'mb-2.5x pt-[71px] pb-10',
             backgroundColor === 'light-purple'
               ? 'bg-secondary-light-purple/20'
-              : 'bg-primary-teal/[0.06] text-primary-navy text-xl',
+              : 'text-primary-navy bg-[#0079810f] text-xl',
           )}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -97,7 +73,7 @@ export default function GenericCardsGrid({
               <div className="flex-shrink-0" style={{ width: 'max(0px, calc(50vw - 640px))' }} />
 
               {items.map((item) => (
-                <GenericCard {...item} key={item.id} />
+                <GenericCard {...item} key={item.id} extraClassnames="min-h-[500px]" />
               ))}
 
               <div className="flex-shrink-0" style={{ width: 'max(0px, calc(50vw - 640px))' }} />

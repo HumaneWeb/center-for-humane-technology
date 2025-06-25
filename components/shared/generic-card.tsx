@@ -9,7 +9,7 @@ type Props = {
   preTitle?: string;
   introduction: string | null;
   cta?: CtaProps[];
-  variant: 'default' | 'minimal' | 'basic' | 'vertical';
+  variant: 'default' | 'minimal' | 'minimal-small' | 'basic' | 'vertical';
   image: CustomImageProps | null;
   extraClassnames?: string;
 };
@@ -31,10 +31,19 @@ export default function GenericCard({
           variant === 'minimal' && 'bg-neutral-white hover:bg-primary-blue w-[400px] p-7',
           variant === 'basic' && 'grid grid-cols-[1fr_2fr] gap-6',
           variant === 'vertical' && 'bg-[#F0F7F7] p-[30px]',
+          variant === 'minimal-small' && 'bg-neutral-white hover:bg-primary-blue w-full p-2.5',
           extraClassnames,
         )}
       >
-        {image && <CustomImage {...image} extraClass="h-[252px] w-full mb-5 object-cover" />}
+        {image && (
+          <CustomImage
+            {...image}
+            extraClass={cn(
+              'h-[252px] w-full mb-5 object-cover',
+              variant === 'minimal-small' && 'h-auto mb-2.5',
+            )}
+          />
+        )}
 
         <div>
           {preTitle && (
@@ -51,10 +60,12 @@ export default function GenericCard({
             <h2
               className={cn(
                 'text-primary-teal mb-5 font-sans text-2xl leading-130 font-semibold',
-                variant === 'minimal' && 'group-hover:text-neutral-white',
+                (variant === 'minimal' || variant === 'minimal-small') &&
+                  'group-hover:text-neutral-white',
                 variant === 'default' && 'group-hover:text-primary-blue',
                 variant === 'basic' && 'mb-2',
                 variant === 'vertical' && 'mb-5',
+                variant === 'minimal-small' && 'mb-2.5 text-xl leading-120',
               )}
             >
               {title}
@@ -64,9 +75,11 @@ export default function GenericCard({
             <div
               className={cn(
                 'text-primary-navy font-sans text-[16px] leading-140',
-                variant === 'minimal' && 'group-hover:text-neutral-white',
+                (variant === 'minimal' || variant === 'minimal-small') &&
+                  'group-hover:text-neutral-white',
                 variant === 'basic' && 'mb-8',
                 variant === 'vertical' && 'mb-5',
+                variant === 'minimal-small' && 'text-[13px] leading-135',
               )}
               dangerouslySetInnerHTML={{ __html: introduction }}
             />

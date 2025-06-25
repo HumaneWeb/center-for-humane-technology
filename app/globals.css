@@ -63,6 +63,10 @@ body {
   background: linear-gradient(102deg, #000 -24.52%, #2B3F89 89.44%);
 }
 
+@utility bg-complex-hero-light-blue {
+  background: linear-gradient(261deg, #8A9FF7 0%, #41519D 100%);
+}
+
 @utility bg-complex-hero-green {
   background: linear-gradient(260deg, #5FCED6 0%, #016269 100%);
 }
