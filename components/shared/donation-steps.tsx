@@ -82,7 +82,7 @@ function PaymentForm({
         <button
           type="button"
           onClick={onBack}
-          className="text-primary-teal hover:text-primary-navy tracking-02 group mb-4 h-auto cursor-pointer rounded-[5px] border-none bg-white p-0 text-xl leading-120 font-semibold underline transition-all duration-200 ease-in"
+          className="text-primary-teal hover:text-primary-navy tracking-02 group mb-4 cursor-pointer rounded-[5px] text-xl leading-120 font-semibold underline transition-all duration-200 ease-in"
         >
           Back
         </button>

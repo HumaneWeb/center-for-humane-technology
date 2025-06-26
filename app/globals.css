@@ -37,6 +37,7 @@
   --tracking-075: 0.75px;
 
   /* Custom breakpoints */
+  --breakpoint-mb: 992px;
   --breakpoint-sxl: 1300px;
   --breakpoint-xl: 1450px;
 }
