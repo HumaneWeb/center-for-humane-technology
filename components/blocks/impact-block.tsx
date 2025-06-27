@@ -49,7 +49,7 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
             )}
             {firstItem.introduction && (
               <div
-                className="text-primary-navy mb:text-[20px] mb:leading-135 mb-3.5 max-w-[340px] font-sans text-[18px] leading-140 font-normal"
+                className="text-primary-navy mb:leading-135 mb-3.5 max-w-[340px] font-sans text-[16px] leading-140 font-normal"
                 dangerouslySetInnerHTML={{
                   __html: firstItem.introduction,
                 }}
@@ -70,7 +70,7 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
             )}
             {secondItem.introduction && (
               <div
-                className="text-primary-navy mb:text-[20px] mb:leading-135 mb-3.5 max-w-[340px] font-sans text-[18px] leading-140 font-normal"
+                className="text-primary-navy mb:leading-135 mb-3.5 max-w-[340px] font-sans text-[16px] leading-140 font-normal"
                 dangerouslySetInnerHTML={{
                   __html: secondItem.introduction,
                 }}

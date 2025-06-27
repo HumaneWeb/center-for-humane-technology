@@ -44,7 +44,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
       <div className="max-w-[948px]">
         {information && (
           <div
-            className="text-primary-navy mb:text-xl mb:mb-32 mb-5 max-w-[948px] font-sans text-[18px] leading-140 font-medium"
+            className="text-primary-navy mb:text-xl mb:mb-32 mb-5 max-w-[948px] font-sans text-[18px] leading-140 font-normal"
             dangerouslySetInnerHTML={{ __html: information }}
           />
         )}
@@ -73,7 +73,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
                 ))}
               </div>
               <div
-                className="text-primary-navy mb:text-xl mb:leading-140 max-w-[948px] font-sans text-[18px] leading-130 font-medium"
+                className="text-primary-navy mb:text-xl mb:leading-140 max-w-[948px] font-sans text-[18px] leading-130 font-normal"
                 dangerouslySetInnerHTML={{ __html: item.information }}
               />
             </div>

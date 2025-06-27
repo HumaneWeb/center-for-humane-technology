@@ -57,6 +57,7 @@ export default function CustomStructuredText({
               key={record.id}
               {...record}
               extraClass="my-8 mb:mt-[180px] mb:pb-[145px] [&+.narrative-block]:mt-0 pt-0"
+              headingExtraClass="mb:text-[39px] mb:mb-[30px]"
             />
           );
         }
@@ -251,7 +252,7 @@ export default function CustomStructuredText({
                           'p',
                           {
                             className: cn(
-                              'font-sans text-[18px] mb:text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              'font-sans text-[18px] mb:text-xl font-normal leading-140 text-primary-navy mb-5 max-w-[840px]',
                               centerContent && '',
                               isInnerContainer && 'text-[16px]',
                             ),
@@ -267,7 +268,7 @@ export default function CustomStructuredText({
                           'p',
                           {
                             className: cn(
-                              'font-sans text-[18px] mb:text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              'font-sans text-[18px] mb:text-xl font-normal leading-140 text-primary-navy mb-5 max-w-[840px]',
                               centerContent && '',
                             ),
                           },
@@ -308,7 +309,6 @@ export default function CustomStructuredText({
                   );
                 },
               ),
-
               renderNodeRule(
                 isList,
                 ({ adapter: { renderNode }, node, children, key, ancestors }) => {

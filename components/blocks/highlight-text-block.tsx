@@ -50,9 +50,7 @@ export default function HighlightTextBlock({ title, introduction, dynamicTexts, 
             {introduction && (
               <div
                 className="text-neutral-white [&_strong]:text-secondary-light-teal mb:text-xl mb-5 font-sans text-[18px] leading-140 [&>p]:mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: introduction,
-                }}
+                dangerouslySetInnerHTML={{ __html: introduction }}
               />
             )}
             {cta && <Cta {...cta} />}

@@ -41,7 +41,7 @@ export default function ApproachBlock({
             />
 
             <div
-              className="text-primary-navy mb:text-xl mb-5 font-sans text-[18px] leading-140 font-medium [&>p]:mb-4"
+              className="text-primary-navy mb:text-xl mb-5 font-sans text-[18px] leading-140 font-normal [&>p]:mb-4"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
 
@@ -61,7 +61,7 @@ const ApproachGraphic = () => {
       height="299"
       viewBox="0 0 299 299"
       fill="none"
-      className="h-full w-full drop-shadow-lg"
+      className="mb:h-auto mb:w-auto h-full w-full drop-shadow-lg"
     >
       <g clipPath="url(#clip0_3203_1334)">
         <g className="approach-outer-ring">

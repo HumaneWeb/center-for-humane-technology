@@ -51,7 +51,7 @@ export default function GenericCardsGrid({
           className={cn(
             'mb:pt-[71px] mb:pb-10 py-8',
             backgroundColor === 'light-purple'
-              ? 'bg-secondary-light-purple/20'
+              ? 'bg-[#e4e0f7]'
               : 'text-primary-navy bg-[#0079810f] text-xl',
           )}
         >
@@ -76,7 +76,7 @@ export default function GenericCardsGrid({
                 <GenericCard
                   {...item}
                   key={item.id}
-                  extraClassnames="mb:w-auto w-[80dvw] min-h-[500px] mb:p-7 p-3"
+                  extraClassnames="w-[80dvw] min-h-[500px] mb:p-7 p-3"
                 />
               ))}
 

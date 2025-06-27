@@ -44,7 +44,7 @@ export default function PodcastListHero({
             </h1>
             {introduction && (
               <div
-                className="text-primary-navy mb:text-xl mb:mb-7 mb-3 font-sans text-[18px] leading-140 font-medium"
+                className="text-primary-navy mb:text-xl mb:mb-7 mb-3 font-sans text-[18px] leading-140 font-normal"
                 dangerouslySetInnerHTML={{ __html: introduction }}
               />
             )}

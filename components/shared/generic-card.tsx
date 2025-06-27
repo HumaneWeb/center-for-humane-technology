@@ -28,7 +28,7 @@ export default function GenericCard({
     <article
       className={cn(
         'group h-full transition-all duration-200 ease-in',
-        variant === 'minimal' && 'bg-neutral-white hover:bg-primary-blue w-[400px] p-7',
+        variant === 'minimal' && 'bg-neutral-white hover:bg-primary-blue mb:w-[400px] p-7',
         variant === 'basic' && 'grid grid-cols-[1fr_2fr] gap-6',
         variant === 'vertical' && 'bg-[#F0F7F7] p-[30px]',
         variant === 'minimal-small' && 'bg-neutral-white hover:bg-primary-blue w-full p-2.5',

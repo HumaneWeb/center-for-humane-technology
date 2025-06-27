@@ -34,7 +34,7 @@ export default function HighlightedBlock({ title, content, backgroundColor, vari
       {content && (
         <div
           className={cn(
-            'mb:text-xl mt-5 font-sans text-[18px] leading-140 font-medium',
+            'mb:text-xl mt-5 font-sans text-[18px] leading-140 font-normal',
             backgroundColor === 'blue' && 'text-neutral-white',
             backgroundColor === 'light-purple' && 'text-primary-blue',
           )}

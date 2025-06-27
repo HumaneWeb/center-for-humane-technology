@@ -74,7 +74,7 @@ export default function NewsletterBlock({
               </h2>
               {introduction && (
                 <div
-                  className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 font-medium"
+                  className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 font-normal"
                   dangerouslySetInnerHTML={{ __html: introduction }}
                 />
               )}

@@ -45,14 +45,14 @@ export default function DepthAreaCard({
         <h2
           className={cn(
             'text-primary-navy group-hover:text-neutral-white mb:text-4xl mb:leading-130 mb:mb-0 mb-2 font-sans text-[26px] leading-120 font-semibold',
-            isVertical && 'text-primary-teal group-hover:text-primary-blue text-2xl',
+            isVertical && 'text-primary-teal group-hover:text-primary-blue mb:text-2xl',
           )}
         >
           {title}
         </h2>
         <div
           className={cn(
-            'text-primary-navy mb:text-xl font-sans text-[16px] leading-140 font-medium',
+            'text-primary-navy mb:text-xl font-sans text-[16px] leading-140 font-normal',
             !isVertical && 'group-hover:text-neutral-white',
           )}
           dangerouslySetInnerHTML={{ __html: introduction }}
