@@ -20,10 +20,8 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
 
   return (
     <div id="accordion-collapse" data-accordion="collapse" className="flex flex-col gap-[15px]">
-      {items.map((item, index) => {
+      {items.map((item) => {
         const isActive = activeItem === item.id;
-        const isFirst = index === 0;
-        const isLast = index === items.length - 1;
 
         return (
           <div key={item.id}>
@@ -31,7 +29,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
               <button
                 type="button"
                 className={cn(
-                  'flex w-full cursor-pointer items-center justify-between gap-3 bg-[#F0F7F7] px-8 py-6 font-medium text-gray-500 transition-colors duration-200',
+                  'mb:px-8 mb:py-6 flex w-full cursor-pointer items-center justify-between gap-3 bg-[#F0F7F7] p-4 font-medium text-gray-500 transition-colors duration-200',
                   variant === 'small' && 'px-4 py-3',
                 )}
                 onClick={() => toggleItem(item.id)}
@@ -40,7 +38,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
               >
                 <span
                   className={cn(
-                    'font-sans text-2xl leading-120 font-semibold text-[#262626]',
+                    'mb:text-2xl mb:leading-120 font-sans text-[18px] leading-140 font-semibold text-[#262626]',
                     variant === 'small' && 'text-[16px]',
                   )}
                 >
@@ -53,7 +51,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
                   viewBox="0 0 30 31"
                   fill="none"
                   className={cn(
-                    `shrink-0 transition-transform duration-300 ${
+                    `mb:w-[30px] w-[20px] shrink-0 transition-transform duration-300 ${
                       isActive ? 'rotate-180' : 'rotate-0'
                     }`,
                     variant === 'small' && 'h-5 w-5',
@@ -72,7 +70,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
             <div
               id={`accordion-collapse-body-${item.id}`}
               className={cn(
-                `overflow-hidden bg-[#F0F7F7] px-8 transition-all duration-300 ease-in-out ${
+                `mb:px-8 overflow-hidden bg-[#F0F7F7] p-4 transition-all duration-300 ease-in-out ${
                   isActive ? 'max-h-max py-4 opacity-100' : 'max-h-0 opacity-0'
                 }`,
                 variant === 'small' && 'px-4 py-3',
@@ -81,7 +79,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
             >
               <div
                 className={cn(
-                  'text-primary-navy [&>ul>li>a]:text-primary-teal text-xl leading-140 [&>p]:mb-4 [&>ul>li>a]:font-semibold',
+                  'text-primary-navy [&>ul>li>a]:text-primary-teal mb:text-xl text-[16px] leading-140 [&>p]:mb-4 [&>ul>li>a]:font-semibold',
                   variant === 'small' && 'text-base',
                 )}
                 dangerouslySetInnerHTML={{ __html: item.content }}

@@ -40,7 +40,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
             <div className="relative h-48 w-full sm:h-40 sm:w-64">
               {item.imageUrl ? (
                 <Image
-                  src={item.imageUrl!}
+                  src={item.imageUrl}
                   alt={item.title}
                   fill
                   className="object-cover"
@@ -72,7 +72,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
               </a>
             </h3>
 
-            <p className="line-clamp-2 text-sm leading-relaxed text-gray-700">
+            <p className="text-primary-navy line-clamp-2 text-[16px] leading-140">
               {truncateText(item.description, 300)}
             </p>
           </div>
@@ -111,13 +111,13 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-teal hover:text-primary-navy font-sans text-[25px] leading-130 font-semibold transition-colors"
+            className="text-primary-teal hover:text-primary-navy mb:text-[25px] mb:leading-130 font-sans text-[20px] leading-120 font-semibold transition-colors"
           >
             <span>{item.title}</span>
           </a>
         </h3>
 
-        <p className="text-primary-navy font-sans text-xl leading-140 font-medium">
+        <p className="text-primary-navy mb:text-xl mb:font-medium font-sans text-[16px] leading-140 font-normal">
           {truncateText(item.description, 250)}
         </p>
       </div>

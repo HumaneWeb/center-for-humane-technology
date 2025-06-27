@@ -23,7 +23,7 @@ export default function MediaBlock({ title, items, information }: Props) {
             {title}
           </h2>
 
-          <div className="mb:justify-center mb-16 flex flex-wrap items-center gap-x-16 gap-y-8">
+          <div className="mb:justify-center mb-16 flex flex-wrap items-center gap-x-14 gap-y-8">
             {items.map((item: any) => {
               if (item.link) {
                 return (

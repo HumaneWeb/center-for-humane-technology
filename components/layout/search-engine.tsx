@@ -51,7 +51,7 @@ export default function SearchEngine({ onClose }: SearchEngineProps) {
           }}
           className="flex flex-col gap-3"
         >
-          <h3 className="tracking-049 mb-10 font-sans text-4xl leading-110 font-semibold">
+          <h3 className="tracking-049 mb:text-4xl mb:leading-110 mb:mb-10 mb-5 font-sans text-[25px] leading-120 font-semibold">
             Explore Our Content
           </h3>
           <input

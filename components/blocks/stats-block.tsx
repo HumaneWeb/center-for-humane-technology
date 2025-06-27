@@ -51,14 +51,20 @@ function AnimatedValue({ value, variant }: { value: string; variant?: 'default' 
 
   if (!match || numericValue === 0) {
     return (
-      <span ref={ref} className="font-sans text-[71px] leading-[78%] font-bold text-[#93F2EF]">
+      <span
+        ref={ref}
+        className="mb:text-[71px] font-sans text-5xl leading-[78%] font-bold text-[#93F2EF]"
+      >
         {value}
       </span>
     );
   }
 
   return (
-    <span ref={ref} className="w-fit font-sans text-[71px] leading-[78%] font-bold text-[#93F2EF]">
+    <span
+      ref={ref}
+      className="mb:text-[71px] w-fit font-sans text-5xl leading-[78%] font-bold text-[#93F2EF]"
+    >
       <motion.span>{smoothRounded}</motion.span>
       {textValue && <span>{textValue}</span>}
     </span>
@@ -69,7 +75,7 @@ export default function StatsBlock({ title, items, variant = 'default' }: Props)
   return (
     <section
       className={cn(
-        'bg-primary-blue mt-20 mb-32 pt-14 pb-20',
+        'bg-primary-blue mb:mb-32 mb:pt-14 mb:pb-20 mt-20 py-8',
         variant === 'landing' && 'bg-landing-stats mb-0 w-full',
       )}
     >
@@ -81,8 +87,9 @@ export default function StatsBlock({ title, items, variant = 'default' }: Props)
       >
         <h3
           className={cn(
-            'text-primary-cream mb-14 font-sans text-2xl leading-130 font-semibold',
-            variant === 'landing' && 'tracking-025 mb-20 text-center leading-110 font-medium',
+            'text-primary-cream mb:text-2xl mb:leading-130 mb:mb-14 mb-10 font-sans text-xl leading-120 font-semibold',
+            variant === 'landing' &&
+              'tracking-025 mb:mb-20 mb-10 text-center leading-110 font-medium',
           )}
         >
           {title}
@@ -90,19 +97,25 @@ export default function StatsBlock({ title, items, variant = 'default' }: Props)
 
         <div
           className={cn(
-            'grid grid-cols-3 gap-20',
+            'mb:grid mb:gap-20 flex grid-cols-3 flex-col items-center justify-center gap-10',
             variant === 'landing' && 'flex items-center justify-between',
           )}
         >
           {items.map((item) => (
-            <div key={item.id} className="flex w-fit items-end gap-2.5">
+            <div
+              key={item.id}
+              className={cn(
+                'flex w-fit items-end gap-2.5',
+                variant === 'landing' && 'mb:flex-row flex-col items-center',
+              )}
+            >
               <h4>
                 <AnimatedValue value={item.value} />
               </h4>
               <h6
                 className={cn(
-                  'text-primary-cream max-w-24 font-sans text-xl leading-110 font-semibold',
-                  variant === 'landing' && 'leading-120',
+                  'text-primary-cream mb:text-xl mb:leading-110 max-w-24 font-sans text-[18px] leading-110 font-semibold',
+                  variant === 'landing' && 'mb:max-w-24 max-w-full leading-120',
                 )}
               >
                 {item.label}

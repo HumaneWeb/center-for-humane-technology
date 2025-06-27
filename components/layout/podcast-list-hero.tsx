@@ -1,3 +1,6 @@
+'use client';
+
+import useIsMobile from '../hooks/is-mobile';
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
 
 type Props = {
@@ -21,31 +24,33 @@ export default function PodcastListHero({
   spotifyUrl,
   youtubeUrl,
 }: Props) {
+  const isMobile = useIsMobile();
+
   return (
-    <section className="bg-gradient-podcast-list pt-20">
+    <section className="bg-gradient-podcast-list mb:pt-20 mb:pb-0 pb-8">
       <div
-        className="min-h-[700px] bg-contain bg-bottom-right bg-no-repeat"
-        style={{ backgroundImage: `url(${image?.url})` }}
+        className="mb:min-h-[700px] bg-contain bg-bottom-right bg-no-repeat"
+        style={{ backgroundImage: isMobile ? 'none' : `url(${image?.url})` }}
       >
         <div className="relative mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
           {decoratorIcon && (
-            <div className="absolute left-[-60px] pt-3">
-              <CustomImage {...decoratorIcon} />
+            <div className="mb:absolute left-[-60px] pt-3">
+              <CustomImage {...decoratorIcon} extraClass="mb:w-auto w-[50px] mb-2 mb:mb-0" />
             </div>
           )}
           <div className="max-w-[620px]">
-            <h1 className="text-primary-blue tracking-061 mb-7 font-sans text-6xl leading-110 font-semibold">
+            <h1 className="text-primary-blue mb:tracking-061 mb:text-6xl mb:mb-7 mb-3 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]">
               {title}
             </h1>
             {introduction && (
               <div
-                className="text-primary-navy mb-7 font-sans text-xl leading-140 font-medium"
+                className="text-primary-navy mb:text-xl mb:mb-7 mb-3 font-sans text-[18px] leading-140 font-medium"
                 dangerouslySetInnerHTML={{ __html: introduction }}
               />
             )}
             {extraInformation && (
               <div
-                className="text-primary-navy mb-16 font-sans text-[16px] leading-140"
+                className="text-primary-navy mb:mb-16 mb-10 font-sans text-[16px] leading-140"
                 dangerouslySetInnerHTML={{ __html: extraInformation }}
               />
             )}
@@ -66,7 +71,7 @@ export default function PodcastListHero({
                     />
                   </svg>
 
-                  <span className="text-primary-navy font-sans text-[16px] leading-100 font-medium">
+                  <span className="text-primary-navy mb:text-[16px] font-sans text-sm leading-100 font-medium">
                     Apple <br />
                     Podcasts
                   </span>
@@ -90,7 +95,7 @@ export default function PodcastListHero({
                     />
                   </svg>
 
-                  <span className="text-primary-navy font-sans text-[16px] leading-100 font-medium">
+                  <span className="text-primary-navy mb:text-[16px] font-sans text-sm leading-100 font-medium">
                     Spotify
                   </span>
                 </a>
@@ -113,7 +118,7 @@ export default function PodcastListHero({
                     />
                   </svg>
 
-                  <span className="text-primary-navy font-sans text-[16px] leading-100 font-medium">
+                  <span className="text-primary-navy mb:text-[16px] font-sans text-sm leading-100 font-medium">
                     YouTube
                   </span>
                 </a>

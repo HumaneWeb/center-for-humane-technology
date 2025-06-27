@@ -14,7 +14,7 @@ export const generateMetadata = generateMetadataFn({
 
 export default async function DonatePage() {
   const { donate } = await executeQuery(DonatePageQuery);
-  const { title, information, helpItems } = donate!;
+  const { title, informationTitle, information, helpItems } = donate!;
 
   return (
     <>
@@ -27,6 +27,7 @@ export default async function DonatePage() {
               height="40"
               viewBox="0 0 372 40"
               fill="none"
+              className="mb:max-w-auto max-w-[80%]"
             >
               <g clipPath="url(#clip0_3098_2373)">
                 <path
@@ -149,12 +150,12 @@ export default async function DonatePage() {
       </div>
 
       <BasicHero title={title} variant="blue" />
-      <div className="mx-auto max-w-7xl px-4 pt-17 sm:px-6 lg:px-8">
-        <h3 className="text-primary-navy mb-6 font-sans text-[29px] leading-130 font-semibold">
+      <div className="mb:pt-17 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <h3 className="text-primary-navy mb:text-[29px] mb:leading-130 mb-6 font-sans text-[23px] leading-120 font-semibold">
           Give by card
         </h3>
 
-        <div className="grid grid-cols-2 gap-30 pb-30">
+        <div className="mb:grid-cols-2 mb:gap-30 grid gap-20 pb-30">
           <div>
             <DonationSteps />
 
@@ -168,8 +169,13 @@ export default async function DonatePage() {
 
           {information && (
             <div>
+              {informationTitle && (
+                <h3 className="tracking-039 mb:text-[39px] mb:leading-110 mb:mb-10 mb-5 font-sans text-[26px] leading-120 font-semibold">
+                  {informationTitle}
+                </h3>
+              )}
               <div
-                className="text-primary-navy [&>p>a]:text-primary-teal font-sans text-xl leading-140 [&>p]:mb-4 [&>p>a]:font-semibold [&>p>a]:underline"
+                className="text-primary-navy [&>p>a]:text-primary-teal mb:text-xl font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p>a]:font-semibold [&>p>a]:underline"
                 dangerouslySetInnerHTML={{ __html: information }}
               />
             </div>

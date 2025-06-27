@@ -1106,6 +1106,7 @@ export const DonatePageQuery = graphql(
     query DonatePageQuery {
       donate {
         title
+        informationTitle
         information
         helpItems {
           ...AccordionBlockFragment

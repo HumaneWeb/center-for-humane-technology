@@ -19,8 +19,8 @@ export default async function SubstackPage() {
   return (
     <>
       <BasicHero title="Substack">
-        <div className="w-[515px]">
-          <h4 className="mb-3.5 font-sans text-xl leading-120 font-semibold text-[#262626]">
+        <div className="mb:w-[515px]">
+          <h4 className="mb:text-xl mb:mb-3.5 mb-2 font-sans text-[18px] leading-120 font-semibold text-[#262626]">
             Stay up to date
           </h4>
           <SubstackNewsletterWidget />
@@ -28,7 +28,7 @@ export default async function SubstackPage() {
       </BasicHero>
 
       <div className="mx-auto max-w-7xl px-4 pt-17 pb-30 sm:px-6 lg:px-8">
-        <h4 className="text-primary-navy mb-6 font-sans text-[29px] leading-130 font-semibold">
+        <h4 className="text-primary-navy mb:text-[29px] mb:leading-130 mb:mb-6 mb-4 font-sans text-[23px] leading-120 font-semibold">
           Latest
         </h4>
         <RSSFeedReader />
@@ -38,7 +38,7 @@ export default async function SubstackPage() {
             // @ts-expect-error
             externalUrl: 'https://centerforhumanetechnology.substack.com/',
           }}
-          extraClass="mt-25"
+          extraClass="mb:mt-25 mt-10"
         />
       </div>
 

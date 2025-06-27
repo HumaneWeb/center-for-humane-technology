@@ -22,7 +22,7 @@ export default function SocialNetworks({ networks }: Props) {
           className="flex items-center gap-4"
         >
           <FacebookIcon />
-          <span className="text-primary-teal font-sans text-xl leading-120 font-medium underline">
+          <span className="text-primary-teal mb:text-xl font-sans text-[18px] leading-120 font-medium underline">
             {networks.facebookLabel}
           </span>
         </a>
@@ -35,7 +35,7 @@ export default function SocialNetworks({ networks }: Props) {
           className="flex items-center gap-4"
         >
           <TwitterIcon />
-          <span className="text-primary-teal font-sans text-xl leading-120 font-medium underline">
+          <span className="text-primary-teal mb:text-xl font-sans text-[18px] leading-120 font-medium underline">
             {networks.twitterXLabel}
           </span>
         </a>
@@ -48,7 +48,7 @@ export default function SocialNetworks({ networks }: Props) {
           className="flex items-center gap-4"
         >
           <LinkedinIcon />
-          <span className="text-primary-teal font-sans text-xl leading-120 font-medium underline">
+          <span className="text-primary-teal mb:text-xl font-sans text-[18px] leading-120 font-medium underline">
             {networks.linkedinLabel}
           </span>
         </a>
@@ -61,7 +61,7 @@ export default function SocialNetworks({ networks }: Props) {
           className="flex items-center gap-4"
         >
           <YoutubeIcon />
-          <span className="text-primary-teal font-sans text-xl leading-120 font-medium underline">
+          <span className="text-primary-teal mb:text-xl font-sans text-[18px] leading-120 font-medium underline">
             {networks.youtubeLabel}
           </span>
         </a>

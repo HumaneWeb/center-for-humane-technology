@@ -64,7 +64,7 @@ function PaymentForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="text-primary-navy mb-4 font-sans text-xl leading-140 font-medium">
+      <div className="text-primary-navy mb:text-xl mb-4 font-sans text-[18px] leading-140 font-normal">
         Payment Information
       </div>
 
@@ -78,11 +78,11 @@ function PaymentForm({
 
       {errorMessage && <div className="mb-4 text-sm text-red-600">{errorMessage}</div>}
 
-      <div className="flex justify-between space-x-3 pt-4">
+      <div className="mb:flex-row flex flex-col-reverse justify-between space-x-3 pt-4">
         <button
           type="button"
           onClick={onBack}
-          className="text-primary-teal hover:text-primary-navy tracking-02 group mb-4 cursor-pointer rounded-[5px] text-xl leading-120 font-semibold underline transition-all duration-200 ease-in"
+          className="text-primary-teal hover:text-primary-navy tracking-02 group mb:w-auto mb-4 w-full cursor-pointer rounded-[5px] text-xl leading-120 font-semibold underline transition-all duration-200 ease-in"
         >
           Back
         </button>
@@ -182,7 +182,7 @@ export default function DonationSteps() {
   const renderStep1 = () => (
     <div className="w-full max-w-md">
       <div>
-        <div className="text-primary-navy mb-4 text-xl leading-140 font-medium">
+        <div className="text-primary-navy mb:text-xl mb-4 text-[18px] leading-140 font-normal">
           How often would you like to give?
         </div>
       </div>
@@ -198,7 +198,7 @@ export default function DonationSteps() {
             <RadioGroupItem value="monthly" id="monthly" />
             <Label
               htmlFor="monthly"
-              className="text-primary-navy flex-1 cursor-pointer text-[18px] leading-140 font-medium"
+              className="text-primary-navy mb:text-[18px] flex-1 cursor-pointer text-[16px] leading-140 font-normal"
             >
               Donate monthly
             </Label>
@@ -207,7 +207,7 @@ export default function DonationSteps() {
             <RadioGroupItem value="once" id="once" />
             <Label
               htmlFor="once"
-              className="text-primary-navy flex-1 cursor-pointer text-[18px] leading-140 font-medium"
+              className="text-primary-navy mb:text-[18px] flex-1 cursor-pointer text-[16px] leading-140 font-normal"
             >
               Donate once
             </Label>
@@ -227,11 +227,11 @@ export default function DonationSteps() {
         )}
 
         <div>
-          <Label className="text-primary-navy mb-4 text-xl leading-140 font-medium">
+          <Label className="text-primary-navy mb:text-xl mb-4 text-[18px] leading-140 font-normal">
             How much would you like to give?
           </Label>
           <div className="relative mt-2 mb-4">
-            <span className="text-primary-navy absolute top-1/2 left-3 z-10 -translate-y-1/2 transform font-sans text-xl leading-140 font-medium">
+            <span className="text-primary-navy mb:text-xl absolute top-1/2 left-3 z-10 -translate-y-1/2 transform font-sans text-[18px] leading-140 font-medium">
               $
             </span>
             <Input
@@ -240,12 +240,12 @@ export default function DonationSteps() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleInputChange('amount', e.target.value)
               }
-              className="text-primary-navy rounded-[5px] border border-[#A8ADB6] py-6 pr-32 pl-7 font-sans text-lg text-xl leading-140 font-medium"
+              className="text-primary-navy mb:text-xl w-full rounded-[5px] border border-[#A8ADB6] py-6 pr-2 pl-7 font-sans text-[18px] leading-140 font-medium"
               placeholder="50"
               min="1"
               step="1"
             />
-            <button
+            {/* <button
               className="text-primary-navy absolute top-1/2 right-2 mr-1 -translate-y-1/2 transform cursor-pointer text-[16px] leading-140"
               onClick={() => {
                 const newAmount: string | null = prompt('Enter amount:', formData.amount);
@@ -255,7 +255,7 @@ export default function DonationSteps() {
               }}
             >
               Click to change
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -277,7 +277,7 @@ export default function DonationSteps() {
 
         <button
           onClick={handleNext}
-          className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb-4 inline-block min-w-[215px] cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
+          className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb:min-w-[215px] mb-4 inline-block min-w-full cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
         >
           Next
         </button>
@@ -309,7 +309,7 @@ export default function DonationSteps() {
   const renderStep2 = () => (
     <div className="w-full max-w-md">
       <div>
-        <div className="text-primary-navy mb-4 font-sans text-xl leading-140 font-medium">
+        <div className="text-primary-navy mb:text-xl mb-4 font-sans text-[18px] leading-140 font-normal">
           Your information
         </div>
       </div>
@@ -322,7 +322,7 @@ export default function DonationSteps() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('firstName', e.target.value)
             }
-            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-medium"
+            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-normal"
           />
         </div>
 
@@ -334,7 +334,7 @@ export default function DonationSteps() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('lastName', e.target.value)
             }
-            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-medium"
+            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-normal"
           />
         </div>
 
@@ -347,14 +347,14 @@ export default function DonationSteps() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange('email', e.target.value)
             }
-            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-medium"
+            className="text-primary-navy mt-0 h-full px-4 py-3 font-sans text-[18px] leading-140 font-normal"
           />
         </div>
 
-        <div className="flex justify-between space-x-3 pt-4">
+        <div className="mb:flex-row flex flex-col-reverse justify-between space-x-3 pt-4">
           <button
             onClick={handleBack}
-            className="text-primary-teal hover:text-primary-navy tracking-02 group mb-4 cursor-pointer rounded-[5px] text-xl leading-120 font-semibold underline transition-all duration-200 ease-in"
+            className="text-primary-teal hover:text-primary-navy tracking-02 group mb:w-auto mb-4 w-full cursor-pointer rounded-[5px] text-xl leading-120 font-semibold underline transition-all duration-200 ease-in"
           >
             Back
           </button>
@@ -388,7 +388,7 @@ export default function DonationSteps() {
   );
 
   return (
-    <div className="flex items-center justify-center rounded-[5px] bg-[#F0F7F7] px-7 pt-10 pb-14">
+    <div className="mb:px-7 mb:pt-10 mb:pb-14 flex items-center justify-center rounded-[5px] bg-[#F0F7F7] p-6">
       <div className="w-full max-w-4xl">
         <div className="flex justify-center">
           {currentStep === 1 && renderStep1()}

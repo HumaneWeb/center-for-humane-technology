@@ -30,16 +30,16 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
       {/* @ts-expect-error */}
       <PodcastListHero {...page} />
 
-      <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+      <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <SearchInput
           value={searchParams.search || ''}
           placeholder="Search topic by keyword..."
-          className="mb-16 max-w-[406px]"
+          className="mb:mb-16 mb-8 max-w-[406px]"
         />
 
         {searchQuery && (
-          <div className="mb-8">
-            <p className="font-sans text-xl leading-140 font-medium">
+          <div className="mb:mb-8 mb-4">
+            <p className="mb:text-xl font-sans text-[16px] leading-140 font-medium">
               {podcasts.length > 0 ? (
                 <>
                   Found {podcasts.length} result{podcasts.length !== 1 ? 's' : ''} for:{' '}
@@ -54,7 +54,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
           </div>
         )}
 
-        <div className="mb-16 flex max-w-[948px] flex-col gap-12">
+        <div className="mb:mb-16 mb-8 flex max-w-[948px] flex-col gap-12">
           {firstThree.map((podcast) => (
             <PodcastMinimalCard {...podcast} key={podcast.id} />
           ))}
@@ -69,7 +69,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
 
       {remaining.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
-          <div className="mb-36 flex max-w-[948px] flex-col gap-12">
+          <div className="mb:mb-36 mb-20 flex max-w-[948px] flex-col gap-12">
             {remaining.map((podcast) => (
               <PodcastMinimalCard {...podcast} key={podcast.id} />
             ))}

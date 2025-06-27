@@ -1,5 +1,7 @@
+'use client';
 import { cn } from '@/lib/utils/css.utils';
 import type { CustomImageProps } from '../shared/custom-image';
+import useIsMobile from '../hooks/is-mobile';
 
 type Props = {
   preTitle: string;
@@ -10,6 +12,8 @@ type Props = {
 };
 
 export default function ComplexHero({ title, preTitle, introduction, image, variant }: Props) {
+  const isMobile = useIsMobile();
+
   return (
     <section
       id="complex-hero"
@@ -22,14 +26,16 @@ export default function ComplexHero({ title, preTitle, introduction, image, vari
     >
       <div
         className="bg-contain bg-bottom-right bg-no-repeat"
-        style={{ backgroundImage: image ? `url(${image.url})` : undefined }}
+        style={{
+          backgroundImage: isMobile ? 'none' : `url(${image.url})`,
+        }}
       >
-        <div className="mx-auto flex h-[620px] max-w-7xl items-end px-4 pb-25 sm:px-6 lg:px-8">
+        <div className="mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-40 pb-10 sm:px-6 lg:px-8">
           <div className="max-w-[750px]">
             {preTitle && (
               <h2
                 className={cn(
-                  'mb-3.5 font-sans text-xl leading-135 font-semibold tracking-[1px] text-[#93C0FF] uppercase',
+                  'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
                   variant === 'green' && 'text-[#ACFFFC]',
                 )}
               >
@@ -38,14 +44,14 @@ export default function ComplexHero({ title, preTitle, introduction, image, vari
             )}
             <h1
               className={cn(
-                'text-primary-cream tracking-061 mb-5 font-sans text-6xl leading-110 font-semibold',
+                'text-primary-cream mb:tracking-061 mb:text-6xl mb:mb-5 mb-2 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]',
               )}
             >
               {title}
             </h1>
             {introduction && (
               <div
-                className="text-neutral-white max-w-[600px] font-sans text-2xl leading-140"
+                className="text-neutral-white mb:text-2xl max-w-[600px] font-sans text-xl leading-140"
                 dangerouslySetInnerHTML={{ __html: introduction }}
               />
             )}

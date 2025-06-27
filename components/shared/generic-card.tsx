@@ -39,7 +39,7 @@ export default function GenericCard({
         <CustomImage
           {...image}
           extraClass={cn(
-            'h-[252px] w-full mb-5 object-cover',
+            'h-[252px] w-full mb:mb-5 mb-2 object-cover',
             variant === 'minimal-small' && 'h-auto mb-2.5',
           )}
         />
@@ -59,7 +59,7 @@ export default function GenericCard({
         {title && (
           <h2
             className={cn(
-              'text-primary-teal mb-5 font-sans text-2xl leading-130 font-semibold',
+              'text-primary-teal mb:mb-5 mb-1 font-sans text-2xl leading-130 font-semibold',
               (variant === 'minimal' || variant === 'minimal-small') &&
                 'group-hover:text-neutral-white',
               variant === 'default' && 'group-hover:text-primary-blue',

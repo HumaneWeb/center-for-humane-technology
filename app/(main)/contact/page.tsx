@@ -23,20 +23,18 @@ export default async function ContactPage() {
   return (
     <>
       <BasicHero title={title} preTitle={preTitle} variant="purple" />
-      <div className="mx-auto max-w-7xl px-4 pt-17 sm:px-6 lg:px-8">
-        <h3 className="text-primary-navy mb-6 font-sans text-[29px] leading-130 font-semibold">
+      <div className="mb:pt-17 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <h3 className="text-primary-navy mb:text-[29px] mb:leading-130 mb:mb-6 mb-5 font-sans text-[23px] leading-120 font-semibold">
           Get in touch
         </h3>
 
-        <div className="grid grid-cols-2 gap-30 pb-30">
-          <div>
-            <ContactForm />
-          </div>
+        <div className="mb:grid-cols-2 mb:gap-30 mb:pb-30 grid gap-10 pb-20">
+          <ContactForm />
 
           {information && (
             <div>
               <div
-                className="text-primary-navy [&>p>a]:text-primary-teal mb-12 font-sans text-xl leading-140 [&>p]:mb-4 [&>p>a]:font-semibold [&>p>a]:underline"
+                className="text-primary-navy [&>p>a]:text-primary-teal mb:text-xl mb:mb-12 mb-8 font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p>a]:font-semibold [&>p>a]:underline"
                 dangerouslySetInnerHTML={{ __html: information }}
               />
               {networks && <SocialNetworks networks={networks} />}

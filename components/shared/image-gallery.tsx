@@ -94,7 +94,7 @@ export default function ImageGallery({ images, autoPlayInterval = 5000 }: ImageG
         <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black/10 to-transparent opacity-0 md:opacity-0" />
       </div>
 
-      <div className="mt-4 flex w-full items-center justify-between gap-7">
+      <div className="mb:gap-7 mt-4 flex w-full items-center justify-between gap-2.5">
         {images.map((_, index) => (
           <button
             key={index}

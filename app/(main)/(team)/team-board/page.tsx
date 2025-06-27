@@ -22,37 +22,32 @@ export default async function TeamListPage() {
   return (
     <>
       <BasicHero title={title} preTitle={preTitle} variant="purple" />
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="mb-36">
-          <h2 className="tracking-049 text-primary-navy mb-12 font-sans text-5xl leading-110 font-semibold">
+      <section className="mb:py-14 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb:mb-36 mb-10">
+          <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
             Team
           </h2>
-          <div className="grid grid-cols-3 gap-x-6 gap-y-10">
+          <div className="mb:grid-cols-3 grid gap-x-6 gap-y-10">
             {teamList.map((team) => (
-              // @ts-expect-error
               <TeamCard key={team.id} {...team} type="team" />
             ))}
           </div>
         </div>
       </section>
 
-      <div>
-        <NewsletterBlock
-          // @ts-expect-error
-          title={configuration?.newsletterTitle}
-          introduction={configuration?.newsletterIntroduction}
-        />
-      </div>
+      <NewsletterBlock
+        title={configuration?.newsletterTitle}
+        introduction={configuration?.newsletterIntroduction}
+      />
 
-      <div className="bg-primary-teal/[0.06] pt-24 pb-28">
+      <div className="bg-primary-teal/[0.06] mb:pt-24 mb:pb-28 pt-8 pb-15">
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div>
-            <h2 className="tracking-049 text-primary-navy mb-12 font-sans text-5xl leading-110 font-semibold">
+            <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
               Board
             </h2>
-            <div className="grid grid-cols-4 gap-x-6 gap-y-10">
+            <div className="mb:grid-cols-4 grid gap-x-6 gap-y-10">
               {boardList.map((team) => (
-                // @ts-expect-error
                 <TeamCard key={team.id} {...team} type="board" />
               ))}
             </div>
@@ -60,13 +55,13 @@ export default async function TeamListPage() {
         </section>
       </div>
 
-      <section className="mb-20">
+      <section className="mb:mb-20 mb-10">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <h2 className="tracking-049 text-primary-navy mb-16 font-sans text-5xl leading-110 font-semibold">
+          <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-16 mb-5 font-sans text-[29px] leading-120 font-semibold">
             Careers
           </h2>
 
-          <div className="mb-24 grid grid-cols-2 gap-x-28 gap-y-5">
+          <div className="mb:grid-cols-2 mb:mb-24 mb-12 grid gap-x-28 gap-y-5">
             {careers.map((career) => (
               <CareerCard {...career} key={career.id} />
             ))}

@@ -9,19 +9,19 @@ type Props = {
 
 export default function ColumnsBlock({ title, items }: Props) {
   return (
-    <section className="my-31">
-      <div className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h3 className="tracking-049 text-primary-navy mb-10 font-sans text-5xl leading-110 font-semibold">
+    <section className="mb:my-31 py-8">
+      <div className="mb:mb-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h3 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-10 mb-5 font-sans text-[29px] leading-120 font-semibold">
           {title}
         </h3>
-        <div className="grid grid-cols-3 gap-7">
+        <div className="mb:grid-cols-3 grid gap-7">
           {items.map((item) => (
             <div key={item.id}>
-              <h4 className="text-primary-navy mb-6 font-sans text-2xl leading-130 font-semibold">
+              <h4 className="text-primary-navy mb:text-2xl mb:leading-130 mb:mb-6 mb-2 font-sans text-xl leading-120 font-semibold">
                 {item.title}
               </h4>
               <div
-                className="text-primary-navy font-sans text-xl leading-140 font-medium"
+                className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 font-medium"
                 dangerouslySetInnerHTML={{ __html: item.introduction }}
               />
             </div>

@@ -14,13 +14,13 @@ type Props = {
 
 export default function ThinkingBlock({ title, items }: Props) {
   return (
-    <section className="bg-primary-cream pt-16 pb-32">
+    <section className="bg-primary-cream mb:pt-16 mb:pb-32 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h3 className="text-primary-navy mb-16 font-sans text-3xl leading-130 font-semibold">
+        <h3 className="text-primary-navy mb:text-3xl mb:leading-130 mb:mb-16 mb-8 font-sans text-[23px] leading-120 font-semibold">
           {title}
         </h3>
 
-        <div className="grid grid-cols-3 gap-16">
+        <div className="mb:grid-cols-3 mb:gap-16 grid gap-5">
           {items.map((item) => (
             <DepthAreaCard key={item.id} {...item} variant="vertical" />
           ))}

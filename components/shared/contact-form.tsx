@@ -53,7 +53,10 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-[#F0F7F7] px-7.5 py-8">
+    <form
+      onSubmit={handleSubmit}
+      className="mb:px-7.5 mb:py-8 space-y-6 rounded-lg bg-[#F0F7F7] p-6"
+    >
       <RadioGroup
         value={formData.contactOption}
         onValueChange={(value) => handleInputChange('contactOption', value)}
@@ -187,7 +190,7 @@ export default function ContactForm() {
         risus eleifend tortor et lobortis adipiscing sagittis ultrices.
       </div>
 
-      <div className="mb-10 flex items-center space-x-2.5 border-b border-[#DBDEE6] pb-5">
+      <div className="mb:mb-10 mb-6 flex items-center space-x-2.5 border-b border-[#DBDEE6] pb-5">
         <Checkbox
           id="agreement"
           checked={formData.agreement}
@@ -205,7 +208,7 @@ export default function ContactForm() {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group inline-block min-w-[216px] cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
+          className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb:min-w-[216px] inline-block min-w-full cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
         >
           Send Message
         </button>

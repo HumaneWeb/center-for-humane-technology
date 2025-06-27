@@ -80,7 +80,7 @@ export default function Cta({
         variant === 'minimal' &&
           'p-0 bg-transparent text-primary-teal hover:bg-transparent hover:text-primary-navy',
         variant === 'underline' &&
-          ' p-0 bg-transparent text-primary-teal hover:bg-transparent hover:text-primary-navy',
+          ' p-0 bg-transparent text-primary-teal hover:bg-transparent hover:text-primary-navy mb:text-xl text-[18px] leading-110 mb:leading-120',
         variant === 'border' &&
           'bg-transparent border-2 border-primary-teal text-primary-teal hover:bg-primary-teal hover:text-neutral-white',
         icon && 'flex items-center justify-center',
@@ -91,7 +91,7 @@ export default function Cta({
       <span className="flex flex-col">
         <span className={cn(variant === 'underline' && 'font-medium underline')}>{label}</span>
         {helperLabel && (
-          <span className="text-primary-navy pointer-none: font-sans text-[16px] leading-140 font-normal">
+          <span className="text-primary-navy pointer-none: mb:text-[16px] font-sans text-[14px] leading-140 font-normal">
             {helperLabel}
           </span>
         )}

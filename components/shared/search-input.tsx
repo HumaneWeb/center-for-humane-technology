@@ -57,7 +57,7 @@ export const SearchInput: React.FC<FilterInputProps> = ({
         type="text"
         name="search"
         placeholder={placeholder}
-        className="text-primary-blue tracking-016 focus:to-primary-navy w-full rounded-[5px] border p-3.5 font-sans text-[16px] leading-135 focus:ring-1 focus:outline-none"
+        className="text-primary-blue tracking-016 focus:to-primary-navy mb:text-[16px] mb:leading-135 w-full rounded-[5px] border p-3.5 font-sans text-sm leading-120 focus:ring-1 focus:outline-none"
         defaultValue={value}
         autoComplete="off"
       />

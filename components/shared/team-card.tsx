@@ -37,8 +37,8 @@ export default function TeamCard({
           className={cn(
             'mb-2 font-sans leading-120 font-semibold transition-colors duration-200 ease-in-out',
             isTeam
-              ? 'text-primary-teal group-hover:text-primary-navy text-2xl'
-              : 'text-primary-navy group-hover:text-primary-teal text-xl',
+              ? 'text-primary-teal group-hover:text-primary-navy mb:text-2xl text-xl'
+              : 'text-primary-navy group-hover:text-primary-teal mb:text-xl text-[18px]',
           )}
         >
           {fullName}
@@ -46,7 +46,9 @@ export default function TeamCard({
         <h4
           className={cn(
             'font-sans text-[16px] font-semibold',
-            isTeam ? 'tracking-08 text-primary-navy leading-135 uppercase' : 'leading-140',
+            isTeam
+              ? 'tracking-08 text-primary-navy mb:leading-135 leading-120 uppercase'
+              : 'leading-140',
           )}
         >
           {teamPosition}

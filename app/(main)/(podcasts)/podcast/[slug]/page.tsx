@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import DonateBlock from '@/components/blocks/donate-block';
+import LinksBlock from '@/components/blocks/links-block';
 import NewsletterBlock from '@/components/blocks/newsletter-block';
 import Cta from '@/components/shared/cta';
 import CustomImage from '@/components/shared/custom-image';
@@ -42,9 +43,12 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
 
   return (
     <section>
-      <div className="bg-gradient-podcast-list min-h-[700px] pt-10">
+      <div className="bg-gradient-podcast-list mb:min-h-[700px] mb:pb-0 pt-10 pb-8">
         <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
-          <CustomLink content={{ content: podcastList }} extraClass="flex items-center gap-2 mb-14">
+          <CustomLink
+            content={{ content: podcastList }}
+            extraClass="flex items-center gap-2 mb-5 mb:mb-14"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -60,17 +64,19 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-primary-blue font-sans text-xl leading-120 font-semibold underline">
+            <span className="text-primary-blue mb:text-xl font-sans text-[18px] leading-120 font-semibold underline">
               All episodes
             </span>
           </CustomLink>
 
-          <div className="grid grid-cols-[1.2fr_2fr] gap-10">
+          <div className="mb:grid-cols-[1.2fr_2fr] grid gap-10">
             <div>
-              {image && <CustomImage {...image} extraClass="mb-10 w-[400px] h-[400px]" />}
+              {image && (
+                <CustomImage {...image} extraClass="mb-5 mb:mb-10 mb:w-[400px] mb:h-[400px]" />
+              )}
 
               {(applePodcastsUrl || spotifyUrl || youtubeUrl) && (
-                <div className="flex flex-wrap items-center gap-10">
+                <div className="mb:gap-10 flex flex-wrap items-center gap-5">
                   {applePodcastsUrl && (
                     <a href={applePodcastsUrl} className="flex items-center gap-2.5">
                       <svg
@@ -86,7 +92,7 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
                         />
                       </svg>
 
-                      <span className="text-primary-navy font-sans text-[16px] leading-100 font-medium">
+                      <span className="text-primary-navy mb:text-[16px] font-sans text-[14px] leading-100 font-medium">
                         Apple <br />
                         Podcasts
                       </span>
@@ -110,7 +116,7 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
                         />
                       </svg>
 
-                      <span className="text-primary-navy font-sans text-[16px] leading-100 font-medium">
+                      <span className="text-primary-navy mb:text-[16px] font-sans text-[14px] leading-100 font-medium">
                         Spotify
                       </span>
                     </a>
@@ -132,7 +138,7 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
                         />
                       </svg>
 
-                      <span className="text-primary-navy font-sans text-[16px] leading-100 font-medium">
+                      <span className="text-primary-navy mb:text-[16px] font-sans text-[14px] leading-100 font-medium">
                         YouTube
                       </span>
                     </a>
@@ -142,16 +148,16 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
             </div>
 
             <div>
-              <h3 className="text-primary-blue mb-7 font-sans text-xl leading-110 font-semibold">
+              <h3 className="text-primary-blue mb:text-xl mb:leading-110 mb:mb-7 mb-2 font-sans text-[18px] leading-120 font-semibold">
                 {episode} {date ? `| ${formatDate(date)}` : ''}
               </h3>
-              <h1 className="tracking-039 text-primary-blue mb-7 font-sans text-[39px] leading-110 font-semibold">
+              <h1 className="tracking-039 text-primary-blue mb:text-[39px] mb:leading-110 mb:mb-7 mb-5 font-sans text-[26px] leading-120 font-semibold">
                 {title}
               </h1>
               {(episodeUrl || videoUrl || substackUrl) && (
-                <div className="mb-7 flex items-center gap-7">
+                <div className="mb:gap-7 mb-7 flex flex-wrap items-center gap-3">
                   {episodeUrl && (
-                    <Cta extraClass="flex items-center gap-2.5">
+                    <Cta extraClass="flex items-center gap-2.5 mb:w-auto w-full mb:justify-start justify-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -169,7 +175,7 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
                     </Cta>
                   )}
                   {videoUrl && (
-                    <Cta extraClass="flex items-center gap-2.5">
+                    <Cta extraClass="flex items-center gap-2.5 mb:w-auto w-full mb:justify-start justify-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -187,7 +193,7 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
                     </Cta>
                   )}
                   {substackUrl && (
-                    <Cta extraClass="flex items-center gap-2.5 p-0 bg-transparent text-primary-blue underline hover:bg-transparent hover:text-primary-navy">
+                    <Cta extraClass="flex items-center gap-2.5 p-0 bg-transparent text-primary-blue underline hover:bg-transparent hover:text-primary-navy mb:w-auto w-full mb:justify-start justify-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="28"
@@ -226,63 +232,17 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
         introduction={configuration?.newsletterIntroduction}
       />
 
-      <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
-        <div className="mb-52 grid grid-cols-2 gap-10">
-          <div>
-            <h2 className="text-primary-blue mb-8 font-sans text-3xl leading-130 font-semibold">
-              More from CHT
-            </h2>
-            <div className="flex flex-col gap-5">
-              <a
-                href=""
-                className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
-              >
-                This is a piece of thought leadership by CHT or an intervention or a case study
-              </a>
-              <a
-                href=""
-                className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
-              >
-                This is a piece of thought leadership by CHT or an intervention or a case study
-              </a>
-            </div>
-          </div>
-          <div>
-            <h2 className="text-primary-blue hover:text-primary-navy mb-8 font-sans text-3xl leading-130 font-semibold transition-all duration-200 ease-in">
-              Other recommended reading
-            </h2>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-[5px]">
-                <a
-                  href=""
-                  className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
-                >
-                  Further reading on the rise of addictive intelligence
-                </a>
-                <span className="text-primary-navy font-sans text-[16px] leading-135">
-                  MIT Media
-                </span>
-              </div>
-              <div className="flex flex-col gap-[5px]">
-                <a
-                  href=""
-                  className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-medium underline transition-all duration-200 ease-in"
-                >
-                  More information on Melvin Kranzberg’s laws of technology
-                </a>
-                <span className="text-primary-navy font-sans text-[16px] leading-135">
-                  UC Davis
-                </span>
-              </div>
-            </div>
-          </div>
+      <div className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div className="mb:mb-52 mb:grid-cols-2 mb-10 grid gap-10">
+          <LinksBlock title="More From CHT" ctas={[]} />
+          <LinksBlock title="Other recommended reading" ctas={[]} />
         </div>
 
-        <div className="mb-60">
-          <h2 className="text-primary-blue mb-8 font-sans text-3xl leading-130 font-semibold">
+        <div className="mb:mb-60 mb-20">
+          <h2 className="text-primary-blue mb:text-3xl mb:leading-130 mb:mb-8 mb-5 font-sans text-[23px] leading-120 font-semibold">
             Continue listening
           </h2>
-          <div className="grid grid-cols-2 gap-x-16 gap-y-11">
+          <div className="mb:grid-cols-2 mb:gap-y-11 grid gap-x-16 gap-y-8">
             {moreReading.map((podcast) => (
               <PodcastMinimalCard {...podcast} key={podcast.id} variant="small" />
             ))}

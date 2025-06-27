@@ -13,11 +13,11 @@ export default function HighlightedBlock({ title, content, backgroundColor, vari
   return (
     <div
       className={cn(
-        'px-10 py-9',
+        'mb:px-10 mb:py-9 px-5 py-8',
         backgroundColor === 'blue' && 'bg-primary-blue',
         backgroundColor === 'light-purple' && 'bg-[#F3F0FF]',
         backgroundColor === 'white' && 'bg-neutral-white',
-        variant === 'with-container-color' && 'max-w-[950px] p-10',
+        variant === 'with-container-color' && 'mb:p-10 max-w-[950px]',
       )}
     >
       <div
@@ -25,7 +25,8 @@ export default function HighlightedBlock({ title, content, backgroundColor, vari
           'font-sans text-2xl leading-130 font-semibold',
           backgroundColor === 'blue' && 'text-neutral-white',
           backgroundColor === 'light-purple' && 'text-primary-blue',
-          variant === 'with-container-color' && 'tracking-039 mb-3.5 text-[39px] leading-110',
+          variant === 'with-container-color' &&
+            'tracking-039 mb:text-[39px] mb:leading-110 mb-3.5 text-[26px] leading-120',
         )}
         dangerouslySetInnerHTML={{ __html: title }}
       />
@@ -33,7 +34,7 @@ export default function HighlightedBlock({ title, content, backgroundColor, vari
       {content && (
         <div
           className={cn(
-            'mt-5 font-sans text-xl leading-140 font-medium',
+            'mb:text-xl mt-5 font-sans text-[18px] leading-140 font-medium',
             backgroundColor === 'blue' && 'text-neutral-white',
             backgroundColor === 'light-purple' && 'text-primary-blue',
           )}

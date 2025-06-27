@@ -37,10 +37,10 @@ export default function BasicHero({
   return (
     <section
       id="basic-hero"
-      className={cn('bg-cover bg-no-repeat pt-52 pb-14', variantClasses[variant])}
+      className={cn('mb:pt-52 mb:pb-14 bg-cover bg-no-repeat pt-35 pb-8', variantClasses[variant])}
       style={{ backgroundImage: backgroundImage ? `url(${backgroundImage.url})` : undefined }}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mb:flex-row mb:items-center mx-auto flex max-w-7xl flex-col justify-between gap-5 px-4 sm:px-6 lg:px-8">
         <div>
           {backCta && (
             <div className="w-fit">
@@ -57,13 +57,13 @@ export default function BasicHero({
             </div>
           )}
           {preTitle && (
-            <h2 className="text-secondary-light-purple mb-5 font-sans text-xl leading-135 font-semibold tracking-[1px] uppercase">
+            <h2 className="text-secondary-light-purple mb:text-xl mb:leading-135 mb:tracking-[1px] mb:mb-5 mb-2 font-sans text-[15px] leading-120 font-semibold tracking-[0.9px] uppercase">
               {preTitle}
             </h2>
           )}
           <h1
             className={cn(
-              'text-primary-navy tracking-061 font-sans text-6xl leading-110 font-semibold',
+              'text-primary-navy tracking-061 mb:text-6xl font-sans text-[31px] leading-110 font-semibold',
               variant === 'purple' && 'text-primary-cream',
               variant === 'white' && 'tracking-049 text-neutral-white text-[49px] leading-110',
               variant === 'dark' && 'text-primary-navy tracking-049 text-[49px] leading-110',

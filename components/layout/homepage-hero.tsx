@@ -9,12 +9,7 @@ export default function HomepageHero({ homepage }: Props) {
   const { title, introduction, ctas, decorationVideos } = homepage!;
 
   return (
-    <section
-      className="homepage-hero bg-primary-cream/50 h-dvh bg-contain bg-right bg-no-repeat py-12 lg:py-20"
-      style={{
-        backgroundImage: `url("/homepage-circles.svg")`,
-      }}
-    >
+    <section className="homepage-hero bg-primary-cream/50 mb:bg-contain mb:bg-right mb:bg-no-repeat mb:bg-[url('/homepage-circles.svg')] mb:h-dvh mb:py-20 pt-30 pb-10">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div className="space-y-0">

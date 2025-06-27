@@ -367,3 +367,9 @@ hr {
 .paragraph:has(+ .generic-cards-grid) {
   margin-bottom: 160px;
 }
+
+@media screen and (max-width: 992px) {
+  .paragraph:has(+ .generic-cards-grid) {
+    margin-bottom: 60px;
+  }
+}

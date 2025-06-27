@@ -56,7 +56,7 @@ export default function CustomStructuredText({
             <NarrativeBlock
               key={record.id}
               {...record}
-              extraClass="mt-[180px] pb-[145px] [&+.narrative-block]:mt-0 pt-0"
+              extraClass="my-8 mb:mt-[180px] mb:pb-[145px] [&+.narrative-block]:mt-0 pt-0"
             />
           );
         }
@@ -73,14 +73,14 @@ export default function CustomStructuredText({
           return <StatsBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'ImpactBlockRecord') {
-          return <ImpactBlock key={record.id} {...record} extraClass="mb-20" />;
+          return <ImpactBlock key={record.id} {...record} extraClass="mb:mb-20 mb-5" />;
         }
         if (record.__typename === 'ImageBlockRecord') {
           return (
             <div
               className={cn(
                 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
-                record.alignment !== 'left' && record.alignment !== 'right' && 'my-10',
+                record.alignment !== 'left' && record.alignment !== 'right' && 'mb:my-10 my-5',
                 centerContent && 'px-0!',
               )}
               key={record.id}
@@ -157,7 +157,7 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'HighlightedBlockRecord') {
           return (
-            <div className={cn(record.variant === 'with-container-color' && 'py-32')}>
+            <div className={cn(record.variant === 'with-container-color' && 'mb:py-32')}>
               <div
                 className={cn(
                   'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
@@ -251,7 +251,7 @@ export default function CustomStructuredText({
                           'p',
                           {
                             className: cn(
-                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              'font-sans text-[18px] mb:text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
                               centerContent && '',
                               isInnerContainer && 'text-[16px]',
                             ),
@@ -267,7 +267,7 @@ export default function CustomStructuredText({
                           'p',
                           {
                             className: cn(
-                              'font-sans text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              'font-sans text-[18px] mb:text-xl font-medium leading-140 text-primary-navy mb-5 max-w-[840px]',
                               centerContent && '',
                             ),
                           },
@@ -297,7 +297,7 @@ export default function CustomStructuredText({
                         {
                           id: headingId,
                           className: cn(
-                            'font-sans font-semibold leading-130 text-3xl text-primary-navy  max-w-[840px]',
+                            'font-sans font-semibold leading-120 mb:leading-130 mb:text-3xl text-primary-navy max-w-[840px] text-[23px]',
                             centerContent && '',
                             isInnerContainer && 'text-2xl mb-2',
                           ),

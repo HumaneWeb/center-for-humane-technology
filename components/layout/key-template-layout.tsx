@@ -16,7 +16,7 @@ export default function KeyTemplateLayout({ page, configuration }) {
       />
       <div
         className={cn(
-          'pt-20',
+          'mb:pt-20 pt-10',
           page?.contentBackgroundColor === 'purple-gradient' && 'bg-basic-page',
           page?.contentBackgroundColor === 'white' && 'bg-white-page',
         )}

@@ -30,7 +30,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
 
   return (
     <div>
-      <div className="mb-14 grid grid-cols-5 gap-5">
+      <div className="mb:grid-cols-5 mb:mb-14 mb-5 grid gap-5">
         {items.map((item) => (
           <div
             key={`nav-${item.id}`}
@@ -44,36 +44,36 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
       <div className="max-w-[948px]">
         {information && (
           <div
-            className="text-primary-navy mb-32 max-w-[948px] font-sans text-xl leading-140 font-medium"
+            className="text-primary-navy mb:text-xl mb:mb-32 mb-5 max-w-[948px] font-sans text-[18px] leading-140 font-medium"
             dangerouslySetInnerHTML={{ __html: information }}
           />
         )}
-        <div className="flex flex-col gap-28">
+        <div className="mb:gap-28 flex flex-col gap-10">
           {items.map((item) => (
             <div key={item.id} id={`content-${item.id}`}>
-              <h3 className="text-primary-blue mb-6 font-sans text-[29px] leading-130 font-semibold">
+              <h3 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-6 mb-5 font-sans text-[23px] leading-120 font-semibold">
                 {item.title}
               </h3>
-              <div className="mb-20 grid grid-cols-[auto_1fr] gap-6">
+              <div className="mb:grid-cols-[auto_1fr] mb:gap-6 mb:mb-20 mb-5 grid gap-3">
                 <CustomImage {...item.image} />
                 <div
-                  className="text-primary-navy font-sans text-xl leading-140 font-medium"
+                  className="text-primary-navy mb:text-xl mb:leading-140 font-sans text-[18px] leading-130 font-medium"
                   dangerouslySetInnerHTML={{ __html: item.introduction }}
                 />
               </div>
-              <div className="mb-12 grid grid-cols-3 gap-6">
+              <div className="mb:grid-cols-3 mb:mb-12 mb-5 grid gap-6">
                 {item.items.map((subItem) => (
-                  <div key={subItem.id} className="flex flex-col gap-[30px]">
+                  <div key={subItem.id} className="mb:gap-[30px] flex flex-col gap-[10px]">
                     <CustomImage {...subItem.image} extraClass="w-[190px] h-[190px]" />
                     <div
-                      className="font-sans text-[16px] leading-140 font-medium"
+                      className="mb:leading-140 font-sans text-[16px] leading-130 font-medium"
                       dangerouslySetInnerHTML={{ __html: subItem.content }}
                     />
                   </div>
                 ))}
               </div>
               <div
-                className="text-primary-navy max-w-[948px] font-sans text-xl leading-140 font-medium"
+                className="text-primary-navy mb:text-xl mb:leading-140 max-w-[948px] font-sans text-[18px] leading-130 font-medium"
                 dangerouslySetInnerHTML={{ __html: item.information }}
               />
             </div>

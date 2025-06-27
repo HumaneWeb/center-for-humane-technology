@@ -10,10 +10,7 @@ type Props = {
 
 export default function DonateBlock({ title, cta, image }: Props) {
   return (
-    <section
-      className="bg-primary-navy mb:py-10 bg-contain bg-right bg-no-repeat py-8"
-      style={{ backgroundImage: 'url(/donate-bg.png)' }}
-    >
+    <section className="bg-primary-navy mb:py-10 py-8 md:bg-[url('/donate-bg.png')] md:bg-contain md:bg-right md:bg-no-repeat">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           <div>

@@ -19,29 +19,29 @@ export default function ApproachBlock({
   return (
     <section
       className={cn(
-        'pt-32 pb-40',
+        'mb:pt-32 mb:pb-40 py-8',
         backgroundColor === 'light-purple' && 'bg-[#F0EBFF]',
         backgroundColor === 'white' && 'bg-neutral-white',
       )}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h3 className="tracking-049 text-primary-navy mb-16 font-sans text-5xl leading-110 font-semibold">
+        <h3 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-16 mb-10 font-sans text-[29px] leading-120 font-semibold">
           {headline}
         </h3>
 
-        <div className="grid grid-cols-[2fr_3fr]">
-          <div>
+        <div className="mb:grid-cols-[2fr_3fr] grid">
+          <div className="mb:mb-0 mb-8">
             <ApproachGraphic />
           </div>
 
           <div>
             <div
-              className="text-primary-navy [&>p>strong]:text-primary-blue mb-5 font-sans text-2xl leading-140 font-medium"
+              className="text-primary-navy [&>p>strong]:text-primary-blue mb:text-2xl mb:mb-5 mb-2 font-sans text-xl leading-140 font-medium"
               dangerouslySetInnerHTML={{ __html: title }}
             />
 
             <div
-              className="text-primary-navy mb-5 font-sans text-xl leading-140 font-medium [&>p]:mb-4"
+              className="text-primary-navy mb:text-xl mb-5 font-sans text-[18px] leading-140 font-medium [&>p]:mb-4"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
 
@@ -61,7 +61,7 @@ const ApproachGraphic = () => {
       height="299"
       viewBox="0 0 299 299"
       fill="none"
-      className="drop-shadow-lg"
+      className="h-full w-full drop-shadow-lg"
     >
       <g clipPath="url(#clip0_3203_1334)">
         <g className="approach-outer-ring">

@@ -33,8 +33,8 @@ export default async function TeamDetailPage({ params }: PageSlug) {
 
   return (
     <section className="bg-primary-teal/[0.08] pt-20">
-      <div className="mx-auto max-w-7xl px-4 py-16 pb-40 sm:px-6 lg:px-8">
-        <div className="mb-12">
+      <div className="mb:pb-40 mx-auto max-w-7xl px-4 py-16 pb-20 sm:px-6 lg:px-8">
+        <div className="mb:mb-12 mb-5">
           <CustomLink content={{ content: teamBoard }} extraClass="flex items-center gap-[10px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -51,15 +51,15 @@ export default async function TeamDetailPage({ params }: PageSlug) {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-primary-blue text-xl leading-120 font-semibold underline">
+            <span className="text-primary-blue mb:text-xl text-[18px] leading-120 font-semibold underline">
               {teamBoard?.title}
             </span>
           </CustomLink>
         </div>
 
-        <div className="grid grid-cols-[1fr_2fr] gap-32">
+        <div className="mb:grid-cols-[1fr_2fr] mb:gap-32 grid gap-10">
           <div>
-            <CustomImage {...image} extraClass="mb-9" />
+            <CustomImage {...image} extraClass="mb:mb-9 mb-5" />
             <div className="flex flex-wrap items-center gap-5">
               {twitterXUrl && (
                 <a href={twitterXUrl}>
@@ -121,14 +121,13 @@ export default async function TeamDetailPage({ params }: PageSlug) {
             </div>
           </div>
           <div>
-            <h1 className="tracking-049 text-primary-navy mb-3.5 font-sans text-5xl leading-110 font-semibold">
+            <h1 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-3.5 mb-2 font-sans text-[29px] leading-120 font-semibold">
               {fullName}
             </h1>
-            <h3 className="text-primary-navy mb-11 font-sans text-xl leading-135 font-semibold tracking-[1px] uppercase">
+            <h3 className="text-primary-navy mb:text-xl mb:leading-135 mb:mb-11 mb-5 font-sans text-[18px] leading-120 font-semibold tracking-[1px] uppercase">
               {teamPosition || organization}
             </h3>
-            <div className="text-primary-navy font-sans text-xl leading-140 [&>p]:mb-4">
-              {/* @ts-expect-error */}
+            <div className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 [&>p]:mb-4">
               <CustomStructuredText data={information} defaultRules />
             </div>
           </div>
@@ -136,7 +135,6 @@ export default async function TeamDetailPage({ params }: PageSlug) {
       </div>
 
       <DonateBlock
-        // @ts-expect-error
         title={configuration?.donateTitle}
         cta={configuration?.donateCta}
         image={configuration?.donateImage}

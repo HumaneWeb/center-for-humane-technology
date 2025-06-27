@@ -49,21 +49,21 @@ export default function GenericCardsGrid({
       <div className="generic-cards-grid bg-neutral-white overflow-x-hidden">
         <section
           className={cn(
-            'mb-2.5x pt-[71px] pb-10',
+            'mb:pt-[71px] mb:pb-10 py-8',
             backgroundColor === 'light-purple'
               ? 'bg-secondary-light-purple/20'
               : 'text-primary-navy bg-[#0079810f] text-xl',
           )}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h1 className="tracking-039 text-primary-navy mb-14 font-sans text-[39px] leading-110 font-semibold">
+            <h1 className="tracking-039 text-primary-navy mb:text-[39px] mb:leading-110 mb:mb-14 mb-5 font-sans text-[23px] leading-120 font-semibold">
               {title}
             </h1>
 
             {introduction && (
               <div
                 dangerouslySetInnerHTML={{ __html: introduction }}
-                className="text-primary-navy mb-12 max-w-[840px] font-sans text-xl leading-140 [&>p]:mb-4 [&>p>strong]:text-[25px] [&>p>strong]:font-medium"
+                className="text-primary-navy mb:[&>p>strong]:text-[25px] mb:mb-12 mb:text-xl mb:leading-140 mb-5 max-w-[840px] font-sans text-[18px] leading-120 [&>p]:mb-4 [&>p>strong]:text-[20px] [&>p>strong]:font-medium"
               />
             )}
           </div>
@@ -73,7 +73,11 @@ export default function GenericCardsGrid({
               <div className="flex-shrink-0" style={{ width: 'max(0px, calc(50vw - 640px))' }} />
 
               {items.map((item) => (
-                <GenericCard {...item} key={item.id} extraClassnames="min-h-[500px]" />
+                <GenericCard
+                  {...item}
+                  key={item.id}
+                  extraClassnames="mb:w-auto w-[80dvw] min-h-[500px] mb:p-7 p-3"
+                />
               ))}
 
               <div className="flex-shrink-0" style={{ width: 'max(0px, calc(50vw - 640px))' }} />
@@ -146,14 +150,14 @@ export default function GenericCardsGrid({
     <div className="generic-cards-grid bg-neutral-white overflow-x-hidden">
       <section
         className={cn(
-          'mb-2.5 pt-[73px] pb-24',
+          'mb:mb-2.5 mb:pt-[73px] mb:pb-24 py-8',
           backgroundColor === 'light-purple'
             ? 'bg-secondary-light-purple/20'
             : 'bg-primary-teal/[0.06] text-primary-navy text-xl',
         )}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="tracking-039 text-primary-blue mb-14 font-sans text-[39px] leading-110 font-semibold">
+          <h1 className="tracking-039 text-primary-blue mb:text-[39px] mb:leading-110 mb:mb-14 mb-8 font-sans text-[26px] leading-120 font-semibold">
             {title}
           </h1>
 
@@ -164,13 +168,18 @@ export default function GenericCardsGrid({
             />
           )}
 
-          <div className={cn('grid', variant === 'default' && 'grid-cols-2 gap-x-32')}>
+          <div
+            className={cn(
+              'grid',
+              variant === 'default' && 'mb:grid-cols-2 mb:gap-y-0 gap-x-32 gap-y-8',
+            )}
+          >
             {items.map((item) => (
               <GenericCard {...item} key={item.id} />
             ))}
           </div>
 
-          {cta && <Cta {...cta} extraClass="mt-16" />}
+          {cta && <Cta {...cta} extraClass="mb:mt-16 mt-8" />}
         </div>
       </section>
     </div>

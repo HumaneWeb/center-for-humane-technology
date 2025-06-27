@@ -1,6 +1,8 @@
 // @ts-nocheck
 'use client';
 
+import type React from 'react';
+
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import CustomLink from '../shared/custom-link';
@@ -138,33 +140,42 @@ export default function Navbar({ items }: Props) {
     item,
     index,
     extraClassnames,
+    isMobile = false,
   }: {
     item: NavbarChildren;
     index: number;
     extraClassnames?: string;
+    isMobile?: boolean;
   }) => {
     const hasDropdown = item.children.length > 0;
     const isOpen = openDropdown === index;
+
+    const baseClasses = isMobile
+      ? `uppercase text-primary-navy flex items-center justify-between px-4 py-3 font-sans text-[14px] leading-140 font-semibold tracking-018 hover:bg-accent transition-colors ${extraClassnames ? extraClassnames : ''}`
+      : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
 
     if (!hasDropdown) {
       return (
         <CustomLink
           // @ts-expect-error
           content={item.link}
-          extraClass={`uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`}
+          extraClass={baseClasses}
           withActiveClass
+          onClick={isMobile ? () => setIsMobileMenuOpen(false) : undefined}
         >
           {item.label}
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-            viewBox="0 0 15 15"
-            fill="none"
-          >
-            <path d="M10.5 9L5.25 13.7631L5.25 4.23686L10.5 9Z" fill="#0B1023" />
-          </svg>
+          {!isMobile && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+            >
+              <path d="M10.5 9L5.25 13.7631L5.25 4.23686L10.5 9Z" fill="#0B1023" />
+            </svg>
+          )}
         </CustomLink>
       );
     }
@@ -178,7 +189,12 @@ export default function Navbar({ items }: Props) {
             }}
             onClick={() => toggleDropdown(index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[18px]"
+            className={cn(
+              isMobile
+                ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[14px] leading-140 font-semibold uppercase transition-all duration-200'
+                : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[18px]',
+              extraClassnames,
+            )}
             aria-expanded={isOpen}
             aria-haspopup="true"
             aria-controls={`dropdown-${index}`}
@@ -190,6 +206,10 @@ export default function Navbar({ items }: Props) {
               height="15"
               viewBox="0 0 14 15"
               fill="none"
+              className={cn(
+                'transition-transform duration-200',
+                isOpen && isMobile && 'rotate-180',
+              )}
             >
               <path d="M6.5 11.5L1.73686 6.25L11.2631 6.25L6.5 11.5Z" fill="currentColor" />
             </svg>
@@ -201,43 +221,60 @@ export default function Navbar({ items }: Props) {
             }}
             id={`dropdown-${index}`}
             className={cn(
-              'bg-neutral-white border-primary-navy absolute top-full left-0 z-50 hidden w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm',
-              isOpen && 'flex',
+              'bg-neutral-white border-primary-navy overflow-hidden transition-all duration-300 ease-in-out',
+              isMobile
+                ? isOpen
+                  ? 'max-h-screen border-t-[1px] opacity-100'
+                  : 'max-h-0 opacity-0'
+                : cn(
+                    'absolute top-full left-0 z-50 hidden w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm',
+                    isOpen && 'flex',
+                  ),
             )}
             role="menu"
             aria-orientation="vertical"
             onKeyDown={(e) => handleDropdownKeyDown(e, index)}
           >
-            {item.children!.map((dropdownItem, dropdownIndex) => (
-              <CustomLink
-                key={dropdownIndex}
-                // @ts-expect-error
-                content={dropdownItem.link}
-                role="menuitem"
-                onClick={() => setOpenDropdown(null)}
-                withActiveClass
-              >
-                <div className="text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between font-sans text-[16px] leading-120 font-medium transition-all duration-200 xl:text-[18px]">
-                  {dropdownItem.label}
-
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="28"
-                    height="28"
-                    viewBox="0 0 28 28"
-                    fill="none"
-                    className="w-[20px]"
+            <div className={cn(isMobile ? 'space-y-1 py-2' : 'flex flex-col gap-5')}>
+              {item.children!.map((dropdownItem, dropdownIndex) => (
+                <CustomLink
+                  key={dropdownIndex}
+                  // @ts-expect-error
+                  content={dropdownItem.link}
+                  role="menuitem"
+                  onClick={() => {
+                    setOpenDropdown(null);
+                    if (isMobile) setIsMobileMenuOpen(false);
+                  }}
+                  withActiveClass
+                >
+                  <div
+                    className={cn(
+                      'text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
+                      isMobile ? 'px-4 py-2 text-[14px]' : 'text-[16px] xl:text-[18px]',
+                    )}
                   >
-                    <path
-                      d="M15.75 5.25L24.5 14M24.5 14L15.75 22.75M24.5 14H3.5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="square"
-                    />
-                  </svg>
-                </div>
-              </CustomLink>
-            ))}
+                    {dropdownItem.label}
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      viewBox="0 0 28 28"
+                      fill="none"
+                      className="w-[20px]"
+                    >
+                      <path
+                        d="M15.75 5.25L24.5 14M24.5 14L15.75 22.75M24.5 14H3.5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="square"
+                      />
+                    </svg>
+                  </div>
+                </CustomLink>
+              ))}
+            </div>
           </div>
         </div>
       );
@@ -248,12 +285,12 @@ export default function Navbar({ items }: Props) {
 
   return (
     <motion.header
-      className="ui-navbar border-primary-navy bg-neutral-white fixed top-0 right-0 left-0 z-40 border-b-[1px] pl-10"
+      className="ui-navbar border-primary-navy bg-neutral-white mb:pl-10 fixed top-0 right-0 left-0 z-40 border-b-[1px]"
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -1000 }}
       transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
     >
-      <div className="flex h-16 items-center justify-between">
+      <div className="mb:px-0 mb:gap-0 flex h-16 items-center justify-between gap-7 px-4">
         <div className="flex items-center">
           <Link href="/" className="w-full">
             <svg
@@ -262,6 +299,7 @@ export default function Navbar({ items }: Props) {
               height="40"
               viewBox="0 0 372 40"
               fill="none"
+              className="max-w-[250px] max-w-full"
             >
               <g clipPath="url(#clip0_3098_2373)">
                 <path
@@ -384,31 +422,47 @@ export default function Navbar({ items }: Props) {
 
         {/* Mobile Menu Button */}
         <button
-          className="sxl:hidden p-2"
+          className="sxl:hidden cursor-pointer p-2"
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M3 6h18M3 12h18M3 18h18"
-              stroke="#0B1023"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          {isMobileMenuOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M18 6L6 18M6 6l12 12"
+                stroke="#0B1023"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M3 6h18M3 12h18M3 18h18"
+                stroke="#0B1023"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
         </button>
 
         {/* Desktop Navigation */}
-        <nav
-          className={`sxl:flex hidden h-full items-stretch ${isMobileMenuOpen ? 'flex' : 'hidden'}`}
-        >
+        <nav className="sxl:flex hidden h-full items-stretch">
           {normal.map((item, index) => (
             <NavItemComponent key={index} item={item} index={index} />
           ))}
@@ -446,30 +500,55 @@ export default function Navbar({ items }: Props) {
         </nav>
       </div>
 
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="sxl:hidden flex flex-col"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {normal.map((item, index) => (
-              <NavItemComponent key={index} item={item} index={index} />
-            ))}
-            {asButtons.map((item, index) => (
-              <NavItemComponent
-                key={index}
-                item={item}
-                index={index}
-                extraClassnames="bg-secondary-light-teal"
-              />
-            ))}
-          </motion.div>
+      {/* Mobile Navigation - Conventional Dropdown */}
+      <div
+        className={cn(
+          'sxl:hidden border-primary-navy overflow-hidden transition-all duration-300 ease-in-out',
+          isMobileMenuOpen ? 'max-h-screen border-t-[1px] opacity-100' : 'max-h-0 opacity-0',
         )}
-      </AnimatePresence>
+      >
+        <nav className="mb:py-4 space-y-2">
+          {normal.map((item, index) => (
+            <NavItemComponent key={index} item={item} index={index} isMobile={true} />
+          ))}
+
+          {/* Mobile Search Button */}
+          <button
+            className="text-primary-navy hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[14px] leading-140 font-semibold uppercase transition-all duration-200"
+            onClick={() => {
+              setOpenSearchEngine((prev) => !prev);
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            <span>Search</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="23"
+              viewBox="0 0 22 23"
+              fill="none"
+            >
+              <path
+                d="M21 21.5L15.2258 15.7258M15.2258 15.7258C16.7886 14.163 17.6666 12.0434 17.6666 9.83328C17.6666 7.62316 16.7886 5.50356 15.2258 3.94076C13.663 2.37797 11.5434 1.5 9.33328 1.5C7.12316 1.5 5.00356 2.37797 3.44076 3.94076C1.87797 5.50356 1 7.62316 1 9.83328C1 12.0434 1.87797 14.163 3.44076 15.7258C5.00356 17.2886 7.12316 18.1666 9.33328 18.1666C11.5434 18.1666 13.663 17.2886 15.2258 15.7258Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+
+          {asButtons.map((item, index) => (
+            <NavItemComponent
+              key={index}
+              item={item}
+              index={index}
+              extraClassnames="bg-secondary-light-teal"
+              isMobile={true}
+            />
+          ))}
+        </nav>
+      </div>
 
       <AnimatePresence>
         {openSearchEngine && (
