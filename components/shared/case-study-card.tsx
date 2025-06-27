@@ -31,7 +31,7 @@ export default function CaseStudyCard({ title, preTitle, image, introduction, ct
       )}
       {introduction && (
         <div
-          className="text-neutral-white mb:text-xl mb-7 font-sans text-[18px] leading-140 font-medium"
+          className="text-neutral-white mb:text-xl mb-7 font-sans text-[18px] leading-140 font-normal"
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
       )}

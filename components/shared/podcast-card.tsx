@@ -29,7 +29,7 @@ export default function PodcastCard({ title, preTitle, introduction, cta, icon, 
       )}
       {introduction && (
         <div
-          className="text-primary-blue mb:text-xl mb-7 font-sans text-[18px] leading-140 font-medium"
+          className="text-primary-blue mb:text-xl mb-7 font-sans text-[18px] leading-140 font-normal"
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
       )}

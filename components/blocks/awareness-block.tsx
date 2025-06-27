@@ -21,7 +21,7 @@ export default async function AwarenessBlock({ caseStudyCard, podcastCard }: Pro
       </div>
 
       <div className="bg-gradient-podcast mb:py-20 flex items-start justify-start py-8">
-        <div className="mb:ml-[90px] mb:px-0 mb:max-w-[500px] mx-auto w-full max-w-7xl px-4 sm:px-6">
+        <div className="mb:ml-[50px] mb:px-0 mb:max-w-[550px] mx-auto w-full max-w-7xl px-4 sm:px-6">
           <PodcastCard
             title={podcastCard.title}
             preTitle={podcastCard.preTitle}
