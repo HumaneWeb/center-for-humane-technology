@@ -27,8 +27,10 @@ export default function ContentLayout({ page, configuration }) {
       />
       {withTopBar && <ContentTopBar items={anchors} />}
 
-      <div className="mx-auto mt-35 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className={cn('pb-50', withSidebar && 'grid grid-cols-[1fr_3fr] gap-13')}>
+      <div className="mb:mt-35 mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+          className={cn('mb:pb-50 pb-10', withSidebar && 'mb:grid-cols-[1fr_3fr] mb:gap-13 grid')}
+        >
           {withSidebar && <ContentSidebar items={anchors} />}
           <div className="content-layout">
             <CustomStructuredText data={page?.content} centerContent={withTopBar || none} />

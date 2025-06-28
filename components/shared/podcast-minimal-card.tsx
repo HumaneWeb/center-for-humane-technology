@@ -30,7 +30,7 @@ export default function PodcastMinimalCard({
           <CustomImage
             {...image}
             extraClass={cn(
-              'mb:w-[300px] mb:h-[300px] aspect-square',
+              'mb:w-[300px] w-full mb:h-[300px] aspect-square',
               variant === 'small' && 'mb:w-[211px] mb:h-[210px] mb:mb-0 mb-2.5',
             )}
           />

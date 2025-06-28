@@ -71,7 +71,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
               id={`accordion-collapse-body-${item.id}`}
               className={cn(
                 `mb:px-8 overflow-hidden bg-[#F0F7F7] p-4 transition-all duration-300 ease-in-out ${
-                  isActive ? 'max-h-max py-4 opacity-100' : 'max-h-0 opacity-0'
+                  isActive ? 'h-max py-4 opacity-100' : 'h-0 py-0 opacity-0'
                 }`,
                 variant === 'small' && 'px-4 py-3',
               )}

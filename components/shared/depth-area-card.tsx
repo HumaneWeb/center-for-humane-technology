@@ -39,7 +39,7 @@ export default function DepthAreaCard({
       <div
         className={cn(
           'bg-primary-cream mb:p-8 p-0 transition-all duration-200',
-          !isVertical && 'group-hover:bg-primary-blue',
+          !isVertical && 'group-hover:bg-primary-blue p-4',
           isVertical && 'mb:pt-0',
         )}
       >

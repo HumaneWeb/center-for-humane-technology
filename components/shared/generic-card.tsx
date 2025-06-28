@@ -29,14 +29,14 @@ export default function GenericCard({
       className={cn(
         'group h-full transition-all duration-200 ease-in',
         variant === 'minimal' && 'bg-neutral-white hover:bg-primary-blue mb:w-[400px] p-7',
-        variant === 'basic' && 'grid grid-cols-[1fr_2fr] gap-6',
-        variant === 'vertical' && 'bg-[#F0F7F7] p-[30px]',
+        variant === 'basic' && 'mb:grid-cols-[1fr_2fr] mb:gap-6 grid',
+        variant === 'vertical' && 'mb:p-[30px] bg-[#F0F7F7] p-[15px]',
         variant === 'minimal-small' && 'bg-neutral-white hover:bg-primary-blue w-full p-2.5',
         extraClassnames,
       )}
     >
       {variant === 'default' && title && (
-        <h2 className="lead130] text-primary-teal group-hover:text-primary-blue mb-5 font-sans text-[25px] font-semibold">
+        <h2 className="mb:leading-130 text-primary-teal group-hover:text-primary-blue mb:text-[25px] mb:mb-5 mb-4 font-sans text-xl leading-120 font-semibold">
           {title}
         </h2>
       )}
@@ -44,7 +44,7 @@ export default function GenericCard({
         <CustomImage
           {...image}
           extraClass={cn(
-            'h-[252px] w-full mb:mb-5 mb-2 object-cover',
+            'h-[252px] w-full mb:mb-5 mb-4 object-cover',
             variant === 'minimal-small' && 'h-auto mb-2.5',
           )}
         />
@@ -81,7 +81,7 @@ export default function GenericCard({
               'text-primary-navy font-sans text-[16px] leading-140',
               (variant === 'minimal' || variant === 'minimal-small') &&
                 'group-hover:text-neutral-white',
-              variant === 'basic' && 'mb-8',
+              variant === 'basic' && 'mb:mb-8',
               variant === 'vertical' && 'mb-5',
               variant === 'minimal-small' && 'text-[16px] leading-140',
             )}

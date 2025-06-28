@@ -191,7 +191,7 @@ export default function CustomStructuredText({
           return (
             <div
               className={cn(
-                'grid-block mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                'grid-block mb:my-11 mx-auto my-5 max-w-7xl px-4 sm:px-6 lg:px-8',
                 centerContent && 'px-0!',
               )}
               key={record.id}
@@ -207,7 +207,7 @@ export default function CustomStructuredText({
           return (
             <div
               className={cn(
-                'generic-card-record mx-auto my-18 max-w-7xl px-4 sm:px-6 lg:px-8 [&+.generic-card-record]:mt-4 [&:has(+.generic-card-record)]:mb-0',
+                'generic-card-record mb:my-18 mx-auto my-8 max-w-7xl px-4 sm:px-6 lg:px-8 [&+.generic-card-record]:mt-4 [&:has(+.generic-card-record)]:mb-0',
                 isInnerContainer && 'my-0 h-full max-w-full px-0 sm:px-0 lg:px-0',
                 centerContent && 'px-0!',
               )}
@@ -289,7 +289,7 @@ export default function CustomStructuredText({
                   return (
                     <div
                       className={cn(
-                        'heading mx-auto mt-[75px] mb-[24px] max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                        'heading mb:mt-[75px] mb:mb-[24px] mx-auto mt-5 mb-5 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
                         isInnerContainer && 'mb-0 max-w-full px-0 sm:px-0 lg:px-0',
                         centerContent && 'px-0!',
                       )}

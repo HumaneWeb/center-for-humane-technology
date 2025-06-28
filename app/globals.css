@@ -353,6 +353,12 @@ hr {
   margin: 60px 2rem;
 }
 
+@media screen and (max-width: 992px) {
+  hr {
+    margin: 30px 0;
+  }
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -377,4 +383,19 @@ hr {
 .key-template-layout>.heading:first-child,
 .content-layout>.heading:first-child {
   margin-top: 0;
+}
+
+.logos-swiper {
+  padding: 10px 0;
+}
+
+.logos-swiper .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Opcional: Ocultar scrollbar si aparece */
+.logos-swiper .swiper-wrapper {
+  align-items: center;
 }

@@ -3,14 +3,14 @@
 import { cn } from '@/lib/utils/css.utils';
 import type { SidebarItem } from '@/lib/utils/types';
 import { handleClickJumpToSection } from '@/lib/utils/ui.utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ContentSidebarProps {
   items: SidebarItem[];
   className?: string;
 }
 
-export default function ContentSidebar({ items, className = '' }: ContentSidebarProps) {
+function ContentSidebar({ items, className = '' }: ContentSidebarProps) {
   const [expandedItem, setExpandedItem] = useState<number | null>(null);
 
   const toggleItem = (index: number) => {
@@ -39,7 +39,7 @@ export default function ContentSidebar({ items, className = '' }: ContentSidebar
               >
                 <span
                   className={cn(
-                    'text-xl leading-130 font-semibold',
+                    'mb:text-xl mb:leading-130 text-[18px] leading-140 font-semibold',
                     isActive && hasChildLinks ? 'text-primary-navy' : 'text-primary-teal',
                   )}
                 >
@@ -83,14 +83,14 @@ export default function ContentSidebar({ items, className = '' }: ContentSidebar
               </button>
 
               {isActive && hasChildLinks && (
-                <div className="flex flex-col gap-4 pt-5 pb-2 pl-[28px]">
+                <div className="mb:pt-5 flex flex-col gap-4 pb-2 pl-[28px]">
                   {item.sublinks.map((subLink, subIndex) => (
                     <div key={subLink.id || subIndex}>
                       <span
                         onClick={() => {
                           handleClickJumpToSection(subLink.headline, true);
                         }}
-                        className="text-primary-teal block cursor-pointer p-2.5 text-xl leading-130 font-medium transition-all duration-200 ease-in hover:bg-[#F0F7F7]"
+                        className="text-primary-teal mb:text-xl mb:leading-130 block cursor-pointer p-2.5 text-[18px] leading-140 font-medium transition-all duration-200 ease-in hover:bg-[#F0F7F7]"
                       >
                         {subLink.headline}
                       </span>
@@ -103,5 +103,86 @@ export default function ContentSidebar({ items, className = '' }: ContentSidebar
         })}
       </div>
     </div>
+  );
+}
+
+interface MobileSidebarWrapperProps {
+  items: SidebarItem[];
+  className?: string;
+}
+
+export default function MobileSidebarWrapper({ items, className }: MobileSidebarWrapperProps) {
+  const [isMobile, setIsMobile] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 992);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  if (!isMobile) {
+    return <ContentSidebar items={items} className={className} />;
+  }
+
+  return (
+    <>
+      <div
+        className={`fixed bottom-0 left-0 z-50 h-full w-80 transform overflow-y-auto bg-white drop-shadow-2xl transition-transform duration-300 ease-in-out ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="p-4">
+          <ContentSidebar items={items} className={className} />
+        </div>
+      </div>
+
+      <button
+        onClick={toggleSidebar}
+        className="bg-primary-teal hover:bg-primary-navy focus:ring-primary-teal fixed bottom-6 left-6 z-50 transform cursor-pointer rounded-full p-4 text-white shadow-lg transition-all duration-200 ease-in-out hover:scale-110 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+        aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}
+      >
+        {sidebarOpen ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M18 6L6 18" />
+            <path d="M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M3 12h18" />
+            <path d="M3 6h18" />
+            <path d="M3 18h18" />
+          </svg>
+        )}
+      </button>
+    </>
   );
 }

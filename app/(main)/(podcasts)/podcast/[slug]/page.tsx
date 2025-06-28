@@ -72,7 +72,10 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
           <div className="mb:grid-cols-[1.2fr_2fr] grid gap-10">
             <div>
               {image && (
-                <CustomImage {...image} extraClass="mb-5 mb:mb-10 mb:w-[400px] mb:h-[400px]" />
+                <CustomImage
+                  {...image}
+                  extraClass="mb-5 mb:mb-10 mb:w-[400px] w-full mb:h-[400px]"
+                />
               )}
 
               {(applePodcastsUrl || spotifyUrl || youtubeUrl) && (
@@ -227,18 +230,47 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
       </div>
 
       <NewsletterBlock
-        // @ts-expect-error
         title={configuration?.newsletterTitle}
         introduction={configuration?.newsletterIntroduction}
       />
 
-      <div className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="mb:mb-52 mb:grid-cols-2 mb-10 grid gap-10">
-          <LinksBlock title="More From CHT" ctas={[]} />
-          <LinksBlock title="Other recommended reading" ctas={[]} />
+      <div className="mb:pt-[100px] mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div className="mb:mb-50 mb:grid-cols-2 mb-10 grid gap-10">
+          <LinksBlock
+            title="More From CHT"
+            variant="small"
+            ctas={[
+              {
+                id: '1',
+                label:
+                  'This is a piece of thought leadership by CHT or an intervention or a case study',
+              },
+              {
+                id: '2',
+                label:
+                  'This is a piece of thought leadership by CHT or an intervention or a case study',
+              },
+            ]}
+          />
+          <LinksBlock
+            title="Other recommended reading"
+            variant="small"
+            ctas={[
+              {
+                id: '1',
+                label:
+                  'This is a piece of thought leadership by CHT or an intervention or a case study',
+              },
+              {
+                id: '2',
+                label:
+                  'This is a piece of thought leadership by CHT or an intervention or a case study',
+              },
+            ]}
+          />
         </div>
 
-        <div className="mb:mb-60 mb-20">
+        <div className="mb:mb-40 mb-20">
           <h2 className="text-primary-blue mb:text-3xl mb:leading-130 mb:mb-8 mb-5 font-sans text-[23px] leading-120 font-semibold">
             Continue listening
           </h2>

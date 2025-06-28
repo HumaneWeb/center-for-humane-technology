@@ -21,7 +21,7 @@ export default async function BlogDetailPagePage({ params }: PageSlug) {
   const { title, introduction, cta, backCta, backgroundImage, variant } = page!;
   const { donateTitle, donateCta, donateImage } = configuration!;
 
-  const isTopBar = slug === 'content-example-2';
+  const isTopBar = true;
 
   return (
     <>
@@ -33,7 +33,7 @@ export default async function BlogDetailPagePage({ params }: PageSlug) {
         backCta={backCta}
         backgroundImage={backgroundImage}
       />
-      {isTopBar && (
+      {/* {isTopBar && (
         <div className="bg-neutral-white sticky top-0 mt-10 self-start border border-[#A8ADB6] py-3.5">
           <ul className="text-primary-teal mx-auto flex max-w-7xl items-center justify-center gap-20 px-4 font-sans text-[16px] leading-140 font-semibold sm:px-6 lg:px-8">
             <li>Overview</li>
@@ -46,9 +46,9 @@ export default async function BlogDetailPagePage({ params }: PageSlug) {
             <li>Go Deeper</li>
           </ul>
         </div>
-      )}
+      )} */}
 
-      <div className="mx-auto mt-35 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mb:mt-35 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className={cn('pb-50', !isTopBar && 'grid grid-cols-[1fr_3fr]')}>
           {!isTopBar && (
             <div className="sticky top-20 self-start">

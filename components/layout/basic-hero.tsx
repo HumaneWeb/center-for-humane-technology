@@ -49,7 +49,7 @@ export default function BasicHero({
                 icon="back"
                 variant="underline"
                 extraClass={cn(
-                  'mb-12',
+                  'mb:mb-12 mb-5',
                   variant === 'white' && 'text-neutral-white',
                   variant === 'dark' && 'text-primary-blue',
                 )}
@@ -75,7 +75,7 @@ export default function BasicHero({
           {introduction && (
             <div
               className={cn(
-                'mt-6 font-sans text-[25px] leading-140',
+                'mb:text-[25px] mt-6 font-sans text-xl leading-140',
                 variant === 'white' && 'text-primary-cream',
                 variant === 'dark' && 'text-neutral-white',
               )}
