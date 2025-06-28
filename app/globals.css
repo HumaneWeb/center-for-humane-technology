@@ -84,7 +84,7 @@ body {
   background: linear-gradient(180deg,
       #F0EBFF 0%,
       #F0EBFF 50%,
-      rgba(248, 244, 239, 0.00) 60%,
+      rgba(248, 244, 239, 0.00) 90%,
       #F8F4EF 100%);
 }
 
@@ -365,7 +365,7 @@ hr {
 }
 
 .paragraph:has(+ .generic-cards-grid) {
-  margin-bottom: 160px;
+  margin-bottom: 150px;
 }
 
 @media screen and (max-width: 992px) {
