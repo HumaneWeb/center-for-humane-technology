@@ -373,3 +373,8 @@ hr {
     margin-bottom: 60px;
   }
 }
+
+.key-template-layout>.heading:first-child,
+.content-layout>.heading:first-child {
+  margin-top: 0;
+}

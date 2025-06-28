@@ -83,7 +83,7 @@ export default function CustomStructuredText({
             <div
               className={cn(
                 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
-                record.alignment !== 'left' && record.alignment !== 'right' && 'mb:my-[56px] my-5',
+                record.alignment !== 'left' && record.alignment !== 'right' && 'mb:my-[40px] my-5',
                 centerContent && 'px-0!',
               )}
               key={record.id}
@@ -289,7 +289,7 @@ export default function CustomStructuredText({
                   return (
                     <div
                       className={cn(
-                        'mx-auto mt-[75px] mb-[24px] max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                        'heading mx-auto mt-[75px] mb-[24px] max-w-7xl items-end px-4 sm:px-6 lg:px-8',
                         isInnerContainer && 'mb-0 max-w-full px-0 sm:px-0 lg:px-0',
                         centerContent && 'px-0!',
                       )}
