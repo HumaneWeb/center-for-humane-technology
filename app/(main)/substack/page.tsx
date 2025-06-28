@@ -27,28 +27,23 @@ export default async function SubstackPage() {
         </div>
       </BasicHero>
 
-      <div className="mx-auto max-w-7xl px-4 pt-17 pb-30 sm:px-6 lg:px-8">
+      <div className="mb:pb-30 mx-auto max-w-7xl px-4 pt-17 pb-15 sm:px-6 lg:px-8">
         <h4 className="text-primary-navy mb:text-[29px] mb:leading-130 mb:mb-6 mb-4 font-sans text-[23px] leading-120 font-semibold">
           Latest
         </h4>
         <RSSFeedReader />
         <Cta
           label="Explore more articles"
-          link={{
-            // @ts-expect-error
-            externalUrl: 'https://centerforhumanetechnology.substack.com/',
-          }}
+          link={{ externalUrl: 'https://centerforhumanetechnology.substack.com/' }}
           extraClass="mb:mt-25 mt-10"
         />
       </div>
 
       <NewsletterBlock
-        // @ts-expect-error
         title={configuration?.newsletterTitle}
         introduction={configuration?.newsletterIntroduction}
       />
       <DonateBlock
-        // @ts-expect-error
         title={configuration?.donateTitle}
         cta={configuration?.donateCta}
         image={configuration?.donateImage}

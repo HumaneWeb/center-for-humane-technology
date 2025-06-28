@@ -24,13 +24,13 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-[840px]">
           {title && (
-            <h2 className="text-primary-navy tracking-049 mb:text-5xl mb:leading-110 mb-5 font-sans text-[29px] leading-120 font-semibold">
+            <h2 className="text-primary-navy tracking-049 mb:text-5xl mb:leading-110 mb-[30px] font-sans text-[29px] leading-120 font-semibold">
               {title}
             </h2>
           )}
           {introduction && (
             <div
-              className="text-primary-navy mb:text-xl mb-5 font-sans text-[18px] leading-140 font-medium"
+              className="text-primary-navy mb:text-xl mb-[30px] font-sans text-[18px] leading-140 font-normal"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
           )}

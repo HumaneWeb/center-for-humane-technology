@@ -12,9 +12,10 @@ type Props = {
     label: string;
   }[];
   variant?: 'default' | 'landing';
+  extraClassnames?: string;
 };
 
-function AnimatedValue({ value, variant }: { value: string; variant?: 'default' | 'landing' }) {
+function AnimatedValue({ value }: { value: string; variant?: 'default' | 'landing' }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -71,12 +72,13 @@ function AnimatedValue({ value, variant }: { value: string; variant?: 'default' 
   );
 }
 
-export default function StatsBlock({ title, items, variant = 'default' }: Props) {
+export default function StatsBlock({ title, items, variant = 'default', extraClassnames }: Props) {
   return (
     <section
       className={cn(
         'bg-primary-blue mb:mb-32 mb:pt-14 mb:pb-20 mt-20 py-8',
         variant === 'landing' && 'bg-landing-stats mb-0 w-full',
+        extraClassnames,
       )}
     >
       <div
@@ -98,7 +100,7 @@ export default function StatsBlock({ title, items, variant = 'default' }: Props)
         <div
           className={cn(
             'mb:grid mb:gap-20 flex grid-cols-3 flex-col items-center justify-center gap-10',
-            variant === 'landing' && 'flex items-center justify-between',
+            variant === 'landing' && 'mb:flex mb:flex-row flex-wrap items-center justify-center',
           )}
         >
           {items.map((item) => (

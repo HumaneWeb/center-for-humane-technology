@@ -56,7 +56,7 @@ export default function CustomStructuredText({
             <NarrativeBlock
               key={record.id}
               {...record}
-              extraClass="my-8 mb:mt-[180px] mb:pb-[145px] [&+.narrative-block]:mt-0 pt-0"
+              extraClass="my-8 mb:mt-[150px] mb:pb-[100px] [&+.narrative-block]:mt-0 pt-0"
               headingExtraClass="mb:text-[39px] mb:mb-[30px]"
             />
           );
@@ -71,17 +71,19 @@ export default function CustomStructuredText({
           return <ThinkingBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'StatsBlockRecord') {
-          return <StatsBlock key={record.id} {...record} />;
+          return <StatsBlock key={record.id} {...record} extraClassnames="mb:mt-[108px]" />;
         }
         if (record.__typename === 'ImpactBlockRecord') {
-          return <ImpactBlock key={record.id} {...record} extraClass="mb:mb-20 mb-5" />;
+          return (
+            <ImpactBlock key={record.id} {...record} extraClass="mb:mb-[62px] mb-5 mb:mt-[75px]" />
+          );
         }
         if (record.__typename === 'ImageBlockRecord') {
           return (
             <div
               className={cn(
                 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
-                record.alignment !== 'left' && record.alignment !== 'right' && 'mb:my-10 my-5',
+                record.alignment !== 'left' && record.alignment !== 'right' && 'mb:my-[56px] my-5',
                 centerContent && 'px-0!',
               )}
               key={record.id}
@@ -158,7 +160,7 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'HighlightedBlockRecord') {
           return (
-            <div className={cn(record.variant === 'with-container-color' && 'mb:py-32')}>
+            <div className={cn(record.variant === 'with-container-color' && 'mb:pt-28 mb:pb-20')}>
               <div
                 className={cn(
                   'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
@@ -219,7 +221,7 @@ export default function CustomStructuredText({
           return (
             <div
               className={cn(
-                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                'mx-auto mt-[50px] mb-[75px] max-w-7xl px-4 sm:px-6 lg:px-8',
                 centerContent && 'px-0!',
               )}
               key={record.id}
@@ -242,7 +244,7 @@ export default function CustomStructuredText({
                     return (
                       <div
                         className={cn(
-                          'paragraph mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
+                          'paragraph mx-auto mb-[24px] max-w-7xl px-4 sm:px-6 lg:px-8',
                           isInnerContainer && 'max-w-full px-0 sm:px-0 lg:px-0',
                           centerContent && 'px-0!',
                         )}
@@ -287,7 +289,7 @@ export default function CustomStructuredText({
                   return (
                     <div
                       className={cn(
-                        'mx-auto my-6 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                        'mx-auto mt-[75px] mb-[24px] max-w-7xl items-end px-4 sm:px-6 lg:px-8',
                         isInnerContainer && 'mb-0 max-w-full px-0 sm:px-0 lg:px-0',
                         centerContent && 'px-0!',
                       )}
@@ -298,7 +300,7 @@ export default function CustomStructuredText({
                         {
                           id: headingId,
                           className: cn(
-                            'font-sans font-semibold leading-120 mb:leading-130 mb:text-3xl text-primary-navy max-w-[840px] text-[23px]',
+                            'font-sans font-semibold leading-120 mb:leading-130 mb:text-[29px] text-primary-navy max-w-[840px] text-[23px]',
                             centerContent && '',
                             isInnerContainer && 'text-2xl mb-2',
                           ),

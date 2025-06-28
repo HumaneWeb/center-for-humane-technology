@@ -27,7 +27,6 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
 
   return (
     <>
-      {/* @ts-expect-error */}
       <PodcastListHero {...page} />
 
       <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
@@ -62,7 +61,6 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
       </section>
 
       <NewsletterBlock
-        // @ts-expect-error
         title={configuration?.newsletterTitle}
         introduction={configuration?.newsletterIntroduction}
       />
@@ -78,7 +76,6 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
       )}
 
       <DonateBlock
-        // @ts-expect-error
         title={configuration?.donateTitle}
         cta={configuration?.donateCta}
         image={configuration?.donateImage}

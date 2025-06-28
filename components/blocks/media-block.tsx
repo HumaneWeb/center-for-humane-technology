@@ -28,14 +28,14 @@ export default function MediaBlock({ title, items, information }: Props) {
               if (item.link) {
                 return (
                   <CustomLink key={item.id} content={item.link}>
-                    <CustomImage {...item.image} />
+                    <CustomImage {...item.image} extraClass="opacity-[.7]" />
                   </CustomLink>
                 );
               }
 
               return (
                 <div key={item.id}>
-                  <CustomImage {...item.image} />
+                  <CustomImage {...item.image} extraClass="opacity-[.7]" />
                 </div>
               );
             })}

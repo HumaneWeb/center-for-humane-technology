@@ -39,7 +39,7 @@ export default function NarrativeBlock({
           <div className={isImageLeft ? 'mb:order-2' : 'mb:order-1'}>
             <h2
               className={cn(
-                'text-primary-navy tracking-049 mb:text-5xl mb:leading-110 mb:mb-8 mb-5 font-sans text-[29px] leading-120 font-semibold',
+                'text-primary-navy tracking-049 mb:text-[39px] mb:leading-110 mb:mb-[30px] mb-5 font-sans text-[29px] leading-120 font-semibold',
                 textExtraClass,
                 headingExtraClass,
               )}
@@ -50,7 +50,7 @@ export default function NarrativeBlock({
               {introduction && (
                 <div
                   className={cn(
-                    'text-primary-navy mb:mb-8 mb:text-xl mb-5 font-sans text-[18px] leading-140 font-normal [&>p]:mb-4',
+                    'text-primary-navy mb:mb-[30px] mb:text-xl mb-5 font-sans text-[18px] leading-140 font-normal [&>p]:mb-4',
                     textExtraClass,
                   )}
                   dangerouslySetInnerHTML={{ __html: introduction }}

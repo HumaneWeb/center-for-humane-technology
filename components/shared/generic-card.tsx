@@ -35,6 +35,11 @@ export default function GenericCard({
         extraClassnames,
       )}
     >
+      {variant === 'default' && title && (
+        <h2 className="lead130] text-primary-teal group-hover:text-primary-blue mb-5 font-sans text-[25px] font-semibold">
+          {title}
+        </h2>
+      )}
       {image && (
         <CustomImage
           {...image}
@@ -56,13 +61,12 @@ export default function GenericCard({
             {preTitle}
           </h4>
         )}
-        {title && (
+        {variant !== 'default' && title && (
           <h2
             className={cn(
               'text-primary-teal mb:mb-5 mb-1 font-sans text-2xl leading-130 font-semibold',
               (variant === 'minimal' || variant === 'minimal-small') &&
                 'group-hover:text-neutral-white',
-              variant === 'default' && 'group-hover:text-primary-blue',
               variant === 'basic' && 'mb-2',
               variant === 'vertical' && 'mb-5',
               variant === 'minimal-small' && 'mb-2.5 text-xl leading-120',
@@ -79,7 +83,7 @@ export default function GenericCard({
                 'group-hover:text-neutral-white',
               variant === 'basic' && 'mb-8',
               variant === 'vertical' && 'mb-5',
-              variant === 'minimal-small' && 'text-[13px] leading-135',
+              variant === 'minimal-small' && 'text-[16px] leading-140',
             )}
             dangerouslySetInnerHTML={{ __html: introduction }}
           />

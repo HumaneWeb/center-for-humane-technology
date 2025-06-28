@@ -24,14 +24,14 @@ export default function DepthAreaCard({
     <article
       className={cn(
         'group mb:grid-cols-[1fr_1.5fr] grid gap-1',
-        isVertical && 'flex flex-col gap-5',
+        isVertical && 'flex flex-col gap-10',
       )}
     >
       <div
         className={cn(
-          'bg-primary-cream mb:px-8 mb:pt-8 flex items-center justify-center px-4 pt-4 transition-all duration-200',
+          'bg-primary-cream flex items-center justify-center px-6 transition-all duration-200',
           !isVertical && 'group-hover:bg-primary-blue',
-          isVertical && 'group-hover:bg-neutral-white',
+          isVertical && 'group-hover:bg-transparent',
         )}
       >
         <CustomImage {...image} />
@@ -40,6 +40,7 @@ export default function DepthAreaCard({
         className={cn(
           'bg-primary-cream mb:p-8 p-0 transition-all duration-200',
           !isVertical && 'group-hover:bg-primary-blue',
+          isVertical && 'mb:pt-0',
         )}
       >
         <h2

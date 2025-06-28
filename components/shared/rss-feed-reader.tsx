@@ -160,27 +160,23 @@ export default function RSSFeedReader() {
 
   return (
     <div>
-      <div>
-        {feed.items.length > 0 && (
-          <div className="mb-16">
-            <div className="mb:gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {feed.items.slice(0, 3).map((item, index) => (
-                <RSSCard key={item.guid || item.link || index} item={item} variant="grid" />
-              ))}
-            </div>
+      {feed.items.length > 0 && (
+        <div className="mb:mb-16">
+          <div className="mb:gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {feed.items.slice(0, 3).map((item, index) => (
+              <RSSCard key={item.guid || item.link || index} item={item} variant="grid" />
+            ))}
           </div>
-        )}
+        </div>
+      )}
 
-        {feed.items.length > 3 && (
-          <div>
-            <div className="space-y-9">
-              {feed.items.slice(3).map((item, index) => (
-                <RSSCard key={item.guid || item.link || index + 3} item={item} variant="list" />
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+      {feed.items.length > 3 && (
+        <div className="flex flex-col gap-8.5">
+          {feed.items.slice(3).map((item, index) => (
+            <RSSCard key={item.guid || item.link || index + 3} item={item} variant="list" />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

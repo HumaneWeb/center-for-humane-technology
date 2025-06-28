@@ -1,5 +1,4 @@
 import { RSSItem } from '@/lib/utils/types';
-import { ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 
 interface RSSCardProps {
@@ -34,48 +33,43 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
 
   if (variant === 'list') {
     return (
-      <div className="overflow-hidden transition-all duration-300">
-        <div className="flex flex-col items-start gap-6 sm:flex-row">
-          <div className="flex-shrink-0">
-            <div className="relative h-48 w-full sm:h-40 sm:w-64">
-              {item.imageUrl ? (
-                <Image
-                  src={item.imageUrl}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, 256px"
-                />
-              ) : (
-                <div className="h-full w-full bg-gray-200" />
-              )}
-            </div>
-          </div>
+      <div className="mb:grid-cols-[256px_auto] grid gap-6 overflow-hidden transition-all duration-300">
+        <div className="relative h-48 w-full sm:h-40 sm:w-64">
+          {item.imageUrl ? (
+            <Image
+              src={item.imageUrl}
+              alt={item.title}
+              fill
+              className="aspect-square object-cover"
+            />
+          ) : (
+            <div className="h-full w-full bg-gray-200" />
+          )}
+        </div>
 
-          <div className="max-w-[600px] flex-1">
-            <div className="mb-2.5 flex items-center gap-4">
-              <span className="text-primary-blue tracking-065 font-sans text-[13px] leading-120 font-semibold uppercase">
-                {item.author || 'CENTER FOR HUMANE TECHNOLOGY'}
-              </span>
-              <span className="text-primary-blue tracking-065 font-sans text-[13px] leading-120 font-semibold uppercase">
-                {formatDate(item.pubDate)}
-              </span>
-            </div>
-            <h3 className="group mb-2.5">
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-semibold transition-colors"
-              >
-                <span className="group-hover:underline">{item.title}</span>
-              </a>
-            </h3>
-
-            <p className="text-primary-navy line-clamp-2 text-[16px] leading-140">
-              {truncateText(item.description, 300)}
-            </p>
+        <div className="max-w-[600px] flex-1">
+          <div className="mb-2.5 flex items-center gap-4">
+            <span className="text-primary-blue tracking-065 font-sans text-[13px] leading-120 font-semibold uppercase">
+              {item.author || 'CENTER FOR HUMANE TECHNOLOGY'}
+            </span>
+            <span className="text-primary-blue tracking-065 font-sans text-[13px] leading-120 font-semibold uppercase">
+              {formatDate(item.pubDate)}
+            </span>
           </div>
+          <h3 className="group mb-2.5">
+            <a
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-teal hover:text-primary-navy font-sans text-xl leading-120 font-semibold transition-colors"
+            >
+              <span className="group-hover:underline">{item.title}</span>
+            </a>
+          </h3>
+
+          <p className="text-primary-navy line-clamp-2 text-[16px] leading-140">
+            {truncateText(item.description, 300)}
+          </p>
         </div>
       </div>
     );
@@ -90,7 +84,6 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
             alt={item.title}
             fill
             className="aspect-square object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
           <div className="h-full w-full bg-gray-200" />
@@ -116,8 +109,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
             <span>{item.title}</span>
           </a>
         </h3>
-
-        <p className="text-primary-navy mb:text-xl mb:font-medium font-sans text-[16px] leading-140 font-normal">
+        <p className="text-primary-navy mb:text-xl font-sans text-[16px] leading-140 font-normal">
           {truncateText(item.description, 250)}
         </p>
       </div>

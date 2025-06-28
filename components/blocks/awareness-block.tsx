@@ -15,7 +15,7 @@ export default async function AwarenessBlock({ caseStudyCard, podcastCard }: Pro
   return (
     <div className="mb:grid-cols-2 mb:gap-5 grid grid-cols-1 gap-2.5">
       <div className="bg-primary-blue mb:py-20 flex items-start justify-end py-8">
-        <div className="mb:mr-[90px] mb:px-0 mb:max-w-[500px] mx-auto w-full max-w-7xl px-4 sm:px-6">
+        <div className="mb:mr-[90px] mb:px-0 mb:max-w-[530px] mx-auto w-full max-w-7xl px-4 sm:px-6">
           <CaseStudyCard {...caseStudyCard} />
         </div>
       </div>

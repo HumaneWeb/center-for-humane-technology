@@ -35,7 +35,7 @@ export default function PodcastListHero({
         <div className="relative mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
           {decoratorIcon && (
             <div className="mb:absolute left-[-60px] pt-3">
-              <CustomImage {...decoratorIcon} extraClass="mb:w-auto w-[50px] mb-2 mb:mb-0" />
+              <CustomImage {...decoratorIcon} extraClass="mb:w-[65px] w-[50px] mb-2 mb:mb-0" />
             </div>
           )}
           <div className="max-w-[620px]">

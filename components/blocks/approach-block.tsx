@@ -19,7 +19,7 @@ export default function ApproachBlock({
   return (
     <section
       className={cn(
-        'mb:pt-32 mb:pb-40 py-8',
+        'mb:py-28 py-8',
         backgroundColor === 'light-purple' && 'bg-[#F0EBFF]',
         backgroundColor === 'white' && 'bg-neutral-white',
       )}

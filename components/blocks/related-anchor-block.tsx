@@ -30,7 +30,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
 
   return (
     <div>
-      <div className="mb:grid-cols-5 mb:mb-14 mb-5 grid gap-5">
+      <div className="mb:grid-cols-5 mb:mb-[50px] mb-5 grid gap-5">
         {items.map((item) => (
           <div
             key={`nav-${item.id}`}
@@ -44,11 +44,11 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
       <div className="max-w-[948px]">
         {information && (
           <div
-            className="text-primary-navy mb:text-xl mb:mb-32 mb-5 max-w-[948px] font-sans text-[18px] leading-140 font-normal"
+            className="text-primary-navy mb:text-xl mb:mb-[110px] mb-5 max-w-[948px] font-sans text-[18px] leading-140 font-normal"
             dangerouslySetInnerHTML={{ __html: information }}
           />
         )}
-        <div className="mb:gap-28 flex flex-col gap-10">
+        <div className="mb:gap-[75px] flex flex-col gap-10">
           {items.map((item) => (
             <div key={item.id} id={`content-${item.id}`}>
               <h3 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-6 mb-5 font-sans text-[23px] leading-120 font-semibold">

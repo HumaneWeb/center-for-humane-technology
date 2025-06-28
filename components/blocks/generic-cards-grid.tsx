@@ -76,7 +76,7 @@ export default function GenericCardsGrid({
                 <GenericCard
                   {...item}
                   key={item.id}
-                  extraClassnames="w-[80dvw] min-h-[500px] mb:p-7 p-3"
+                  extraClassnames="w-[80dvw] mb:w-[390px] min-h-[500px] mb:p-7 p-3"
                 />
               ))}
 
