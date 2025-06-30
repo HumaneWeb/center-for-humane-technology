@@ -259,6 +259,7 @@ input BasicPageModelFilter {
   image: FileFilter
   introduction: TextFilter
   preTitle: StringFilter
+  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
@@ -333,6 +334,7 @@ type BasicPageRecord implements RecordInterface {
     markdown: Boolean
   ): String
   preTitle: String
+  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -3822,6 +3824,14 @@ enum ItemStatus {
 
 scalar JsonField
 
+"""Specifies how to filter JSON fields"""
+input JsonFilter {
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
 """Block of type Landing Highlight Text (landing_highlight_text)"""
 type LandingHighlightTextRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4232,6 +4242,13 @@ type PodcastListRecord implements RecordInterface {
   youtubeUrl: String
 }
 
+type PodcastModelContentField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
 input PodcastModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -4243,12 +4260,21 @@ input PodcastModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   applePodcastsUrl: StringFilter
+  content: StructuredTextFilter
   date: DateFilter
+  directDownloadLink: StringFilter
   episode: StringFilter
   episodeUrl: StringFilter
+  guestBio: StructuredTextFilter
+  guestBio2: StructuredTextFilter
+  guestImage: FileFilter
+  guestImage2: FileFilter
+  guestName: StringFilter
+  guestName2: StringFilter
   image: FileFilter
   introduction: TextFilter
   seo: SeoFilter
+  simplecastPodcastId: StringFilter
   slug: SlugFilter
   spotifyUrl: StringFilter
   substackUrl: StringFilter
@@ -4257,6 +4283,20 @@ input PodcastModelFilter {
   youtubeUrl: StringFilter
   OR: [PodcastModelFilter]
   AND: [PodcastModelFilter]
+}
+
+type PodcastModelGuestBio2Field {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+type PodcastModelGuestBioField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
 }
 
 enum PodcastModelOrderBy {
@@ -4282,10 +4322,18 @@ enum PodcastModelOrderBy {
   applePodcastsUrl_DESC
   date_ASC
   date_DESC
+  directDownloadLink_ASC
+  directDownloadLink_DESC
   episode_ASC
   episode_DESC
   episodeUrl_ASC
   episodeUrl_DESC
+  guestName_ASC
+  guestName_DESC
+  guestName2_ASC
+  guestName2_DESC
+  simplecastPodcastId_ASC
+  simplecastPodcastId_DESC
   spotifyUrl_ASC
   spotifyUrl_DESC
   substackUrl_ASC
@@ -4319,9 +4367,17 @@ type PodcastRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   applePodcastsUrl: String
+  content: PodcastModelContentField
   date: Date
+  directDownloadLink: String
   episode: String
   episodeUrl: String
+  guestBio: PodcastModelGuestBioField
+  guestBio2: PodcastModelGuestBio2Field
+  guestImage: FileField
+  guestImage2: FileField
+  guestName: String
+  guestName2: String
   id: ItemId!
   image: FileField
   introduction(
@@ -4329,6 +4385,7 @@ type PodcastRecord implements RecordInterface {
     markdown: Boolean
   ): String
   seo: SeoField
+  simplecastPodcastId: String
   slug: String!
   spotifyUrl: String
   substackUrl: String

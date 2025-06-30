@@ -27,7 +27,7 @@ export default function ComplexHero({ title, preTitle, introduction, image, vari
       <div
         className="bg-contain bg-bottom-right bg-no-repeat"
         style={{
-          backgroundImage: isMobile ? 'none' : `url(${image.url})`,
+          backgroundImage: isMobile ? 'none' : `url(${image?.url})`,
         }}
       >
         <div className="mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-40 pb-10 sm:px-6 lg:px-8">
