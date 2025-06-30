@@ -15,7 +15,7 @@ export default function DonateBlock({ title, cta, image }: Props) {
         <div className="grid grid-cols-1 items-center gap-15 lg:grid-cols-2">
           <div>
             {title && (
-              <h2 className="text-neutral-white mb:text-3xl mb:leading-140 mb-5 font-sans text-[25px] leading-110 font-semibold">
+              <h2 className="text-neutral-white mb:text-3xl mb:leading-140 mb-5 font-sans text-[25px] leading-[125%] font-semibold">
                 {title}
               </h2>
             )}

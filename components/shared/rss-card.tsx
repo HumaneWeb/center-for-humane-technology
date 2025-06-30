@@ -34,17 +34,13 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
   if (variant === 'list') {
     return (
       <div className="mb:grid-cols-[256px_auto] grid gap-6 overflow-hidden transition-all duration-300">
-        <div className="relative h-48 w-full sm:h-40 sm:w-64">
-          {item.imageUrl ? (
-            <Image
-              src={item.imageUrl}
-              alt={item.title}
-              fill
-              className="aspect-square object-cover"
-            />
-          ) : (
-            <div className="h-full w-full bg-gray-200" />
-          )}
+        <div className="mb:h-48 relative h-64 w-full">
+          <Image
+            src={item.imageUrl ? item.imageUrl : '/placeholder-image.png'}
+            alt={item.title}
+            fill
+            className="aspect-square object-cover"
+          />
         </div>
 
         <div className="max-w-[600px] flex-1">
@@ -78,16 +74,12 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
   return (
     <div className="overflow-hidden transition-all duration-300">
       <div className="relative h-64 w-full">
-        {item.imageUrl ? (
-          <Image
-            src={item.imageUrl!}
-            alt={item.title}
-            fill
-            className="aspect-square object-cover"
-          />
-        ) : (
-          <div className="h-full w-full bg-gray-200" />
-        )}
+        <Image
+          src={item.imageUrl ? item.imageUrl : '/placeholder-image.png'}
+          alt={item.title}
+          fill
+          className="aspect-square object-cover"
+        />
       </div>
 
       <div className="py-[30px]">

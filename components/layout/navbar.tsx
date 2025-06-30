@@ -151,7 +151,7 @@ export default function Navbar({ items }: Props) {
     const isOpen = openDropdown === index;
 
     const baseClasses = isMobile
-      ? `uppercase text-primary-navy flex items-center justify-between px-4 py-3 font-sans text-[14px] leading-140 font-semibold tracking-018 hover:bg-accent transition-colors ${extraClassnames ? extraClassnames : ''}`
+      ? `uppercase text-primary-navy flex items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold tracking-018 hover:bg-accent transition-colors ${extraClassnames ? extraClassnames : ''}`
       : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
 
     if (!hasDropdown) {
@@ -191,7 +191,7 @@ export default function Navbar({ items }: Props) {
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={cn(
               isMobile
-                ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[14px] leading-140 font-semibold uppercase transition-all duration-200'
+                ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200'
                 : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[18px]',
               extraClassnames,
             )}
@@ -251,7 +251,7 @@ export default function Navbar({ items }: Props) {
                   <div
                     className={cn(
                       'text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
-                      isMobile ? 'px-4 py-2 text-[14px]' : 'text-[16px] xl:text-[18px]',
+                      isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[18px]',
                     )}
                   >
                     {dropdownItem.label}
@@ -514,7 +514,7 @@ export default function Navbar({ items }: Props) {
 
           {/* Mobile Search Button */}
           <button
-            className="text-primary-navy hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[14px] leading-140 font-semibold uppercase transition-all duration-200"
+            className="text-primary-navy hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200"
             onClick={() => {
               setOpenSearchEngine((prev) => !prev);
               setIsMobileMenuOpen(false);

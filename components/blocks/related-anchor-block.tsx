@@ -51,7 +51,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
         <div className="mb:gap-[75px] flex flex-col gap-10">
           {items.map((item) => (
             <div key={item.id} id={`content-${item.id}`}>
-              <h3 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-6 mb-5 font-sans text-[23px] leading-120 font-semibold">
+              <h3 className="text-primary-navy mb:text-[29px] mb:leading-130 mb:mb-6 mb-5 font-sans text-[23px] leading-120 font-semibold">
                 {item.title}
               </h3>
               <div className="mb:grid-cols-[auto_1fr] mb:gap-6 mb:mb-20 mb-5 grid gap-3">

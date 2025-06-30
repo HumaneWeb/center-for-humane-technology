@@ -35,17 +35,17 @@ export default function TeamCard({
         </div>
         <h3
           className={cn(
-            'mb-2 font-sans leading-120 font-semibold transition-colors duration-200 ease-in-out',
+            'mb:mb-2 mb-1 font-sans leading-120 font-semibold transition-colors duration-200 ease-in-out',
             isTeam
-              ? 'text-primary-teal group-hover:text-primary-navy mb:text-2xl text-xl'
-              : 'text-primary-navy group-hover:text-primary-teal mb:text-xl text-[18px]',
+              ? 'text-primary-teal group-hover:text-primary-navy mb:text-2xl text-[23px]'
+              : 'text-primary-navy group-hover:text-primary-teal mb:text-xl text-[23px]',
           )}
         >
           {fullName}
         </h3>
         <h4
           className={cn(
-            'font-sans text-[16px] font-semibold',
+            'mb:text-[16px] font-sans text-[14px] font-semibold',
             isTeam
               ? 'tracking-08 text-primary-navy mb:leading-135 leading-120 uppercase'
               : 'leading-140',
@@ -53,7 +53,7 @@ export default function TeamCard({
         >
           {teamPosition}
         </h4>
-        <h5 className="text-primary-teal font-sans text-[16px] leading-140 font-semibold">
+        <h5 className="text-primary-teal mb:text-[16px] font-sans text-[14px] leading-140 font-semibold">
           {organization}
         </h5>
       </article>

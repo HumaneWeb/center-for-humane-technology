@@ -26,7 +26,7 @@ export default async function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb:flex-row mb:justify-between mb:items-center mb:gap-5 mb:pb-12 flex flex-col gap-10 border-b-[1px] border-[#4F5984] pb-5">
           <Link href="/">
-            <CustomImage {...logo} />
+            <CustomImage {...logo} extraClass="mb:w-auto w-[120px]" />
           </Link>
           <div className="flex gap-3">
             {facebookUrl && (
@@ -192,7 +192,6 @@ export default async function Footer() {
           <p className="tracking-013 font-sans text-[13px] leading-120 font-medium">
             {extraLinks.map((extraLink) => (
               <React.Fragment key={extraLink.id}>
-                {/* @ts-expect-error */}
                 <CustomLink content={extraLink} extraClass="underline">
                   {extraLink.internalTitle}
                 </CustomLink>
