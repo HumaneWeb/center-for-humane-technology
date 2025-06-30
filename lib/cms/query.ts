@@ -888,7 +888,7 @@ export const BasicPageQuery = graphql(
 
 export const PodcastListQuery = graphql(
   `
-    query PodcastListQuery($searchQuery: String!) {
+    query PodcastListQuery($searchQuery: String!, $skip: IntType!, $first: IntType!) {
       page: podcastList {
         title
         introduction
@@ -906,8 +906,16 @@ export const PodcastListQuery = graphql(
           ...TagFragment
         }
       }
-      podcasts: allPodcasts(filter: { title: { matches: { pattern: $searchQuery } } }) {
+      podcasts: allPodcasts(
+        filter: { title: { matches: { pattern: $searchQuery } } }
+        skip: $skip
+        first: $first
+        orderBy: _createdAt_DESC
+      ) {
         ...PodcastFragment
+      }
+      podcastsCount: _allPodcastsMeta(filter: { title: { matches: { pattern: $searchQuery } } }) {
+        count
       }
       configuration {
         newsletterTitle

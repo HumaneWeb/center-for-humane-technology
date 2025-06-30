@@ -60,7 +60,7 @@ export default function ContactForm() {
       <RadioGroup
         value={formData.contactOption}
         onValueChange={(value) => handleInputChange('contactOption', value)}
-        className="mb-8 space-y-5 border-b border-[#DBDEE6] pb-8"
+        className="mb:space-y-5 mb-8 space-y-3 border-b border-[#DBDEE6] pb-8"
       >
         <div className="flex items-center space-x-3">
           <RadioGroupItem value="option1" id="option1" className="h-[18px] w-[18px]" />
@@ -184,7 +184,7 @@ export default function ContactForm() {
         />
       </div>
 
-      <div className="text-[13px] leading-135 text-black">
+      <div className="text-[14px] leading-135 text-black">
         Lorem ipsum dolor sit amet consectetur. Egestas ut felis euismod posuere quis. Mi sapien mi
         at nulla molestie. Lectus lacus integer pulvinar ultrices leo volutpat at feugiat. Dolor
         risus eleifend tortor et lobortis adipiscing sagittis ultrices.
@@ -199,7 +199,7 @@ export default function ContactForm() {
         />
         <Label
           htmlFor="agreement"
-          className="text-primary-navy text-[13px] leading-135 font-normal"
+          className="text-primary-navy text-[14px] leading-135 font-normal"
         >
           Lorem ipsum dolor sit amet consectetur.
         </Label>

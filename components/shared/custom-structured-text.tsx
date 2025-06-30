@@ -289,7 +289,7 @@ export default function CustomStructuredText({
                   return (
                     <div
                       className={cn(
-                        'heading mb:mt-[75px] mb:mb-[24px] mx-auto mt-5 mb-5 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                        'heading mb:mt-[75px] mb:mb-[24px] mx-auto mt-8 mb-5 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
                         isInnerContainer && 'mb-0 max-w-full px-0 sm:px-0 lg:px-0',
                         centerContent && 'px-0!',
                       )}

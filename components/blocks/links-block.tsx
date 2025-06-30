@@ -27,7 +27,8 @@ export default function LinksBlock({ title, ctas, extraClassname, variant = 'def
         <h3
           className={cn(
             'tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-[70px] mb-5 font-sans text-[29px] leading-120 font-semibold',
-            variant === 'small' && 'mb:text-[29px] mb:leading-130 text-primary-blue mb:mb-[33px]',
+            variant === 'small' &&
+              'mb:text-[29px] mb:leading-130 text-primary-blue mb:mb-[33px] mb-3 text-[23px]',
           )}
         >
           {title}

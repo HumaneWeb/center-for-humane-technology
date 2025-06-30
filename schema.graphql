@@ -619,6 +619,70 @@ type CareersLitRecord implements RecordInterface {
   id: ItemId!
 }
 
+input CategoryModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  name: StringFilter
+  slug: SlugFilter
+  OR: [CategoryModelFilter]
+  AND: [CategoryModelFilter]
+}
+
+enum CategoryModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  name_ASC
+  name_DESC
+}
+
+"""Record of type Category (category)"""
+type CategoryRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  name: String
+  slug: String
+}
+
 type CollectionMetadata {
   count: IntType!
 }
@@ -4008,6 +4072,34 @@ type LinksBlockRecord implements RecordInterface {
   title: String
 }
 
+"""Specifies how to filter Multiple-links fields"""
+input LinksFilter {
+  """
+  Search for records with an exact match. The specified values must be Record IDs
+  """
+  eq: [ItemId]
+
+  """
+  Filter records linked to all of the specified records. The specified values must be Record IDs
+  """
+  allIn: [ItemId]
+
+  """
+  Filter records linked to at least one of the specified records. The specified values must be Record IDs
+  """
+  anyIn: [ItemId]
+
+  """
+  Filter records not linked to any of the specified records. The specified values must be Record IDs
+  """
+  notIn: [ItemId]
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
 """Block of type Media Block (media_block)"""
 type MediaBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4260,6 +4352,7 @@ input PodcastModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   applePodcastsUrl: StringFilter
+  categories: LinksFilter
   content: StructuredTextFilter
   date: DateFilter
   directDownloadLink: StringFilter
@@ -4273,12 +4366,16 @@ input PodcastModelFilter {
   guestName2: StringFilter
   image: FileFilter
   introduction: TextFilter
+  majorTakeaways: StructuredTextFilter
+  recommendedMedia: StructuredTextFilter
   seo: SeoFilter
   simplecastPodcastId: StringFilter
   slug: SlugFilter
   spotifyUrl: StringFilter
   substackUrl: StringFilter
+  takeAction: StructuredTextFilter
   title: StringFilter
+  transcript: FileFilter
   videoUrl: StringFilter
   youtubeUrl: StringFilter
   OR: [PodcastModelFilter]
@@ -4293,6 +4390,13 @@ type PodcastModelGuestBio2Field {
 }
 
 type PodcastModelGuestBioField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+type PodcastModelMajorTakeawaysField {
   blocks: [String!]!
   inlineBlocks: [String!]!
   links: [String!]!
@@ -4346,6 +4450,20 @@ enum PodcastModelOrderBy {
   youtubeUrl_DESC
 }
 
+type PodcastModelRecommendedMediaField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+type PodcastModelTakeActionField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
 """Record of type Podcast (podcast)"""
 type PodcastRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4367,6 +4485,7 @@ type PodcastRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   applePodcastsUrl: String
+  categories: [CategoryRecord!]!
   content: PodcastModelContentField
   date: Date
   directDownloadLink: String
@@ -4384,12 +4503,16 @@ type PodcastRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  majorTakeaways: PodcastModelMajorTakeawaysField
+  recommendedMedia: PodcastModelRecommendedMediaField
   seo: SeoField
   simplecastPodcastId: String
   slug: String!
   spotifyUrl: String
   substackUrl: String
+  takeAction: PodcastModelTakeActionField
   title: String!
+  transcript: FileField
   videoUrl: String
   youtubeUrl: String
 }
@@ -4480,6 +4603,13 @@ type Query {
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
     filter: CareerModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
+  _allCategoriesMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: CategoryModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
@@ -4598,6 +4728,25 @@ type Query {
     filter: CareerModelFilter
     orderBy: [CareerModelOrderBy] = [_updatedAt_DESC]
   ): [CareerRecord!]!
+
+  """Returns a collection of records"""
+  allCategories(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: CategoryModelFilter
+    orderBy: [CategoryModelOrderBy] = [_updatedAt_DESC]
+  ): [CategoryRecord!]!
 
   """Returns a collection of records"""
   allGlobalLinks(
@@ -4792,6 +4941,19 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): CareersLitRecord
+
+  """Returns a specific record"""
+  category(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: CategoryModelFilter
+    orderBy: [CategoryModelOrderBy] = [_updatedAt_DESC]
+  ): CategoryRecord
 
   """Returns the single instance record"""
   configuration(

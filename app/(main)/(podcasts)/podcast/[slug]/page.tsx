@@ -69,12 +69,12 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
             </span>
           </CustomLink>
 
-          <div className="mb:grid-cols-[1.2fr_2fr] grid gap-10">
+          <div className="mb:grid-cols-[1.2fr_2fr] mb:gap-10 grid gap-5">
             <div>
               {image && (
                 <CustomImage
                   {...image}
-                  extraClass="mb-5 mb:mb-10 mb:w-[400px] w-full mb:h-[400px]"
+                  extraClass="mb-0 mb:mb-10 mb:w-[400px] w-full mb:h-[400px]"
                 />
               )}
 

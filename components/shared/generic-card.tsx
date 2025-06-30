@@ -66,7 +66,7 @@ export default function GenericCard({
             className={cn(
               'text-primary-teal mb:mb-5 mb-1 font-sans text-2xl leading-130 font-semibold',
               (variant === 'minimal' || variant === 'minimal-small') &&
-                'group-hover:text-neutral-white',
+                'group-hover:text-neutral-white mb-4 text-xl',
               variant === 'basic' && 'mb-2',
               variant === 'vertical' && 'mb-5',
               variant === 'minimal-small' && 'mb-2.5 text-xl leading-120',
