@@ -49,7 +49,7 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
             )}
             {firstItem.introduction && (
               <div
-                className="text-primary-navy mb:leading-135 mb-3.5 max-w-[340px] font-sans text-[16px] leading-140 font-normal"
+                className="text-primary-navy mb:leading-135 mb:max-w-[340px] mb-3.5 font-sans text-[16px] leading-140 font-normal"
                 dangerouslySetInnerHTML={{
                   __html: firstItem.introduction,
                 }}
@@ -70,7 +70,7 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
             )}
             {secondItem.introduction && (
               <div
-                className="text-primary-navy mb:leading-135 mb-3.5 max-w-[340px] font-sans text-[16px] leading-140 font-normal"
+                className="text-primary-navy mb:leading-135 mb:max-w-[340px] font-sans text-[16px] leading-140 font-normal"
                 dangerouslySetInnerHTML={{
                   __html: secondItem.introduction,
                 }}
@@ -91,7 +91,7 @@ const GraphicImpact = () => (
       height="467"
       viewBox="0 0 467 467"
       fill="none"
-      className="h-full w-full drop-shadow-lg"
+      className="mb:w-full mb:mb-0 mx-auto mb-3.5 h-full w-[90%] drop-shadow-lg"
     >
       <g className="outer-ring">
         <path

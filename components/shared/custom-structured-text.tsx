@@ -244,7 +244,7 @@ export default function CustomStructuredText({
                     return (
                       <div
                         className={cn(
-                          'paragraph mx-auto mb-[24px] max-w-7xl px-4 sm:px-6 lg:px-8',
+                          'paragraph mb:mb-[24px] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
                           isInnerContainer && 'max-w-full px-0 sm:px-0 lg:px-0',
                           centerContent && 'px-0!',
                         )}
@@ -318,7 +318,7 @@ export default function CustomStructuredText({
                     return (
                       <div
                         className={cn(
-                          'mx-auto my-10 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
+                          'mx-auto max-w-7xl items-end px-4 sm:px-6 lg:px-8',
                           centerContent && 'px-2!',
                         )}
                         key={key}

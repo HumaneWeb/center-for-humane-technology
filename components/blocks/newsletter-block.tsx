@@ -162,7 +162,7 @@ export const SubstackNewsletterWidget = () => {
           type="submit"
           disabled={isLoading}
           className={cn(
-            'bg-primary-blue tracking-02 text-neutral-white hover:bg-primary-navy mb:w-[170px] mb:text-xl flex cursor-pointer items-center justify-center gap-5 rounded-none px-9.5 py-3 leading-120 font-semibold',
+            'bg-primary-blue tracking-02 text-neutral-white hover:bg-primary-navy mb:w-[170px] mb:text-xl mb:py-3 flex cursor-pointer items-center justify-center gap-5 rounded-none px-9.5 py-[15.9px] leading-120 font-semibold',
             isLoading && 'pointer-events-none',
           )}
         >
