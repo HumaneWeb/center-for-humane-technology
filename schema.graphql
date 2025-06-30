@@ -5500,6 +5500,7 @@ input TeamMemberModelFilter {
   information: StructuredTextFilter
   linkedinUrl: StringFilter
   organization: StringFilter
+  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   teamPosition: StringFilter
@@ -5578,6 +5579,7 @@ type TeamMemberRecord implements RecordInterface {
   information: TeamMemberModelInformationField
   linkedinUrl: String
   organization: String
+  preview: JsonField
   seo: SeoField
   slug: String!
   teamPosition: String
