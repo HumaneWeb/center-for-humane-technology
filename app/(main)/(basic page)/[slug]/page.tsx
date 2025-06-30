@@ -5,6 +5,8 @@ import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { BasicPageQuery } from '@/lib/cms/query';
 import type { PageSlug } from '@/lib/utils/types';
 
+export const dynamic = 'force-dynamic';
+
 export const generateMetadata = generateMetadataFn({
   query: BasicPageQuery,
   // @ts-expect-error
