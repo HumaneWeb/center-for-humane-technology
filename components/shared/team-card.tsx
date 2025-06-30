@@ -30,7 +30,7 @@ export default function TeamCard({
         <div className="mb-5 overflow-hidden">
           <CustomImage
             {...image}
-            extraClass="aspect-square transition-all duration-500 ease-in-out group-hover:grayscale group-hover:scale-105"
+            extraClass="aspect-square object-cover transition-all duration-500 ease-in-out group-hover:grayscale group-hover:scale-105"
           />
         </div>
         <h3
