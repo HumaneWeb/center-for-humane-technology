@@ -25,12 +25,12 @@ export default function TeamCard({
 
   return (
     // @ts-expect-error
-    <CustomLink content={{ content: { slug, __typename } }} extraClass="group">
-      <article>
+    <CustomLink content={{ content: { slug, __typename } }} extraClass="group h-full">
+      <article className="h-full">
         <div className="mb-5 overflow-hidden">
           <CustomImage
             {...image}
-            extraClass="aspect-square object-cover transition-all duration-500 ease-in-out group-hover:grayscale group-hover:scale-105"
+            extraClass="aspect-square object-cover transition-all duration-500 ease-in-out group-hover:grayscale group-hover:scale-105 w-full"
           />
         </div>
         <h3
