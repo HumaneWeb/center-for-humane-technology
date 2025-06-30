@@ -3,6 +3,7 @@ const CMS_MODELS_ROUTE_MAP = {
   PodcastRecord: '/podcast',
   TeamMemberRecord: '/team-board',
   LandingRecord: '/landing',
+  CaseStudyRecord: '/case-study',
 } as const;
 
 type CmsModelKey = keyof typeof CMS_MODELS_ROUTE_MAP;

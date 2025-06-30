@@ -29,6 +29,9 @@ export const GlobalLinkFragment = graphql(`
       ... on ContactRecord {
         slug
       }
+      ... on CaseStudyRecord {
+        slug
+      }
     }
   }
 `);
@@ -812,6 +815,84 @@ export const BasicPageQuery = graphql(
   `
     query BasicPageQuery($slug: String) {
       page: basicPage(filter: { slug: { eq: $slug } }) {
+        title
+        preTitle
+        introduction
+        backgroundColor
+        contentBackgroundColor
+        image {
+          ...ImageFragment
+        }
+        variant
+        contentAnchors
+        anchors {
+          ...AnchorItemFragment
+        }
+        content {
+          value
+          blocks {
+            __typename
+            ... on RecordInterface {
+              id
+            }
+            ...CTAFragment
+            ...ImageBlockFragment
+            ...ImageContentBlockFragment
+            ...NarrativeBlockFragment
+            ...ApproachBlockFragment
+            ...SignUpBlockFragment
+            ...ThinkingBlockFragment
+            ...StatsBlockFragment
+            ...ImpactBlockFragment
+            ...ColumnsBlockFragment
+            ...GenericCardsGridFragment
+            ...GalleryImageInformationFragment
+            ...LinksBlockFragment
+            ...HighlightedBlockFragment
+            ...RelatedAnchorBlockFragment
+          }
+        }
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [
+    TagFragment,
+    CTAFragment,
+    AnchorItemFragment,
+    ImageBlockFragment,
+    ImageContentBlockFragment,
+    NarrativeBlockFragment,
+    ImpactBlockFragment,
+    ApproachBlockFragment,
+    SignUpBlockFragment,
+    ThinkingBlockFragment,
+    StatsBlockFragment,
+    ImpactBlockFragment,
+    ColumnsBlockFragment,
+    GenericCardsGridFragment,
+    GalleryImageInformationFragment,
+    LinksBlockFragment,
+    HighlightedBlockFragment,
+    RelatedAnchorBlockFragment,
+  ],
+);
+
+export const CaseStudyPageQuery = graphql(
+  `
+    query CaseStudyPageQuery($slug: String) {
+      page: caseStudy(filter: { slug: { eq: $slug } }) {
         title
         preTitle
         introduction
