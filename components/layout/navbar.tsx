@@ -285,13 +285,13 @@ export default function Navbar({ items }: Props) {
 
   return (
     <motion.header
-      className="ui-navbar border-primary-navy bg-neutral-white mb:pl-10 fixed top-0 right-0 left-0 z-40 border-b-[1px]"
+      className="ui-navbar border-primary-navy bg-neutral-white fixed top-0 right-0 left-0 z-40 border-b-[1px]"
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -1000 }}
       transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
     >
       <div className="mb:px-0 mb:gap-0 flex h-16 items-center justify-between gap-7 px-4">
-        <div className="flex items-center">
+        <div className="mb:pl-4 flex items-center">
           <Link href="/" className="w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
