@@ -55,7 +55,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
                 {item.title}
               </h3>
               <div className="mb:grid-cols-[auto_1fr] mb:gap-6 mb:mb-20 mb-5 grid gap-3">
-                <CustomImage {...item.image} />
+                <CustomImage {...item.image} extraClass="mb:max-w-[516px]" />
                 <div
                   className="text-primary-navy mb:text-xl mb:leading-140 font-sans text-[18px] leading-130 font-medium"
                   dangerouslySetInnerHTML={{ __html: item.introduction }}

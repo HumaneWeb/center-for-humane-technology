@@ -54,9 +54,9 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
         {searchQuery && (
           <div className="mb:mb-8 mb-4">
             <p className="mb:text-xl font-sans text-[16px] leading-140 font-normal">
-              {podcastsCount > 0 ? (
+              {podcastsCount.count > 0 ? (
                 <>
-                  Found {podcastsCount} result{podcastsCount !== 1 ? 's' : ''} for:{' '}
+                  Found {podcastsCount.count} result{podcastsCount.count !== 1 ? 's' : ''} for:{' '}
                   <strong>{searchParams.search}</strong>
                 </>
               ) : (

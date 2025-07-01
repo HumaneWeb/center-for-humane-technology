@@ -63,7 +63,7 @@ export default function GenericCardsGrid({
             {introduction && (
               <div
                 dangerouslySetInnerHTML={{ __html: introduction }}
-                className="text-primary-navy mb:[&>p>strong]:text-[25px] mb:mb-12 mb-5 max-w-[840px] font-sans text-xl leading-140 [&>p]:mb-4 [&>p>strong]:text-[20px] [&>p>strong]:font-medium"
+                className="text-primary-navy mb:[&>p>strong]:text-[25px] mb:mb-12 mb:text-xl mb-5 max-w-[840px] font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p>strong]:text-[20px] [&>p>strong]:font-medium"
               />
             )}
           </div>
