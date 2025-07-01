@@ -20,5 +20,5 @@ export default async function CaseStudyPage({ params }: PageSlug) {
     return <KeyTemplateLayout page={page} configuration={configuration} />;
   }
 
-  return <ContentLayout page={page} configuration={configuration} />;
+  return <ContentLayout page={page} configuration={configuration} withImage={false} />;
 }

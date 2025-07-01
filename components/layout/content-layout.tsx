@@ -6,7 +6,7 @@ import DonateBlock from '../blocks/donate-block';
 import ContentSidebar from '../shared/content-sidebar';
 import ContentTopBar from '../shared/content-top-bar';
 
-export default function ContentLayout({ page, configuration }) {
+export default function ContentLayout({ page, configuration, withImage = true }) {
   const { slug, title, introduction, cta, backCta, image, variant, contentAnchors, anchors } =
     page!;
   const { donateTitle, donateCta, donateImage } = configuration!;
@@ -23,7 +23,7 @@ export default function ContentLayout({ page, configuration }) {
         introduction={introduction}
         cta={cta}
         backCta={backCta}
-        backgroundImage={image}
+        backgroundImage={withImage ? image : null}
       />
       {withTopBar && <ContentTopBar items={anchors} />}
 

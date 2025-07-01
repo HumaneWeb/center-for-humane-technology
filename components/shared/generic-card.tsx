@@ -44,7 +44,7 @@ export default function GenericCard({
         <CustomImage
           {...image}
           extraClass={cn(
-            'h-[252px] w-full mb:mb-5 mb-4 object-cover',
+            'w-full mb:mb-5 mb-4 object-cover aspect-[3/2]',
             variant === 'minimal-small' && 'h-auto mb-2.5',
           )}
         />

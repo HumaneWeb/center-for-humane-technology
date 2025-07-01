@@ -57,7 +57,7 @@ export default function PodcastListHero({
 
             <div className="flex flex-wrap items-center gap-10">
               {applePodcastsUrl && (
-                <a href={applePodcastsUrl} className="flex items-center gap-2.5">
+                <a href={applePodcastsUrl} target="_blank" className="flex items-center gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="44"
@@ -79,7 +79,7 @@ export default function PodcastListHero({
               )}
 
               {spotifyUrl && (
-                <a href={spotifyUrl} className="flex items-center gap-2.5">
+                <a href={spotifyUrl} target="_blank" className="flex items-center gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="44"
@@ -102,7 +102,7 @@ export default function PodcastListHero({
               )}
 
               {youtubeUrl && (
-                <a href={youtubeUrl} className="flex items-center gap-2.5">
+                <a href={youtubeUrl} target="_blank" className="flex items-center gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="46"

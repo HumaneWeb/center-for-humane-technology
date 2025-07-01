@@ -619,6 +619,32 @@ type CareersLitRecord implements RecordInterface {
   id: ItemId!
 }
 
+"""Record of type Case Studies (case_studies_list)"""
+type CaseStudiesListRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  seo: SeoField
+  slug: String!
+  title: String
+}
+
 union CaseStudyModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
 
 type CaseStudyModelContentField {
@@ -1605,7 +1631,7 @@ type GenericCardsGridRecord implements RecordInterface {
   variant: String
 }
 
-union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersLitRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord
+union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersLitRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord
 
 input GlobalLinkModelFilter {
   _createdAt: CreatedAtFilter
@@ -4472,6 +4498,7 @@ input PodcastModelFilter {
   image: FileFilter
   introduction: TextFilter
   majorTakeaways: StructuredTextFilter
+  moreListening: LinksFilter
   recommendedMedia: StructuredTextFilter
   seo: SeoFilter
   simplecastPodcastId: StringFilter
@@ -4609,6 +4636,7 @@ type PodcastRecord implements RecordInterface {
     markdown: Boolean
   ): String
   majorTakeaways: PodcastModelMajorTakeawaysField
+  moreListening: [PodcastRecord!]!
   recommendedMedia: PodcastModelRecommendedMediaField
   seo: SeoField
   simplecastPodcastId: String
@@ -5072,6 +5100,17 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): CareersLitRecord
+
+  """Returns the single instance record"""
+  caseStudiesList(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): CaseStudiesListRecord
 
   """Returns a specific record"""
   caseStudy(

@@ -11,6 +11,7 @@ export type CtaProps = {
   children?: React.ReactNode;
   variant?: 'default' | 'minimal' | 'underline' | 'border' | 'underline-help' | 'underline-bold';
   icon?: 'play' | 'video' | 'substack' | 'download' | 'back';
+  onClick?: () => void;
 };
 
 const ICON_MAP = {
@@ -71,7 +72,19 @@ export default function Cta({
   children,
   variant = 'default',
   icon,
+  onClick,
 }: CtaProps) {
+  if (onClick) {
+    return (
+      <button
+        className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb:w-auto mb:justify-start group group flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    );
+  }
+
   return (
     <CustomLink
       content={link}

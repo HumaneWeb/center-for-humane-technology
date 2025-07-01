@@ -26,7 +26,7 @@ export default function CaseStudyCard({ title, preTitle, image, introduction, ct
       )}
       {image && (
         <div className="mb:mb-7 mb-5">
-          <CustomImage {...image} />
+          <CustomImage {...image} extraClass="aspect-[3/2]" />
         </div>
       )}
       {introduction && (

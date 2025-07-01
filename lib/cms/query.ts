@@ -32,6 +32,9 @@ export const GlobalLinkFragment = graphql(`
       ... on CaseStudyRecord {
         slug
       }
+      ... on CaseStudiesListRecord {
+        slug
+      }
     }
   }
 `);
@@ -93,6 +96,22 @@ export const GenericCardFragment = graphql(
     }
   `,
   [ImageFragment, CTAFragment],
+);
+
+export const CaseStudyFragment = graphql(
+  `
+    fragment CaseStudyFragment on CaseStudyRecord {
+      id
+      title
+      introduction
+      image {
+        ...ImageFragment
+      }
+      slug
+      __typename
+    }
+  `,
+  [ImageFragment],
 );
 
 export const PodcastFragment = graphql(
@@ -969,6 +988,37 @@ export const CaseStudyPageQuery = graphql(
   ],
 );
 
+export const CaseStudiesListQuery = graphql(
+  `
+    query PodcastListQuery($skip: IntType!, $first: IntType!) {
+      page: caseStudiesList {
+        title
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      studies: allCaseStudies(skip: $skip, first: $first, orderBy: _createdAt_DESC) {
+        ...CaseStudyFragment
+      }
+      podcastsCount: _allCaseStudiesMeta {
+        count
+      }
+      configuration {
+        newsletterTitle
+        newsletterIntroduction
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment, CaseStudyFragment, TagFragment],
+);
+
 export const PodcastListQuery = graphql(
   `
     query PodcastListQuery($searchQuery: String!, $skip: IntType!, $first: IntType!) {
@@ -993,7 +1043,7 @@ export const PodcastListQuery = graphql(
         filter: { title: { matches: { pattern: $searchQuery } } }
         skip: $skip
         first: $first
-        orderBy: _createdAt_DESC
+        orderBy: date_DESC
       ) {
         ...PodcastFragment
       }
@@ -1021,11 +1071,34 @@ export const PodcastDetailQuery = graphql(
     query PodcastDetailQuery($slug: String) {
       podcastList {
         slug
+        applePodcastsUrl
+        spotifyUrl
+        youtubeUrl
         __typename
       }
       podcast(filter: { slug: { eq: $slug } }) {
         title
         introduction
+        directDownloadLink
+        content {
+          value
+          blocks
+        }
+        majorTakeaways {
+          value
+          blocks
+        }
+        recommendedMedia {
+          value
+          blocks
+        }
+        takeAction {
+          value
+          blocks
+        }
+        moreListening {
+          ...PodcastFragment
+        }
         episode
         date
         applePodcastsUrl
@@ -1041,16 +1114,6 @@ export const PodcastDetailQuery = graphql(
           ...TagFragment
         }
       }
-      moreReading: allPodcasts(filter: { slug: { neq: $slug } }) {
-        id
-        title
-        introduction
-        image {
-          ...ImageFragment
-        }
-        slug
-        __typename
-      }
       configuration {
         donateTitle
         donateImage {
@@ -1064,7 +1127,7 @@ export const PodcastDetailQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment, TagFragment],
+  [ImageFragment, CTAFragment, TagFragment, PodcastFragment],
 );
 
 export const BlogDetailPageQuery = graphql(

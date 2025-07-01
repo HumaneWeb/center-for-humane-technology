@@ -399,3 +399,66 @@ hr {
 .logos-swiper .swiper-wrapper {
   align-items: center;
 }
+
+/* Podcast links from migration */
+.structured-content h5 {
+  margin-bottom: 1rem;
+}
+
+.structured-content h5:has(+p) {
+  margin-bottom: 0;
+}
+
+.structured-content h5:has(+p)+p {
+  margin-bottom: 1rem;
+}
+
+.structured-content p a {
+  font-size: inherit;
+  color: inherit;
+}
+
+.structured-content p {
+  margin-bottom: 1rem;
+}
+
+.structured-content p,
+.structured-content p strong {
+  color: var(--color-primary-navy);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 135%;
+}
+
+.structured-content a {
+  color: theme("colors.primary.teal");
+  font-size: 20px;
+  line-height: 120%;
+  font-weight: 500;
+  text-decoration: underline;
+  transition-timing-function: cubic-bezier(.4, 0, 1, 1);
+  transition-duration: .2s;
+  transition-property: all;
+}
+
+.structured-content a:hover {
+  color: var(--color-primary-navy);
+}
+
+.structured-content a em {
+  font-style: normal;
+}
+
+.structured-content a em strong,
+.structured-content a strong {
+  font-weight: 500;
+}
+
+/* Media queries para mobile */
+@media (max-width: 992px) {
+  .structured-content a {
+    font-size: 18px;
+    line-height: 130%;
+  }
+}

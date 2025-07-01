@@ -36,6 +36,7 @@ export interface RSSFeed {
 export interface PodcastListPageProps {
   searchParams: Promise<{
     search?: string;
+    page?: string;
   }>;
 }
 
