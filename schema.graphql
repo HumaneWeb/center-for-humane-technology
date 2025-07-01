@@ -4228,11 +4228,8 @@ type MediaBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  ctas: [CtaRecord!]!
   id: ItemId!
-  information(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
   items: [ImageBlockRecord!]!
   title: String
 }

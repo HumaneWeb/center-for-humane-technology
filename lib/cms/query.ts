@@ -588,13 +588,15 @@ export const MediaBlockFragment = graphql(
       __typename
       id
       title
-      information
+      ctas {
+        ...CTAFragment
+      }
       items {
         ...ImageBlockFragment
       }
     }
   `,
-  [ImageBlockFragment],
+  [ImageBlockFragment, CTAFragment],
 );
 
 export const DonateBlockFragment = graphql(

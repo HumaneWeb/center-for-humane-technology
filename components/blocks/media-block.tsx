@@ -7,11 +7,13 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import CustomImage, { type CustomImageProps } from '../shared/custom-image';
 import CustomLink, { type CustomLinkProps } from '../shared/custom-link';
+import type { CtaProps } from '../shared/cta';
+import CtaList from '../shared/cta-list';
 
 type Props = {
   id: string;
   title: string;
-  information: string;
+  ctas: CtaProps[];
   items: {
     id: string;
     title: string;
@@ -20,7 +22,7 @@ type Props = {
   }[];
 };
 
-export default function MediaBlock({ title, items, information }: Props) {
+export default function MediaBlock({ title, items, ctas }: Props) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -80,10 +82,10 @@ export default function MediaBlock({ title, items, information }: Props) {
             </Swiper>
           </div>
 
-          {information && (
-            <div
-              className="tracking-02 [&>p>a]:text-primary-teal [&>p>a]:hover:text-primary-blue mb:text-xl [&>p]:mb:mb-8 mb:text-center font-sans text-[18px] leading-120 [&>p]:mb-4 [&>p>a]:font-bold [&>p>a]:underline [&>p>a]:transition-all [&>p>a]:duration-200 [&>p>a]:ease-in"
-              dangerouslySetInnerHTML={{ __html: information }}
+          {ctas && (
+            <CtaList
+              items={ctas}
+              extraClassnames="flex-col items-center justify-center mb:gap-[33px]"
             />
           )}
         </div>
