@@ -4,6 +4,7 @@ import GenericCard from '../shared/generic-card';
 import Cta from '../shared/cta';
 import { cn } from '@/lib/utils/css.utils';
 import { useRef } from 'react';
+import useIsMobile from '../hooks/is-mobile';
 
 type Props = {
   title: string;
@@ -23,10 +24,13 @@ export default function GenericCardsGrid({
   items,
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      const cardWidth = 320; // Approximate card width + gap
+      const card = scrollContainerRef.current.querySelector('.generic-card-ui') as HTMLElement;
+      const gap = 24;
+      const cardWidth = (card?.offsetWidth ?? 320) + gap;
       scrollContainerRef.current.scrollBy({
         left: -cardWidth,
         behavior: 'smooth',
@@ -36,7 +40,9 @@ export default function GenericCardsGrid({
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      const cardWidth = 320; // Approximate card width + gap
+      const card = scrollContainerRef.current.querySelector('.generic-card-ui') as HTMLElement;
+      const gap = 24;
+      const cardWidth = (card?.offsetWidth ?? 320) + gap;
       scrollContainerRef.current.scrollBy({
         left: cardWidth,
         behavior: 'smooth',
@@ -68,23 +74,29 @@ export default function GenericCardsGrid({
             )}
           </div>
 
-          <div ref={scrollContainerRef} className="scrollbar-hide overflow-x-auto">
+          <div ref={scrollContainerRef} className="scrollbar-hide mb:mx-0 mx-4 overflow-x-auto">
             <div className={cn('flex snap-x snap-mandatory gap-6 overflow-x-visible pb-8')}>
-              <div className="flex-shrink-0" style={{ width: 'max(0px, calc(50vw - 640px))' }} />
+              <div
+                className="mb:block hidden flex-shrink-0"
+                style={{ width: 'max(0px, calc(50vw - 640px))' }}
+              />
 
               {items.map((item) => (
                 <GenericCard
                   {...item}
                   key={item.id}
-                  extraClassnames="w-[80dvw] mb:w-[390px] min-h-[500px] mb:p-7 p-3"
+                  extraClassnames="generic-card-ui w-[calc(100dvw-48px)] sm:w-[55dvw] mb:w-[390px]! min-h-[500px] mb:p-7 p-3"
                 />
               ))}
 
-              <div className="flex-shrink-0" style={{ width: 'max(0px, calc(50vw - 640px))' }} />
+              <div
+                className="mb:block hidden flex-shrink-0"
+                style={{ width: 'max(0px, calc(50vw - 640px))' }}
+              />
             </div>
           </div>
 
-          {items.length > 3 && (
+          {(items.length > 3 || isMobile) && (
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="flex justify-end gap-5 sm:right-6 lg:right-8">
                 <button
