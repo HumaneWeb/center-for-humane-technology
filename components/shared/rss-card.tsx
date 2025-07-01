@@ -44,7 +44,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
         </div>
 
         <div className="max-w-[600px] flex-1">
-          <div className="mb-2.5 flex items-center gap-4">
+          <div className="mb:flex-row mb:items-center mb:gap-4 mb-2.5 flex flex-col gap-1">
             <span className="text-primary-blue tracking-065 font-sans text-[13px] leading-120 font-semibold uppercase">
               {item.author || 'CENTER FOR HUMANE TECHNOLOGY'}
             </span>
@@ -83,7 +83,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
       </div>
 
       <div className="py-[30px]">
-        <div className="mb-2.5 flex items-center gap-3.5">
+        <div className="mb:flex-row mb:items-center mb:gap-3.5 mb-2.5 flex flex-col gap-1">
           <span className="text-primary-blue tracking-065 text-[13px] leading-120 font-semibold uppercase">
             {item.author || 'CENTER FOR HUMANE TECHNOLOGY'}
           </span>
