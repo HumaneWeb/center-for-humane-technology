@@ -99,7 +99,7 @@ export default function Cta({
         <span
           className={cn(
             variant === 'underline' && 'font-medium underline',
-            variant === 'underline-help' && 'text-[14px] font-semibold underline',
+            variant === 'underline-help' && 'mb:text-xl text-[14px] font-semibold underline',
             variant === 'underline-bold' && 'font-semibold underline',
           )}
         >
