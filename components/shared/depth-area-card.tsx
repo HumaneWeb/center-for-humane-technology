@@ -48,7 +48,7 @@ export default function DepthAreaCard({
       >
         <h2
           className={cn(
-            'text-primary-navy group-hover:text-neutral-white mb:text-4xl mb:leading-130 mb:mb-0 mb-2 font-sans text-[26px] leading-120 font-semibold',
+            'text-primary-navy group-hover:text-neutral-white mb:text-4xl mb:leading-130 mb:mb-0 mb-2 font-sans text-[23px] leading-120 font-semibold',
             isVertical && 'text-primary-teal group-hover:text-primary-blue mb:text-2xl text-[20px]',
           )}
         >

@@ -57,7 +57,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-teal hover:text-primary-navy mb:text-xl font-sans text-[16px] leading-120 font-semibold transition-colors"
+              className="text-primary-teal hover:text-primary-navy mb:text-xl inline-block font-sans text-[16px] leading-120 font-semibold transition-colors"
             >
               <span className="group-hover:underline">{item.title}</span>
             </a>
