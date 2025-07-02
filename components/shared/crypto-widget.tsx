@@ -24,98 +24,95 @@ export default function GivingBlockWidgetAlternative({
   campaignId = '',
   id = '1189134835',
 }: GivingBlockWidgetProps) {
-  useEffect(() => {
-    // Replicar exactamente el script original
-    const initWidget = (
-      window: Window,
-      document: Document,
-      scriptTag: string,
-      domain: string,
-      apiUserUuid: string,
-      id: string,
-      scriptId: string,
-      buttonId: string,
-      uiVersion: string,
-      donationFlow: string,
-      fundraiserId: string,
-      campaignId: string,
-    ) => {
-      const p = 'widgetOptions';
-      const widgetConfig = {
-        id,
-        apiUserUuid,
-        domain,
-        buttonId,
-        scriptId,
-        uiVersion,
-        donationFlow,
-        fundraiserId,
-        campaignId,
-      };
+  return null;
 
-      if ((window as any)[p]) {
-        const existing = (window as any)[p];
-        if (Array.isArray(existing)) {
-          existing.push(widgetConfig);
-        } else {
-          (window as any)[p] = [existing, widgetConfig];
-        }
-      } else {
-        (window as any)[p] = widgetConfig;
-      }
+  // useEffect(() => {
+  //   const initWidget = (
+  //     window: Window,
+  //     document: Document,
+  //     scriptTag: string,
+  //     domain: string,
+  //     apiUserUuid: string,
+  //     id: string,
+  //     scriptId: string,
+  //     buttonId: string,
+  //     uiVersion: string,
+  //     donationFlow: string,
+  //     fundraiserId: string,
+  //     campaignId: string,
+  //   ) => {
+  //     const p = 'widgetOptions';
+  //     const widgetConfig = {
+  //       id,
+  //       apiUserUuid,
+  //       domain,
+  //       buttonId,
+  //       scriptId,
+  //       uiVersion,
+  //       donationFlow,
+  //       fundraiserId,
+  //       campaignId,
+  //     };
 
-      // Crear y cargar el script
-      const script = document.createElement(scriptTag);
-      script.src = `${domain}/widget/script.js`;
-      script.async = true;
+  //     if ((window as any)[p]) {
+  //       const existing = (window as any)[p];
+  //       if (Array.isArray(existing)) {
+  //         existing.push(widgetConfig);
+  //       } else {
+  //         (window as any)[p] = [existing, widgetConfig];
+  //       }
+  //     } else {
+  //       (window as any)[p] = widgetConfig;
+  //     }
 
-      const existingScript = document.getElementById(scriptId);
-      if (existingScript && existingScript.parentNode) {
-        existingScript.parentNode.insertBefore(script, existingScript);
-      } else {
-        document.head.appendChild(script);
-      }
-    };
+  //     // Crear y cargar el script
+  //     const script = document.createElement(scriptTag);
+  //     script.src = `${domain}/widget/script.js`;
+  //     script.async = true;
 
-    // Ejecutar la función
-    initWidget(
-      window,
-      document,
-      'script',
-      domain,
-      apiUserUuid,
-      id,
-      scriptId,
-      buttonId,
-      uiVersion,
-      donationFlow,
-      fundraiserId,
-      campaignId,
-    );
+  //     const existingScript = document.getElementById(scriptId);
+  //     if (existingScript && existingScript.parentNode) {
+  //       existingScript.parentNode.insertBefore(script, existingScript);
+  //     } else {
+  //       document.head.appendChild(script);
+  //     }
+  //   };
 
-    // Cleanup
-    return () => {
-      const scripts = document.querySelectorAll(`script[src*="${domain}"]`);
-      scripts.forEach((script) => script.remove());
-    };
-  }, [
-    apiUserUuid,
-    domain,
-    buttonId,
-    scriptId,
-    uiVersion,
-    donationFlow,
-    fundraiserId,
-    campaignId,
-    id,
-  ]);
+  //   initWidget(
+  //     window,
+  //     document,
+  //     'script',
+  //     domain,
+  //     apiUserUuid,
+  //     id,
+  //     scriptId,
+  //     buttonId,
+  //     uiVersion,
+  //     donationFlow,
+  //     fundraiserId,
+  //     campaignId,
+  //   );
 
-  return (
-    <>
-      {/* Elemento placeholder para el script original */}
-      <div id={scriptId} style={{ display: 'none' }} />
-      {/* Botón del widget */}
-      <div id={buttonId} className="tgb-widget-container" />
-    </>
-  );
+  //   return () => {
+  //     const scripts = document.querySelectorAll(`script[src*="${domain}"]`);
+  //     scripts.forEach((script) => script.remove());
+  //   };
+  // }, [
+  //   apiUserUuid,
+  //   domain,
+  //   buttonId,
+  //   scriptId,
+  //   uiVersion,
+  //   donationFlow,
+  //   fundraiserId,
+  //   campaignId,
+  //   id,
+  // ]);
+
+  // return (
+  //   <>
+  //     <div id={scriptId} style={{ display: 'none' }} />
+  //     <div id={buttonId} className="tgb-widget-container" />
+  //   </>
+  // );
 }
