@@ -8,6 +8,7 @@ export type CtaProps = {
   helperLabel?: string;
   link: CustomLinkProps;
   extraClass?: string;
+  labelExtraClass?: string;
   children?: React.ReactNode;
   variant?: 'default' | 'minimal' | 'underline' | 'border' | 'underline-help' | 'underline-bold';
   icon?: 'play' | 'video' | 'substack' | 'download' | 'back';
@@ -68,6 +69,7 @@ export default function Cta({
   label,
   helperLabel,
   extraClass,
+  labelExtraClass,
   link,
   children,
   variant = 'default',
@@ -107,6 +109,7 @@ export default function Cta({
         className={cn(
           'flex flex-col',
           variant === 'underline-help' && 'flex-row-reverse items-center gap-1.5',
+          labelExtraClass,
         )}
       >
         <span

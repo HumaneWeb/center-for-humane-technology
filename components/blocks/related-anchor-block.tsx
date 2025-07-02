@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import useIsMobile from '../hooks/is-mobile';
 import type { CustomImageProps } from '../shared/custom-image';
 import CustomImage from '../shared/custom-image';
 import GenericCard from '../shared/generic-card';
@@ -23,7 +22,6 @@ type Props = {
 
 export default function RelatedAnchorBlock({ items, information }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -61,15 +59,26 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
 
   return (
     <div>
-      <div ref={scrollContainerRef} className="mb:mb-[50px] mb-5 grid gap-5">
-        <div className={cn('flex snap-x snap-mandatory gap-6 overflow-x-visible pb-8')}>
+      <div
+        ref={scrollContainerRef}
+        className="mb:mb-[50px] scrollbar-hide mb:overflow-x-visible mb-0 grid gap-5 overflow-x-auto"
+      >
+        <div
+          className={cn(
+            'flex snap-x snap-mandatory gap-6 overflow-x-visible overflow-y-visible pb-8',
+          )}
+        >
           {items.map((item) => (
             <div
               key={`nav-${item.id}`}
               onClick={() => handleCardClick(item.id)}
-              className="cursor-pointer transition-transform hover:scale-105"
+              className="mb:hover:scale-105 cursor-pointer transition-transform"
             >
-              <GenericCard {...item} variant="minimal-small" />
+              <GenericCard
+                {...item}
+                variant="minimal-small"
+                extraClassnames="generic-card-ui w-[calc(100dvw-48px)] sm:w-[55dvw] mb:w-auto!"
+              />
             </div>
           ))}
         </div>

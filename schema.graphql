@@ -394,6 +394,9 @@ type BlogListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  seo: SeoField
+  slug: String!
+  title: String
 }
 
 union BlogModelContentBlocksField = AccordionBlockRecord | BlockquoteRecord | CtaRecord | FootnoteRecord | GenericCardRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | TableRecord

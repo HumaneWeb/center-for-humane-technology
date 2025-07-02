@@ -20,7 +20,7 @@ export default function ThinkingBlock({ title, items }: Props) {
           {title}
         </h3>
 
-        <div className="mb:grid-cols-3 mb:gap-16 grid gap-5">
+        <div className="mb:grid-cols-3 mb:gap-16 grid grid-cols-2 gap-x-6 gap-y-12">
           {items.map((item) => (
             <DepthAreaCard key={item.id} {...item} variant="vertical" />
           ))}

@@ -9,6 +9,7 @@ type Props = {
   image: CustomImageProps;
   link: CustomLinkProps;
   variant?: 'default' | 'vertical';
+  extraClassnames?: string;
 };
 
 export default function DepthAreaCard({
@@ -17,6 +18,7 @@ export default function DepthAreaCard({
   image,
   link,
   variant = 'default',
+  extraClassnames,
 }: Props) {
   const isVertical = variant === 'vertical';
 
@@ -24,7 +26,8 @@ export default function DepthAreaCard({
     <article
       className={cn(
         'group mb:grid-cols-[1fr_1.5fr] grid gap-1',
-        isVertical && 'flex flex-col gap-10',
+        isVertical && 'mb:gap-10 flex flex-col gap-3.5',
+        extraClassnames,
       )}
     >
       <div
@@ -46,7 +49,7 @@ export default function DepthAreaCard({
         <h2
           className={cn(
             'text-primary-navy group-hover:text-neutral-white mb:text-4xl mb:leading-130 mb:mb-0 mb-2 font-sans text-[26px] leading-120 font-semibold',
-            isVertical && 'text-primary-teal group-hover:text-primary-blue mb:text-2xl',
+            isVertical && 'text-primary-teal group-hover:text-primary-blue mb:text-2xl text-[20px]',
           )}
         >
           {title}
@@ -55,6 +58,7 @@ export default function DepthAreaCard({
           className={cn(
             'text-primary-navy mb:text-xl font-sans text-[16px] leading-140 font-normal',
             !isVertical && 'group-hover:text-neutral-white',
+            isVertical && 'hidden md:block',
           )}
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
@@ -64,7 +68,7 @@ export default function DepthAreaCard({
 
   if (link) {
     return (
-      <CustomLink content={link} extraClass="group">
+      <CustomLink content={link} extraClass="depth-area-card group">
         {mainContent()}
       </CustomLink>
     );

@@ -35,6 +35,9 @@ export const GlobalLinkFragment = graphql(`
       ... on CaseStudiesListRecord {
         slug
       }
+      ... on BlogListRecord {
+        slug
+      }
     }
   }
 `);
@@ -130,6 +133,25 @@ export const PodcastFragment = graphql(
   `,
   [ImageFragment],
 );
+
+export const BlogFragment = graphql(`
+  fragment BlogFragment on BlogRecord {
+    id
+    title
+    estTime
+    externalUrl
+  }
+`);
+
+export const PressFragment = graphql(`
+  fragment PressFragment on PressRecord {
+    id
+    title
+    externalUrl
+    source
+    length
+  }
+`);
 
 export const PodcastCardFragment = graphql(
   `
@@ -1017,6 +1039,42 @@ export const CaseStudiesListQuery = graphql(
     }
   `,
   [ImageFragment, CTAFragment, CaseStudyFragment, TagFragment],
+);
+
+export const InThePressListQuery = graphql(
+  `
+    query InThePressListQuery($skip: IntType!, $first: IntType!) {
+      page: blogList {
+        title
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      blogs: allBlogs(skip: $skip, first: $first, orderBy: date_DESC) {
+        ...BlogFragment
+      }
+      press: allPresses(skip: $skip, first: $first, orderBy: date_DESC) {
+        ...PressFragment
+      }
+
+      podcastsCount: _allPodcastsMeta {
+        count
+      }
+
+      configuration {
+        newsletterTitle
+        newsletterIntroduction
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment, BlogFragment, PressFragment, TagFragment],
 );
 
 export const PodcastListQuery = graphql(
