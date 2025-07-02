@@ -33,10 +33,10 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
       <BasicHero title={page?.title} />
 
       <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-10">
+        <div className="mb:grid-cols-2 grid gap-10">
           {blogs.length > 0 && (
             <div>
-              <h4 className="text-primary-blue mb-[33px] font-sans text-[29px] leading-130 font-semibold">
+              <h4 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
                 News
               </h4>
               <div className="flex flex-col gap-5">
@@ -55,7 +55,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
           )}
           {press.length > 0 && (
             <div>
-              <h4 className="text-primary-blue mb-[33px] font-sans text-[29px] leading-130 font-semibold">
+              <h4 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
                 Press
               </h4>
 
