@@ -32,6 +32,7 @@ import GenericCard from './generic-card';
 import GenericCardsGrid from '../blocks/generic-cards-grid';
 import { is } from 'date-fns/locale';
 import RelatedAnchorBlock from '../blocks/related-anchor-block';
+import LinksGridBlock from '../blocks/links-grid-block';
 
 export default function CustomStructuredText({
   data,
@@ -229,6 +230,9 @@ export default function CustomStructuredText({
               <RelatedAnchorBlock {...record} />
             </div>
           );
+        }
+        if (record.__typename === 'LinksGridRecord') {
+          return <LinksGridBlock key={record.id} {...record} />;
         }
 
         return null;

@@ -150,6 +150,7 @@ export default async function DonatePage() {
       </div>
 
       <BasicHero title={title} variant="blue" />
+
       <div className="mb:pt-17 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <h3 className="text-primary-navy mb:text-[29px] mb:leading-130 mb-6 font-sans text-[23px] leading-120 font-semibold">
           Give by card

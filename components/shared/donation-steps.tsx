@@ -9,6 +9,7 @@ import Label from './forms/label';
 import Input from './forms/input';
 import { Checkbox } from './forms/checkbox';
 import { redirect } from 'next/navigation';
+import Script from 'next/script';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -102,7 +103,7 @@ export default function DonationSteps() {
   const [currentStep, setCurrentStep] = useState<DonationStep>(1);
   const [clientSecret, setClientSecret] = useState<string>('');
   const [formData, setFormData] = useState<DonationFormData>({
-    frequency: 'once',
+    frequency: 'monthly',
     amount: '50',
     coverFees: false,
     firstName: '',
@@ -201,6 +202,8 @@ export default function DonationSteps() {
               className="text-primary-navy mb:text-[18px] flex-1 cursor-pointer text-[16px] leading-140 font-normal"
             >
               Donate monthly
+              <br />
+              <span className="text-[16px]">Help us make a bigger difference</span>
             </Label>
           </div>
           <div className="bg-neutral-white flex items-center space-x-3 rounded-[5px] border-2 border-[#A8ADB6] px-2.5 py-4">

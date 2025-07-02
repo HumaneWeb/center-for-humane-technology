@@ -2,19 +2,27 @@ import { cn } from '@/lib/utils/css.utils';
 import type { CtaProps } from '../shared/cta';
 import CtaList from '../shared/cta-list';
 
-type Props = {
+export type LinksBlockProps = {
   title: string;
   ctas: CtaProps[];
   variant?: 'default' | 'small';
   extraClassname?: string;
+  isInner?: boolean;
 };
 
-export default function LinksBlock({ title, ctas, extraClassname, variant = 'default' }: Props) {
+export default function LinksBlock({
+  title,
+  ctas,
+  extraClassname,
+  variant = 'default',
+  isInner = false,
+}: LinksBlockProps) {
   return (
     <section
       className={cn(
         'bg-neutral-white mb:pt-20 mb:pb-30 py-8',
         variant === 'small' && 'mb:pt-0 mb:pb-0 py-0',
+        isInner && 'py-0',
         extraClassname,
       )}
     >
@@ -22,6 +30,7 @@ export default function LinksBlock({ title, ctas, extraClassname, variant = 'def
         className={cn(
           'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
           variant === 'small' && 'px-0 sm:px-0 lg:px-0',
+          isInner && 'max-w-full px-0 sm:px-0 lg:px-0',
         )}
       >
         <h3

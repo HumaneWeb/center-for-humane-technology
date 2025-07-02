@@ -465,6 +465,21 @@ export const LinksBlockFragment = graphql(
   [CTAFragment],
 );
 
+export const LinksGridBlockFragment = graphql(
+  `
+    fragment LinksGridBlockFragment on LinksGridRecord {
+      id
+      first {
+        ...LinksBlockFragment
+      }
+      last {
+        ...LinksBlockFragment
+      }
+    }
+  `,
+  [LinksBlockFragment],
+);
+
 export const SignupBlockFragment = graphql(
   `
     fragment SignupBlockFragment on SignUpBlockRecord {
@@ -893,6 +908,7 @@ export const BasicPageQuery = graphql(
             ...LinksBlockFragment
             ...HighlightedBlockFragment
             ...RelatedAnchorBlockFragment
+            ...LinksGridBlockFragment
           }
         }
         _seoMetaTags {
@@ -929,6 +945,7 @@ export const BasicPageQuery = graphql(
     LinksBlockFragment,
     HighlightedBlockFragment,
     RelatedAnchorBlockFragment,
+    LinksGridBlockFragment,
   ],
 );
 

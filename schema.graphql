@@ -233,7 +233,7 @@ type AwarenessBlockRecord implements RecordInterface {
   podcastCard: PodcastCardRecord!
 }
 
-union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
+union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
 
 type BasicPageModelContentField {
   blocks: [BasicPageModelContentBlocksField!]!
@@ -4350,6 +4350,31 @@ input LinksFilter {
   Filter records with the specified field defined (i.e. with any value) or not
   """
   exists: BooleanType
+}
+
+"""Block of type Links Grid (links_grid)"""
+type LinksGridRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  first: LinksBlockRecord
+  id: ItemId!
+  last: LinksBlockRecord
 }
 
 """Block of type Media Block (media_block)"""
