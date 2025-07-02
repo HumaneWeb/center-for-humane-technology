@@ -1,9 +1,13 @@
 'use client';
 
+import { useRef } from 'react';
+import useIsMobile from '../hooks/is-mobile';
 import type { CustomImageProps } from '../shared/custom-image';
 import CustomImage from '../shared/custom-image';
 import GenericCard from '../shared/generic-card';
 import type { ImageContentProps } from './image-content-block';
+import { cn } from '@/lib/utils/css.utils';
+import { ArrowsHandler } from './generic-cards-grid';
 
 type Props = {
   items: {
@@ -18,6 +22,33 @@ type Props = {
 };
 
 export default function RelatedAnchorBlock({ items, information }: Props) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      const card = scrollContainerRef.current.querySelector('.generic-card-ui') as HTMLElement;
+      const gap = 24;
+      const cardWidth = (card?.offsetWidth ?? 320) + gap;
+      scrollContainerRef.current.scrollBy({
+        left: -cardWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      const card = scrollContainerRef.current.querySelector('.generic-card-ui') as HTMLElement;
+      const gap = 24;
+      const cardWidth = (card?.offsetWidth ?? 320) + gap;
+      scrollContainerRef.current.scrollBy({
+        left: cardWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   const handleCardClick = (itemId: string) => {
     const element = document.getElementById(`content-${itemId}`);
     if (element) {
@@ -30,17 +61,23 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
 
   return (
     <div>
-      <div className="mb:grid-cols-5 mb:mb-[50px] mb-5 grid gap-5">
-        {items.map((item) => (
-          <div
-            key={`nav-${item.id}`}
-            onClick={() => handleCardClick(item.id)}
-            className="cursor-pointer transition-transform hover:scale-105"
-          >
-            <GenericCard {...item} variant="minimal-small" />
-          </div>
-        ))}
+      <div ref={scrollContainerRef} className="mb:mb-[50px] mb-5 grid gap-5">
+        <div className={cn('flex snap-x snap-mandatory gap-6 overflow-x-visible pb-8')}>
+          {items.map((item) => (
+            <div
+              key={`nav-${item.id}`}
+              onClick={() => handleCardClick(item.id)}
+              className="cursor-pointer transition-transform hover:scale-105"
+            >
+              <GenericCard {...item} variant="minimal-small" />
+            </div>
+          ))}
+        </div>
       </div>
+      <div className="mb:hidden mb:mb-0 mb-10 block">
+        <ArrowsHandler scrollLeft={scrollLeft} scrollRight={scrollRight} />
+      </div>
+
       <div className="max-w-[948px]">
         {information && (
           <div

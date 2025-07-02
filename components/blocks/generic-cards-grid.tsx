@@ -97,57 +97,7 @@ export default function GenericCardsGrid({
           </div>
 
           {(items.length > 3 || isMobile) && (
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-end gap-5 sm:right-6 lg:right-8">
-                <button
-                  onClick={scrollLeft}
-                  className={cn(
-                    'text-primary-navy hover:text-neutral-white bg-neutral-white hover:bg-primary-blue flex h-16 w-16 cursor-pointer items-center justify-center rounded-full p-5 transition-all duration-200',
-                  )}
-                  aria-label="Scroll left"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="27"
-                    height="27"
-                    viewBox="0 0 27 27"
-                    fill="none"
-                  >
-                    <path
-                      d="M11.8125 21.9375L3.375 13.5M3.375 13.5L11.8125 5.0625M3.375 13.5H23.625"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-
-                <button
-                  onClick={scrollRight}
-                  className={cn(
-                    'text-primary-navy hover:text-neutral-white bg-neutral-white hover:bg-primary-blue flex h-16 w-16 cursor-pointer items-center justify-center rounded-full p-5 transition-all duration-200',
-                  )}
-                  aria-label="Scroll right"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="27"
-                    height="27"
-                    viewBox="0 0 27 27"
-                    fill="none"
-                  >
-                    <path
-                      d="M15.1875 5.0625L23.625 13.5M23.625 13.5L15.1875 21.9375M23.625 13.5H3.375"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+            <ArrowsHandler scrollLeft={scrollLeft} scrollRight={scrollRight} />
           )}
 
           {cta && (
@@ -196,6 +146,68 @@ export default function GenericCardsGrid({
           {cta && <Cta {...cta} extraClass="mb:mt-16 mt-8" />}
         </div>
       </section>
+    </div>
+  );
+}
+
+export function ArrowsHandler({
+  scrollLeft,
+  scrollRight,
+}: {
+  scrollLeft: () => void;
+  scrollRight: () => void;
+}) {
+  return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-end gap-5 sm:right-6 lg:right-8">
+        <button
+          onClick={scrollLeft}
+          className={cn(
+            'text-primary-navy hover:text-neutral-white bg-neutral-white hover:bg-primary-blue flex h-16 w-16 cursor-pointer items-center justify-center rounded-full p-5 transition-all duration-200',
+          )}
+          aria-label="Scroll left"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="27"
+            height="27"
+            viewBox="0 0 27 27"
+            fill="none"
+          >
+            <path
+              d="M11.8125 21.9375L3.375 13.5M3.375 13.5L11.8125 5.0625M3.375 13.5H23.625"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        <button
+          onClick={scrollRight}
+          className={cn(
+            'text-primary-navy hover:text-neutral-white bg-neutral-white hover:bg-primary-blue flex h-16 w-16 cursor-pointer items-center justify-center rounded-full p-5 transition-all duration-200',
+          )}
+          aria-label="Scroll right"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="27"
+            height="27"
+            viewBox="0 0 27 27"
+            fill="none"
+          >
+            <path
+              d="M15.1875 5.0625L23.625 13.5M23.625 13.5L15.1875 21.9375M23.625 13.5H3.375"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }
