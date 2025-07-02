@@ -171,7 +171,7 @@ export default function RSSFeedReader() {
       )}
 
       {feed.items.length > 3 && (
-        <div className="mb:gap-8.5 flex flex-col gap-5">
+        <div className="mb:gap-8.5 flex flex-col gap-8.5">
           {feed.items.slice(3).map((item, index) => (
             <RSSCard key={item.guid || item.link || index + 3} item={item} variant="list" />
           ))}

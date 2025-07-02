@@ -1136,16 +1136,6 @@ export const BlogDetailPageQuery = graphql(
       page: blog(filter: { slug: { eq: $slug } }) {
         title
         introduction
-        backCta {
-          ...CTAFragment
-        }
-        cta {
-          ...CTAFragment
-        }
-        backgroundImage {
-          ...ImageFragment
-        }
-        variant
         content {
           value
           blocks {
@@ -1298,7 +1288,7 @@ export const ContactPageQuery = graphql(
 export const LatestPodcastQuery = graphql(
   `
     query LatestPodcastQuery {
-      podcast(orderBy: _createdAt_ASC) {
+      podcast(orderBy: date_DESC) {
         id
         title
         episode

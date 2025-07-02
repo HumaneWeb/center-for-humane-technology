@@ -283,7 +283,7 @@ export default function PodcastDetail({
             </h2>
             <div className="mb:grid-cols-2 mb:gap-y-11 grid gap-x-16 gap-y-8">
               {moreListening.map((podcast) => (
-                <PodcastMinimalCard {...podcast} key={podcast.id} variant="small" />
+                <PodcastMinimalCard {...podcast} key={podcast.id} variant="small-cols" />
               ))}
             </div>
           </div>
