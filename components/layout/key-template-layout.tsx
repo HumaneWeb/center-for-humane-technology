@@ -3,17 +3,22 @@ import { cn } from '@/lib/utils/css.utils';
 import ComplexHero from './complex-hero';
 import CustomStructuredText from '../shared/custom-structured-text';
 import DonateBlock from '../blocks/donate-block';
+import BasicHero from './basic-hero';
 
-export default function KeyTemplateLayout({ page, configuration }) {
+export default function KeyTemplateLayout({ page, configuration, variant }) {
   return (
     <div>
-      <ComplexHero
-        title={page?.title}
-        preTitle={page?.preTitle}
-        introduction={page?.introduction}
-        image={page?.image}
-        variant={page?.backgroundColor}
-      />
+      {variant === 'key-template-small' ? (
+        <BasicHero title={page?.title} preTitle={page?.preTitle} variant={page?.backgroundColor} />
+      ) : (
+        <ComplexHero
+          title={page?.title}
+          preTitle={page?.preTitle}
+          introduction={page?.introduction}
+          image={page?.image}
+          variant={page?.backgroundColor}
+        />
+      )}
       <div
         className={cn(
           'key-template-layout mb:pt-20 pt-10',

@@ -21,8 +21,8 @@ export default async function BasicPage({ params }: PageSlug) {
     notFound();
   }
 
-  if (page?.variant === 'key-template') {
-    return <KeyTemplateLayout page={page} configuration={configuration} />;
+  if (page?.variant === 'key-template' || page?.variant === 'key-template-small') {
+    return <KeyTemplateLayout page={page} configuration={configuration} variant={page?.variant} />;
   }
 
   return <ContentLayout page={page} configuration={configuration} />;

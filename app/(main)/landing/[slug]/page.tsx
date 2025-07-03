@@ -43,10 +43,12 @@ export default async function LandingPage({ params }: PageSlug) {
     <>
       {variant === 'with-hero-image' && (
         <div
-          className="mb:min-h-[600px] bg-black bg-cover bg-no-repeat"
+          className="mb:min-h-[600px] relative bg-black bg-cover bg-no-repeat"
           style={{ backgroundImage: `url(${heroBackgroundImage?.url})` }}
         >
-          <div className="mb:pt-50 mx-auto max-w-7xl px-4 pt-30 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-black/10"></div>
+
+          <div className="mb:pt-50 relative z-10 mx-auto max-w-7xl px-4 pt-30 sm:px-6 lg:px-8">
             <div className="mx-auto flex h-full max-w-[1065px] flex-col justify-end text-center">
               {logo && <CustomImage {...logo} width={210} height={142} extraClass="mb-4" />}
               {title && (
