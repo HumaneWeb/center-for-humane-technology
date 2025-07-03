@@ -173,3 +173,11 @@ export default function Cta({
     </CustomLink>
   );
 }
+
+export const CTAWrapper = (props: CtaProps) => {
+  return (
+    <div className="mb:mb-13.5 my-10 flex items-center justify-center">
+      <Cta {...props} extraClass="min-w-[200px] text-center" />
+    </div>
+  );
+};

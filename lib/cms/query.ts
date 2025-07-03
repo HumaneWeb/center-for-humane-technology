@@ -54,6 +54,7 @@ export const CTAFragment = graphql(
         ...GlobalLinkFragment
       }
       externalUrl
+      hideBlock
     }
   `,
   [GlobalLinkFragment],
@@ -398,6 +399,7 @@ export const ThinkingBlockFragment = graphql(
 
 export const StatsBlockFragment = graphql(`
   fragment StatsBlockFragment on StatsBlockRecord {
+    id
     title
     items {
       ... on StatItemRecord {
@@ -406,6 +408,7 @@ export const StatsBlockFragment = graphql(`
         label
       }
     }
+    variant
     hideBlock
   }
 `);
@@ -567,15 +570,70 @@ export const LandingHighlightTexFragment = graphql(
   `
     fragment LandingHighlightTexFragment on LandingHighlightTextRecord {
       __typename
+      id
       title
       firstQuote
       firstQuoteAuthor
       secondQuote
       secondQuoteAuthor
-      headlineBlock
+    }
+  `,
+  [CTAFragment],
+);
+
+export const VideoItemFragment = graphql(
+  `
+    fragment VideoItemFragment on VideoItemRecord {
+      __typename
+      id
+      video {
+        title
+        url
+        thumbnailUrl
+      }
+      thumbnailImage {
+        ...ImageFragment
+      }
+      hideBlock
+    }
+  `,
+  [ImageFragment],
+);
+
+export const ContentBlockFragment = graphql(`
+  fragment ContentBlockFragment on ContentBlockRecord {
+    __typename
+    id
+    title
+    content
+    hideBlock
+  }
+`);
+
+export const ImageGalleryFragment = graphql(
+  `
+    fragment ImageGalleryFragment on ImageGalleryRecord {
+      __typename
+      id
+      images {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export const LandingHighlightCtaFragment = graphql(
+  `
+    fragment LandingHighlightCtaFragment on LandingHighlightCtaRecord {
+      __typename
+      id
+      title
+      variant
       cta {
         ...CTAFragment
       }
+      hideBlock
     }
   `,
   [CTAFragment],
@@ -1288,34 +1346,30 @@ export const LandingPageQuery = graphql(
   `
     query LandingPageQuery($slug: String) {
       landing(filter: { slug: { eq: $slug } }) {
+        title
+        subheading
+        introduction
+        variant
+        backgroundColor
+        heroTextColor
+        heroBackgroundImage {
+          ...ImageFragment
+        }
         logo {
           ...ImageFragment
         }
-        title
-        youtubeUrl {
-          title
-          url
-          thumbnailUrl
-        }
-        thumbnail {
-          ...ImageFragment
-        }
-        cta {
+
+        blocks {
+          __typename
           ...CTAFragment
-        }
-        contentTitle
-        contentInformation
-        logos {
-          ...ImageFragment
-        }
-        stats {
-          ...StatsBlockFragment
-        }
-        narrativeBlocks {
-          ...NarrativeBlockFragment
-        }
-        highlightBlockCta {
           ...LandingHighlightTexFragment
+          ...NarrativeBlockFragment
+          ...StatsBlockFragment
+          ...VideoItemFragment
+          ...ContentBlockFragment
+          ...ImageGalleryFragment
+          ...LandingHighlightCtaFragment
+          ...ImageBlockFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -1341,6 +1395,11 @@ export const LandingPageQuery = graphql(
     NarrativeBlockFragment,
     TagFragment,
     LandingHighlightTexFragment,
+    VideoItemFragment,
+    ContentBlockFragment,
+    ImageGalleryFragment,
+    LandingHighlightCtaFragment,
+    ImageBlockFragment,
   ],
 );
 

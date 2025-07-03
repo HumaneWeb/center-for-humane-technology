@@ -12,6 +12,7 @@ type Props = {
   extraClass?: string;
   headingExtraClass?: string;
   textExtraClass?: string;
+  isTextDark?: boolean;
 };
 
 export default function NarrativeBlock({
@@ -23,6 +24,7 @@ export default function NarrativeBlock({
   extraClass,
   textExtraClass,
   headingExtraClass,
+  isTextDark = false,
 }: Props) {
   const isImageLeft = imagePosition === 'left';
 
@@ -42,6 +44,7 @@ export default function NarrativeBlock({
                 'text-primary-navy tracking-049 mb:text-[39px] mb:leading-110 mb:mb-[30px] mb-5 font-sans text-[29px] leading-120 font-semibold',
                 textExtraClass,
                 headingExtraClass,
+                isTextDark && 'text-primary-navy',
               )}
             >
               {title}
@@ -52,6 +55,7 @@ export default function NarrativeBlock({
                   className={cn(
                     'text-primary-navy mb:mb-[30px] mb:text-xl mb-5 font-sans text-[18px] leading-140 font-normal [&>p]:mb-4',
                     textExtraClass,
+                    isTextDark && 'text-primary-navy',
                   )}
                   dangerouslySetInnerHTML={{ __html: introduction }}
                 />

@@ -46,7 +46,7 @@ export default async function TeamListPage() {
             <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
               Board
             </h2>
-            <div className="mb:grid-cols-4 grid gap-x-6 gap-y-10 sm:grid-cols-2">
+            <div className="mb:grid-cols-4! grid gap-x-6 gap-y-10 sm:grid-cols-2">
               {boardList.map((team) => (
                 <TeamCard key={team.id} {...team} type="board" />
               ))}

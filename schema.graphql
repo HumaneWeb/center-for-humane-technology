@@ -986,6 +986,35 @@ type ContactRecord implements RecordInterface {
   title: String!
 }
 
+"""Block of type Content Block (content_block)"""
+type ContentBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  hideBlock: BooleanType!
+  id: ItemId!
+  title: String
+}
+
 """Specifies how to filter by creation datetime"""
 input CreatedAtFilter {
   """
@@ -1046,6 +1075,7 @@ type CtaRecord implements RecordInterface {
   _updatedAt: DateTime!
   externalUrl: String
   helperLabel: String
+  hideBlock: BooleanType!
   icon: String
   id: ItemId!
   label: String!
@@ -1531,34 +1561,6 @@ type FootnoteRecord implements RecordInterface {
   title: String
 }
 
-"""Specifies how to filter Multiple files/images field"""
-input GalleryFilter {
-  """
-  Search for records with an exact match. The specified values must be Upload IDs
-  """
-  eq: [UploadId]
-
-  """
-  Filter records that have all of the specified uploads. The specified values must be Upload IDs
-  """
-  allIn: [UploadId]
-
-  """
-  Filter records that have one of the specified uploads. The specified values must be Upload IDs
-  """
-  anyIn: [UploadId]
-
-  """
-  Filter records that do not have any of the specified uploads. The specified values must be Upload IDs
-  """
-  notIn: [UploadId]
-
-  """
-  Filter records with the specified field defined (i.e. with any value) or not
-  """
-  exists: BooleanType
-}
-
 """
 Block of type Gallery Image + Information Block (gallery_image_information_block)
 """
@@ -1966,6 +1968,31 @@ type ImageContentBlockRecord implements RecordInterface {
   hideBlock: BooleanType!
   id: ItemId!
   image: FileField!
+}
+
+"""Block of type Image Gallery (image_gallery)"""
+type ImageGalleryRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  hideBlock: BooleanType!
+  id: ItemId!
+  images: [FileField!]!
 }
 
 """Block of type Image Information Item (image_information_item)"""
@@ -4163,8 +4190,8 @@ input JsonFilter {
   exists: BooleanType
 }
 
-"""Block of type Landing Highlight Text (landing_highlight_text)"""
-type LandingHighlightTextRecord implements RecordInterface {
+"""Block of type Landing Highlight CTA (landing_highlight_cta)"""
+type LandingHighlightCtaRecord implements RecordInterface {
   _createdAt: DateTime!
 
   """Editing URL"""
@@ -4184,12 +4211,37 @@ type LandingHighlightTextRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   cta: CtaRecord
+  hideBlock: BooleanType!
+  id: ItemId!
+  title: String
+  variant: String
+}
+
+"""Block of type Landing Quotes Text (landing_highlight_text)"""
+type LandingHighlightTextRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
   firstQuote(
     """Process content as markdown"""
     markdown: Boolean
   ): String
   firstQuoteAuthor: String
-  headlineBlock: String
   id: ItemId!
   secondQuote(
     """Process content as markdown"""
@@ -4198,6 +4250,8 @@ type LandingHighlightTextRecord implements RecordInterface {
   secondQuoteAuthor: String
   title: String
 }
+
+union LandingModelBlocksField = ContentBlockRecord | CtaRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | NarrativeBlockRecord | StatsBlockRecord | VideoItemRecord
 
 input LandingModelFilter {
   _createdAt: CreatedAtFilter
@@ -4209,16 +4263,17 @@ input LandingModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  contentInformation: TextFilter
-  contentTitle: StringFilter
+  backgroundColor: StringFilter
+  heroBackgroundImage: FileFilter
+  heroTextColor: StringFilter
   internalTitle: StringFilter
+  introduction: TextFilter
   logo: FileFilter
-  logos: GalleryFilter
   seo: SeoFilter
   slug: SlugFilter
-  thumbnail: FileFilter
+  subheading: StringFilter
   title: StringFilter
-  youtubeUrl: VideoFilter
+  variant: StringFilter
   OR: [LandingModelFilter]
   AND: [LandingModelFilter]
 }
@@ -4242,12 +4297,18 @@ enum LandingModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  contentTitle_ASC
-  contentTitle_DESC
+  backgroundColor_ASC
+  backgroundColor_DESC
+  heroTextColor_ASC
+  heroTextColor_DESC
   internalTitle_ASC
   internalTitle_DESC
+  subheading_ASC
+  subheading_DESC
   title_ASC
   title_DESC
+  variant_ASC
+  variant_DESC
 }
 
 """Record of type Landing (landing)"""
@@ -4270,24 +4331,22 @@ type LandingRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  contentInformation(
+  backgroundColor: String
+  blocks: [LandingModelBlocksField!]!
+  heroBackgroundImage: FileField
+  heroTextColor: String
+  id: ItemId!
+  internalTitle: String!
+  introduction(
     """Process content as markdown"""
     markdown: Boolean
   ): String
-  contentTitle: String
-  cta: CtaRecord
-  highlightBlockCta: LandingHighlightTextRecord
-  id: ItemId!
-  internalTitle: String!
   logo: FileField
-  logos: [FileField!]!
-  narrativeBlocks: [NarrativeBlockRecord!]!
   seo: SeoField
   slug: String!
-  stats: StatsBlockRecord
-  thumbnail: FileField
+  subheading: String
   title: String
-  youtubeUrl: VideoField
+  variant: String
 }
 
 """Specifies how to filter Single-link fields"""
@@ -6055,6 +6114,7 @@ type StatsBlockRecord implements RecordInterface {
   id: ItemId!
   items: [StatItemRecord!]!
   title: String
+  variant: String
 }
 
 """Specifies how to filter by status"""
@@ -7065,12 +7125,30 @@ type VideoFileField implements FileFieldInterface {
   width: IntType!
 }
 
-"""Specifies how to filter Video fields"""
-input VideoFilter {
-  """
-  Filter records with the specified field defined (i.e. with any value) or not
-  """
-  exists: BooleanType
+"""Block of type Video Item (video_item)"""
+type VideoItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  hideBlock: BooleanType!
+  id: ItemId!
+  thumbnailImage: FileField
+  video: VideoField
 }
 
 enum VideoMp4Res {

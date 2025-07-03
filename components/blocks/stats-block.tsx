@@ -11,11 +11,17 @@ type Props = {
     value: string;
     label: string;
   }[];
-  variant?: 'default' | 'landing';
+  variant?: 'default' | 'landing' | 'landing-teal';
   extraClassnames?: string;
 };
 
-function AnimatedValue({ value }: { value: string; variant?: 'default' | 'landing' }) {
+function AnimatedValue({
+  value,
+  variant,
+}: {
+  value: string;
+  variant?: 'default' | 'landing' | 'landing-teal';
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -54,7 +60,10 @@ function AnimatedValue({ value }: { value: string; variant?: 'default' | 'landin
     return (
       <span
         ref={ref}
-        className="mb:text-[71px] font-sans text-5xl leading-[78%] font-bold text-[#93F2EF]"
+        className={cn(
+          'mb:text-[71px] font-sans text-5xl leading-[78%] font-bold text-[#93F2EF]',
+          variant === 'landing-teal' && 'text-[#FFEFE5]',
+        )}
       >
         {value}
       </span>
@@ -64,7 +73,10 @@ function AnimatedValue({ value }: { value: string; variant?: 'default' | 'landin
   return (
     <span
       ref={ref}
-      className="mb:text-[71px] w-fit font-sans text-5xl leading-[78%] font-bold text-[#93F2EF]"
+      className={cn(
+        'mb:text-[71px] w-fit font-sans text-5xl leading-[78%] font-bold text-[#93F2EF]',
+        variant === 'landing-teal' && 'text-[#FFEFE5]',
+      )}
     >
       <motion.span>{smoothRounded}</motion.span>
       {textValue && <span>{textValue}</span>}
@@ -77,20 +89,21 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
     <section
       className={cn(
         'bg-primary-blue mb:mb-32 mb:pt-14 mb:pb-20 mt-20 py-8',
-        variant === 'landing' && 'bg-landing-stats mb-0 w-full',
+        variant === 'landing' && 'bg-landing-stats mt-10 mb-0 w-full',
+        variant === 'landing-teal' && 'bg-primary-teal mt-10 mb-0 w-full',
         extraClassnames,
       )}
     >
       <div
         className={cn(
           'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
-          variant === 'landing' && 'lg:px-16',
+          (variant === 'landing' || variant === 'landing-teal') && 'lg:px-16',
         )}
       >
         <h3
           className={cn(
             'text-primary-cream mb:text-2xl mb:leading-130 mb:mb-14 mb-10 font-sans text-xl leading-120 font-semibold',
-            variant === 'landing' &&
+            (variant === 'landing' || variant === 'landing-teal') &&
               'tracking-025 mb:mb-20 mb-10 text-center leading-110 font-medium',
           )}
         >
@@ -100,7 +113,8 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
         <div
           className={cn(
             'mb:grid mb:gap-20 flex grid-cols-3 flex-col items-center justify-center gap-10',
-            variant === 'landing' && 'mb:flex mb:flex-row flex-wrap items-center justify-center',
+            (variant === 'landing' || variant === 'landing-teal') &&
+              'mb:flex mb:flex-row flex-wrap items-center justify-center',
           )}
         >
           {items.map((item) => (
@@ -108,11 +122,12 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
               key={item.id}
               className={cn(
                 'flex w-fit items-end gap-2.5',
-                variant === 'landing' && 'mb:flex-row flex-col items-center',
+                (variant === 'landing' || variant === 'landing-teal') &&
+                  'mb:flex-row flex-col items-center',
               )}
             >
               <h4>
-                <AnimatedValue value={item.value} />
+                <AnimatedValue value={item.value} variant={variant} />
               </h4>
               <h6
                 className={cn(

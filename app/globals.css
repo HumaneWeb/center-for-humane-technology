@@ -108,6 +108,10 @@ body {
   background: linear-gradient(19deg, #2B3F89 25.9%, #000 86.74%);
 }
 
+@utility bg-landing-page-orange {
+  background: linear-gradient(180deg, #FFDECB 0%, #FFF 100%);
+}
+
 @utility bg-landing-stats {
   background: linear-gradient(132deg, #A68FF4 -56.72%, #2E3F85 83.57%);
 }
