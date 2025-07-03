@@ -5,7 +5,7 @@ import CustomStructuredText from '../shared/custom-structured-text';
 import DonateBlock from '../blocks/donate-block';
 import BasicHero from './basic-hero';
 
-export default function KeyTemplateLayout({ page, configuration, variant }) {
+export default function KeyTemplateLayout({ page, configuration, variant = 'key-template' }) {
   return (
     <div>
       {variant === 'key-template-small' ? (
