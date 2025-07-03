@@ -72,7 +72,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
             <div
               key={`nav-${item.id}`}
               onClick={() => handleCardClick(item.id)}
-              className="mb:hover:scale-105 cursor-pointer transition-transform"
+              className="mb:hover:scale-105 flex-1 cursor-pointer transition-transform"
             >
               <GenericCard
                 {...item}
