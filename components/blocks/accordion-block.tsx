@@ -7,6 +7,7 @@ type Props = {
     id: string;
     title: string;
     content: string;
+    isJsx?: boolean;
   }[];
   variant?: 'default' | 'small';
 };
@@ -74,16 +75,21 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
                   isActive ? 'h-max py-4 opacity-100' : 'h-0 py-0 opacity-0'
                 }`,
                 variant === 'small' && 'px-4 py-3',
+                item.isJsx && 'mb:p-4 px-0',
               )}
               aria-labelledby={`accordion-collapse-heading-${item.id}`}
             >
-              <div
-                className={cn(
-                  'text-primary-navy [&>ul>li>a]:text-primary-teal mb:text-xl text-[16px] leading-140 [&>p]:mb-4 [&>ul>li>a]:font-semibold',
-                  variant === 'small' && 'text-base',
-                )}
-                dangerouslySetInnerHTML={{ __html: item.content }}
-              />
+              {item.isJsx ? (
+                <div>{item.content}</div>
+              ) : (
+                <div
+                  className={cn(
+                    'text-primary-navy [&>ul>li>a]:text-primary-teal mb:text-xl text-[16px] leading-140 [&>p]:mb-4 [&>ul>li>a]:font-semibold',
+                    variant === 'small' && 'text-base',
+                  )}
+                  dangerouslySetInnerHTML={{ __html: item.content }}
+                />
+              )}
             </div>
           </div>
         );

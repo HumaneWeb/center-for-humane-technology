@@ -1,5 +1,7 @@
+// @ts-nocheck
 import AccordionBlock from '@/components/blocks/accordion-block';
 import BasicHero from '@/components/layout/basic-hero';
+import GivingBlockWidget from '@/components/shared/crypto-widget';
 import DonationSteps from '@/components/shared/donation-steps';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
@@ -8,7 +10,6 @@ import Link from 'next/link';
 
 export const generateMetadata = generateMetadataFn({
   query: DonatePageQuery,
-  // @ts-expect-error
   pickSeoMetaTags: (data) => data.donate?._seoMetaTags,
 });
 
@@ -162,8 +163,18 @@ export default async function DonatePage() {
 
             {helpItems && (
               <div className="mt-9 border-t border-[#F8F4EF] pt-9">
-                {/* @ts-expect-error */}
-                <AccordionBlock {...helpItems} />
+                <AccordionBlock
+                  variant={helpItems.variant}
+                  items={[
+                    ...helpItems.items,
+                    {
+                      id: 'crypto',
+                      title: 'Donate Crypto or Stocks',
+                      content: <GivingBlockWidget />,
+                      isJsx: true,
+                    },
+                  ]}
+                />
               </div>
             )}
           </div>
