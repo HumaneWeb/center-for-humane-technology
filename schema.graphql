@@ -642,6 +642,7 @@ type CareersListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  preview: JsonField
   seo: SeoField
   slug: String
   title: String
@@ -5137,6 +5138,13 @@ type Query {
     filter: TeamMemberModelFilter
   ): CollectionMetadata!
 
+  """Returns meta information regarding a record collection"""
+  _allToolkitsMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: ToolkitModelFilter
+  ): CollectionMetadata!
+
   """Returns meta information regarding an assets collection"""
   _allUploadsMeta(
     """The locale to use to fetch the field's content"""
@@ -5420,6 +5428,25 @@ type Query {
     filter: TeamMemberModelFilter
     orderBy: [TeamMemberModelOrderBy] = [position_ASC]
   ): [TeamMemberRecord!]!
+
+  """Returns a collection of records"""
+  allToolkits(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: ToolkitModelFilter
+    orderBy: [ToolkitModelOrderBy] = [_updatedAt_DESC]
+  ): [ToolkitRecord!]!
 
   """Returns a collection of assets"""
   allUploads(
@@ -5742,6 +5769,30 @@ type Query {
     filter: TeamMemberModelFilter
     orderBy: [TeamMemberModelOrderBy] = [position_ASC]
   ): TeamMemberRecord
+
+  """Returns a specific record"""
+  toolkit(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: ToolkitModelFilter
+    orderBy: [ToolkitModelOrderBy] = [_updatedAt_DESC]
+  ): ToolkitRecord
+
+  """Returns the single instance record"""
+  toolkitList(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): ToolkitListRecord
 
   """Returns a specific asset"""
   upload(
@@ -6522,6 +6573,141 @@ type ThinkingCardRecord implements RecordInterface {
   ): String
   link: GlobalLinkRecord
   title: String!
+}
+
+"""Record of type Youth Toolkit (toolkit_list)"""
+type ToolkitListRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  preview: JsonField
+  seo: SeoField
+  slug: String!
+  title: String
+}
+
+union ToolkitModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
+
+type ToolkitModelContentField {
+  blocks: [ToolkitModelContentBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+input ToolkitModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  backgroundColor: StringFilter
+  content: StructuredTextFilter
+  contentAnchors: StringFilter
+  contentBackgroundColor: StringFilter
+  image: FileFilter
+  introduction: TextFilter
+  preTitle: StringFilter
+  preview: JsonFilter
+  seo: SeoFilter
+  slug: SlugFilter
+  title: StringFilter
+  variant: StringFilter
+  OR: [ToolkitModelFilter]
+  AND: [ToolkitModelFilter]
+}
+
+enum ToolkitModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  backgroundColor_ASC
+  backgroundColor_DESC
+  contentAnchors_ASC
+  contentAnchors_DESC
+  contentBackgroundColor_ASC
+  contentBackgroundColor_DESC
+  preTitle_ASC
+  preTitle_DESC
+  title_ASC
+  title_DESC
+  variant_ASC
+  variant_DESC
+}
+
+"""Record of type Toolkit (toolkit)"""
+type ToolkitRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  anchors: [AnchorItemRecord!]!
+  backgroundColor: String!
+  content: ToolkitModelContentField
+  contentAnchors: String
+  contentBackgroundColor: String
+  cta: CtaRecord
+  id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  preTitle: String
+  preview: JsonField
+  seo: SeoField
+  slug: String!
+  title: String!
+  variant: String
 }
 
 """Specifies how to filter by upload type"""
