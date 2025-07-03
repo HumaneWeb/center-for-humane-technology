@@ -75,7 +75,11 @@ export default function GenericCardsGrid({
           </div>
 
           <div ref={scrollContainerRef} className="scrollbar-hide mb:mx-0 mx-4 overflow-x-auto">
-            <div className={cn('flex snap-x snap-mandatory gap-6 overflow-x-visible pb-8')}>
+            <div
+              className={cn(
+                'flex snap-x snap-mandatory items-stretch gap-6 overflow-x-visible pb-8',
+              )}
+            >
               <div
                 className="mb:block hidden flex-shrink-0"
                 style={{ width: 'max(0px, calc(50vw - 640px))' }}

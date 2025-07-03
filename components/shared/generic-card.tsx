@@ -13,6 +13,7 @@ type Props = {
   variant: 'default' | 'minimal' | 'minimal-small' | 'basic' | 'vertical';
   image: CustomImageProps | null;
   extraClassnames?: string;
+  wrapperExtraClassnames?: string;
 };
 
 export default function GenericCard({
@@ -23,6 +24,7 @@ export default function GenericCard({
   cta,
   variant,
   extraClassnames,
+  wrapperExtraClassnames,
 }: Props) {
   const renderContent = () => (
     <article
@@ -101,11 +103,9 @@ export default function GenericCard({
   if (variant === 'default' && cta && cta?.length > 0) {
     return (
       // @ts-expect-error
-      <CustomLink content={cta[0].link} extraClass="h-full">
-        {renderContent()}
-      </CustomLink>
+      <CustomLink content={cta[0].link}>{renderContent()}</CustomLink>
     );
   }
 
-  return <div className="h-full">{renderContent()}</div>;
+  return <div className={wrapperExtraClassnames}>{renderContent()}</div>;
 }

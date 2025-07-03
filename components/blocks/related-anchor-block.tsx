@@ -77,6 +77,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
               <GenericCard
                 {...item}
                 variant="minimal-small"
+                wrapperExtraClassnames="h-full"
                 extraClassnames="generic-card-ui w-[calc(100dvw-48px)] sm:w-[55dvw] mb:w-auto!"
               />
             </div>
