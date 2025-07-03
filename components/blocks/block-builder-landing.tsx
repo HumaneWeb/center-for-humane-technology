@@ -13,6 +13,7 @@ type Props = {
   components: {
     __typename: string;
     id: string;
+    hideBlock?: boolean;
   }[];
   variant?: 'text-dark' | 'text-default';
 };
@@ -42,11 +43,15 @@ const BlockBuilderLanding: React.FC<Props> = ({ components = [], variant = 'text
   return (
     <>
       {components.map((blockComponent) => {
-        const { __typename, id, ...rest } = blockComponent;
+        const { __typename, id, hideBlock, ...rest } = blockComponent;
         const BlockComponent = BaseComponents[__typename];
 
         if (!BlockComponent) {
           logWarning(`Block component not found for __typename: ${__typename}`);
+          return null;
+        }
+
+        if (hideBlock) {
           return null;
         }
 

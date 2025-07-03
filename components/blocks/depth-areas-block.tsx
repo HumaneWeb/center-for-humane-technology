@@ -47,7 +47,7 @@ export default function DepthAreasBlock({ title, introduction, items }: Props) {
   };
 
   return (
-    <section className="mb:mb-24 mb-10">
+    <section className="mb:my-25 my-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb:grid-cols-[1fr_2fr] mb:gap-15 grid grid-cols-1 items-start gap-5">
           <div>
