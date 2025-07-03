@@ -397,6 +397,7 @@ type BlogListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  preview: JsonField
   seo: SeoField
   slug: String!
   title: String
@@ -620,8 +621,8 @@ type CareerRecord implements RecordInterface {
   title: String!
 }
 
-"""Record of type Careers (careers_lit)"""
-type CareersLitRecord implements RecordInterface {
+"""Record of type Careers (careers_list)"""
+type CareersListRecord implements RecordInterface {
   _createdAt: DateTime!
 
   """Editing URL"""
@@ -641,6 +642,9 @@ type CareersLitRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  seo: SeoField
+  slug: String
+  title: String
 }
 
 """Record of type Case Studies (case_studies_list)"""
@@ -664,6 +668,7 @@ type CaseStudiesListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  preview: JsonField
   seo: SeoField
   slug: String!
   title: String
@@ -981,6 +986,7 @@ type ContactRecord implements RecordInterface {
   ): String
   networks: SocialNetworksBlockRecord
   preTitle: String
+  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -1237,6 +1243,7 @@ type DonateRecord implements RecordInterface {
     markdown: Boolean
   ): String
   informationTitle: String
+  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -1663,7 +1670,7 @@ type GenericCardsGridRecord implements RecordInterface {
   variant: String
 }
 
-union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersLitRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord
+union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord
 
 input GlobalLinkModelFilter {
   _createdAt: CreatedAtFilter
@@ -1910,6 +1917,7 @@ type HomepageRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  preview: JsonField
   seo: SeoField
   title: String!
 }
@@ -4269,6 +4277,7 @@ input LandingModelFilter {
   internalTitle: StringFilter
   introduction: TextFilter
   logo: FileFilter
+  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   subheading: StringFilter
@@ -4342,6 +4351,7 @@ type LandingRecord implements RecordInterface {
     markdown: Boolean
   ): String
   logo: FileField
+  preview: JsonField
   seo: SeoField
   slug: String!
   subheading: String
@@ -4679,6 +4689,7 @@ type PodcastListRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  preview: JsonField
   seo: SeoField
   slug: String!
   spotifyUrl: String
@@ -4720,6 +4731,7 @@ input PodcastModelFilter {
   introduction: TextFilter
   majorTakeaways: StructuredTextFilter
   moreListening: LinksFilter
+  preview: JsonFilter
   recommendedMedia: StructuredTextFilter
   seo: SeoFilter
   simplecastPodcastId: StringFilter
@@ -4858,6 +4870,7 @@ type PodcastRecord implements RecordInterface {
   ): String
   majorTakeaways: PodcastModelMajorTakeawaysField
   moreListening: [PodcastRecord!]!
+  preview: JsonField
   recommendedMedia: PodcastModelRecommendedMediaField
   seo: SeoField
   simplecastPodcastId: String
@@ -5405,7 +5418,7 @@ type Query {
     """Limit the number of results"""
     first: IntType = 20
     filter: TeamMemberModelFilter
-    orderBy: [TeamMemberModelOrderBy] = [_updatedAt_DESC]
+    orderBy: [TeamMemberModelOrderBy] = [position_ASC]
   ): [TeamMemberRecord!]!
 
   """Returns a collection of assets"""
@@ -5478,7 +5491,7 @@ type Query {
   ): CareerRecord
 
   """Returns the single instance record"""
-  careersLit(
+  careersList(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -5486,7 +5499,7 @@ type Query {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): CareersLitRecord
+  ): CareersListRecord
 
   """Returns the single instance record"""
   caseStudiesList(
@@ -5727,7 +5740,7 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
     filter: TeamMemberModelFilter
-    orderBy: [TeamMemberModelOrderBy] = [_updatedAt_DESC]
+    orderBy: [TeamMemberModelOrderBy] = [position_ASC]
   ): TeamMemberRecord
 
   """Returns a specific asset"""
@@ -6318,6 +6331,7 @@ type TeamBoardRecord implements RecordInterface {
   careers: [CareerRecord!]!
   id: ItemId!
   preTitle: String
+  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -6327,6 +6341,7 @@ input TeamMemberModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
   _firstPublishedAt: PublishedAtFilter
+  position: PositionFilter
   _publicationScheduledAt: PublishedAtFilter
   _unpublishingScheduledAt: PublishedAtFilter
   _publishedAt: PublishedAtFilter
@@ -6363,6 +6378,8 @@ enum TeamMemberModelOrderBy {
   id_DESC
   _firstPublishedAt_ASC
   _firstPublishedAt_DESC
+  position_ASC
+  position_DESC
   _publicationScheduledAt_ASC
   _publicationScheduledAt_DESC
   _unpublishingScheduledAt_ASC
@@ -6419,6 +6436,7 @@ type TeamMemberRecord implements RecordInterface {
   information: TeamMemberModelInformationField
   linkedinUrl: String
   organization: String
+  position: IntType
   preview: JsonField
   seo: SeoField
   slug: String!

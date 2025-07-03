@@ -776,6 +776,14 @@ export const TagFragment = graphql(`
   }
 `);
 
+export const CareerFragment = graphql(`
+  fragment CareerFragment on CareerRecord {
+    id
+    title
+    introduction
+  }
+`);
+
 // Pages
 export const HomepageQuery = graphql(
   `
@@ -846,15 +854,16 @@ export const TeamAndBoardQuery = graphql(
         title
         preTitle
         careers {
-          ... on CareerRecord {
-            id
-            title
-            introduction
-          }
+          ...CareerFragment
         }
         _seoMetaTags {
           ...TagFragment
         }
+      }
+      careersList: careersList {
+        id
+        slug
+        __typename
       }
       teamList: allTeamMembers(filter: { category: { eq: "team" } }) {
         id
@@ -890,7 +899,7 @@ export const TeamAndBoardQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment, TagFragment],
+  [ImageFragment, CTAFragment, TagFragment, CareerFragment],
 );
 
 export const TeamDetailQuery = graphql(
@@ -1174,6 +1183,37 @@ export const InThePressListQuery = graphql(
     }
   `,
   [ImageFragment, CTAFragment, BlogFragment, PressFragment, TagFragment],
+);
+
+export const CareerListQuery = graphql(
+  `
+    query CareerListQuery($skip: IntType!, $first: IntType!) {
+      page: careersList {
+        title
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      careers: allCareers(skip: $skip, first: $first, orderBy: title_ASC) {
+        ...CareerFragment
+      }
+      careersCount: _allCareersMeta {
+        count
+      }
+      configuration {
+        newsletterTitle
+        newsletterIntroduction
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, CTAFragment, CareerFragment, TagFragment],
 );
 
 export const PodcastListQuery = graphql(

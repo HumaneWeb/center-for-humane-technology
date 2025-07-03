@@ -15,8 +15,8 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function TeamListPage() {
-  const { page, teamList, boardList, configuration } = await executeQuery(TeamAndBoardQuery);
-
+  const { page, teamList, boardList, careersList, configuration } =
+    await executeQuery(TeamAndBoardQuery);
   const { title, preTitle, careers } = page!;
 
   return (
@@ -67,7 +67,10 @@ export default async function TeamListPage() {
             ))}
           </div>
 
-          <Cta label="See All Openings" />
+          <Cta
+            label="See All Openings"
+            link={{ content: { slug: careersList?.slug, __typename: careersList?.__typename } }}
+          />
         </div>
       </section>
 
