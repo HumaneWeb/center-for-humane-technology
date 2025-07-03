@@ -18,6 +18,7 @@ type AccordionBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  hideBlock: BooleanType!
   id: ItemId!
   items: [AccordionItemRecord!]!
 }
@@ -197,6 +198,7 @@ type ApproachBlockRecord implements RecordInterface {
   backgroundColor: String
   cta: CtaRecord
   headline: String
+  hideBlock: BooleanType!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -229,6 +231,7 @@ type AwarenessBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   caseStudyCard: GenericCardRecord!
+  hideBlock: BooleanType!
   id: ItemId!
   podcastCard: PodcastCardRecord!
 }
@@ -536,6 +539,7 @@ type CampaignBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   cta: CtaRecord
+  hideBlock: BooleanType!
   id: ItemId!
   image: FileField
   introduction(
@@ -913,6 +917,7 @@ type ColumnsBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  hideBlock: BooleanType!
   id: ItemId!
   items: [ColumnItemRecord!]!
   title: String
@@ -1039,11 +1044,12 @@ type CtaRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  externalUrl: String
   helperLabel: String
   icon: String
   id: ItemId!
   label: String!
-  link: GlobalLinkRecord!
+  link: GlobalLinkRecord
   variant: String
 }
 
@@ -1137,6 +1143,7 @@ type DepthAreasBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  hideBlock: BooleanType!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -1167,6 +1174,7 @@ type DonateBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   cta: CtaRecord!
+  hideBlock: BooleanType!
   id: ItemId!
   image: FileField
   title: String!
@@ -1574,6 +1582,7 @@ type GalleryImageInformationBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   ctas: [CtaRecord!]!
+  hideBlock: BooleanType!
   highlightedInformation(
     """Process content as markdown"""
     markdown: Boolean
@@ -1641,6 +1650,7 @@ type GenericCardsGridRecord implements RecordInterface {
   _updatedAt: DateTime!
   backgroundColor: String
   cta: CtaRecord
+  hideBlock: BooleanType!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -1827,6 +1837,7 @@ type HighlightTextBlockRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String!
+  hideBlock: BooleanType!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -1861,6 +1872,7 @@ type HighlightedBlockRecord implements RecordInterface {
     markdown: Boolean
   ): String
   cta: CtaRecord
+  hideBlock: BooleanType!
   id: ItemId!
   title: String
   variant: String
@@ -1921,6 +1933,7 @@ type ImageBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   alignment: String
+  hideBlock: BooleanType!
   id: ItemId!
   image: AltFileField!
   link: GlobalLinkRecord
@@ -1950,6 +1963,7 @@ type ImageContentBlockRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String!
+  hideBlock: BooleanType!
   id: ItemId!
   image: FileField!
 }
@@ -3997,6 +4011,7 @@ type ImpactBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   cta: CtaRecord
+  hideBlock: BooleanType!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -4320,6 +4335,7 @@ type LinksBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   ctas: [CtaRecord!]!
+  hideBlock: BooleanType!
   id: ItemId!
   title: String
 }
@@ -4373,6 +4389,7 @@ type LinksGridRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   first: LinksBlockRecord
+  hideBlock: BooleanType!
   id: ItemId!
   last: LinksBlockRecord
 }
@@ -4398,6 +4415,7 @@ type MediaBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   ctas: [CtaRecord!]!
+  hideBlock: BooleanType!
   id: ItemId!
   items: [ImageBlockRecord!]!
   title: String
@@ -4507,6 +4525,7 @@ type NarrativeBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   ctas: [CtaRecord!]!
+  hideBlock: BooleanType!
   id: ItemId!
   image: FileField
   imagePosition: String
@@ -5708,6 +5727,7 @@ type RelatedAnchorBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  hideBlock: BooleanType!
   id: ItemId!
   information(
     """Process content as markdown"""
@@ -5906,6 +5926,7 @@ type SignUpBlockRecord implements RecordInterface {
   featuredImage: FileField
   featuredLink: GlobalLinkRecord
   featuredTitle: String
+  hideBlock: BooleanType!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -5975,6 +5996,7 @@ type SocialNetworksBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   facebookLabel: String
   facebookUrl: String
+  hideBlock: BooleanType!
   id: ItemId!
   linkedinLabel: String
   linkedinUrl: String
@@ -6029,6 +6051,7 @@ type StatsBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  hideBlock: BooleanType!
   id: ItemId!
   items: [StatItemRecord!]!
   title: String
@@ -6387,6 +6410,7 @@ type ThinkingBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  hideBlock: BooleanType!
   id: ItemId!
   items: [ThinkingCardRecord!]!
   title: String

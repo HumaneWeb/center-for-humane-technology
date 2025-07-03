@@ -49,6 +49,11 @@ export default function CustomStructuredText({
     <StructuredText
       data={data}
       renderBlock={({ record }) => {
+        if (record.hideBlock) {
+          console.log(`Record ${record.__typename} hidden.`);
+          return null;
+        }
+
         if (record.__typename === 'ImageContentBlockRecord') {
           return <ImageContentBlock key={record.id} {...record} />;
         }
