@@ -7,6 +7,7 @@ export type CtaProps = {
   label: string;
   helperLabel?: string;
   link: CustomLinkProps;
+  externalUrl?: string;
   extraClass?: string;
   labelExtraClass?: string;
   children?: React.ReactNode;
@@ -71,6 +72,7 @@ export default function Cta({
   extraClass,
   labelExtraClass,
   link,
+  externalUrl,
   children,
   variant = 'default',
   icon,
@@ -87,23 +89,58 @@ export default function Cta({
     );
   }
 
+  const css = cn(
+    `bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group inline-block rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in`,
+    variant === 'minimal' &&
+      'text-primary-teal hover:text-primary-navy bg-transparent p-0 hover:bg-transparent',
+    (variant === 'underline' || variant === 'underline-bold') &&
+      'text-primary-teal hover:text-primary-navy mb:text-xl mb:leading-120 bg-transparent p-0 text-[18px] leading-[130%] hover:bg-transparent',
+    variant === 'underline-help' &&
+      'text-primary-teal hover:text-primary-navy bg-transparent p-0 hover:bg-transparent',
+    variant === 'border' &&
+      'border-primary-teal text-primary-teal hover:bg-primary-teal hover:text-neutral-white border-2 bg-transparent',
+    icon && 'flex items-center justify-center',
+    extraClass,
+  );
+
+  if (externalUrl) {
+    return (
+      <a href={externalUrl} target="_blank" className={css}>
+        {icon && <span className="mr-2">{ICON_MAP[icon]}</span>}
+        <span
+          className={cn(
+            'flex flex-col',
+            variant === 'underline-help' && 'flex-row-reverse items-center gap-1.5',
+            labelExtraClass,
+          )}
+        >
+          <span
+            className={cn(
+              variant === 'underline' && 'font-medium underline',
+              variant === 'underline-help' && 'mb:text-xl text-[14px] font-semibold underline',
+              variant === 'underline-bold' && 'font-semibold underline',
+            )}
+          >
+            {label}
+          </span>
+          {helperLabel && (
+            <span
+              className={cn(
+                'text-primary-navy pointer-none: mb:text-[16px] mb:leading-140 font-sans text-[14px] leading-[150%] font-normal',
+                variant === 'underline-help' && 'tracking-02 mb:text-xl leading-120',
+              )}
+            >
+              {helperLabel}
+            </span>
+          )}
+        </span>
+        {children && children}
+      </a>
+    );
+  }
+
   return (
-    <CustomLink
-      content={link}
-      extraClass={cn(
-        `bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 inline-block rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in group`,
-        variant === 'minimal' &&
-          'p-0 bg-transparent text-primary-teal hover:bg-transparent hover:text-primary-navy',
-        (variant === 'underline' || variant === 'underline-bold') &&
-          'p-0 bg-transparent text-primary-teal hover:bg-transparent hover:text-primary-navy mb:text-xl text-[18px] leading-[130%] mb:leading-120',
-        variant === 'underline-help' &&
-          'p-0 bg-transparent text-primary-teal hover:text-primary-navy hover:bg-transparent',
-        variant === 'border' &&
-          'bg-transparent border-2 border-primary-teal text-primary-teal hover:bg-primary-teal hover:text-neutral-white',
-        icon && 'flex items-center justify-center',
-        extraClass,
-      )}
-    >
+    <CustomLink content={link} extraClass={css}>
       {icon && <span className="mr-2">{ICON_MAP[icon]}</span>}
       <span
         className={cn(

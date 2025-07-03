@@ -53,6 +53,7 @@ export const CTAFragment = graphql(
       link {
         ...GlobalLinkFragment
       }
+      externalUrl
     }
   `,
   [GlobalLinkFragment],
