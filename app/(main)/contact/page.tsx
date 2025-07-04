@@ -10,6 +10,7 @@ import TeamCard from '@/components/shared/team-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { ContactPageQuery } from '@/lib/cms/query';
+import { Suspense } from 'react';
 
 export const generateMetadata = generateMetadataFn({
   query: ContactPageQuery,
@@ -29,7 +30,9 @@ export default async function ContactPage() {
         </h3>
 
         <div className="mb:grid-cols-2 mb:gap-30 mb:pb-30 grid gap-10 pb-20">
-          <ContactForm />
+          <Suspense>
+            <ContactForm />
+          </Suspense>
 
           {information && (
             <div>
