@@ -1569,6 +1569,77 @@ type FootnoteRecord implements RecordInterface {
   title: String
 }
 
+input FoundingAllieModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  description: TextFilter
+  externalUrl: StringFilter
+  name: StringFilter
+  OR: [FoundingAllieModelFilter]
+  AND: [FoundingAllieModelFilter]
+}
+
+enum FoundingAllieModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  externalUrl_ASC
+  externalUrl_DESC
+  name_ASC
+  name_DESC
+}
+
+"""Record of type Founding Allies (founding_allie)"""
+type FoundingAllieRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  description(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  externalUrl: String
+  id: ItemId!
+  name: String
+}
+
 """
 Block of type Gallery Image + Information Block (gallery_image_information_block)
 """
@@ -1671,7 +1742,7 @@ type GenericCardsGridRecord implements RecordInterface {
   variant: String
 }
 
-union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord
+union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord | ToolkitListRecord | ToolkitRecord
 
 input GlobalLinkModelFilter {
   _createdAt: CreatedAtFilter
@@ -5076,6 +5147,13 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
+  _allFoundingAlliesMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: FoundingAllieModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
   _allGlobalLinksMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5122,6 +5200,13 @@ type Query {
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
     filter: ResourceModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
+  _allSupportersMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: SupporterModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
@@ -5259,6 +5344,25 @@ type Query {
   ): [CategoryRecord!]!
 
   """Returns a collection of records"""
+  allFoundingAllies(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: FoundingAllieModelFilter
+    orderBy: [FoundingAllieModelOrderBy] = [_updatedAt_DESC]
+  ): [FoundingAllieRecord!]!
+
+  """Returns a collection of records"""
   allGlobalLinks(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5390,6 +5494,25 @@ type Query {
     filter: ResourceModelFilter
     orderBy: [ResourceModelOrderBy] = [_updatedAt_DESC]
   ): [ResourceRecord!]!
+
+  """Returns a collection of records"""
+  allSupporters(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: SupporterModelFilter
+    orderBy: [SupporterModelOrderBy] = [_updatedAt_DESC]
+  ): [SupporterRecord!]!
 
   """Returns a collection of records"""
   allTags(
@@ -5610,6 +5733,19 @@ type Query {
   ): FooterRecord
 
   """Returns a specific record"""
+  foundingAllie(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: FoundingAllieModelFilter
+    orderBy: [FoundingAllieModelOrderBy] = [_updatedAt_DESC]
+  ): FoundingAllieRecord
+
+  """Returns a specific record"""
   globalLink(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5732,6 +5868,19 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): ResourceListRecord
+
+  """Returns a specific record"""
+  supporter(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: SupporterModelFilter
+    orderBy: [SupporterModelOrderBy] = [_updatedAt_DESC]
+  ): SupporterRecord
 
   """Returns a specific record"""
   tag(
@@ -6260,6 +6409,74 @@ input StructuredTextFilter {
   Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
   """
   exists: BooleanType
+}
+
+input SupporterModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  externalUrl: StringFilter
+  internalTitle: StringFilter
+  logo: FileFilter
+  OR: [SupporterModelFilter]
+  AND: [SupporterModelFilter]
+}
+
+enum SupporterModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  externalUrl_ASC
+  externalUrl_DESC
+  internalTitle_ASC
+  internalTitle_DESC
+}
+
+"""Record of type Supporters (supporter)"""
+type SupporterRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  externalUrl: String
+  id: ItemId!
+  internalTitle: String
+  logo: FileField
 }
 
 """Block of type Table (table)"""

@@ -886,6 +886,20 @@ export const TeamAndBoardQuery = graphql(
         slug
         __typename
       }
+      supporters: allSupporters {
+        id
+        internalTitle
+        externalUrl
+        logo {
+          ...ImageFragment
+        }
+      }
+      allies: allFoundingAllies {
+        id
+        name
+        description
+        externalUrl
+      }
       configuration {
         newsletterTitle
         newsletterIntroduction
