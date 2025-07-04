@@ -16,6 +16,7 @@ export default function KeyTemplateLayout({ page, configuration, variant = 'key-
           preTitle={page?.preTitle}
           introduction={page?.introduction}
           image={page?.image}
+          mobileImage={page?.mobileImage}
           variant={page?.backgroundColor}
         />
       )}

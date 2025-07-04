@@ -10,10 +10,12 @@ type Props = {
 export default function Blockquote({ content, footer, image }: Props) {
   return (
     <blockquote className="border-primary-blue max-w-[517px] border-l-2 bg-[#F0F7F7] py-6 pr-6 pl-[54px]">
-      <div
-        className="text-primary-blue mb-4 font-sans text-xl leading-140 font-medium"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      {content && (
+        <div
+          className="text-primary-blue mb-4 font-sans text-xl leading-140 font-medium"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      )}
       {footer && (
         <footer
           className={cn(

@@ -3,6 +3,7 @@
 import type React from 'react';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Input from './forms/input';
 import { RadioGroup, RadioGroupItem } from './forms/radio-group';
 import Label from './forms/label';
@@ -10,14 +11,22 @@ import { Checkbox } from './forms/checkbox';
 import { Textarea } from './forms/textarea';
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    contactOption: 'option1',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: '',
-    agreement: false,
+  const searchParams = useSearchParams();
+
+  const [formData, setFormData] = useState(() => {
+    const typeParam = searchParams.get('type');
+    const emailParam = searchParams.get('email');
+
+    return {
+      contactOption:
+        typeParam && ['general', 'policy', 'example'].includes(typeParam) ? typeParam : 'general',
+      firstName: '',
+      lastName: '',
+      email: emailParam ? decodeURIComponent(emailParam) : '',
+      phone: '',
+      message: '',
+      agreement: false,
+    };
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,36 +72,36 @@ export default function ContactForm() {
         className="mb:space-y-5 mb-8 space-y-3 border-b border-[#DBDEE6] pb-8"
       >
         <div className="flex items-center space-x-3">
-          <RadioGroupItem value="option1" id="option1" className="h-[18px] w-[18px]" />
+          <RadioGroupItem value="general" id="general" className="h-[18px] w-[18px]" />
           <Label
-            htmlFor="option1"
+            htmlFor="general"
             className={`text-[16px] leading-135 font-medium ${
-              formData.contactOption === 'option1' ? 'text-primary-blue' : 'text-primary-navy'
+              formData.contactOption === 'general' ? 'text-primary-blue' : 'text-primary-navy'
             }`}
           >
-            This is a option for contact
+            General
           </Label>
         </div>
         <div className="flex items-center space-x-3">
-          <RadioGroupItem value="option2" id="option2" className="h-[18px] w-[18px]" />
+          <RadioGroupItem value="policy" id="policy" className="h-[18px] w-[18px]" />
           <Label
-            htmlFor="option2"
+            htmlFor="policy"
             className={`text-[16px] leading-135 font-medium ${
-              formData.contactOption === 'option2' ? 'text-primary-blue' : 'text-primary-navy'
+              formData.contactOption === 'policy' ? 'text-primary-blue' : 'text-primary-navy'
             }`}
           >
-            This is a option for contact different
+            Policy
           </Label>
         </div>
         <div className="flex items-center space-x-3">
-          <RadioGroupItem value="option3" id="option3" className="h-[18px] w-[18px]" />
+          <RadioGroupItem value="example" id="example" className="h-[18px] w-[18px]" />
           <Label
-            htmlFor="option3"
+            htmlFor="example"
             className={`text-[16px] leading-135 font-medium ${
-              formData.contactOption === 'option3' ? 'text-primary-blue' : 'text-primary-navy'
+              formData.contactOption === 'example' ? 'text-primary-blue' : 'text-primary-navy'
             }`}
           >
-            This is a option for contact
+            Example
           </Label>
         </div>
       </RadioGroup>

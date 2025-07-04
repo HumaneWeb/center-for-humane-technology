@@ -194,7 +194,6 @@ export const SubstackNewsletterWidget = () => {
   );
 };
 
-//
 const CheckCircleIcon = () => (
   <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
     <path

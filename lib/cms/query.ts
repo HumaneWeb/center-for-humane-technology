@@ -498,6 +498,15 @@ export const LinksGridBlockFragment = graphql(
   [LinksBlockFragment],
 );
 
+export const ContactWidgetBlockFragment = graphql(`
+  fragment ContactWidgetBlockFragment on ContactWidgetBlockRecord {
+    id
+    title
+    introduction
+    hideBlock
+  }
+`);
+
 export const SignupBlockFragment = graphql(
   `
     fragment SignupBlockFragment on SignUpBlockRecord {
@@ -986,6 +995,9 @@ export const BasicPageQuery = graphql(
         image {
           ...ImageFragment
         }
+        mobileImage {
+          ...ImageFragment
+        }
         variant
         contentAnchors
         anchors {
@@ -1014,6 +1026,7 @@ export const BasicPageQuery = graphql(
             ...HighlightedBlockFragment
             ...RelatedAnchorBlockFragment
             ...LinksGridBlockFragment
+            ...ContactWidgetBlockFragment
           }
         }
         _seoMetaTags {
@@ -1051,6 +1064,7 @@ export const BasicPageQuery = graphql(
     HighlightedBlockFragment,
     RelatedAnchorBlockFragment,
     LinksGridBlockFragment,
+    ContactWidgetBlockFragment,
   ],
 );
 

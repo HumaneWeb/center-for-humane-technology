@@ -2,16 +2,25 @@
 import { cn } from '@/lib/utils/css.utils';
 import type { CustomImageProps } from '../shared/custom-image';
 import useIsMobile from '../hooks/is-mobile';
+import CustomImage from '../shared/custom-image';
 
 type Props = {
   preTitle: string;
   title: string;
   introduction: string;
   image: CustomImageProps;
+  mobileImage?: CustomImageProps;
   variant: 'blue' | 'light-blue' | 'green' | 'purple';
 };
 
-export default function ComplexHero({ title, preTitle, introduction, image, variant }: Props) {
+export default function ComplexHero({
+  title,
+  preTitle,
+  introduction,
+  image,
+  mobileImage,
+  variant,
+}: Props) {
   const isMobile = useIsMobile();
 
   return (
@@ -30,7 +39,7 @@ export default function ComplexHero({ title, preTitle, introduction, image, vari
           backgroundImage: isMobile ? 'none' : `url(${image?.url})`,
         }}
       >
-        <div className="mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-40 pb-10 sm:px-6 lg:px-8">
+        <div className="mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8">
           <div className="max-w-[750px]">
             {preTitle && (
               <h2
@@ -57,6 +66,11 @@ export default function ComplexHero({ title, preTitle, introduction, image, vari
             )}
           </div>
         </div>
+        {isMobile && mobileImage && (
+          <div>
+            <CustomImage {...mobileImage} extraClass="objet-cover" />
+          </div>
+        )}
       </div>
     </section>
   );

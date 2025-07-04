@@ -33,6 +33,7 @@ import GenericCardsGrid from '../blocks/generic-cards-grid';
 import { is } from 'date-fns/locale';
 import RelatedAnchorBlock from '../blocks/related-anchor-block';
 import LinksGridBlock from '../blocks/links-grid-block';
+import ContactWidgetBlock from '../blocks/contact-widget-block';
 
 export default function CustomStructuredText({
   data,
@@ -72,6 +73,9 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'SignUpBlockRecord') {
           return <NewsletterBlock key={record.id} {...record} />;
+        }
+        if (record.__typename === 'ContactWidgetBlockRecord') {
+          return <ContactWidgetBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'ThinkingBlockRecord') {
           return <ThinkingBlock key={record.id} {...record} />;

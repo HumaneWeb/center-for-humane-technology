@@ -236,7 +236,7 @@ type AwarenessBlockRecord implements RecordInterface {
   podcastCard: PodcastCardRecord!
 }
 
-union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
+union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
 
 type BasicPageModelContentField {
   blocks: [BasicPageModelContentBlocksField!]!
@@ -261,6 +261,7 @@ input BasicPageModelFilter {
   contentBackgroundColor: StringFilter
   image: FileFilter
   introduction: TextFilter
+  mobileImage: FileFilter
   preTitle: StringFilter
   preview: JsonFilter
   seo: SeoFilter
@@ -336,6 +337,7 @@ type BasicPageRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  mobileImage: FileField
   preTitle: String
   preview: JsonField
   seo: SeoField
@@ -993,6 +995,35 @@ type ContactRecord implements RecordInterface {
   title: String!
 }
 
+"""Block of type Contact Widget Block (contact_widget_block)"""
+type ContactWidgetBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  hideBlock: BooleanType!
+  id: ItemId!
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  title: String!
+}
+
 """Block of type Content Block (content_block)"""
 type ContentBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -1573,6 +1604,7 @@ input FoundingAllieModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
   _firstPublishedAt: PublishedAtFilter
+  position: PositionFilter
   _publicationScheduledAt: PublishedAtFilter
   _unpublishingScheduledAt: PublishedAtFilter
   _publishedAt: PublishedAtFilter
@@ -1593,6 +1625,8 @@ enum FoundingAllieModelOrderBy {
   id_DESC
   _firstPublishedAt_ASC
   _firstPublishedAt_DESC
+  position_ASC
+  position_DESC
   _publicationScheduledAt_ASC
   _publicationScheduledAt_DESC
   _unpublishingScheduledAt_ASC
@@ -1638,6 +1672,7 @@ type FoundingAllieRecord implements RecordInterface {
   externalUrl: String
   id: ItemId!
   name: String
+  position: IntType
 }
 
 """
@@ -5359,7 +5394,7 @@ type Query {
     """Limit the number of results"""
     first: IntType = 20
     filter: FoundingAllieModelFilter
-    orderBy: [FoundingAllieModelOrderBy] = [_updatedAt_DESC]
+    orderBy: [FoundingAllieModelOrderBy] = [position_ASC]
   ): [FoundingAllieRecord!]!
 
   """Returns a collection of records"""
@@ -5511,7 +5546,7 @@ type Query {
     """Limit the number of results"""
     first: IntType = 20
     filter: SupporterModelFilter
-    orderBy: [SupporterModelOrderBy] = [_updatedAt_DESC]
+    orderBy: [SupporterModelOrderBy] = [position_ASC]
   ): [SupporterRecord!]!
 
   """Returns a collection of records"""
@@ -5742,7 +5777,7 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
     filter: FoundingAllieModelFilter
-    orderBy: [FoundingAllieModelOrderBy] = [_updatedAt_DESC]
+    orderBy: [FoundingAllieModelOrderBy] = [position_ASC]
   ): FoundingAllieRecord
 
   """Returns a specific record"""
@@ -5879,7 +5914,7 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
     filter: SupporterModelFilter
-    orderBy: [SupporterModelOrderBy] = [_updatedAt_DESC]
+    orderBy: [SupporterModelOrderBy] = [position_ASC]
   ): SupporterRecord
 
   """Returns a specific record"""
@@ -6415,6 +6450,7 @@ input SupporterModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
   _firstPublishedAt: PublishedAtFilter
+  position: PositionFilter
   _publicationScheduledAt: PublishedAtFilter
   _unpublishingScheduledAt: PublishedAtFilter
   _publishedAt: PublishedAtFilter
@@ -6435,6 +6471,8 @@ enum SupporterModelOrderBy {
   id_DESC
   _firstPublishedAt_ASC
   _firstPublishedAt_DESC
+  position_ASC
+  position_DESC
   _publicationScheduledAt_ASC
   _publicationScheduledAt_DESC
   _unpublishingScheduledAt_ASC
@@ -6477,6 +6515,7 @@ type SupporterRecord implements RecordInterface {
   id: ItemId!
   internalTitle: String
   logo: FileField
+  position: IntType
 }
 
 """Block of type Table (table)"""

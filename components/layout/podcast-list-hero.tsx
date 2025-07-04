@@ -27,7 +27,7 @@ export default function PodcastListHero({
   const isMobile = useIsMobile();
 
   return (
-    <section className="bg-gradient-podcast-list mb:pt-20 mb:pb-0 pb-8">
+    <section className="bg-gradient-podcast-list mb:pt-20">
       <div
         className="mb:min-h-[700px] bg-contain bg-bottom-right bg-no-repeat"
         style={{ backgroundImage: isMobile ? 'none' : `url(${image?.url})` }}
@@ -55,9 +55,13 @@ export default function PodcastListHero({
               />
             )}
 
-            <div className="flex flex-wrap items-center gap-10">
+            <div className="mb:items-center mb:gap-10 mb:justify-start flex items-start justify-between gap-8">
               {applePodcastsUrl && (
-                <a href={applePodcastsUrl} target="_blank" className="flex items-center gap-2.5">
+                <a
+                  href={applePodcastsUrl}
+                  target="_blank"
+                  className="mb:flex-row mb:text-left mb:flex-none flex flex-1 flex-col items-center justify-center gap-2.5 text-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="44"
@@ -72,14 +76,18 @@ export default function PodcastListHero({
                   </svg>
 
                   <span className="text-primary-navy mb:text-[16px] font-sans text-sm leading-100 font-medium">
-                    Apple <br />
+                    Apple <br className="mb:block hidden" />
                     Podcasts
                   </span>
                 </a>
               )}
 
               {spotifyUrl && (
-                <a href={spotifyUrl} target="_blank" className="flex items-center gap-2.5">
+                <a
+                  href={spotifyUrl}
+                  target="_blank"
+                  className="mb:flex-row mb:text-left mb:flex-none flex flex-1 flex-col items-center justify-center gap-2.5 text-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="44"
@@ -102,11 +110,15 @@ export default function PodcastListHero({
               )}
 
               {youtubeUrl && (
-                <a href={youtubeUrl} target="_blank" className="flex items-center gap-2.5">
+                <a
+                  href={youtubeUrl}
+                  target="_blank"
+                  className="mb:flex-row mb:text-left mb:flex-none flex flex-1 flex-col items-center justify-center gap-2.5 text-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="46"
-                    height="32"
+                    width="44"
+                    height="44"
                     viewBox="0 0 46 32"
                     fill="none"
                   >
@@ -126,6 +138,12 @@ export default function PodcastListHero({
             </div>
           </div>
         </div>
+
+        {isMobile && image && (
+          <div>
+            <CustomImage {...image} />
+          </div>
+        )}
       </div>
     </section>
   );
