@@ -504,7 +504,7 @@ hr {
 
 @media screen and (max-width: 1320px) {
   .homepage-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr 1fr;
   }
 
   .homepage-grid-parent {

@@ -136,7 +136,7 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className="mb:grid-cols-4 mb:pb-0 mb:gap-8 grid grid-cols-1 gap-5 border-b-[1px] border-[#4F5984] pb-5">
+        <div className="mb:grid-cols-[1fr_4fr] mb:pb-0 mb:gap-8 grid grid-cols-1 gap-5 border-b-[1px] border-[#4F5984] pb-5">
           <div className="mb:pt-9 mb:pb-20 mb:gap-10 mb:border-r-[1px] flex flex-col gap-5 border-r-0 border-[#4F5984] pt-5 pb-5">
             <div>
               <h3 className="tracking-02 mb:text-xl mb:mb-4 mb-2 font-sans text-[18px] leading-120 font-semibold">
@@ -166,26 +166,28 @@ export default async function Footer() {
               </p>
             </div>
           </div>
-          {columns.map((column) => (
-            <div key={column.id} className="mb:pt-9 pt-0">
-              <h3 className="tracking-02 mb:mb-4 mb:text-xl mb-2 font-sans text-[18px] leading-120 font-semibold">
-                {column.headline}
-              </h3>
-              <ul>
-                {column.links.map((link) => (
-                  <li key={link.id} className="mb:mb-4 mb-2">
-                    <CustomLink
-                      // @ts-expect-error
-                      content={link}
-                      extraClass="text-neutral-white font-sans text-[16px] mb:text-lg leading-135 font-normal transition-all duration-200 hover:underline"
-                    >
-                      {link.internalTitle}
-                    </CustomLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="mb:gap-8 mb:grid-cols-5 grid grid-cols-2 gap-5">
+            {columns.map((column) => (
+              <div key={column.id} className="mb:pt-9 pt-0">
+                <h3 className="tracking-02 mb:mb-4 mb:text-xl mb-2 font-sans text-[18px] leading-120 font-semibold">
+                  {column.headline}
+                </h3>
+                <ul>
+                  {column.links.map((link) => (
+                    <li key={link.id} className="mb:mb-3 mb-2">
+                      <CustomLink
+                        // @ts-expect-error
+                        content={link}
+                        extraClass="text-neutral-white font-sans text-[17px] leading-135 font-normal transition-all duration-200 hover:underline"
+                      >
+                        {link.internalTitle}
+                      </CustomLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="mb:flex-row mb:gap-0 mb:items-center flex flex-col justify-between gap-5 pt-9">

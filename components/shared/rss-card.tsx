@@ -36,7 +36,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
       <div className="mb:grid-cols-[256px_auto] mb:gap-6 grid grid-cols-[120px_auto] gap-4 overflow-hidden transition-all duration-300">
         <div className="mb:h-48 relative aspect-square w-full">
           <Image
-            src={item.imageUrl ? item.imageUrl : '/placeholder-image.png'}
+            src={item.imageUrl ? item.imageUrl : '/placeholder-image-2.png'}
             alt={item.title}
             fill
             className="object-cover"
@@ -75,7 +75,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
     <div className="overflow-hidden transition-all duration-300">
       <div className="relative h-64 w-full">
         <Image
-          src={item.imageUrl ? item.imageUrl : '/placeholder-image.png'}
+          src={item.imageUrl ? item.imageUrl : '/placeholder-image-2.png'}
           alt={item.title}
           fill
           className="aspect-square object-cover"

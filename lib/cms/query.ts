@@ -136,24 +136,39 @@ export const PodcastFragment = graphql(
   [ImageFragment],
 );
 
-export const BlogFragment = graphql(`
-  fragment BlogFragment on BlogRecord {
-    id
-    title
-    estTime
-    externalUrl
-  }
-`);
+export const BlogFragment = graphql(
+  `
+    fragment BlogFragment on BlogRecord {
+      id
+      title
+      estTime
+      externalUrl
+      date
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
 
-export const PressFragment = graphql(`
-  fragment PressFragment on PressRecord {
-    id
-    title
-    externalUrl
-    source
-    length
-  }
-`);
+export const PressFragment = graphql(
+  `
+    fragment PressFragment on PressRecord {
+      id
+      title
+      externalUrl
+      source
+      length
+      date
+      category
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
 
 export const PodcastCardFragment = graphql(
   `
@@ -1264,17 +1279,12 @@ export const InThePressListQuery = graphql(
           ...TagFragment
         }
       }
-      blogs: allBlogs(skip: $skip, first: $first, orderBy: date_DESC) {
-        ...BlogFragment
-      }
       press: allPresses(skip: $skip, first: $first, orderBy: date_DESC) {
         ...PressFragment
       }
-
-      podcastsCount: _allPodcastsMeta {
+      pressCount: _allPressesMeta {
         count
       }
-
       configuration {
         newsletterTitle
         newsletterIntroduction
@@ -1288,7 +1298,7 @@ export const InThePressListQuery = graphql(
       }
     }
   `,
-  [ImageFragment, CTAFragment, BlogFragment, PressFragment, TagFragment],
+  [ImageFragment, CTAFragment, PressFragment, TagFragment],
 );
 
 export const CareerListQuery = graphql(
@@ -1661,6 +1671,13 @@ export const NavbarQuery = graphql(
           label
           link {
             ...GlobalLinkFragment
+          }
+          children {
+            id
+            label
+            link {
+              ...GlobalLinkFragment
+            }
           }
         }
       }

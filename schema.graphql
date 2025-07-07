@@ -5028,11 +5028,13 @@ input PressModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  category: StringFilter
   date: DateFilter
   externalUrl: StringFilter
   format: StringFilter
   image: FileFilter
   length: StringFilter
+  rawCategory: LinksFilter
   seo: SeoFilter
   slug: SlugFilter
   source: StringFilter
@@ -5060,6 +5062,8 @@ enum PressModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  category_ASC
+  category_DESC
   date_ASC
   date_DESC
   externalUrl_ASC
@@ -5094,12 +5098,14 @@ type PressRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  category: String
   date: Date
   externalUrl: String
   format: String
   id: ItemId!
   image: FileField
   length: String
+  rawCategory: [CategoryRecord!]!
   seo: SeoField
   slug: String!
   source: String

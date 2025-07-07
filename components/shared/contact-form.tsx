@@ -90,7 +90,7 @@ export default function ContactForm() {
               formData.contactOption === 'policy' ? 'text-primary-blue' : 'text-primary-navy'
             }`}
           >
-            Policy
+            Press/Media Inquiry
           </Label>
         </div>
         <div className="flex items-center space-x-3">
@@ -101,7 +101,7 @@ export default function ContactForm() {
               formData.contactOption === 'example' ? 'text-primary-blue' : 'text-primary-navy'
             }`}
           >
-            Example
+            Speaking Inquiry
           </Label>
         </div>
       </RadioGroup>
