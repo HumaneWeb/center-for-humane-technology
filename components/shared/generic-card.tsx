@@ -14,6 +14,7 @@ type Props = {
   image: CustomImageProps | null;
   extraClassnames?: string;
   wrapperExtraClassnames?: string;
+  externalUrl?: string;
 };
 
 export default function GenericCard({
@@ -25,6 +26,7 @@ export default function GenericCard({
   variant,
   extraClassnames,
   wrapperExtraClassnames,
+  externalUrl,
 }: Props) {
   const renderContent = () => (
     <article
@@ -63,19 +65,37 @@ export default function GenericCard({
             {preTitle}
           </h4>
         )}
-        {variant !== 'default' && title && (
-          <h2
-            className={cn(
-              'text-primary-teal mb:mb-5 mb-1 font-sans text-2xl leading-130 font-semibold',
-              (variant === 'minimal' || variant === 'minimal-small') &&
-                'group-hover:text-neutral-white mb-4 text-xl',
-              variant === 'basic' && 'mb-2',
-              variant === 'vertical' && 'mb-5',
-              variant === 'minimal-small' && 'mb-2.5 text-xl leading-120',
-            )}
-          >
-            {title}
-          </h2>
+        {externalUrl ? (
+          <a href={externalUrl} target="_blank">
+            <h2
+              className={cn(
+                'text-primary-teal mb:mb-5 mb-1 font-sans text-2xl leading-130 font-semibold',
+                (variant === 'minimal' || variant === 'minimal-small') &&
+                  'group-hover:text-neutral-white mb-4 text-xl',
+                variant === 'basic' && 'mb-2',
+                variant === 'vertical' && 'mb-5',
+                variant === 'minimal-small' && 'mb-2.5 text-xl leading-120',
+              )}
+            >
+              {title}
+            </h2>
+          </a>
+        ) : (
+          variant !== 'default' &&
+          title && (
+            <h2
+              className={cn(
+                'text-primary-teal mb:mb-5 mb-1 font-sans text-2xl leading-130 font-semibold',
+                (variant === 'minimal' || variant === 'minimal-small') &&
+                  'group-hover:text-neutral-white mb-4 text-xl',
+                variant === 'basic' && 'mb-2',
+                variant === 'vertical' && 'mb-5',
+                variant === 'minimal-small' && 'mb-2.5 text-xl leading-120',
+              )}
+            >
+              {title}
+            </h2>
+          )
         )}
         {introduction && (
           <div

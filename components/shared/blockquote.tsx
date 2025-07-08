@@ -25,7 +25,7 @@ export default function Blockquote({ content, footer, image }: Props) {
         >
           {image && (
             <div>
-              <CustomImage {...image} />
+              <CustomImage {...image} extraClass="w-12" />
             </div>
           )}
           <div dangerouslySetInnerHTML={{ __html: footer }} />

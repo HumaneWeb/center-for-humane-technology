@@ -4,17 +4,17 @@ const CMS_MODELS_ROUTE_MAP = {
   TeamMemberRecord: '/team-board',
   LandingRecord: '/landing',
   CaseStudyRecord: '/case-study',
+  ToolkitRecord: '/youth',
 } as const;
 
 type CmsModelKey = keyof typeof CMS_MODELS_ROUTE_MAP;
 
-export const getLinkCmsUrl = (rawLink: {
+export type LinkType = {
   externalUrl?: string;
-  content: {
-    __typename: string;
-    slug: string;
-  };
-}) => {
+  content: { __typename: string; slug: string };
+};
+
+export const getLinkCmsUrl = (rawLink: LinkType) => {
   const { externalUrl, content } = rawLink || {};
   if (externalUrl) {
     const isExternal =

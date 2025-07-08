@@ -38,6 +38,9 @@ export const GlobalLinkFragment = graphql(`
       ... on BlogListRecord {
         slug
       }
+      ... on ToolkitRecord {
+        slug
+      }
     }
   }
 `);
@@ -98,6 +101,7 @@ export const GenericCardFragment = graphql(
         ...CTAFragment
       }
       variant
+      externalUrl
     }
   `,
   [ImageFragment, CTAFragment],
@@ -312,13 +316,18 @@ export const GuideFragment = graphql(
     fragment GuideFragment on GuideCardRecord {
       title
       introduction
+      information
       guideNumber
       icon {
         ...ImageFragment
       }
+      variant
+      link {
+        ...GlobalLinkFragment
+      }
     }
   `,
-  [ImageFragment],
+  [ImageFragment, GlobalLinkFragment],
 );
 
 export const GridFragment = graphql(
@@ -1006,6 +1015,7 @@ export const BasicPageQuery = graphql(
         preTitle
         introduction
         backgroundColor
+        textColor: headerTextColor
         contentBackgroundColor
         image {
           ...ImageFragment
@@ -1042,6 +1052,11 @@ export const BasicPageQuery = graphql(
             ...RelatedAnchorBlockFragment
             ...LinksGridBlockFragment
             ...ContactWidgetBlockFragment
+            ...VideoItemFragment
+            ...BlockquoteFragment
+            ...MediaBlockFragment
+            ...AccordionBlockFragment
+            ...GuideFragment
           }
         }
         _seoMetaTags {
@@ -1080,6 +1095,11 @@ export const BasicPageQuery = graphql(
     RelatedAnchorBlockFragment,
     LinksGridBlockFragment,
     ContactWidgetBlockFragment,
+    VideoItemFragment,
+    BlockquoteFragment,
+    MediaBlockFragment,
+    AccordionBlockFragment,
+    GuideFragment,
   ],
 );
 
@@ -1092,8 +1112,12 @@ export const ToolkitPageQuery = graphql(
         introduction
         backgroundColor
         contentBackgroundColor
+        textColor
         image {
           ...ImageFragment
+        }
+        cta {
+          ...CTAFragment
         }
         variant
         contentAnchors
@@ -1122,6 +1146,10 @@ export const ToolkitPageQuery = graphql(
             ...LinksBlockFragment
             ...HighlightedBlockFragment
             ...RelatedAnchorBlockFragment
+            ...BlockquoteFragment
+            ...VideoItemFragment
+            ...TableFragment
+            ...FootnoteFragment
           }
         }
         _seoMetaTags {
@@ -1158,6 +1186,10 @@ export const ToolkitPageQuery = graphql(
     LinksBlockFragment,
     HighlightedBlockFragment,
     RelatedAnchorBlockFragment,
+    BlockquoteFragment,
+    VideoItemFragment,
+    TableFragment,
+    FootnoteFragment,
   ],
 );
 

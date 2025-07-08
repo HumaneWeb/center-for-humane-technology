@@ -7,8 +7,18 @@ import ContentSidebar from '../shared/content-sidebar';
 import ContentTopBar from '../shared/content-top-bar';
 
 export default function ContentLayout({ page, configuration, withImage = true }) {
-  const { slug, title, introduction, cta, backCta, image, variant, contentAnchors, anchors } =
-    page!;
+  const {
+    slug,
+    title,
+    introduction,
+    cta,
+    backCta,
+    image,
+    variant,
+    contentAnchors,
+    anchors,
+    textColor,
+  } = page!;
   const { donateTitle, donateCta, donateImage } = configuration!;
 
   const withSidebar = contentAnchors === 'sidebar';
@@ -19,7 +29,7 @@ export default function ContentLayout({ page, configuration, withImage = true })
     <>
       <BasicHero
         title={title}
-        variant={variant}
+        variant={textColor}
         introduction={introduction}
         cta={cta}
         backCta={backCta}

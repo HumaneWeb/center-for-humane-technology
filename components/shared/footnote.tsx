@@ -11,7 +11,7 @@ export default function Footnote({ title, content }: Props) {
       </h4>
       {content && (
         <div
-          className="[&>ul>li>a]:text-primary-teal ml-5 font-sans text-[16px] leading-140 text-black [&>ul]:list-disc [&>ul>li]:mb-3 [&>ul>li>a]:font-semibold"
+          className="[&>ul>li>a]:text-primary-teal [&>ol>li>a]:text-primary-teal [&_a]:overflow-wrap-anywhere ml-5 font-sans text-[16px] leading-140 text-black [&_a]:break-all [&>ol]:list-decimal [&>ol>li]:mb-3 [&>ol>li>a]:font-semibold [&>ul]:list-disc [&>ul>li]:mb-3 [&>ul>li>a]:font-semibold"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       )}

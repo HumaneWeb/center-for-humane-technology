@@ -236,7 +236,7 @@ type AwarenessBlockRecord implements RecordInterface {
   podcastCard: PodcastCardRecord!
 }
 
-union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
+union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | MediaBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | VideoItemRecord
 
 type BasicPageModelContentField {
   blocks: [BasicPageModelContentBlocksField!]!
@@ -259,6 +259,7 @@ input BasicPageModelFilter {
   content: StructuredTextFilter
   contentAnchors: StringFilter
   contentBackgroundColor: StringFilter
+  headerTextColor: StringFilter
   image: FileFilter
   introduction: TextFilter
   mobileImage: FileFilter
@@ -297,6 +298,8 @@ enum BasicPageModelOrderBy {
   contentAnchors_DESC
   contentBackgroundColor_ASC
   contentBackgroundColor_DESC
+  headerTextColor_ASC
+  headerTextColor_DESC
   preTitle_ASC
   preTitle_DESC
   title_ASC
@@ -331,6 +334,7 @@ type BasicPageRecord implements RecordInterface {
   contentAnchors: String
   contentBackgroundColor: String
   cta: CtaRecord
+  headerTextColor: String
   id: ItemId!
   image: FileField
   introduction(
@@ -1733,6 +1737,7 @@ type GenericCardRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   cta: [CtaRecord!]!
+  externalUrl: String
   id: ItemId!
   image: FileField
   introduction(
@@ -1921,11 +1926,17 @@ type GuideCardRecord implements RecordInterface {
   guideNumber: String
   icon: FileField
   id: ItemId!
+  information(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
   introduction(
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  link: GlobalLinkRecord!
   title: String
+  variant: String
 }
 
 """Block of type Highlight Text Block (highlight_text_block)"""
@@ -6864,7 +6875,7 @@ type ToolkitListRecord implements RecordInterface {
   title: String
 }
 
-union ToolkitModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
+union ToolkitModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | VideoItemRecord
 
 type ToolkitModelContentField {
   blocks: [ToolkitModelContentBlocksField!]!
@@ -6893,6 +6904,7 @@ input ToolkitModelFilter {
   preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
+  textColor: StringFilter
   title: StringFilter
   variant: StringFilter
   OR: [ToolkitModelFilter]
@@ -6926,6 +6938,8 @@ enum ToolkitModelOrderBy {
   contentBackgroundColor_DESC
   preTitle_ASC
   preTitle_DESC
+  textColor_ASC
+  textColor_DESC
   title_ASC
   title_DESC
   variant_ASC
@@ -6968,6 +6982,7 @@ type ToolkitRecord implements RecordInterface {
   preview: JsonField
   seo: SeoField
   slug: String!
+  textColor: String
   title: String!
   variant: String
 }

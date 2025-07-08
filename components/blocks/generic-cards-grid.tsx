@@ -9,8 +9,8 @@ import useIsMobile from '../hooks/is-mobile';
 type Props = {
   title: string;
   introduction: string;
-  variant: 'default' | 'minimal';
-  backgroundColor: string;
+  variant: 'default' | 'minimal' | '4-columns';
+  backgroundColor: 'light-purple' | 'teal' | 'transparent';
   cta: any;
   items: any[];
 };
@@ -115,20 +115,27 @@ export default function GenericCardsGrid({
   }
 
   return (
-    <div className="generic-cards-grid bg-neutral-white overflow-x-hidden">
+    <div
+      className={cn(
+        'generic-cards-grid bg-neutral-white overflow-x-hidden',
+        variant === '4-columns' && 'four-columns',
+      )}
+    >
       <section
         className={cn(
           'mb:mb-2.5 mb:pt-[73px] mb:pb-24 py-8',
           backgroundColor === 'light-purple'
             ? 'bg-secondary-light-purple/20'
             : 'bg-primary-teal/[0.06] text-primary-navy text-xl',
+          backgroundColor === 'transparent' && 'bg-transparent',
         )}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="tracking-039 text-primary-blue mb:text-[39px] mb:leading-110 mb:mb-14 mb-8 font-sans text-[26px] leading-120 font-semibold">
-            {title}
-          </h1>
-
+          {title && (
+            <h1 className="tracking-039 text-primary-blue mb:text-[39px] mb:leading-110 mb:mb-14 mb-8 font-sans text-[26px] leading-120 font-semibold">
+              {title}
+            </h1>
+          )}
           {introduction && (
             <div
               dangerouslySetInnerHTML={{ __html: introduction }}
@@ -140,6 +147,7 @@ export default function GenericCardsGrid({
             className={cn(
               'grid',
               variant === 'default' && 'mb:grid-cols-2 mb:gap-y-0 gap-x-32 gap-y-8',
+              variant === '4-columns' && 'mb:grid-cols-3 gap-5',
             )}
           >
             {items.map((item) => (

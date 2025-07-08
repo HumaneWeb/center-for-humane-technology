@@ -34,6 +34,7 @@ import { is } from 'date-fns/locale';
 import RelatedAnchorBlock from '../blocks/related-anchor-block';
 import LinksGridBlock from '../blocks/links-grid-block';
 import ContactWidgetBlock from '../blocks/contact-widget-block';
+import VideoItem from './video-item';
 
 export default function CustomStructuredText({
   data,
@@ -211,7 +212,12 @@ export default function CustomStructuredText({
           );
         }
         if (record.__typename === 'GuideCardRecord') {
-          return <GuideCard key={record.id} {...record} />;
+          return (
+            <div className="mx-auto mb-4 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+              <GuideCard {...record} />
+            </div>
+          );
+          // return <GuideCard key={record.id} {...record} />;
         }
         if (record.__typename === 'GenericCardRecord') {
           return (
@@ -242,6 +248,19 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'LinksGridRecord') {
           return <LinksGridBlock key={record.id} {...record} />;
+        }
+        if (record.__typename === 'VideoItemRecord') {
+          return (
+            <div
+              className={cn(
+                'mx-auto my-5 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'px-0!',
+              )}
+              key={record.id}
+            >
+              <VideoItem {...record} extraClassnames="mb:mt-5 mb:mb-5 mb-5" />
+            </div>
+          );
         }
 
         return null;
