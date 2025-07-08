@@ -6257,6 +6257,7 @@ type SignUpBlockRecord implements RecordInterface {
     markdown: Boolean
   ): String
   title: String!
+  variant: String
   withFeaturedContent: BooleanType!
 }
 

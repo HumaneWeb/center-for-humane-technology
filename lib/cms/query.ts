@@ -421,6 +421,7 @@ export const SignUpBlockFragment = graphql(
       featuredLink {
         ...GlobalLinkFragment
       }
+      variant
       hideBlock
     }
   `,

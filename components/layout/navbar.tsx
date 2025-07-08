@@ -4,7 +4,7 @@
 import type React from 'react';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import CustomLink from '../shared/custom-link';
 import SearchEngine from './search-engine';
 import type { NavbarChildren } from '@/lib/utils/types';
@@ -154,10 +154,138 @@ export default function Navbar({ items }: Props) {
       ? `uppercase text-primary-navy flex items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold tracking-018 hover:bg-accent transition-colors ${extraClassnames ? extraClassnames : ''}`
       : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
 
+    const renderDropdownItem = (dropdownItem: NavbarChildren, depth = 1) => {
+      const hasChildren = dropdownItem.children && dropdownItem.children.length > 0;
+      const [submenuOpen, setSubmenuOpen] = useState(false);
+      const [openToLeft, setOpenToLeft] = useState(false);
+      const submenuRef = useRef<HTMLDivElement>(null);
+      const buttonRef = useRef<HTMLDivElement>(null);
+
+      useLayoutEffect(() => {
+        if (!submenuOpen || isMobile) return;
+
+        const buttonEl = buttonRef.current;
+        const submenuEl = submenuRef.current;
+
+        if (buttonEl && submenuEl) {
+          const buttonRect = buttonEl.getBoundingClientRect();
+          const submenuWidth = submenuEl.offsetWidth;
+          const spaceRight = window.innerWidth - buttonRect.right;
+
+          setOpenToLeft(spaceRight < submenuWidth);
+        }
+      }, [submenuOpen, isMobile]);
+
+      useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+          if (
+            submenuRef.current &&
+            !submenuRef.current.contains(event.target as Node) &&
+            buttonRef.current &&
+            !buttonRef.current.contains(event.target as Node)
+          ) {
+            setSubmenuOpen(false);
+          }
+        };
+        if (!isMobile) {
+          document.addEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, []);
+
+      if (!hasChildren) {
+        return (
+          <CustomLink
+            key={dropdownItem.label}
+            content={dropdownItem.link}
+            onClick={() => {
+              setOpenDropdown(null);
+              if (isMobile) setIsMobileMenuOpen(false);
+            }}
+            withActiveClass
+          >
+            <div
+              className={cn(
+                'text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
+                isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[18px]',
+              )}
+            >
+              {dropdownItem.label}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+                className="h-[20px] w-[20px]"
+              >
+                <path
+                  d="M15.75 5.25L24.5 14M24.5 14L15.75 22.75M24.5 14H3.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="square"
+                />
+              </svg>
+            </div>
+          </CustomLink>
+        );
+      }
+
+      return (
+        <div key={dropdownItem.label} className="relative w-full">
+          <div
+            ref={buttonRef}
+            className={cn(
+              'text-primary-navy tracking-02 hover:text-primary-teal flex cursor-pointer items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
+              isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[18px]',
+            )}
+            onClick={() => {
+              setSubmenuOpen((prev) => !prev);
+            }}
+          >
+            {dropdownItem.label}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              className="h-[20px] w-[20px]"
+            >
+              <path
+                d="M15.75 5.25L24.5 14M24.5 14L15.75 22.75M24.5 14H3.5"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="square"
+              />
+            </svg>
+          </div>
+
+          <div
+            ref={submenuRef}
+            className={cn(
+              isMobile
+                ? submenuOpen
+                  ? 'max-h-screen overflow-hidden pl-5 transition-all'
+                  : 'max-h-0 overflow-hidden transition-all'
+                : cn(
+                    'border-primary-navy bg-neutral-white absolute top-0 z-50 min-w-[300px] flex-col gap-5 border px-5 py-4 shadow-sm',
+                    submenuOpen ? 'flex' : 'hidden',
+                    openToLeft ? 'right-[calc(100%+1.3rem)]' : 'left-[calc(100%+1.3rem)]',
+                  ),
+            )}
+          >
+            {dropdownItem.children!.map((child) => renderDropdownItem(child, depth + 1))}
+          </div>
+        </div>
+      );
+    };
+
     if (!hasDropdown) {
       return (
         <CustomLink
-          // @ts-expect-error
           content={item.link}
           extraClass={baseClasses}
           withActiveClass
@@ -180,107 +308,63 @@ export default function Navbar({ items }: Props) {
       );
     }
 
-    if (hasDropdown) {
-      return (
-        <div className="has-[.active-link]:[&>button>span]:text-primary-teal has-[.active-link]:[&>button>svg>path]:fill-primary-teal relative">
-          <button
-            ref={(el) => {
-              buttonRefs.current[index] = el;
-            }}
-            onClick={() => toggleDropdown(index)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-            className={cn(
-              isMobile
-                ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200'
-                : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[18px]',
-              extraClassnames,
-            )}
-            aria-expanded={isOpen}
-            aria-haspopup="true"
-            aria-controls={`dropdown-${index}`}
+    return (
+      <div className="has-[.active-link]:[&>button>span]:text-primary-teal has-[.active-link]:[&>button>svg>path]:fill-primary-teal relative">
+        <button
+          ref={(el) => {
+            buttonRefs.current[index] = el;
+          }}
+          onClick={() => toggleDropdown(index)}
+          onKeyDown={(e) => handleKeyDown(e, index)}
+          className={cn(
+            isMobile
+              ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200'
+              : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[18px]',
+            extraClassnames,
+          )}
+          aria-expanded={isOpen}
+          aria-haspopup="true"
+          aria-controls={`dropdown-${index}`}
+        >
+          <span>{item.label}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="15"
+            viewBox="0 0 14 15"
+            fill="none"
+            className={cn('transition-transform duration-200', isOpen && isMobile && 'rotate-180')}
           >
-            <span>{item.label}</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="15"
-              viewBox="0 0 14 15"
-              fill="none"
-              className={cn(
-                'transition-transform duration-200',
-                isOpen && isMobile && 'rotate-180',
-              )}
-            >
-              <path d="M6.5 11.5L1.73686 6.25L11.2631 6.25L6.5 11.5Z" fill="currentColor" />
-            </svg>
-          </button>
+            <path d="M6.5 11.5L1.73686 6.25L11.2631 6.25L6.5 11.5Z" fill="currentColor" />
+          </svg>
+        </button>
 
-          <div
-            ref={(el) => {
-              dropdownRefs.current[index] = el;
-            }}
-            id={`dropdown-${index}`}
-            className={cn(
-              'bg-neutral-white border-primary-navy overflow-hidden transition-all duration-300 ease-in-out',
-              isMobile
-                ? isOpen
-                  ? 'max-h-screen border-t-[1px] opacity-100'
-                  : 'max-h-0 opacity-0'
-                : cn(
-                    'absolute top-full left-0 z-50 hidden w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm',
-                    isOpen && 'flex',
-                  ),
-            )}
-            role="menu"
-            aria-orientation="vertical"
-            onKeyDown={(e) => handleDropdownKeyDown(e, index)}
-          >
-            <div className={cn(isMobile ? 'space-y-1 py-2' : 'flex flex-col gap-5')}>
-              {item.children!.map((dropdownItem, dropdownIndex) => (
-                <CustomLink
-                  key={dropdownIndex}
-                  // @ts-expect-error
-                  content={dropdownItem.link}
-                  role="menuitem"
-                  onClick={() => {
-                    setOpenDropdown(null);
-                    if (isMobile) setIsMobileMenuOpen(false);
-                  }}
-                  withActiveClass
-                >
-                  <div
-                    className={cn(
-                      'text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
-                      isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[18px]',
-                    )}
-                  >
-                    {dropdownItem.label}
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="28"
-                      height="28"
-                      viewBox="0 0 28 28"
-                      fill="none"
-                      className="w-[20px]"
-                    >
-                      <path
-                        d="M15.75 5.25L24.5 14M24.5 14L15.75 22.75M24.5 14H3.5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="square"
-                      />
-                    </svg>
-                  </div>
-                </CustomLink>
-              ))}
-            </div>
+        <div
+          ref={(el) => {
+            dropdownRefs.current[index] = el;
+          }}
+          id={`dropdown-${index}`}
+          className={cn(
+            'bg-neutral-white border-primary-navy Xoverflow-hidden transition-all duration-300 ease-in-out',
+            isMobile
+              ? isOpen
+                ? 'max-h-screen border-t-[1px] opacity-100'
+                : 'max-h-0 opacity-0'
+              : cn(
+                  'absolute top-full left-0 z-50 hidden w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm',
+                  isOpen && 'flex',
+                ),
+          )}
+          role="menu"
+          aria-orientation="vertical"
+          onKeyDown={(e) => handleDropdownKeyDown(e, index)}
+        >
+          <div className={cn(isMobile ? 'space-y-1 py-2' : 'flex flex-col gap-5')}>
+            {item.children!.map((dropdownItem) => renderDropdownItem(dropdownItem))}
           </div>
         </div>
-      );
-    }
-
-    return null;
+      </div>
+    );
   };
 
   return (

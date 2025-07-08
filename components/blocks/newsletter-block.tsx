@@ -5,7 +5,7 @@ import type { CustomImageProps } from '../shared/custom-image';
 import Input from '../shared/forms/input';
 import LoadingSpinner from '../shared/loading-spinner';
 import { cn } from '@/lib/utils/css.utils';
-import CustomLink from '../shared/custom-link';
+import CustomLink, { CustomLinkProps } from '../shared/custom-link';
 
 type Props = {
   id: string;
@@ -14,7 +14,8 @@ type Props = {
   withFeaturedContent: boolean;
   featuredTitle: string;
   featuredImage: CustomImageProps;
-  featuredLink: any;
+  featuredLink: CustomLinkProps;
+  variant?: 'default' | 'vertical';
 };
 
 export default function NewsletterBlock({
@@ -24,6 +25,7 @@ export default function NewsletterBlock({
   featuredTitle,
   featuredImage,
   featuredLink,
+  variant = 'default',
 }: Props) {
   const renderFeaturedBlock = () => (
     <section className="flex w-full flex-col md:flex-row">
@@ -64,10 +66,20 @@ export default function NewsletterBlock({
   }
 
   return (
-    <div className="bg-neutral-white">
-      <section className="bg-secondary-light-purple/20 mb:py-12 py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
+    <div
+      className={cn(
+        'bg-neutral-white',
+        variant === 'vertical' && 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
+      )}
+    >
+      <section className={cn('bg-secondary-light-purple/20 mb:py-12 py-8')}>
+        <div className={cn('px-4 sm:px-6 lg:px-8', variant === 'default' && 'mx-auto max-w-7xl')}>
+          <div
+            className={cn(
+              'mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2',
+              variant === 'vertical' && 'mb:gap-5 lg:grid-cols-1',
+            )}
+          >
             <div>
               <h2 className="text-primary-blue mb:text-3xl mb:mb-3 mb:leading-130 mb-5 font-sans text-[23px] leading-120 font-semibold">
                 {title}
