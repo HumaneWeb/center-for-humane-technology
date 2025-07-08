@@ -35,6 +35,7 @@ import RelatedAnchorBlock from '../blocks/related-anchor-block';
 import LinksGridBlock from '../blocks/links-grid-block';
 import ContactWidgetBlock from '../blocks/contact-widget-block';
 import VideoItem from './video-item';
+import MediaBlock from '../blocks/media-block';
 
 export default function CustomStructuredText({
   data,
@@ -162,6 +163,7 @@ export default function CustomStructuredText({
               className={cn(
                 'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
                 centerContent && 'px-0!',
+                isInnerContainer && 'my-0 mb-5 max-w-full px-0 sm:px-0 lg:px-0',
               )}
               key={record.id}
             >
@@ -217,7 +219,6 @@ export default function CustomStructuredText({
               <GuideCard {...record} />
             </div>
           );
-          // return <GuideCard key={record.id} {...record} />;
         }
         if (record.__typename === 'GenericCardRecord') {
           return (
@@ -261,6 +262,9 @@ export default function CustomStructuredText({
               <VideoItem {...record} extraClassnames="mb:mt-5 mb:mb-5 mb-5" />
             </div>
           );
+        }
+        if (record.__typename === 'MediaBlockRecord') {
+          return <MediaBlock {...record} key={record.id} />;
         }
 
         return null;
@@ -322,7 +326,7 @@ export default function CustomStructuredText({
                     <div
                       className={cn(
                         'heading mb:mt-[75px] mb:mb-[24px] mx-auto mt-8 mb-5 max-w-7xl items-end px-4 sm:px-6 lg:px-8',
-                        isInnerContainer && 'mb-0 max-w-full px-0 sm:px-0 lg:px-0',
+                        isInnerContainer && 'mb:mt-0 mb-0 max-w-full px-0 sm:px-0 lg:px-0',
                         centerContent && 'px-0!',
                       )}
                       key={key}

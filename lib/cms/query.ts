@@ -330,6 +330,25 @@ export const GuideFragment = graphql(
   [ImageFragment, GlobalLinkFragment],
 );
 
+export const VideoItemFragment = graphql(
+  `
+    fragment VideoItemFragment on VideoItemRecord {
+      __typename
+      id
+      video {
+        title
+        url
+        thumbnailUrl
+      }
+      thumbnailImage {
+        ...ImageFragment
+      }
+      hideBlock
+    }
+  `,
+  [ImageFragment],
+);
+
 export const GridFragment = graphql(
   `
     fragment GridFragment on GridRecord {
@@ -343,6 +362,8 @@ export const GridFragment = graphql(
           ...GuideFragment
           ...GenericCardFragment
           ...AccordionBlockFragment
+          ...BlockquoteFragment
+          ...VideoItemFragment
         }
       }
       secondColumn {
@@ -356,11 +377,19 @@ export const GridFragment = graphql(
           ...GuideFragment
           ...GenericCardFragment
           ...AccordionBlockFragment
+          ...BlockquoteFragment
+          ...VideoItemFragment
         }
       }
     }
   `,
-  [GuideFragment, GenericCardFragment, AccordionBlockFragment],
+  [
+    GuideFragment,
+    GenericCardFragment,
+    AccordionBlockFragment,
+    BlockquoteFragment,
+    VideoItemFragment,
+  ],
 );
 
 export const ApproachBlockFragment = graphql(
@@ -612,25 +641,6 @@ export const LandingHighlightTexFragment = graphql(
     }
   `,
   [CTAFragment],
-);
-
-export const VideoItemFragment = graphql(
-  `
-    fragment VideoItemFragment on VideoItemRecord {
-      __typename
-      id
-      video {
-        title
-        url
-        thumbnailUrl
-      }
-      thumbnailImage {
-        ...ImageFragment
-      }
-      hideBlock
-    }
-  `,
-  [ImageFragment],
 );
 
 export const ContentBlockFragment = graphql(`
@@ -1057,6 +1067,7 @@ export const BasicPageQuery = graphql(
             ...MediaBlockFragment
             ...AccordionBlockFragment
             ...GuideFragment
+            ...GridFragment
           }
         }
         _seoMetaTags {
@@ -1100,6 +1111,7 @@ export const BasicPageQuery = graphql(
     MediaBlockFragment,
     AccordionBlockFragment,
     GuideFragment,
+    GridFragment,
   ],
 );
 

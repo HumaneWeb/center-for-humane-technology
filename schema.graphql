@@ -1860,7 +1860,7 @@ type GlobalSeoField {
   twitterAccount: String
 }
 
-union GridModelFirstColumnBlocksField = AccordionBlockRecord | GenericCardRecord | GuideCardRecord
+union GridModelFirstColumnBlocksField = AccordionBlockRecord | BlockquoteRecord | GenericCardRecord | GuideCardRecord | VideoItemRecord
 
 type GridModelFirstColumnField {
   blocks: [GridModelFirstColumnBlocksField!]!
@@ -1869,7 +1869,7 @@ type GridModelFirstColumnField {
   value: JsonField!
 }
 
-union GridModelSecondColumnBlocksField = AccordionBlockRecord | GenericCardRecord | GuideCardRecord
+union GridModelSecondColumnBlocksField = AccordionBlockRecord | BlockquoteRecord | GenericCardRecord | GuideCardRecord | VideoItemRecord
 
 type GridModelSecondColumnField {
   blocks: [GridModelSecondColumnBlocksField!]!

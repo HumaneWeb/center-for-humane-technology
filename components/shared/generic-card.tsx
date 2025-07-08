@@ -31,7 +31,7 @@ export default function GenericCard({
   const renderContent = () => (
     <article
       className={cn(
-        'group h-full transition-all duration-200 ease-in',
+        'group flex h-full flex-col transition-all duration-200 ease-in',
         variant === 'minimal' && 'bg-neutral-white hover:bg-primary-blue mb:w-[400px] p-7',
         variant === 'basic' && 'mb:grid-cols-[1fr_2fr] mb:gap-6 grid',
         variant === 'vertical' && 'mb:p-[30px] bg-[#F0F7F7] p-[15px]',
@@ -54,7 +54,7 @@ export default function GenericCard({
         />
       )}
 
-      <div>
+      <div className="flex flex-1 flex-col">
         {preTitle && (
           <h4
             className={cn(
@@ -113,7 +113,10 @@ export default function GenericCard({
         {cta && variant !== 'default' && (
           <CtaList
             items={cta}
-            extraClassnames={cn('mt-5', variant === 'vertical' && 'flex-col text-center mt-0')}
+            extraClassnames={cn(
+              'mt-5 flex-1 items-end',
+              variant === 'vertical' && 'flex-col justify-end text-center mt-0 items-stretch',
+            )}
           />
         )}
       </div>
