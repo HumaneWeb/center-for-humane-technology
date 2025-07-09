@@ -11,7 +11,7 @@ type Props = {
   image: CustomImageProps | null;
   slug: string;
   __typename: string;
-  variant?: 'default' | 'small' | 'small-cols';
+  variant?: 'default' | 'small' | 'small-cols' | 'vertical';
   externalUrl?: string;
 };
 
@@ -30,6 +30,7 @@ export default function PodcastMinimalCard({
       className={cn(
         'group mb:flex-row mb:gap-5 flex flex-col',
         variant === 'small-cols' && 'mb:flex grid grid-cols-[128px_1fr] gap-4.5',
+        variant === 'vertical' && 'mb:flex-col',
       )}
     >
       {image ? (

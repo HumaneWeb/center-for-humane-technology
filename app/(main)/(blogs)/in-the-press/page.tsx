@@ -29,12 +29,36 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
   });
   const totalPages = Math.ceil(pressCount.count / NEWS_PER_PAGE);
 
+  const { title, featuredMedia } = page;
+
   return (
     <>
-      <BasicHero title={page?.title} />
+      <BasicHero title={title} />
 
       <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <div className="max-w-[948px]">
+          {currentPage === 1 && featuredMedia.length > 0 && (
+            <div className="mb-10">
+              <h4 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
+                Recommended Media
+              </h4>
+              <div className="mb:grid-cols-3 grid gap-5">
+                {featuredMedia.map((item) => (
+                  <PodcastMinimalCard
+                    key={item.id}
+                    title={item.title}
+                    episode={`${item.category} | ${formatDate(item.date)}`}
+                    image={item.image}
+                    externalUrl={item.externalUrl}
+                    introduction={`${item.source ? `<b>${item.source}</b> - ` : ''}${item.length ?? '-'}`}
+                    labelExtraClass="flex-col items-start"
+                    variant="vertical"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {press.length > 0 && (
             <div>
               <h4 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">

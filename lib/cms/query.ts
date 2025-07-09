@@ -1322,6 +1322,9 @@ export const InThePressListQuery = graphql(
     query InThePressListQuery($skip: IntType!, $first: IntType!) {
       page: blogList {
         title
+        featuredMedia {
+          ...PressFragment
+        }
         _seoMetaTags {
           ...TagFragment
         }

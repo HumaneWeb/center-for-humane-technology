@@ -9,6 +9,7 @@ import { executeQuery } from '@/lib/cms/executeQuery';
 import { PodcastListQuery } from '@/lib/cms/query';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import type { PodcastListPageProps } from '@/lib/utils/types';
+import ScrollToResults from '@/components/shared/scroll-to-results';
 
 export const generateMetadata = generateMetadataFn({
   query: PodcastListQuery,
@@ -42,6 +43,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
 
   return (
     <>
+      <ScrollToResults />
       <PodcastListHero {...page} />
 
       <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
@@ -70,7 +72,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
 
         {podcasts.length > 0 && (
           <>
-            <div className="mb:mb-16 mb-8 flex max-w-[948px] flex-col gap-12">
+            <div id="podcasts-grid" className="mb:mb-16 mb-8 flex max-w-[948px] flex-col gap-12">
               {firstThree.map((podcast) => (
                 <PodcastMinimalCard {...podcast} key={podcast.id} />
               ))}

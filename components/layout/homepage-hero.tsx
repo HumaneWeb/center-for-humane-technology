@@ -7,21 +7,6 @@ type Props = ResultOf<typeof HomepageQuery>;
 export default function HomepageHero({ homepage }: Props) {
   const { title, introduction, ctas } = homepage!;
 
-  const courses = [
-    {
-      id: 1,
-      videoUrl: '/video1.mp4',
-    },
-    {
-      id: 2,
-      videoUrl: '/video2.mp4',
-    },
-    {
-      id: 3,
-      videoUrl: '/video3.mp4',
-    },
-  ];
-
   const mobileCourses = [
     {
       id: 11,
@@ -40,9 +25,6 @@ export default function HomepageHero({ homepage }: Props) {
       videoUrl: '/video4-mobile.mp4',
     },
   ];
-
-  const column1 = courses.filter((_, index) => index % 2 === 0);
-  const column2 = courses.filter((_, index) => index % 2 === 1);
 
   const mobileColumn1 = mobileCourses.filter((_, index) => index % 2 === 0);
   const mobileColumn2 = mobileCourses.filter((_, index) => index % 2 === 1);
@@ -82,7 +64,7 @@ export default function HomepageHero({ homepage }: Props) {
 
                 <div className="tablet-videos-child-wrapper mx-auto grid max-w-4xl grid-cols-2 gap-2.5 px-4 sm:px-6 lg:px-8">
                   <ScrollingColumn videos={mobileColumn1} direction="up" speed={30} />
-                  <ScrollingColumn videos={mobileColumn2} direction="up" speed={35} />
+                  <ScrollingColumn videos={mobileColumn2} direction="down" speed={30} />
                 </div>
                 <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-32 bg-gradient-to-t from-[#F8F4EF] to-transparent" />
               </div>
@@ -103,6 +85,7 @@ const RawVideoPlayer = ({ src, className }: { src: string; className: string }) 
         autoPlay
         loop
         playsInline
+        controls={false}
         aria-label="Video player"
       >
         <source src={src} type="video/mp4" />
@@ -128,7 +111,7 @@ function ScrollingColumn({ videos, direction, speed }: ScrollingColumnProps) {
   return (
     <div className="relative overflow-hidden">
       <div
-        className={`flex flex-col gap-2.5 ${direction === 'up' ? 'animate-scroll-up' : 'animate-scroll-down'}`}
+        className={`flex flex-col gap-2.5 ${direction === 'up' ? 'animate-scroll-up' : 'animate-scroll-up pt-12'}`}
         style={{
           animationDuration: `${speed}s`,
           animationTimingFunction: 'linear',

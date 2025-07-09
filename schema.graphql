@@ -402,6 +402,7 @@ type BlogListRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  featuredMedia: [PressRecord!]!
   id: ItemId!
   preview: JsonField
   seo: SeoField
