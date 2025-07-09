@@ -83,14 +83,14 @@ function ContentSidebar({ items, className = '' }: ContentSidebarProps) {
               </button>
 
               {isActive && hasChildLinks && (
-                <div className="mb:pt-5 flex flex-col gap-4 pb-2 pl-[28px]">
+                <div className="mb:pt-5 flex flex-col gap-0 pb-2 pl-[20px]">
                   {item.sublinks.map((subLink, subIndex) => (
                     <div key={subLink.id || subIndex}>
                       <span
                         onClick={() => {
                           handleClickJumpToSection(subLink.headline, true);
                         }}
-                        className="text-primary-teal mb:text-xl mb:leading-130 block cursor-pointer p-2.5 text-[18px] leading-140 font-medium transition-all duration-200 ease-in hover:bg-[#F0F7F7]"
+                        className="text-primary-teal mb:leading-130 block cursor-pointer p-2.5 text-[17px] leading-140 font-medium transition-all duration-200 ease-in hover:bg-[#F0F7F7]"
                       >
                         {subLink.headline}
                       </span>
