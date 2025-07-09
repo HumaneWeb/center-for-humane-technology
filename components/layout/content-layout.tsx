@@ -18,6 +18,7 @@ export default function ContentLayout({ page, configuration, withImage = true })
     contentAnchors,
     anchors,
     textColor,
+    content,
   } = page!;
   const { donateTitle, donateCta, donateImage } = configuration!;
 

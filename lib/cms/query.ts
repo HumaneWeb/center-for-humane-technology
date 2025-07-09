@@ -1069,6 +1069,7 @@ export const BasicPageQuery = graphql(
             ...AccordionBlockFragment
             ...GuideFragment
             ...GridFragment
+            ...FootnoteFragment
           }
         }
         _seoMetaTags {
@@ -1113,6 +1114,7 @@ export const BasicPageQuery = graphql(
     AccordionBlockFragment,
     GuideFragment,
     GridFragment,
+    FootnoteFragment,
   ],
 );
 
