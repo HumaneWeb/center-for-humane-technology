@@ -576,3 +576,60 @@ hr {
 .animate-scroll-down {
   animation: scroll-down linear infinite;
 }
+
+/* Grid */
+@media screen and (max-width: 992px) and (min-width: 570px) {
+  .circle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "item1 item2"
+      "item3 item2";
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .circle-grid-item-1 {
+    grid-area: item1;
+  }
+
+  .circle-grid-item-2 {
+    grid-area: item2;
+  }
+
+  .circle-grid-item-3 {
+    grid-area: item3;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 630px) {
+  .circle-grid-approach {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "item1 item2";
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .circle-grid-approach-item-1 {
+    grid-area: item1;
+  }
+
+  .circle-grid-approach-item-2 {
+    grid-area: item2;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .circle-grid-approach {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 630px) and (min-width: 450px) {
+  .circle-grid-approach-item-1 {
+    width: 60%;
+  }
+}

@@ -37,8 +37,8 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
           {cta && <Cta {...cta} extraClass="mb:mb-28 mb-10" />}
         </div>
 
-        <div className="mb:flex-row mb:gap-16 mb:items-center flex w-full flex-col justify-between gap-5">
-          <div className="mb:text-right">
+        <div className="mb:flex-row mb:gap-16 mb:items-center circle-grid flex w-full flex-col justify-between gap-5">
+          <div className="mb:text-right circle-grid-item-1">
             <h3 className="text-primary-teal mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
               {firstItem.title}
             </h3>
@@ -59,7 +59,7 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
 
           <GraphicImpact />
 
-          <div>
+          <div className="circle-grid-item-3">
             <h3 className="text-primary-blue mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
               {secondItem.title}
             </h3>
@@ -84,7 +84,7 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
 }
 
 const GraphicImpact = () => (
-  <div className="relative">
+  <div className="circle-grid-item-2 relative">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="467"

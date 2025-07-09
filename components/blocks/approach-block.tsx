@@ -29,12 +29,12 @@ export default function ApproachBlock({
           {headline}
         </h3>
 
-        <div className="mb:grid-cols-[2fr_3fr] grid">
-          <div className="mb:mb-0 mb-8">
+        <div className="circle-grid-approach mb:grid-cols-[2fr_3fr] grid">
+          <div className="mb:mb-0 circle-grid-approach-item-1 mb-8">
             <ApproachGraphic />
           </div>
 
-          <div>
+          <div className="circle-grid-approach-item-2">
             <div
               className="text-primary-navy [&>p>strong]:text-primary-blue mb:text-2xl mb:mb-5 mb-2 font-sans text-xl leading-140 font-medium"
               dangerouslySetInnerHTML={{ __html: title }}

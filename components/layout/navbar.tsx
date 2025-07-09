@@ -10,12 +10,16 @@ import SearchEngine from './search-engine';
 import type { NavbarChildren } from '@/lib/utils/types';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils/css.utils';
+import { usePathname } from 'next/navigation';
 
 type Props = {
   items: NavbarChildren[];
 };
 
 export default function Navbar({ items }: Props) {
+  const pathname = usePathname();
+  const shouldNavbarBeFixed = pathname.includes('/case-study/');
+
   const [openSearchEngine, setOpenSearchEngine] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -371,7 +375,7 @@ export default function Navbar({ items }: Props) {
     <motion.header
       className="ui-navbar border-primary-navy bg-neutral-white fixed top-0 right-0 left-0 z-40 border-b-[1px]"
       initial={{ y: 0 }}
-      animate={{ y: isVisible ? 0 : -1000 }}
+      animate={shouldNavbarBeFixed ? {} : { y: isVisible ? 0 : -1000 }}
       transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
     >
       <div className="mb:px-0 mb:gap-0 flex h-16 items-center justify-between gap-7 px-4">
