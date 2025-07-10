@@ -90,7 +90,7 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
       className={cn(
         'bg-primary-blue mb:mb-32 mb:pt-14 mb:pb-20 mt-20 py-8',
         variant === 'landing' && 'bg-landing-stats mt-10 mb-0 w-full',
-        variant === 'landing-teal' && 'bg-primary-teal mt-10 mb-0 w-full',
+        variant === 'landing-teal' && 'bg-primary-teal mb:mb-0 mt-10 mb-10 w-full',
         extraClassnames,
       )}
     >

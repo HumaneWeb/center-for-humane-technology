@@ -42,7 +42,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
               <h4 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
                 Recommended Media
               </h4>
-              <div className="mb:grid-cols-3 grid gap-5">
+              <div className="podcast-card mb:grid-cols-3 grid gap-5">
                 {featuredMedia.map((item) => (
                   <PodcastMinimalCard
                     key={item.id}
@@ -64,7 +64,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
               <h4 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
                 News + Press
               </h4>
-              <div className="flex flex-col gap-5">
+              <div className="podcast-card flex flex-col gap-5">
                 {press.map((item) => (
                   <PodcastMinimalCard
                     key={item.id}

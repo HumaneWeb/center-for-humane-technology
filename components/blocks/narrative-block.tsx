@@ -32,14 +32,14 @@ export default function NarrativeBlock({
   return (
     <section className={cn('narrative-block mb:pb-36 pb-5', extraClass)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb:gap-15 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
+        <div className="narrative-grid mb:gap-15 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
           {image && (
-            <div className={isImageLeft ? 'mb:order-1' : 'mb:order-2'}>
+            <div className={cn('image-div', isImageLeft ? 'mb:order-1' : 'mb:order-2')}>
               <CustomImage {...image} />
             </div>
           )}
 
-          <div className={isImageLeft ? 'mb:order-2' : 'mb:order-1'}>
+          <div className={cn('content-div', isImageLeft ? 'mb:order-2' : 'mb:order-1')}>
             <h2
               className={cn(
                 'text-primary-navy tracking-049 mb:text-[39px] mb:leading-110 mb:mb-[30px] mb-5 font-sans text-[29px] leading-120 font-semibold',

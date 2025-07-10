@@ -28,7 +28,7 @@ export default function PodcastMinimalCard({
   const cardContent = () => (
     <div
       className={cn(
-        'group mb:flex-row mb:gap-5 flex flex-col',
+        'podcast-grid group mb:flex-row mb:gap-5 flex flex-col',
         variant === 'small-cols' && 'mb:flex grid grid-cols-[128px_1fr] gap-4.5',
         variant === 'vertical' && 'mb:flex-col',
       )}

@@ -28,7 +28,7 @@ export default function ContactWidgetBlock({ title, introduction }: Props) {
     <div className="bg-neutral-white">
       <section className="bg-secondary-light-purple/20 mb:py-12 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
+          <div className="newsletter-grid mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
             <div>
               <h2 className="text-primary-blue mb:text-3xl mb:mb-3 mb:leading-130 mb-5 font-sans text-[23px] leading-120 font-semibold">
                 {title}
@@ -41,7 +41,7 @@ export default function ContactWidgetBlock({ title, introduction }: Props) {
               )}
             </div>
             <div>
-              <form onSubmit={handleSubmit} className="max-w-[500px] space-y-3">
+              <form onSubmit={handleSubmit} className="mb:max-w-[500px] space-y-3">
                 <div className="border-primary-blue mb:flex-row flex flex-col gap-0 overflow-hidden rounded-[5px] border-2">
                   <Input
                     type="email"

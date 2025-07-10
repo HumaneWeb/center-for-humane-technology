@@ -13,7 +13,7 @@ type Props = {
 
 export default function PodcastCard({ title, preTitle, introduction, cta, icon, podcast }: Props) {
   return (
-    <article>
+    <article className="podcast-card">
       {preTitle && (
         <h6 className="text-primary-blue mb:leading-135 tracking-08 mb:mb-7 mb-5 font-sans text-[16px] leading-120 font-medium uppercase">
           {preTitle}

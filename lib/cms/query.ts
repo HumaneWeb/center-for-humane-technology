@@ -1661,7 +1661,7 @@ export const LatestPodcastQuery = graphql(
           ...ImageFragment
         }
         slug
-        _modelApiKey
+        __typename
       }
     }
   `,

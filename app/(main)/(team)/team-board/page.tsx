@@ -93,7 +93,7 @@ export default async function TeamListPage() {
                     <div className="relative flex h-20 items-center justify-center md:h-24">
                       <CustomImage
                         {...supporter.logo}
-                        className="max-h-full max-w-full object-contain grayscale filter transition-all duration-300 group-hover:grayscale-0"
+                        extraClass="max-h-full max-w-full object-contain grayscale filter transition-all duration-300 group-hover:grayscale-0"
                       />
                     </div>
 

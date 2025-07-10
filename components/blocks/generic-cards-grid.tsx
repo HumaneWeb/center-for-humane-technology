@@ -147,7 +147,7 @@ export default function GenericCardsGrid({
             className={cn(
               'grid',
               variant === 'default' && 'mb:grid-cols-2 mb:gap-y-0 gap-x-32 gap-y-8',
-              variant === '4-columns' && 'mb:grid-cols-3 gap-5',
+              variant === '4-columns' && 'responsive-grid mb:grid-cols-3 gap-5',
             )}
           >
             {items.map((item) => (

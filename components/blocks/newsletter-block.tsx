@@ -28,9 +28,9 @@ export default function NewsletterBlock({
   variant = 'default',
 }: Props) {
   const renderFeaturedBlock = () => (
-    <section className="flex w-full flex-col md:flex-row">
+    <section className="newsletter-grid-featured flex w-full flex-col md:flex-row">
       <div
-        className="mb:justify-end mb:px-12 mb:pb-7 mb:pt-44 flex w-full items-end bg-cover bg-center bg-no-repeat px-7 py-4 pt-20 md:w-1/2"
+        className="newsletter-grid-featured-item mb:justify-end mb:px-12 mb:pb-7 mb:pt-44 flex w-full items-end bg-cover bg-center bg-no-repeat px-7 py-4 pt-20 md:w-1/2"
         style={{ backgroundImage: `url(${featuredImage!.url})` }}
       >
         <div className="max-w-sm text-center md:max-w-[560px]">
@@ -76,7 +76,7 @@ export default function NewsletterBlock({
         <div className={cn('px-4 sm:px-6 lg:px-8', variant === 'default' && 'mx-auto max-w-7xl')}>
           <div
             className={cn(
-              'mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2',
+              'newsletter-grid mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2',
               variant === 'vertical' && 'mb:gap-5 lg:grid-cols-1',
             )}
           >
@@ -160,7 +160,7 @@ export const SubstackNewsletterWidget = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-[500px] space-y-3">
+    <form onSubmit={handleSubmit} className="mb:max-w-[500px] space-y-3">
       <div className="border-primary-blue mb:flex-row flex flex-col gap-0 overflow-hidden rounded-[5px] border-2">
         <Input
           type="email"

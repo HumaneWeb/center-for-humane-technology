@@ -101,7 +101,7 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
               <h3 className="text-primary-navy mb:text-[29px] mb:leading-130 mb:mb-6 mb-5 font-sans text-[23px] leading-120 font-semibold">
                 {item.title}
               </h3>
-              <div className="mb:grid-cols-[auto_1fr] mb:gap-6 mb:mb-20 mb-5 grid gap-3">
+              <div className="anchor-parent-grid mb:grid-cols-[auto_1fr] mb:gap-6 mb:mb-20 mb-5 grid gap-3">
                 <CustomImage {...item.image} extraClass="mb:max-w-[516px]" />
                 <div
                   className="text-primary-navy mb:text-xl mb:leading-140 font-sans text-[18px] leading-130 font-medium"
@@ -110,7 +110,10 @@ export default function RelatedAnchorBlock({ items, information }: Props) {
               </div>
               <div className="mb:grid-cols-3 mb:mb-12 mb-5 grid gap-6">
                 {item.items.map((subItem) => (
-                  <div key={subItem.id} className="mb:gap-[30px] flex flex-col gap-[10px]">
+                  <div
+                    key={subItem.id}
+                    className="anchor-child-grid mb:gap-[30px] flex flex-col gap-[10px]"
+                  >
                     <CustomImage {...subItem.image} extraClass="w-[190px] h-[190px]" />
                     <div
                       className="mb:leading-140 font-sans text-[16px] leading-130 font-medium"

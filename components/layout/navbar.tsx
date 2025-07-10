@@ -349,11 +349,11 @@ export default function Navbar({ items }: Props) {
           }}
           id={`dropdown-${index}`}
           className={cn(
-            'bg-neutral-white border-primary-navy Xoverflow-hidden transition-all duration-300 ease-in-out',
+            'bg-neutral-white border-primary-navy transition-all duration-300 ease-in-out',
             isMobile
               ? isOpen
-                ? 'max-h-screen border-t-[1px] opacity-100'
-                : 'max-h-0 opacity-0'
+                ? 'block max-h-screen border-t-[1px] opacity-100'
+                : 'hidden max-h-0 opacity-0'
               : cn(
                   'absolute top-full left-0 z-50 hidden w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm',
                   isOpen && 'flex',
