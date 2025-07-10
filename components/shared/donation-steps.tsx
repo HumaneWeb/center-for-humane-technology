@@ -133,22 +133,25 @@ export default function DonationSteps() {
     if (currentStep === 2) {
       // Create payment intent when moving to step 3
       try {
-        const response = await fetch('/api/create-payment-intent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            amount: Number(formData.amount),
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            frequency: formData.frequency,
-            coverFees: formData.coverFees,
-          }),
-        });
+        const response = await fetch(
+          'https://ht-hbspt.loggins.workers.dev/api/create-contact-and-payment',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              amount: Number(formData.amount),
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+              email: formData.email,
+              // frequency: formData.frequency,
+              // coverFees: formData.coverFees,
+            }),
+          },
+        );
 
-        const { clientSecret, error } = await response.json();
+        const { success, clientSecret, error } = await response.json();
 
-        if (clientSecret) {
+        if (success && clientSecret) {
           setClientSecret(clientSecret);
           setCurrentStep(3);
         } else {

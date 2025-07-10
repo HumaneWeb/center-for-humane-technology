@@ -100,7 +100,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
         currentPage={currentPage}
         totalPages={totalPages}
         searchQuery={searchQuery}
-        basePath="/your-undivided-attention"
+        basePath="/podcast"
         className="mb:mb-16 mb-8"
       />
 

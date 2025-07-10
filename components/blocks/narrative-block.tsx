@@ -1,14 +1,15 @@
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
 import CtaList from '../shared/cta-list';
 import { cn } from '@/lib/utils/css.utils';
+import { CtaProps } from '../shared/cta';
 
 type Props = {
-  id: string;
+  id?: string;
   title: string;
   introduction: string;
-  ctas: any;
+  ctas?: CtaProps[];
   image: CustomImageProps;
-  imagePosition: 'right' | 'left';
+  imagePosition?: 'right' | 'left';
   extraClass?: string;
   headingExtraClass?: string;
   textExtraClass?: string;
