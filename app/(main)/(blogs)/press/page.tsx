@@ -35,7 +35,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
     <>
       <BasicHero title={title} />
 
-      <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <section className="press-page mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <div className="max-w-[948px]">
           {currentPage === 1 && featuredMedia.length > 0 && (
             <div className="mb-10">

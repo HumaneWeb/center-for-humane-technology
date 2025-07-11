@@ -24,17 +24,17 @@ export default function PodcastListHero({
   spotifyUrl,
   youtubeUrl,
 }: Props) {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile({ breakpoint: 1440 });
 
   return (
-    <section className="bg-gradient-podcast-list mb:pt-20">
+    <section className="podcast-list-hero bg-gradient-podcast-list mb:pt-20">
       <div
-        className="mb:min-h-[700px] bg-contain bg-bottom-right bg-no-repeat"
+        className="podcast-list-hero-wrapper mb:min-h-[700px] bg-contain bg-bottom-right bg-no-repeat"
         style={{ backgroundImage: isMobile ? 'none' : `url(${image?.url})` }}
       >
-        <div className="relative mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
+        <div className="podcast-list-hero-wrapper-content relative mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
           {decoratorIcon && (
-            <div className="mb:absolute left-[-60px] pt-3">
+            <div className="podcast-list-hero-decorator mb:absolute left-[-60px] pt-3">
               <CustomImage {...decoratorIcon} extraClass="mb:w-[65px] w-[50px] mb-2 mb:mb-0" />
             </div>
           )}

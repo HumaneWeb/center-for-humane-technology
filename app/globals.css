@@ -609,6 +609,26 @@ hr {
 
   .tablet-videos-child-wrapper {
     grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+
+  .tablet-videos {
+    flex: 1;
+  }
+
+  .raw-video-player {
+    width: 100%;
+    height: 450px;
+  }
+
+  .tablet-videos-child {
+    height: 50dvh;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .raw-video-player {
+    height: 300px;
   }
 }
 
@@ -710,12 +730,113 @@ hr {
 }
 
 /* Tablet fixes */
-@media screen and (max-width: 1024px) and (min-width: 700px) {
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+  .team-detail-grid {
+    gap: 3rem;
+  }
+}
+
+@media screen and (max-width: 1440px) and (min-width: 992px) {
+  .podcast-list-hero .podcast-list-hero-wrapper {
+    display: grid;
+    align-items: end;
+    grid-template-columns: 1fr 1fr;
+    min-height: auto;
+  }
+
+  .podcast-list-hero-wrapper-content {
+    padding-top: 0;
+    padding-bottom: 3rem;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 700px) {
+  .podcast-list-hero .podcast-list-hero-wrapper {
+    display: grid;
+    align-items: end;
+    grid-template-columns: 1.5fr 1fr;
+    min-height: auto;
+  }
+
+  .podcast-list-hero-wrapper-content {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 1430px) and (min-width: 992px) {
+  .podcast-list-hero .podcast-list-hero-decorator {
+    position: unset;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 600px) {
+  .awareness-block {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .awareness-block .awareness-block-first {
+    display: block;
+    padding: 1rem 0;
+    padding-inline: calc(var(--spacing) * 6);
+    margin: 0;
+  }
+
+  .awareness-block .awareness-block-first-wrapper {
+    padding: 1rem 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .awareness-block .awareness-block-second {
+    display: block;
+    padding: 1rem 0;
+    padding-inline: calc(var(--spacing) * 6);
+    margin: 0;
+  }
+
+  .awareness-block .awareness-block-second-wrapper {
+    padding: 1rem 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .awareness-block .awareness-block-second-wrapper .podcast-grid {
+    max-width: 800px;
+    grid-template-columns: auto 1fr;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 770px) {
   .narrative-grid {
     align-items: flex-start;
     grid-template-columns: 1fr 1fr;
   }
+}
 
+@media screen and (max-width: 1260px) and (min-width: 700px) {
+  .complex-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    padding-top: 7rem;
+    background-image: none !important;
+  }
+
+  .complex-hero-grid .complex-hero-grid-content {
+    padding-top: 0;
+    height: auto;
+  }
+
+  .complex-hero-grid .complex-hero-grid-image {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 700px) {
   .newsletter-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -746,13 +867,70 @@ hr {
     margin-bottom: 2rem;
   }
 
-  .anchor-child-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    align-items: center;
-  }
-
   .responsive-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .generic-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "item1 item2"
+      "item1 item3"
+      "item1 item4"
+      "item1 item5";
+    align-items: flex-start;
+    column-gap: 1.5rem;
+  }
+
+  .no-responsive-grid {
+    gap: 3rem;
+  }
+
+  .no-responsive-grid .generic-card-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .no-responsive-grid .generic-card-grid .generic-card-pre-title {
+    margin-bottom: 20px;
+  }
+
+  .generic-card-pre-title {
+    grid-area: item2;
+    margin-bottom: 0;
+  }
+
+  .generic-card-title {
+    grid-area: item3;
+    margin-bottom: 0;
+  }
+
+  .generic-card-image {
+    grid-area: item1;
+  }
+
+  .generic-card-introduction {
+    grid-area: item4;
+    margin-bottom: 0;
+  }
+
+  .generic-cta {
+    grid-area: item5;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 992px) {
+  .press-page .podcast-card .podcast-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 700px) {
+  .anchor-child-grid {
+    display: grid;
+    grid-template-columns: auto 2fr;
+    align-items: center;
   }
 }

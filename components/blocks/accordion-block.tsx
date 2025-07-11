@@ -39,7 +39,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
               >
                 <span
                   className={cn(
-                    'mb:text-2xl mb:leading-120 font-sans text-[18px] leading-140 font-semibold text-[#262626]',
+                    'mb:text-2xl mb:leading-120 text-left font-sans text-[18px] leading-140 font-semibold text-[#262626]',
                     variant === 'small' && 'text-[16px]',
                   )}
                 >

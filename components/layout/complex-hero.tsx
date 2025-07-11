@@ -21,7 +21,7 @@ export default function ComplexHero({
   mobileImage,
   variant,
 }: Props) {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile({ breakpoint: mobileImage ? 1260 : 992 });
 
   return (
     <section
@@ -34,12 +34,15 @@ export default function ComplexHero({
       )}
     >
       <div
-        className="bg-contain bg-bottom-right bg-no-repeat"
+        className={cn(
+          'bg-contain bg-bottom-right bg-no-repeat',
+          isMobile && mobileImage && 'complex-hero-grid',
+        )}
         style={{
           backgroundImage: isMobile ? 'none' : `url(${image?.url})`,
         }}
       >
-        <div className="mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8">
+        <div className="complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8">
           <div className="max-w-[750px]">
             {preTitle && (
               <h2
@@ -67,7 +70,7 @@ export default function ComplexHero({
           </div>
         </div>
         {isMobile && mobileImage && (
-          <div>
+          <div className="complex-hero-grid-image">
             <CustomImage {...mobileImage} extraClass="objet-cover" />
           </div>
         )}

@@ -7,7 +7,7 @@ type Props = ResultOf<typeof HomepageQuery>;
 export default function HomepageHero({ homepage }: Props) {
   const { title, introduction, ctas } = homepage!;
 
-  const mobileCourses = [
+  const mobileVideos = [
     {
       id: 11,
       videoUrl: '/video1-mobile.mp4',
@@ -26,8 +26,8 @@ export default function HomepageHero({ homepage }: Props) {
     },
   ];
 
-  const mobileColumn1 = mobileCourses.filter((_, index) => index % 2 === 0);
-  const mobileColumn2 = mobileCourses.filter((_, index) => index % 2 === 1);
+  const mobileColumn1 = mobileVideos.filter((_, index) => index % 2 === 0);
+  const mobileColumn2 = mobileVideos.filter((_, index) => index % 2 === 1);
 
   return (
     <section className="homepage-hero mb:bg-contain mb:bg-right mb:bg-no-repeat mb:bg-[url('/homepage-circles.svg')] mb:h-dvh mb:py-20 bg-[#F8F4EF] pt-30 pb-10">

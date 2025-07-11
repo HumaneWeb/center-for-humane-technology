@@ -13,29 +13,35 @@ type Props = {
 
 export default function CaseStudyCard({ title, preTitle, image, introduction, cta }: Props) {
   return (
-    <article>
+    <article className="generic-card-grid">
       {preTitle && (
-        <h6 className="text-primary-cream mb:leading-135 tracking-08 mb:mb-7 mb-5 font-sans text-[16px] leading-120 font-medium uppercase">
+        <h6 className="generic-card-pre-title text-primary-cream mb:leading-135 tracking-08 mb:mb-7 mb-5 font-sans text-[16px] leading-120 font-medium uppercase">
           {preTitle}
         </h6>
       )}
       {title && (
-        <h2 className="text-primary-cream tracking-031 mb:text-3xl mb:leading-110 mb:mb-7 mb-5 font-sans text-[23px] leading-120 font-semibold">
+        <h2 className="generic-card-title text-primary-cream tracking-031 mb:text-3xl mb:leading-110 mb:mb-7 mb-5 font-sans text-[23px] leading-120 font-semibold">
           {title}
         </h2>
       )}
       {image && (
-        <div className="mb:mb-7 mb-5">
+        <div className="generic-card-image mb:mb-7 mb-5">
           <CustomImage {...image} extraClass="aspect-[3/2]" />
         </div>
       )}
       {introduction && (
         <div
-          className="text-neutral-white mb:text-xl mb-7 font-sans text-[18px] leading-140 font-normal"
+          className="generic-card-introduction text-neutral-white mb:text-xl mb-7 font-sans text-[18px] leading-140 font-normal"
           dangerouslySetInnerHTML={{ __html: introduction }}
         />
       )}
-      {cta && <CtaList items={cta} ctaExtraClassnames="hover:bg-[#0B1023]" />}
+      {cta && (
+        <CtaList
+          items={cta}
+          extraClassnames="generic-cta"
+          ctaExtraClassnames=" hover:bg-[#0B1023]"
+        />
+      )}
     </article>
   );
 }

@@ -57,7 +57,7 @@ export default async function TeamDetailPage({ params }: PageSlug) {
           </CustomLink>
         </div>
 
-        <div className="mb:grid-cols-[1fr_2fr] mb:gap-32 grid gap-10">
+        <div className="team-detail-grid mb:grid-cols-[1fr_2fr] mb:gap-32 grid gap-10">
           <div>
             <CustomImage {...image} extraClass="mb:mb-9 mb-5" />
             <div className="flex flex-wrap items-center gap-5">

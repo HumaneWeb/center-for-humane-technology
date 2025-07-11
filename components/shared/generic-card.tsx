@@ -32,6 +32,7 @@ export default function GenericCard({
     <article
       className={cn(
         'group flex h-full flex-col transition-all duration-200 ease-in',
+        variant === 'default' && 'generic-card-grid',
         variant === 'minimal' && 'bg-neutral-white hover:bg-primary-blue mb:w-[400px] p-7',
         variant === 'basic' && 'mb:grid-cols-[1fr_2fr] mb:gap-6 grid',
         variant === 'vertical' && 'mb:p-[30px] bg-[#F0F7F7] p-[15px]',
@@ -40,7 +41,7 @@ export default function GenericCard({
       )}
     >
       {variant === 'default' && title && (
-        <h2 className="mb:leading-130 text-primary-teal group-hover:text-primary-blue mb:text-[25px] mb:mb-5 mb-4 font-sans text-xl leading-120 font-semibold">
+        <h2 className="generic-card-pre-title mb:leading-130 text-primary-teal group-hover:text-primary-blue mb:text-[25px] mb:mb-5 mb-4 font-sans text-xl leading-120 font-semibold">
           {title}
         </h2>
       )}
@@ -50,6 +51,7 @@ export default function GenericCard({
           extraClass={cn(
             'w-full mb:mb-5 mb-4 object-cover aspect-[3/2]',
             variant === 'minimal-small' && 'h-auto mb-2.5',
+            variant === 'default' && 'generic-card-image',
           )}
         />
       )}
@@ -60,6 +62,7 @@ export default function GenericCard({
             className={cn(
               'tracking-08 mb-2 font-sans text-[16px] leading-135 font-semibold uppercase',
               variant === 'vertical' && 'mb-5',
+              variant === 'default' && 'generic-card-pre-title',
             )}
           >
             {preTitle}
@@ -75,6 +78,7 @@ export default function GenericCard({
                 variant === 'basic' && 'mb-2',
                 variant === 'vertical' && 'mb-5',
                 variant === 'minimal-small' && 'mb-2.5 text-xl leading-120',
+                variant === 'default' && 'generic-card-title',
               )}
             >
               {title}
@@ -106,6 +110,7 @@ export default function GenericCard({
               variant === 'basic' && 'mb:mb-8',
               variant === 'vertical' && 'mb-5',
               variant === 'minimal-small' && 'text-[16px] leading-140',
+              variant === 'default' && 'generic-card-introduction',
             )}
             dangerouslySetInnerHTML={{ __html: introduction }}
           />

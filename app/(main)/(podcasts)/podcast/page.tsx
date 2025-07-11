@@ -72,7 +72,10 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
 
         {podcasts.length > 0 && (
           <>
-            <div id="podcasts-grid" className="mb:mb-16 mb-8 flex max-w-[948px] flex-col gap-12">
+            <div
+              id="podcasts-grid"
+              className="podcast-card mb:mb-16 mb-8 flex max-w-[948px] flex-col gap-12"
+            >
               {firstThree.map((podcast) => (
                 <PodcastMinimalCard {...podcast} key={podcast.id} />
               ))}
@@ -88,7 +91,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
 
       {remaining.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
-          <div className="mb:mb-36 mb-20 flex max-w-[948px] flex-col gap-12">
+          <div className="podcast-card mb:mb-36 mb-20 flex max-w-[948px] flex-col gap-12">
             {remaining.map((podcast) => (
               <PodcastMinimalCard {...podcast} key={podcast.id} />
             ))}

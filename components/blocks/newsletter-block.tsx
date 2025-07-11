@@ -43,7 +43,7 @@ export default function NewsletterBlock({
         </div>
       </div>
 
-      <div className="bg-secondary-light-purple/20 mb:w-1/2 mb:py-14 flex w-full items-center justify-start px-7 py-8">
+      <div className="newsletter-grid-featured-item bg-secondary-light-purple/20 mb:w-1/2 mb:py-14 flex w-full items-center justify-start px-7 py-8">
         <div className="w-full md:max-w-[560px]">
           <h2 className="text-primary-blue mb:text-[29px] mb:mb-3 mb-5 font-sans text-[23px] leading-130 font-semibold">
             {title}

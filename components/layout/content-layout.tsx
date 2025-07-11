@@ -38,7 +38,12 @@ export default function ContentLayout({ page, configuration, withImage = true })
       />
       {withTopBar && <ContentTopBar items={anchors} />}
 
-      <div className="mb:mt-35 mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div
+        className={cn(
+          'mb:mt-35 mb:mx-auto mb:max-w-7xl mb:px-4 mt-10 px-0',
+          none && 'px-4 sm:px-6 lg:px-8',
+        )}
+      >
         <div
           className={cn('mb:pb-50 pb-10', withSidebar && 'mb:grid-cols-[1fr_3fr] mb:gap-13 grid')}
         >
