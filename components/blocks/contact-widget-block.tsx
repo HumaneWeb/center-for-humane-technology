@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Input from '../shared/forms/input';
 import { cn } from '@/lib/utils/css.utils';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   title: string;
@@ -27,7 +28,7 @@ export default function ContactWidgetBlock({ title, introduction }: Props) {
   return (
     <div className="bg-neutral-white">
       <section className="bg-secondary-light-purple/20 mb:py-12 py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <FadeIn className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="newsletter-grid mb:gap-20 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
             <div>
               <h2 className="text-primary-blue mb:text-3xl mb:mb-3 mb:leading-130 mb-5 font-sans text-[23px] leading-120 font-semibold">
@@ -62,7 +63,7 @@ export default function ContactWidgetBlock({ title, introduction }: Props) {
               </form>
             </div>
           </div>
-        </div>
+        </FadeIn>
       </section>
     </div>
   );

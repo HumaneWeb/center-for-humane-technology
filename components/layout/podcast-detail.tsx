@@ -10,6 +10,7 @@ import CustomImage from '../shared/custom-image';
 import { formatDate } from '@/lib/utils/date.utils';
 import { useRef, useState } from 'react';
 import { PlayIcon, PauseIcon } from 'lucide-react';
+import { FadeIn } from '../shared/fade-in';
 
 export default function PodcastDetail({
   podcast,
@@ -42,7 +43,7 @@ export default function PodcastDetail({
   return (
     <>
       <div className="bg-gradient-podcast-list mb:min-h-[700px] mb:pb-0 pt-10 pb-8">
-        <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+        <FadeIn className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
           <CustomLink
             content={{ content: podcastList }}
             extraClass="flex items-center gap-2 mb-5 mb:mb-14"
@@ -246,14 +247,14 @@ export default function PodcastDetail({
               )}
             </div>
           </div>
-        </div>
+        </FadeIn>
       </div>
       <NewsletterBlock
         title={configuration?.newsletterTitle}
         introduction={configuration?.newsletterIntroduction}
       />
       <div className="mb:pt-[100px] mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="mb:mb-50 mb:grid-cols-2 mb-10 grid gap-15">
+        <FadeIn className="mb:mb-50 mb:grid-cols-2 mb-10 grid gap-15">
           {majorTakeaways && (
             <div>
               <h3 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
@@ -274,10 +275,10 @@ export default function PodcastDetail({
               </div>
             </div>
           )}
-        </div>
+        </FadeIn>
 
         {moreListening.length > 0 && (
-          <div className="mb:mb-40 mb-20">
+          <FadeIn className="mb:mb-40 mb-20">
             <h2 className="text-primary-blue mb:text-3xl mb:leading-130 mb-8 font-sans text-[23px] leading-120 font-semibold">
               Continue listening
             </h2>
@@ -286,7 +287,7 @@ export default function PodcastDetail({
                 <PodcastMinimalCard {...podcast} key={podcast.id} variant="small-cols" />
               ))}
             </div>
-          </div>
+          </FadeIn>
         )}
       </div>
     </>

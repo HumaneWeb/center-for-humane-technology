@@ -5,6 +5,7 @@ import CustomStructuredText from '../shared/custom-structured-text';
 import DonateBlock from '../blocks/donate-block';
 import ContentSidebar from '../shared/content-sidebar';
 import ContentTopBar from '../shared/content-top-bar';
+import { FadeIn } from '../shared/fade-in';
 
 export default function ContentLayout({ page, configuration, withImage = true }) {
   const {
@@ -48,9 +49,9 @@ export default function ContentLayout({ page, configuration, withImage = true })
           className={cn('mb:pb-50 pb-10', withSidebar && 'mb:grid-cols-[1fr_3fr] mb:gap-13 grid')}
         >
           {withSidebar && <ContentSidebar items={anchors} />}
-          <div className="content-layout">
+          <FadeIn className="content-layout">
             <CustomStructuredText data={page?.content} centerContent={withTopBar || none} />
-          </div>
+          </FadeIn>
         </div>
       </div>
       <DonateBlock title={donateTitle} cta={donateCta} image={donateImage} />

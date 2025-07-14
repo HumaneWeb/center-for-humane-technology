@@ -8,6 +8,7 @@ import ImageGalleryBlock from './image-gallery-block';
 import ContentBlock from './content-block';
 import VideoItem from '../shared/video-item';
 import ImageBlock from './image-block';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   components: {
@@ -57,8 +58,12 @@ const BlockBuilderLanding: React.FC<Props> = ({ components = [], variant = 'text
 
         const extraProps = ExtraProps[__typename] || {};
         if (typeof BlockComponent === 'function' || typeof BlockComponent === 'object') {
-          // @ts-ignore
-          return <BlockComponent key={id} {...rest} {...extraProps} {...globalVariantProps} />;
+          return (
+            <FadeIn key={id}>
+              {/* @ts-ignore */}
+              <BlockComponent {...rest} {...extraProps} {...globalVariantProps} />
+            </FadeIn>
+          );
         }
 
         return <div key={id}>{BlockComponent}</div>;

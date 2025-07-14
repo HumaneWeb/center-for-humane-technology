@@ -1,5 +1,6 @@
 import Cta from '../shared/cta';
 import { cn } from '@/lib/utils/css.utils';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   id: string;
@@ -24,59 +25,73 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-[840px]">
           {title && (
-            <h2 className="text-primary-navy tracking-049 mb:text-5xl mb:leading-110 mb-[30px] font-sans text-[29px] leading-120 font-semibold">
-              {title}
-            </h2>
+            <FadeIn>
+              <h2 className="text-primary-navy tracking-049 mb:text-5xl mb:leading-110 mb-[30px] font-sans text-[29px] leading-120 font-semibold">
+                {title}
+              </h2>
+            </FadeIn>
           )}
           {introduction && (
-            <div
-              className="text-primary-navy mb:text-xl mb-[30px] font-sans text-[18px] leading-140 font-normal"
-              dangerouslySetInnerHTML={{ __html: introduction }}
-            />
+            <FadeIn delay={0.5}>
+              <div
+                className="text-primary-navy mb:text-xl mb-[30px] font-sans text-[18px] leading-140 font-normal"
+                dangerouslySetInnerHTML={{ __html: introduction }}
+              />
+            </FadeIn>
           )}
-          {cta && <Cta {...cta} extraClass="mb:mb-28 mb-10" />}
+          {cta && (
+            <FadeIn delay={0.6}>
+              <Cta {...cta} extraClass="mb:mb-28 mb-10" />
+            </FadeIn>
+          )}
         </div>
 
         <div className="mb:flex-row mb:gap-16 mb:items-center circle-grid flex w-full flex-col justify-between gap-5">
-          <div className="mb:text-right circle-grid-item-1">
-            <h3 className="text-primary-teal mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
-              {firstItem.title}
-            </h3>
-            {firstItem.subtitle && (
-              <span className="text-primary-teal mb:text-xl mb-3.5 block font-sans text-[18px] leading-120 font-semibold">
-                {firstItem.subtitle}
-              </span>
-            )}
-            {firstItem.introduction && (
-              <div
-                className="text-primary-navy mb:leading-135 mb:max-w-[340px] mb-3.5 font-sans text-[16px] leading-140 font-normal"
-                dangerouslySetInnerHTML={{
-                  __html: firstItem.introduction,
-                }}
-              />
-            )}
-          </div>
+          <FadeIn delay={0.6}>
+            <div className="mb:text-right circle-grid-item-1">
+              <h3 className="text-primary-teal mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
+                {firstItem.title}
+              </h3>
+              {firstItem.subtitle && (
+                <span className="text-primary-teal mb:text-xl mb-3.5 block font-sans text-[18px] leading-120 font-semibold">
+                  {firstItem.subtitle}
+                </span>
+              )}
+              {firstItem.introduction && (
+                <div
+                  className="text-primary-navy mb:leading-135 mb:max-w-[340px] mb-3.5 font-sans text-[16px] leading-140 font-normal"
+                  dangerouslySetInnerHTML={{
+                    __html: firstItem.introduction,
+                  }}
+                />
+              )}
+            </div>
+          </FadeIn>
 
-          <GraphicImpact />
+          <FadeIn>
+            <GraphicImpact />
+          </FadeIn>
 
-          <div className="circle-grid-item-3">
-            <h3 className="text-primary-blue mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
-              {secondItem.title}
-            </h3>
-            {secondItem.subtitle && (
-              <span className="text-primary-blue mb:text-xl mb-3.5 block font-sans text-[18px] leading-120 font-semibold">
-                {secondItem.subtitle}
-              </span>
-            )}
-            {secondItem.introduction && (
-              <div
-                className="text-primary-navy mb:leading-135 mb:max-w-[340px] font-sans text-[16px] leading-140 font-normal"
-                dangerouslySetInnerHTML={{
-                  __html: secondItem.introduction,
-                }}
-              />
-            )}
-          </div>
+          <FadeIn delay={0.6}>
+            <div className="circle-grid-item-3">
+              <h3 className="text-primary-blue mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
+                {secondItem.title}
+              </h3>
+              {secondItem.subtitle && (
+                <span className="text-primary-blue mb:text-xl mb-3.5 block font-sans text-[18px] leading-120 font-semibold">
+                  {secondItem.subtitle}
+                </span>
+              )}
+              {secondItem.introduction && (
+                <div
+                  className="text-primary-navy mb:leading-135 mb:max-w-[340px] font-sans text-[16px] leading-140 font-normal"
+                  dangerouslySetInnerHTML={{
+                    __html: secondItem.introduction,
+                  }}
+                />
+              )}
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>

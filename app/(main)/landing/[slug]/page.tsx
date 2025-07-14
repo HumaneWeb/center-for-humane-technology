@@ -3,6 +3,7 @@ import BlockBuilderLanding from '@/components/blocks/block-builder-landing';
 import DonateBlock from '@/components/blocks/donate-block';
 import NewsletterBlock from '@/components/blocks/newsletter-block';
 import CustomImage from '@/components/shared/custom-image';
+import { FadeIn } from '@/components/shared/fade-in';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { LandingPageQuery } from '@/lib/cms/query';
@@ -49,7 +50,7 @@ export default async function LandingPage({ params }: PageSlug) {
           <div className="absolute inset-0 bg-black/10"></div>
 
           <div className="mb:pt-50 relative z-10 mx-auto max-w-7xl px-4 pt-30 sm:px-6 lg:px-8">
-            <div className="mx-auto flex h-full max-w-[1065px] flex-col justify-end text-center">
+            <FadeIn className="mx-auto flex h-full max-w-[1065px] flex-col justify-end text-center">
               {logo && <CustomImage {...logo} width={210} height={142} extraClass="mb-4" />}
               {title && (
                 <h1
@@ -84,7 +85,7 @@ export default async function LandingPage({ params }: PageSlug) {
                   )}
                 />
               )}
-            </div>
+            </FadeIn>
           </div>
         </div>
       )}
@@ -99,21 +100,29 @@ export default async function LandingPage({ params }: PageSlug) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {variant !== 'with-hero-image' && (
             <div className="flex flex-col items-center">
-              {logo && <CustomImage {...logo} width={210} height={142} extraClass="mb-4" />}
+              {logo && (
+                <FadeIn>
+                  <CustomImage {...logo} width={210} height={142} extraClass="mb-4" />
+                </FadeIn>
+              )}
               {title && (
-                <h1
-                  className={cn(
-                    'text-neutral-white tracking-039 mb:text-[39px] mb:leading-110 mb:mb-9 mb-5 font-sans text-[23px] leading-120 font-semibold',
-                    backgroundColor === 'light-orange' && 'text-primary-navy mb:text-[61px]',
-                  )}
-                >
-                  {title}
-                </h1>
+                <FadeIn delay={0.35}>
+                  <h1
+                    className={cn(
+                      'text-neutral-white tracking-039 mb:text-[39px] mb:leading-110 mb:mb-9 mb-5 font-sans text-[23px] leading-120 font-semibold',
+                      backgroundColor === 'light-orange' && 'text-primary-navy mb:text-[61px]',
+                    )}
+                  >
+                    {title}
+                  </h1>
+                </FadeIn>
               )}
               {subheading && (
-                <h2 className="tracking-039 font-sans text-4xl leading-110 font-semibold">
-                  {subheading}
-                </h2>
+                <FadeIn delay={0.35}>
+                  <h2 className="tracking-039 font-sans text-4xl leading-110 font-semibold">
+                    {subheading}
+                  </h2>
+                </FadeIn>
               )}
             </div>
           )}

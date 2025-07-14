@@ -4,6 +4,7 @@ import ComplexHero from './complex-hero';
 import CustomStructuredText from '../shared/custom-structured-text';
 import DonateBlock from '../blocks/donate-block';
 import BasicHero from './basic-hero';
+import { FadeIn } from '../shared/fade-in';
 
 export default function KeyTemplateLayout({ page, configuration, variant = 'key-template' }) {
   return (
@@ -27,7 +28,9 @@ export default function KeyTemplateLayout({ page, configuration, variant = 'key-
           page?.contentBackgroundColor === 'white' && 'bg-white-page',
         )}
       >
-        <CustomStructuredText data={page?.content} />
+        <FadeIn>
+          <CustomStructuredText data={page?.content} />
+        </FadeIn>
         <DonateBlock
           title={configuration?.donateTitle}
           image={configuration?.donateImage}

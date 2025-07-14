@@ -3,6 +3,7 @@ import DonateBlock from '@/components/blocks/donate-block';
 import CustomImage from '@/components/shared/custom-image';
 import CustomLink from '@/components/shared/custom-link';
 import CustomStructuredText from '@/components/shared/custom-structured-text';
+import { FadeIn } from '@/components/shared/fade-in';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { TeamDetailQuery } from '@/lib/cms/query';
@@ -34,7 +35,7 @@ export default async function TeamDetailPage({ params }: PageSlug) {
   return (
     <section className="bg-primary-teal/[0.08] pt-20">
       <div className="mb:pb-40 mx-auto max-w-7xl px-4 py-16 pb-20 sm:px-6 lg:px-8">
-        <div className="mb:mb-12 mb-5">
+        <FadeIn className="mb:mb-12 mb-5">
           <CustomLink content={{ content: teamBoard }} extraClass="flex items-center gap-[10px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,12 +56,14 @@ export default async function TeamDetailPage({ params }: PageSlug) {
               {teamBoard?.title}
             </span>
           </CustomLink>
-        </div>
+        </FadeIn>
 
         <div className="team-detail-grid mb:grid-cols-[1fr_2fr] mb:gap-32 grid gap-10">
           <div>
-            <CustomImage {...image} extraClass="mb:mb-9 mb-5" />
-            <div className="flex flex-wrap items-center gap-5">
+            <FadeIn>
+              <CustomImage {...image} extraClass="mb:mb-9 mb-5" />
+            </FadeIn>
+            <FadeIn className="flex flex-wrap items-center gap-5">
               {twitterXUrl && (
                 <a href={twitterXUrl}>
                   <svg
@@ -118,9 +121,9 @@ export default async function TeamDetailPage({ params }: PageSlug) {
                   </svg>
                 </a>
               )}
-            </div>
+            </FadeIn>
           </div>
-          <div>
+          <FadeIn delay={0.4}>
             <h1 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-3.5 mb-2 font-sans text-[29px] leading-120 font-semibold">
               {fullName}
             </h1>
@@ -130,7 +133,7 @@ export default async function TeamDetailPage({ params }: PageSlug) {
             <div className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 [&>p]:mb-4">
               <CustomStructuredText data={information} defaultRules />
             </div>
-          </div>
+          </FadeIn>
         </div>
       </div>
 

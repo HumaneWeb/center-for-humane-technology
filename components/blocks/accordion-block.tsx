@@ -1,6 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils/css.utils';
 import { useState } from 'react';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   items: {
@@ -25,7 +26,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
         const isActive = activeItem === item.id;
 
         return (
-          <div key={item.id}>
+          <FadeIn key={item.id}>
             <h2 id={`accordion-collapse-heading-${item.id}`}>
               <button
                 type="button"
@@ -91,7 +92,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
                 />
               )}
             </div>
-          </div>
+          </FadeIn>
         );
       })}
     </div>

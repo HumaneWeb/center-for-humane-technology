@@ -10,6 +10,7 @@ import { PodcastListQuery } from '@/lib/cms/query';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import type { PodcastListPageProps } from '@/lib/utils/types';
 import ScrollToResults from '@/components/shared/scroll-to-results';
+import { FadeIn } from '@/components/shared/fade-in';
 
 export const generateMetadata = generateMetadataFn({
   query: PodcastListQuery,
@@ -46,7 +47,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
       <ScrollToResults />
       <PodcastListHero {...page} />
 
-      <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <FadeIn delay={0.45} className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <SearchInput
           value={searchQuery}
           placeholder="Search topic by keyword..."
@@ -82,7 +83,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
             </div>
           </>
         )}
-      </section>
+      </FadeIn>
 
       <NewsletterBlock
         title={configuration?.newsletterTitle}

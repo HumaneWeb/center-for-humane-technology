@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils/css.utils';
 import Cta from '../shared/cta';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   headline: string;
@@ -25,16 +26,18 @@ export default function ApproachBlock({
       )}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h3 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-16 mb-10 font-sans text-[29px] leading-120 font-semibold">
-          {headline}
-        </h3>
+        <FadeIn>
+          <h3 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-16 mb-10 font-sans text-[29px] leading-120 font-semibold">
+            {headline}
+          </h3>
+        </FadeIn>
 
         <div className="circle-grid-approach mb:grid-cols-[2fr_3fr] grid">
-          <div className="mb:mb-0 circle-grid-approach-item-1 mb-8">
+          <FadeIn delay={0.4} className="mb:mb-0 circle-grid-approach-item-1 mb-8">
             <ApproachGraphic />
-          </div>
+          </FadeIn>
 
-          <div className="circle-grid-approach-item-2">
+          <FadeIn delay={0.4} className="circle-grid-approach-item-2">
             <div
               className="text-primary-navy [&>p>strong]:text-primary-blue mb:text-2xl mb:mb-5 mb-2 font-sans text-xl leading-140 font-medium"
               dangerouslySetInnerHTML={{ __html: title }}
@@ -46,7 +49,7 @@ export default function ApproachBlock({
             />
 
             <Cta {...cta} />
-          </div>
+          </FadeIn>
         </div>
       </div>
     </section>

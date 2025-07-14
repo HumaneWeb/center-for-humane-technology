@@ -3,6 +3,7 @@ import DonateBlock from '@/components/blocks/donate-block';
 import NewsletterBlock, { SubstackNewsletterWidget } from '@/components/blocks/newsletter-block';
 import BasicHero from '@/components/layout/basic-hero';
 import Cta from '@/components/shared/cta';
+import { FadeIn } from '@/components/shared/fade-in';
 import RSSFeedReader from '@/components/shared/rss-feed-reader';
 import SubstackFeed, { BlogFeed } from '@/components/shared/substack-feed';
 import { executeQuery } from '@/lib/cms/executeQuery';
@@ -27,7 +28,7 @@ export default async function SubstackPage() {
         </div>
       </BasicHero>
 
-      <div className="mb:pb-30 mx-auto max-w-7xl px-4 pt-17 pb-15 sm:px-6 lg:px-8">
+      <FadeIn className="mb:pb-30 mx-auto max-w-7xl px-4 pt-17 pb-15 sm:px-6 lg:px-8">
         <h4 className="text-primary-navy mb:text-[29px] mb:leading-130 mb:mb-6 mb-4 font-sans text-[23px] leading-120 font-semibold">
           Latest
         </h4>
@@ -37,7 +38,7 @@ export default async function SubstackPage() {
           link={{ externalUrl: 'https://centerforhumanetechnology.substack.com/' }}
           extraClass="mb:mt-25 mt-10"
         />
-      </div>
+      </FadeIn>
 
       <NewsletterBlock
         title={configuration?.newsletterTitle}

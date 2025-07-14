@@ -10,6 +10,7 @@ import BasicHero from '@/components/layout/basic-hero';
 import Cta from '@/components/shared/cta';
 import PodcastMinimalCard from '@/components/shared/podcast-minimal-card';
 import { formatDate } from '@/lib/utils/date.utils';
+import { FadeIn } from '@/components/shared/fade-in';
 
 export const generateMetadata = generateMetadataFn({
   query: InThePressListQuery,
@@ -35,7 +36,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
     <>
       <BasicHero title={title} />
 
-      <section className="press-page mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <FadeIn className="press-page mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <div className="max-w-[948px]">
           {currentPage === 1 && featuredMedia.length > 0 && (
             <div className="mb-10">
@@ -80,7 +81,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
             </div>
           )}
         </div>
-      </section>
+      </FadeIn>
 
       <PaginationControls
         currentPage={currentPage}

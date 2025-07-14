@@ -5,6 +5,7 @@ import BasicHero from '@/components/layout/basic-hero';
 import CareerCard from '@/components/shared/career-card';
 import ContactForm from '@/components/shared/contact-form';
 import Cta from '@/components/shared/cta';
+import { FadeIn } from '@/components/shared/fade-in';
 import SocialNetworks from '@/components/shared/social-networks';
 import TeamCard from '@/components/shared/team-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
@@ -24,7 +25,7 @@ export default async function ContactPage() {
   return (
     <>
       <BasicHero title={title} preTitle={preTitle} variant="purple" />
-      <div className="mb:pt-17 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <FadeIn className="mb:pt-17 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <h3 className="text-primary-navy mb:text-[29px] mb:leading-130 mb:mb-6 mb-5 font-sans text-[23px] leading-120 font-semibold">
           Get in touch
         </h3>
@@ -44,7 +45,7 @@ export default async function ContactPage() {
             </div>
           )}
         </div>
-      </div>
+      </FadeIn>
     </>
   );
 }

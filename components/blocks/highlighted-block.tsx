@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils/css.utils';
 import Cta, { CtaProps } from '../shared/cta';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   title: string;
@@ -11,7 +12,7 @@ type Props = {
 
 export default function HighlightedBlock({ title, content, backgroundColor, variant, cta }: Props) {
   return (
-    <div
+    <FadeIn
       className={cn(
         'mb:px-10 mb:py-9 px-5 py-8',
         backgroundColor === 'blue' && 'bg-primary-blue',
@@ -47,6 +48,6 @@ export default function HighlightedBlock({ title, content, backgroundColor, vari
           <Cta {...cta} />
         </div>
       )}
-    </div>
+    </FadeIn>
   );
 }

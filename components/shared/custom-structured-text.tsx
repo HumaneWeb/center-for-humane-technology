@@ -36,6 +36,7 @@ import LinksGridBlock from '../blocks/links-grid-block';
 import ContactWidgetBlock from '../blocks/contact-widget-block';
 import VideoItem from './video-item';
 import MediaBlock from '../blocks/media-block';
+import { FadeIn } from './fade-in';
 
 export default function CustomStructuredText({
   data,
@@ -100,14 +101,14 @@ export default function CustomStructuredText({
               )}
               key={record.id}
             >
-              <div
+              <FadeIn
                 className={cn(
                   record.alignment === 'left' && 'float-left clear-left mr-6 mb-5 max-w-[410px]',
                   record.alignment === 'right' && 'float-right clear-right mr-5 mb-5 max-w-[410px]',
                 )}
               >
                 <CustomImage {...record.image} withCaption />
-              </div>
+              </FadeIn>
             </div>
           );
         }
@@ -215,9 +216,9 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'GuideCardRecord') {
           return (
-            <div className="mx-auto mb-4 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
+            <FadeIn className="mx-auto mb-4 max-w-7xl px-4 sm:px-6 lg:px-8" key={record.id}>
               <GuideCard {...record} />
-            </div>
+            </FadeIn>
           );
         }
         if (record.__typename === 'GenericCardRecord') {

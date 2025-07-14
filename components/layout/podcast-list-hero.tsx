@@ -2,6 +2,7 @@
 
 import useIsMobile from '../hooks/is-mobile';
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   title: string;
@@ -28,11 +29,14 @@ export default function PodcastListHero({
 
   return (
     <section className="podcast-list-hero bg-gradient-podcast-list mb:pt-20">
-      <div
+      <FadeIn
         className="podcast-list-hero-wrapper mb:min-h-[700px] bg-contain bg-bottom-right bg-no-repeat"
         style={{ backgroundImage: isMobile ? 'none' : `url(${image?.url})` }}
       >
-        <div className="podcast-list-hero-wrapper-content relative mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
+        <FadeIn
+          delay={0.4}
+          className="podcast-list-hero-wrapper-content relative mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8"
+        >
           {decoratorIcon && (
             <div className="podcast-list-hero-decorator mb:absolute left-[-60px] pt-3">
               <CustomImage {...decoratorIcon} extraClass="mb:w-[65px] w-[50px] mb-2 mb:mb-0" />
@@ -137,14 +141,14 @@ export default function PodcastListHero({
               )}
             </div>
           </div>
-        </div>
+        </FadeIn>
 
         {isMobile && image && (
           <div>
             <CustomImage {...image} />
           </div>
         )}
-      </div>
+      </FadeIn>
     </section>
   );
 }

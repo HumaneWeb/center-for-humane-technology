@@ -6,9 +6,10 @@ import { useSearchParams } from 'next/navigation';
 export default function ScrollToResults() {
   const searchParams = useSearchParams();
   const search = searchParams.get('search');
+  const page = searchParams.get('page');
 
   useEffect(() => {
-    if (search) {
+    if (search || page) {
       const el = document.getElementById('podcasts-grid');
       if (el) {
         window.scrollTo({

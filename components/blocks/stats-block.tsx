@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useTransform, animate, useInView } from 'motion/react';
 import { cn } from '@/lib/utils/css.utils';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   title: string;
@@ -100,17 +101,19 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
           (variant === 'landing' || variant === 'landing-teal') && 'lg:px-16',
         )}
       >
-        <h3
-          className={cn(
-            'text-primary-cream mb:text-2xl mb:leading-130 mb:mb-14 mb-10 font-sans text-xl leading-120 font-semibold',
-            (variant === 'landing' || variant === 'landing-teal') &&
-              'tracking-025 mb:mb-20 mb-10 text-center leading-110 font-medium',
-          )}
-        >
-          {title}
-        </h3>
+        <FadeIn>
+          <h3
+            className={cn(
+              'text-primary-cream mb:text-2xl mb:leading-130 mb:mb-14 mb-10 font-sans text-xl leading-120 font-semibold',
+              (variant === 'landing' || variant === 'landing-teal') &&
+                'tracking-025 mb:mb-20 mb-10 text-center leading-110 font-medium',
+            )}
+          >
+            {title}
+          </h3>
+        </FadeIn>
 
-        <div
+        <FadeIn
           className={cn(
             'mb:grid mb:gap-20 flex grid-cols-3 flex-col items-center justify-center gap-10',
             (variant === 'landing' || variant === 'landing-teal') &&
@@ -139,7 +142,7 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
               </h6>
             </div>
           ))}
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

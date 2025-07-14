@@ -5,6 +5,7 @@ import Cta from '../shared/cta';
 import { cn } from '@/lib/utils/css.utils';
 import { useRef } from 'react';
 import useIsMobile from '../hooks/is-mobile';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   title: string;
@@ -62,20 +63,22 @@ export default function GenericCardsGrid({
           )}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h1 className="tracking-039 text-primary-navy mb:text-[39px] mb:leading-110 mb:mb-14 mb-5 font-sans text-[23px] leading-120 font-semibold">
-              {title}
-            </h1>
+            <FadeIn>
+              <h1 className="tracking-039 text-primary-navy mb:text-[39px] mb:leading-110 mb:mb-14 mb-5 font-sans text-[23px] leading-120 font-semibold">
+                {title}
+              </h1>
 
-            {introduction && (
-              <div
-                dangerouslySetInnerHTML={{ __html: introduction }}
-                className="text-primary-navy mb:[&>p>strong]:text-[25px] mb:mb-12 mb:text-xl mb-5 max-w-[840px] font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p>strong]:text-[20px] [&>p>strong]:font-medium"
-              />
-            )}
+              {introduction && (
+                <div
+                  dangerouslySetInnerHTML={{ __html: introduction }}
+                  className="text-primary-navy mb:[&>p>strong]:text-[25px] mb:mb-12 mb:text-xl mb-5 max-w-[840px] font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p>strong]:text-[20px] [&>p>strong]:font-medium"
+                />
+              )}
+            </FadeIn>
           </div>
 
           <div ref={scrollContainerRef} className="scrollbar-hide mb:mx-0 mx-4 overflow-x-auto">
-            <div
+            <FadeIn
               className={cn(
                 'flex snap-x snap-mandatory items-stretch gap-6 overflow-x-visible pb-8',
               )}
@@ -97,7 +100,7 @@ export default function GenericCardsGrid({
                 className="mb:block hidden flex-shrink-0"
                 style={{ width: 'max(0px, calc(50vw - 640px))' }}
               />
-            </div>
+            </FadeIn>
           </div>
 
           {(items.length > 3 || isMobile) && (
@@ -105,9 +108,9 @@ export default function GenericCardsGrid({
           )}
 
           {cta && (
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <FadeIn className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <Cta {...cta} extraClass="mt-16" />
-            </div>
+            </FadeIn>
           )}
         </section>
       </div>
@@ -131,19 +134,22 @@ export default function GenericCardsGrid({
         )}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {title && (
-            <h1 className="tracking-039 text-primary-blue mb:text-[39px] mb:leading-110 mb:mb-14 mb-8 font-sans text-[26px] leading-120 font-semibold">
-              {title}
-            </h1>
-          )}
-          {introduction && (
-            <div
-              dangerouslySetInnerHTML={{ __html: introduction }}
-              className="text-primary-navy mb-12 max-w-[840px] font-sans leading-140 [&>p]:mb-4 [&>p>strong]:text-2xl [&>p>strong]:font-medium"
-            />
-          )}
+          <FadeIn>
+            {title && (
+              <h1 className="tracking-039 text-primary-blue mb:text-[39px] mb:leading-110 mb:mb-14 mb-8 font-sans text-[26px] leading-120 font-semibold">
+                {title}
+              </h1>
+            )}
+            {introduction && (
+              <div
+                dangerouslySetInnerHTML={{ __html: introduction }}
+                className="text-primary-navy mb-12 max-w-[840px] font-sans leading-140 [&>p]:mb-4 [&>p>strong]:text-2xl [&>p>strong]:font-medium"
+              />
+            )}
+          </FadeIn>
 
-          <div
+          <FadeIn
+            delay={0.35}
             className={cn(
               'grid',
               variant === 'default' &&
@@ -154,9 +160,13 @@ export default function GenericCardsGrid({
             {items.map((item) => (
               <GenericCard {...item} key={item.id} />
             ))}
-          </div>
+          </FadeIn>
 
-          {cta && <Cta {...cta} extraClass="mb:mt-16 mt-8" />}
+          {cta && (
+            <FadeIn delay={0.35}>
+              <Cta {...cta} extraClass="mb:mt-16 mt-8" />
+            </FadeIn>
+          )}
         </div>
       </section>
     </div>
@@ -171,7 +181,7 @@ export function ArrowsHandler({
   scrollRight: () => void;
 }) {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <FadeIn className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="flex justify-end gap-5 sm:right-6 lg:right-8">
         <button
           onClick={scrollLeft}
@@ -221,6 +231,6 @@ export function ArrowsHandler({
           </svg>
         </button>
       </div>
-    </div>
+    </FadeIn>
   );
 }

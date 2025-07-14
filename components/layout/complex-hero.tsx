@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils/css.utils';
 import type { CustomImageProps } from '../shared/custom-image';
 import useIsMobile from '../hooks/is-mobile';
 import CustomImage from '../shared/custom-image';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   preTitle: string;
@@ -33,7 +34,7 @@ export default function ComplexHero({
         variant === 'purple' && 'bg-complex-hero-purple',
       )}
     >
-      <div
+      <FadeIn
         className={cn(
           'bg-contain bg-bottom-right bg-no-repeat',
           isMobile && mobileImage && 'complex-hero-grid',
@@ -45,27 +46,33 @@ export default function ComplexHero({
         <div className="complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8">
           <div className="max-w-[750px]">
             {preTitle && (
-              <h2
+              <FadeIn delay={0.3}>
+                <h2
+                  className={cn(
+                    'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
+                    variant === 'green' && 'text-[#ACFFFC]',
+                  )}
+                >
+                  {preTitle}
+                </h2>
+              </FadeIn>
+            )}
+            <FadeIn delay={0.35}>
+              <h1
                 className={cn(
-                  'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
-                  variant === 'green' && 'text-[#ACFFFC]',
+                  'text-primary-cream mb:tracking-061 mb:text-6xl mb:mb-5 mb-2 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]',
                 )}
               >
-                {preTitle}
-              </h2>
-            )}
-            <h1
-              className={cn(
-                'text-primary-cream mb:tracking-061 mb:text-6xl mb:mb-5 mb-2 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]',
-              )}
-            >
-              {title}
-            </h1>
+                {title}
+              </h1>
+            </FadeIn>
             {introduction && (
-              <div
-                className="text-neutral-white mb:text-2xl max-w-[600px] font-sans text-xl leading-140"
-                dangerouslySetInnerHTML={{ __html: introduction }}
-              />
+              <FadeIn delay={0.4}>
+                <div
+                  className="text-neutral-white mb:text-2xl max-w-[600px] font-sans text-xl leading-140"
+                  dangerouslySetInnerHTML={{ __html: introduction }}
+                />
+              </FadeIn>
             )}
           </div>
         </div>
@@ -74,7 +81,7 @@ export default function ComplexHero({
             <CustomImage {...mobileImage} extraClass="objet-cover" />
           </div>
         )}
-      </div>
+      </FadeIn>
     </section>
   );
 }

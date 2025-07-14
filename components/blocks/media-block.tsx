@@ -9,6 +9,7 @@ import CustomImage, { type CustomImageProps } from '../shared/custom-image';
 import CustomLink, { type CustomLinkProps } from '../shared/custom-link';
 import type { CtaProps } from '../shared/cta';
 import CtaList from '../shared/cta-list';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   id: string;
@@ -59,15 +60,19 @@ export default function MediaBlock({ title, items, ctas }: Props) {
     <section className="mb:my-24 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div>
-          <h2 className="text-primary-navy mb:text-center mb:text-3xl mb:leading-135 mb:mb-12 mb-10 font-sans text-[23px] leading-120 font-semibold">
-            {title}
-          </h2>
+          <FadeIn>
+            <h2 className="text-primary-navy mb:text-center mb:text-3xl mb:leading-135 mb:mb-12 mb-10 font-sans text-[23px] leading-120 font-semibold">
+              {title}
+            </h2>
+          </FadeIn>
 
-          <div className="mb:justify-center mb-16 hidden flex-wrap items-center gap-x-14 gap-y-8 md:flex">
-            {items.map((item: any) => renderItem(item))}
-          </div>
+          <FadeIn>
+            <div className="mb:justify-center mb-16 hidden flex-wrap items-center gap-x-14 gap-y-8 md:flex">
+              {items.map((item: any) => renderItem(item))}
+            </div>
+          </FadeIn>
 
-          <div className="mb-16 md:hidden">
+          <FadeIn className="mb-16 md:hidden">
             <Swiper
               modules={[Autoplay]}
               spaceBetween={20}
@@ -80,13 +85,15 @@ export default function MediaBlock({ title, items, ctas }: Props) {
                 <SwiperSlide key={item.id}>{renderItem(item)}</SwiperSlide>
               ))}
             </Swiper>
-          </div>
+          </FadeIn>
 
           {ctas && (
-            <CtaList
-              items={ctas}
-              extraClassnames="flex-col items-center justify-center mb:gap-[33px]"
-            />
+            <FadeIn>
+              <CtaList
+                items={ctas}
+                extraClassnames="flex-col items-center justify-center mb:gap-[33px]"
+              />
+            </FadeIn>
           )}
         </div>
       </div>

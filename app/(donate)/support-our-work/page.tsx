@@ -3,6 +3,7 @@ import AccordionBlock from '@/components/blocks/accordion-block';
 import BasicHero from '@/components/layout/basic-hero';
 import GivingBlockWidget from '@/components/shared/crypto-widget';
 import DonationSteps from '@/components/shared/donation-steps';
+import { FadeIn } from '@/components/shared/fade-in';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { DonatePageQuery } from '@/lib/cms/query';
@@ -20,7 +21,7 @@ export default async function DonatePage() {
   return (
     <>
       <div className="absolute top-0 w-full">
-        <div className="lg:px- mx-auto max-w-7xl px-4 pt-8 sm:px-6">
+        <FadeIn className="lg:px- mx-auto max-w-7xl px-4 pt-8 sm:px-6">
           <Link href="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -147,12 +148,12 @@ export default async function DonatePage() {
               </defs>
             </svg>
           </Link>
-        </div>
+        </FadeIn>
       </div>
 
       <BasicHero title={title} variant="blue" />
 
-      <div className="mb:pt-17 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <FadeIn className="mb:pt-17 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <h3 className="text-primary-navy mb:text-[29px] mb:leading-130 mb-6 font-sans text-[23px] leading-120 font-semibold">
           Give by card
         </h3>
@@ -193,7 +194,7 @@ export default async function DonatePage() {
             </div>
           )}
         </div>
-      </div>
+      </FadeIn>
     </>
   );
 }

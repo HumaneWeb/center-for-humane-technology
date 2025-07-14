@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils/css.utils';
 import type { SidebarItem } from '@/lib/utils/types';
 import { handleClickJumpToSection } from '@/lib/utils/ui.utils';
 import { useEffect, useState } from 'react';
+import { FadeIn } from './fade-in';
 
 interface ContentSidebarProps {
   items: SidebarItem[];
@@ -19,7 +20,7 @@ function ContentSidebar({ items, className = '' }: ContentSidebarProps) {
 
   return (
     <div className="sticky top-20 self-start">
-      <div>
+      <FadeIn>
         {items.map((item, index) => {
           const isActive = expandedItem === index;
           const hasChildLinks = item.sublinks.length > 0;
@@ -101,7 +102,7 @@ function ContentSidebar({ items, className = '' }: ContentSidebarProps) {
             </div>
           );
         })}
-      </div>
+      </FadeIn>
     </div>
   );
 }

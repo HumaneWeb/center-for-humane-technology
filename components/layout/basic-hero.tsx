@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils/css.utils';
 import type { CustomImageProps } from '../shared/custom-image';
 import Cta from '../shared/cta';
 import type { CustomLinkProps } from '../shared/custom-link';
+import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   title: string | null;
@@ -40,7 +41,7 @@ export default function BasicHero({
       className={cn('mb:pt-52 mb:pb-14 bg-cover bg-no-repeat pt-35 pb-8', variantClasses[variant])}
       style={{ backgroundImage: backgroundImage ? `url(${backgroundImage.url})` : undefined }}
     >
-      <div className="mb:flex-row mb:items-center mx-auto flex max-w-7xl flex-col justify-between gap-5 px-4 sm:px-6 lg:px-8">
+      <FadeIn className="mb:flex-row mb:items-center mx-auto flex max-w-7xl flex-col justify-between gap-5 px-4 sm:px-6 lg:px-8">
         <div>
           {backCta && (
             <div className="w-fit">
@@ -90,7 +91,7 @@ export default function BasicHero({
         </div>
 
         {children && children}
-      </div>
+      </FadeIn>
     </section>
   );
 }

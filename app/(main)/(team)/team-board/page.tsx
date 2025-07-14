@@ -5,6 +5,7 @@ import BasicHero from '@/components/layout/basic-hero';
 import CareerCard from '@/components/shared/career-card';
 import Cta from '@/components/shared/cta';
 import CustomImage from '@/components/shared/custom-image';
+import { FadeIn } from '@/components/shared/fade-in';
 import TeamCard from '@/components/shared/team-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
@@ -26,7 +27,7 @@ export default async function TeamListPage() {
     <>
       <BasicHero title={title} preTitle={preTitle} variant="purple" />
       <section className="mb:py-14 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb:mb-36 mb-10">
+        <FadeIn className="mb:mb-36 mb-10">
           <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
             Team
           </h2>
@@ -35,7 +36,7 @@ export default async function TeamListPage() {
               <TeamCard key={team.id} {...team} type="team" />
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       <NewsletterBlock
@@ -45,7 +46,7 @@ export default async function TeamListPage() {
 
       <div className="bg-primary-teal/[0.06] mb:pt-24 mb:pb-28 pt-8 pb-15">
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div>
+          <FadeIn>
             <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
               Board
             </h2>
@@ -54,12 +55,12 @@ export default async function TeamListPage() {
                 <TeamCard key={team.id} {...team} type="board" />
               ))}
             </div>
-          </div>
+          </FadeIn>
         </section>
       </div>
 
       <section className="mb-10">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <FadeIn className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-16 mb-5 font-sans text-[29px] leading-120 font-semibold">
             Careers
           </h2>
@@ -74,12 +75,12 @@ export default async function TeamListPage() {
             label="See All Openings"
             link={{ content: { slug: careersList?.slug, __typename: careersList?.__typename } }}
           />
-        </div>
+        </FadeIn>
       </section>
 
       <div className="bg-neutral-white mb:pt-24 mb:pb-28 pt-8 pb-15">
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div>
+          <FadeIn>
             <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
               Thanks to our generous lead supporters
             </h2>
@@ -126,13 +127,13 @@ export default async function TeamListPage() {
                 );
               })}
             </div>
-          </div>
+          </FadeIn>
         </section>
       </div>
 
       <div className="bg-primary-teal/[0.06] mb:pt-24 mb:pb-28 pt-8 pb-15">
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div>
+          <FadeIn>
             <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
               Founding Allies, Key Advisors & Community
             </h2>
@@ -164,7 +165,7 @@ export default async function TeamListPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </FadeIn>
         </section>
       </div>
 
