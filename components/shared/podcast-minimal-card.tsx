@@ -45,6 +45,7 @@ export default function PodcastMinimalCard({
       ) : (
         <div
           className={cn(
+            'Xhidden',
             'mb:w-[300px] mb:h-[300px] aspect-square w-full bg-gray-200 object-cover',
             variant === 'small' && 'mb:w-[211px] mb:h-[210px] mb:mb-0 mb-2.5',
             variant === 'small-cols' && 'mb:w-[211px] mb:h-[210px] mb:mb-0 mb-2.5',

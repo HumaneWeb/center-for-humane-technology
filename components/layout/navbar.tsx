@@ -364,7 +364,9 @@ export default function Navbar({ items }: Props) {
           onKeyDown={(e) => handleDropdownKeyDown(e, index)}
         >
           <div className={cn(isMobile ? 'space-y-1 py-2' : 'flex flex-col gap-5')}>
-            {item.children!.map((dropdownItem) => renderDropdownItem(dropdownItem))}
+            {item
+              .children!.filter((i) => !i.hideItem)
+              .map((dropdownItem) => renderDropdownItem(dropdownItem))}
           </div>
         </div>
       </div>

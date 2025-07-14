@@ -66,8 +66,8 @@ export default function BasicHero({
             className={cn(
               'text-primary-navy tracking-061 mb:text-6xl font-sans text-[31px] leading-110 font-semibold',
               variant === 'purple' && 'text-primary-cream',
-              variant === 'white' && 'tracking-049 text-neutral-white text-[49px] leading-110',
-              variant === 'dark' && 'text-primary-navy tracking-049 text-[49px] leading-110',
+              variant === 'white' && 'tracking-049 text-neutral-white mb:text-[49px] leading-110',
+              variant === 'dark' && 'text-primary-navy tracking-049 mb:text-[49px] leading-110',
               variant === 'blue' && 'text-primary-cream',
             )}
           >

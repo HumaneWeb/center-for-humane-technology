@@ -34,7 +34,7 @@ export default function HomepageHero({ homepage }: Props) {
     <section className="homepage-hero mb:bg-contain mb:bg-right mb:bg-no-repeat mb:bg-[url('/homepage-circles.svg')] mb:h-dvh mb:py-20 bg-[#F8F4EF] pt-30 pb-10">
       <div className="homepage-grid-parent relative mx-auto flex h-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="homepage-grid grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-          <FadeIn delay={0.1}>
+          <FadeIn>
             <div className="homepage-metadata space-y-0">
               <h1 className="homepage-title text-primary-navy tracking-061 mb:text-6xl mb:mb-9 mb-5 font-sans text-[31px] leading-110 font-semibold">
                 {title}
@@ -51,16 +51,22 @@ export default function HomepageHero({ homepage }: Props) {
           </FadeIn>
           <div className="homepage-videos-decoration absolute right-[-220px]">
             <div className="desktop-videos grid-cols-1 gap-5 md:grid-cols-2 lg:grid lg:grid-cols-3">
-              <RawVideoPlayer src="/video1.mp4" className="h-[440px] w-[247px]" />
-              <RawVideoPlayer src="/video2.mp4" className="relative top-30 h-[440px] w-[247px]" />
-              <RawVideoPlayer
-                src="/video3.mp4"
-                className="relative bottom-30 h-[440px] w-[247px]"
-              />
+              <FadeIn delay={0.4}>
+                <RawVideoPlayer src="/video1.mp4" className="h-[440px] w-[247px]" />
+              </FadeIn>
+              <FadeIn delay={0.5}>
+                <RawVideoPlayer src="/video2.mp4" className="relative top-30 h-[440px] w-[247px]" />
+              </FadeIn>
+              <FadeIn delay={0.6}>
+                <RawVideoPlayer
+                  src="/video3.mp4"
+                  className="relative bottom-30 h-[440px] w-[247px]"
+                />
+              </FadeIn>
             </div>
 
             {/* Tablet devices */}
-            <div className="tablet-videos">
+            <FadeIn className="tablet-videos">
               <div className="tablet-videos-child relative overflow-hidden">
                 <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-32 bg-gradient-to-b from-[#F8F4EF] to-transparent" />
 
@@ -70,7 +76,7 @@ export default function HomepageHero({ homepage }: Props) {
                 </div>
                 <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-32 bg-gradient-to-t from-[#F8F4EF] to-transparent" />
               </div>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </div>

@@ -4622,6 +4622,7 @@ input MenuItemModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   asButton: BooleanFilter
+  hideItem: BooleanFilter
   label: StringFilter
   link: LinkFilter
   OR: [MenuItemModelFilter]
@@ -4651,6 +4652,8 @@ enum MenuItemModelOrderBy {
   _isValid_DESC
   asButton_ASC
   asButton_DESC
+  hideItem_ASC
+  hideItem_DESC
   label_ASC
   label_DESC
 }
@@ -4677,6 +4680,7 @@ type MenuItemRecord implements RecordInterface {
   _updatedAt: DateTime!
   asButton: BooleanType!
   children: [MenuItemRecord!]!
+  hideItem: BooleanType!
   id: ItemId!
   label: String!
   link: GlobalLinkRecord

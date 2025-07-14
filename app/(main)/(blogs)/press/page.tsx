@@ -86,7 +86,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
       <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}
-        basePath="/in-the-press"
+        basePath="/press"
         className="mb:mb-16 mb-8"
       />
 

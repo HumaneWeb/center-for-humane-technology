@@ -1729,6 +1729,7 @@ export const NavbarQuery = graphql(
               ...GlobalLinkFragment
             }
           }
+          hideItem
         }
       }
     }
