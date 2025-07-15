@@ -37,9 +37,19 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
 
   const isMobile = useIsMobile({ breakpoint: mobileImage ? 1260 : 992 });
 
+  const handleCardClick = (itemId: string) => {
+    const element = document.getElementById(`content-${itemId}`);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
     <>
-      <section id="complex-hero" className={cn('bg-complex-hero-blue mb:pt-20')}>
+      <section id="complex-hero" className={cn('bg-complex-hero-blue mb:pt-30')}>
         <FadeIn
           className={cn(
             'bg-contain bg-bottom-right bg-no-repeat',
@@ -136,7 +146,7 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
         {/* Cards */}
         <div className="mb:grid-cols-5 mb:gap-24 grid grid-cols-1 gap-15 px-4 sm:px-6 lg:px-15">
           {items.map((item: any) => (
-            <div key={item.id}>
+            <div key={item.id} className="cursor-pointer" onClick={() => handleCardClick(item.id)}>
               <div className="mb:justify-center mb:mb-7.5 relative mb-5 flex items-center">
                 <CardEllipse />
                 {item.cardImage?.url && (
@@ -165,6 +175,7 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
       {items.map((item: any) => (
         <React.Fragment key={item.id}>
           <div
+            id={`content-${item.id}`}
             className={cn(
               'bg-ai-society-blue mb:py-[100px] py-10',
               item.variant === 'dark' && 'bg-ai-society-dark-blue',
