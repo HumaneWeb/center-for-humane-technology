@@ -41,6 +41,9 @@ export const GlobalLinkFragment = graphql(`
       ... on ToolkitRecord {
         slug
       }
+      ... on AiInSocietyRecord {
+        slug
+      }
     }
   }
 `);
@@ -888,6 +891,88 @@ export const HomepageQuery = graphql(
     TagFragment,
     CTAFragment,
   ],
+);
+
+export const AiSocietyQuery = graphql(
+  `
+    query AiSocietyQuery {
+      page: aiInSociety {
+        title
+        preTitle
+        introduction
+        image {
+          ...ImageFragment
+        }
+        mobileImage {
+          ...ImageFragment
+        }
+        cta {
+          ...CTAFragment
+        }
+        headline
+        subHeading
+        stakeIntroduction
+        contentHeadline
+        contentIntroduction
+        items {
+          ... on SocietyContentItemRecord {
+            id
+            cardHeadline
+            cardIntroduction
+            cardImage {
+              ...ImageFragment
+            }
+            variant
+            headline
+            content
+            image {
+              ...ImageFragment
+            }
+            items {
+              ... on HelpItemRecord {
+                id
+                headline
+                items {
+                  ... on TextRecord {
+                    id
+                    content
+                  }
+                }
+              }
+            }
+            imageGif {
+              ...ImageFragment
+            }
+            helpHeadlineBox
+            helpContentBox
+          }
+        }
+        tbpHeadline
+        tbpSubHeading
+        tpbIntroduction
+        cards {
+          ...GenericCardsGridFragment
+        }
+        tbpExtraInformation
+        narrative {
+          ...NarrativeBlockFragment
+        }
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [TagFragment, CTAFragment, NarrativeBlockFragment, GenericCardsGridFragment, ImageFragment],
 );
 
 export const TeamAndBoardQuery = graphql(

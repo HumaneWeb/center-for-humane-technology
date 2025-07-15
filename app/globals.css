@@ -15,6 +15,7 @@
   --color-neutral-dark-gray: #43454C;
 
   --font-sans: 'elza', sans-serif;
+  --font-pixel: 'argent-pixel-cf', sans-serif;
 
   --leading-100: 100%;
   --leading-110: 110%;
@@ -46,6 +47,14 @@ body {
   background: var(--color-neutral-white);
   color: var(--color-primary-navy);
   font-family: var(--font-sans);
+}
+
+@utility bg-ai-society-blue {
+  background: linear-gradient(180deg, #404A98 0%, #293462 100%);
+}
+
+@utility bg-ai-society-dark-blue {
+  background: linear-gradient(180deg, #1A236C 0%, #030E1F 100%);
 }
 
 @utility bg-custom-gradient {

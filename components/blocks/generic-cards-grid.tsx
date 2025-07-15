@@ -10,7 +10,7 @@ import { FadeIn } from '../shared/fade-in';
 type Props = {
   title: string;
   introduction: string;
-  variant: 'default' | 'minimal' | '4-columns';
+  variant: 'default' | 'minimal' | '4-columns' | '3-columns';
   backgroundColor: 'light-purple' | 'teal' | 'transparent';
   cta: any;
   items: any[];
@@ -122,6 +122,7 @@ export default function GenericCardsGrid({
       className={cn(
         'generic-cards-grid bg-neutral-white overflow-x-hidden',
         variant === '4-columns' && 'four-columns',
+        variant === '3-columns' && 'bg-transparent',
       )}
     >
       <section
@@ -133,7 +134,12 @@ export default function GenericCardsGrid({
           backgroundColor === 'transparent' && 'bg-transparent',
         )}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+          className={cn(
+            'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
+            variant === '3-columns' && 'max-w-full px-0 sm:px-0 lg:px-0',
+          )}
+        >
           <FadeIn>
             {title && (
               <h1 className="tracking-039 text-primary-blue mb:text-[39px] mb:leading-110 mb:mb-14 mb-8 font-sans text-[26px] leading-120 font-semibold">
@@ -155,6 +161,7 @@ export default function GenericCardsGrid({
               variant === 'default' &&
                 'no-responsive-grid mb:grid-cols-2 mb:gap-y-0 gap-x-32 gap-y-8',
               variant === '4-columns' && 'responsive-grid mb:grid-cols-3 gap-5',
+              variant === '3-columns' && 'responsive-grid mb:grid-cols-3 gap-6',
             )}
           >
             {items.map((item) => (
@@ -182,7 +189,7 @@ export function ArrowsHandler({
 }) {
   return (
     <FadeIn className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-end gap-5 sm:right-6 lg:right-8">
+      <div className="flex justify-center gap-5 sm:right-6 lg:right-8">
         <button
           onClick={scrollLeft}
           className={cn(

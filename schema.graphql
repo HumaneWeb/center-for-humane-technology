@@ -51,6 +51,65 @@ type AccordionItemRecord implements RecordInterface {
   title: String!
 }
 
+"""Record of type AI in Society (ai_in_society)"""
+type AiInSocietyRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  cards: GenericCardsGridRecord
+  contentHeadline: String
+  contentIntroduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  cta: CtaRecord
+  headline: String
+  id: ItemId!
+  image: FileField
+  introduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  items: [SocietyContentItemRecord!]!
+  mobileImage: FileField
+  narrative: NarrativeBlockRecord
+  preTitle: String
+  preview: JsonField
+  seo: SeoField
+  slug: String!
+  stakeIntroduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  subHeading: String
+  tbpExtraInformation(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  tbpHeadline: String
+  tbpSubHeading: String
+  title: String!
+  tpbIntroduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+}
+
 type AltFileField implements FileFieldInterface {
   _createdAt: DateTime!
 
@@ -1783,7 +1842,7 @@ type GenericCardsGridRecord implements RecordInterface {
   variant: String
 }
 
-union GlobalLinkModelContentField = BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord | ToolkitListRecord | ToolkitRecord
+union GlobalLinkModelContentField = AiInSocietyRecord | BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord | ToolkitListRecord | ToolkitRecord
 
 input GlobalLinkModelFilter {
   _createdAt: CreatedAtFilter
@@ -1938,6 +1997,31 @@ type GuideCardRecord implements RecordInterface {
   link: GlobalLinkRecord!
   title: String
   variant: String
+}
+
+"""Block of type Help Item (help_item)"""
+type HelpItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  headline: String
+  id: ItemId!
+  items: [TextRecord!]!
 }
 
 """Block of type Highlight Text Block (highlight_text_block)"""
@@ -5305,6 +5389,17 @@ type Query {
     fallbackLocales: [SiteLocale!]
   ): Site!
 
+  """Returns the single instance record"""
+  aiInSociety(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): AiInSocietyRecord
+
   """Returns a collection of records"""
   allBasicPages(
     """The locale to use to fetch the field's content"""
@@ -6336,6 +6431,49 @@ type SocialNetworksBlockRecord implements RecordInterface {
   youtubeUrl: String
 }
 
+"""Block of type Society Content Item (society_content_item)"""
+type SocietyContentItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  cardHeadline: String
+  cardImage: FileField
+  cardIntroduction(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  headline: String
+  helpContentBox(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  helpHeadlineBox: String
+  id: ItemId!
+  image: FileField
+  imageGif: FileField
+  items: [HelpItemRecord!]!
+  variant: String!
+}
+
 """Block of type Stat Item (stat_item)"""
 type StatItemRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -6796,6 +6934,33 @@ input TextFilter {
   Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
   """
   exists: BooleanType
+}
+
+"""Block of type Text (text)"""
+type TextRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  id: ItemId!
 }
 
 """Block of type Thinking Block (thinking_block)"""
