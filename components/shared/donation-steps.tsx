@@ -185,13 +185,13 @@ export default function DonationSteps() {
 
   const renderStep1 = () => (
     <div className="w-full max-w-md">
-      <div>
+      {/* <div>
         <div className="text-primary-navy mb:text-xl mb-4 text-[18px] leading-140 font-normal">
           How often would you like to give?
         </div>
-      </div>
+      </div> */}
       <div>
-        <RadioGroup
+        {/* <RadioGroup
           value={formData.frequency}
           onValueChange={(value: string) =>
             handleInputChange('frequency', value as 'monthly' | 'once')
@@ -230,7 +230,7 @@ export default function DonationSteps() {
               Change to monthly
             </button>
           </div>
-        )}
+        )} */}
 
         <div>
           <Label className="text-primary-navy mb:text-xl mb-4 text-[18px] leading-140 font-normal">
@@ -265,7 +265,7 @@ export default function DonationSteps() {
           </div>
         </div>
 
-        <div className="mb-12 flex items-start space-x-2">
+        {/* <div className="mb-12 flex items-start space-x-2">
           <Checkbox
             id="cover-fees"
             checked={formData.coverFees}
@@ -279,7 +279,7 @@ export default function DonationSteps() {
           >
             I'd like to cover the processing fee so that all of my gift will go to CHT
           </Label>
-        </div>
+        </div> */}
 
         <button
           onClick={handleNext}
