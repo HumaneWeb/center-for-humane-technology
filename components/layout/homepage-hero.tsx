@@ -18,19 +18,19 @@ export default function HomepageHero({ homepage }: Props) {
   const mobileVideos = [
     {
       id: 11,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_1 : '/video1-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_1! : '/video1-mobile.mp4',
     },
     {
       id: 22,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_2 : '/video2-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_2! : '/video2-mobile.mp4',
     },
     {
       id: 33,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_3 : '/video3-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_3! : '/video3-mobile.mp4',
     },
     {
       id: 44,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_4 : '/video4-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_4! : '/video4-mobile.mp4',
     },
   ];
 
