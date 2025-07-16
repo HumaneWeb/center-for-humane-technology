@@ -7,23 +7,30 @@ type Props = ResultOf<typeof HomepageQuery>;
 
 export default function HomepageHero({ homepage }: Props) {
   const { title, introduction, ctas } = homepage!;
+  const isProd = process.env.NODE_ENV === 'production';
+
+  const desktopVideos = {
+    video1: isProd ? process.env.NEXT_PUBLIC_VIDEO_1! : '/video1.mp4',
+    video2: isProd ? process.env.NEXT_PUBLIC_VIDEO_2! : '/video2.mp4',
+    video3: isProd ? process.env.NEXT_PUBLIC_VIDEO_3! : '/video3.mp4',
+  };
 
   const mobileVideos = [
     {
       id: 11,
-      videoUrl: '/video1-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_1 : '/video1-mobile.mp4',
     },
     {
       id: 22,
-      videoUrl: '/video2-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_2 : '/video2-mobile.mp4',
     },
     {
       id: 33,
-      videoUrl: '/video3-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_3 : '/video3-mobile.mp4',
     },
     {
       id: 44,
-      videoUrl: '/video4-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_4 : '/video4-mobile.mp4',
     },
   ];
 
@@ -52,14 +59,17 @@ export default function HomepageHero({ homepage }: Props) {
           <div className="homepage-videos-decoration absolute right-[-220px]">
             <div className="desktop-videos grid-cols-1 gap-5 md:grid-cols-2 lg:grid lg:grid-cols-3">
               <FadeIn delay={0.4}>
-                <RawVideoPlayer src="/video1.mp4" className="h-[440px] w-[247px]" />
+                <RawVideoPlayer src={desktopVideos.video1} className="h-[440px] w-[247px]" />
               </FadeIn>
               <FadeIn delay={0.5}>
-                <RawVideoPlayer src="/video2.mp4" className="relative top-30 h-[440px] w-[247px]" />
+                <RawVideoPlayer
+                  src={desktopVideos.video2}
+                  className="relative top-30 h-[440px] w-[247px]"
+                />
               </FadeIn>
               <FadeIn delay={0.6}>
                 <RawVideoPlayer
-                  src="/video3.mp4"
+                  src={desktopVideos.video3}
                   className="relative bottom-30 h-[440px] w-[247px]"
                 />
               </FadeIn>
