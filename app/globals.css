@@ -49,6 +49,29 @@ body {
   font-family: var(--font-sans);
 }
 
+.pre-content-big-picture {
+  height: 150px;
+  background: linear-gradient(180deg, #293462 0%, #FFDECB 80%);
+}
+
+.pre-content-section {
+  height: 150px;
+  background: linear-gradient(180deg, #293462 0%, #1A236C 100%);
+}
+
+.pre-content-section-dark {
+  height: 150px;
+  background: linear-gradient(180deg, #030E20 0%, #404A98 100%);
+}
+
+@media screen and (max-width: 992px) {
+
+  .pre-content-section,
+  .pre-content-section-dark {
+    height: 100px;
+  }
+}
+
 @utility bg-ai-society-blue {
   background: linear-gradient(180deg, #404A98 0%, #293462 100%);
 }

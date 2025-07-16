@@ -37,10 +37,7 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
   const { donateTitle, donateCta, donateImage } = configuration!;
 
   const itemRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: itemRef,
-    offset: ['start start', 'end end'],
-  });
+  const { scrollYProgress } = useScroll({ target: itemRef, offset: ['start start', 'end end'] });
 
   const isMobile = useIsMobile({ breakpoint: mobileImage ? 1260 : 992 });
 
@@ -129,8 +126,13 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
 
       {/* Items */}
       <div ref={itemRef} className="bg-[#030E20]">
-        {items.map((item: any) => (
-          <ContentSection key={item.id} item={item} scrollYProgress={scrollYProgress} />
+        {items.map((item: any, index: number) => (
+          <ContentSection
+            key={item.id}
+            item={item}
+            scrollYProgress={scrollYProgress}
+            hideFirst={index === 0}
+          />
         ))}
       </div>
 
@@ -446,173 +448,180 @@ const StakeSection = ({ isMobile, headline, subHeading, stakeIntroduction }) => 
   );
 };
 // @ts-ignore
-const ContentSection = ({ item, scrollYProgress }) => {
+const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.08]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -5]);
 
   return (
-    <motion.div>
-      <div
-        id={`content-${item.id}`}
-        className={cn(
-          'bg-ai-society-blue mb:py-[100px] py-10',
-          item.variant === 'dark' && 'bg-ai-society-dark-blue',
-        )}
-      >
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb:grid-cols-2 mb:gap-17 content-section-grid grid items-center">
-            <div className="mb:mb-7.5 relative mb-5 flex items-center justify-center">
-              <FadeIn>
-                <FullCardEllipse />
-              </FadeIn>
-              {item.image?.url && (
-                <FadeIn className="absolute" delay={0.5} duration={2}>
-                  <img src={item.image.url} className="max-h-[595px]" />
+    <>
+      {!hideFirst && (
+        <div
+          className={item.variant !== 'dark' ? 'pre-content-section-dark' : 'pre-content-section'}
+        />
+      )}
+      <motion.div>
+        <div
+          id={`content-${item.id}`}
+          className={cn(
+            'bg-ai-society-blue mb:py-[100px] py-10',
+            item.variant === 'dark' && 'bg-ai-society-dark-blue',
+          )}
+        >
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb:grid-cols-2 mb:gap-17 content-section-grid grid items-center">
+              <div className="mb:mb-7.5 relative mb-5 flex items-center justify-center">
+                <FadeIn>
+                  <FullCardEllipse />
                 </FadeIn>
-              )}
+                {item.image?.url && (
+                  <FadeIn className="absolute" delay={0.5} duration={2}>
+                    <img src={item.image.url} className="max-h-[595px]" />
+                  </FadeIn>
+                )}
+              </div>
+              <FadeIn className="max-w-[621px]">
+                {item.headline && (
+                  <h2
+                    className={cn(
+                      'tracking-031 mb:tracking-061 mb:text-[61px] mb:mb-6 mb-5 font-sans text-[32px] leading-110 font-semibold text-[#FFBB91]',
+                      item.variant === 'dark' && 'text-[#6FE4E0]',
+                    )}
+                  >
+                    {item.headline}
+                  </h2>
+                )}
+                {item.content && (
+                  <div
+                    className="text-primary-cream mb:text-[22px] font-sans text-[20px] leading-130 [&>p]:mb-5"
+                    dangerouslySetInnerHTML={{ __html: item.content }}
+                  />
+                )}
+              </FadeIn>
             </div>
-            <FadeIn className="max-w-[621px]">
-              {item.headline && (
-                <h2
+          </div>
+        </div>
+        <div
+          className={cn(
+            'bg-primary-blue mb:pb-[300px] pb-[150px]',
+            item.variant === 'dark' && 'bg-[#030E20]',
+          )}
+        >
+          {item.items.slice(0, 1).map((helpItem: any) => (
+            <FadeIn key={helpItem.id} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div
+                className={cn(
+                  'mb:mb-[90px] mx-auto mb-10 flex max-w-[1052px] items-center justify-center bg-[#FFBB91] p-2.5',
+                  item.variant === 'dark' && 'bg-[#6FE4E0]',
+                )}
+              >
+                {helpItem.headline && (
+                  <h3
+                    className={cn(
+                      'font-pixel mb:text-[31px] text-center text-[25px] leading-110 text-[#0B1023]',
+                      item.variant === 'dark' && 'text-primary-navy',
+                    )}
+                  >
+                    {helpItem.headline}
+                  </h3>
+                )}
+              </div>
+              <div className="mx-auto max-w-[900px]">
+                {helpItem.items.map((i: any, index: number) => (
+                  <div
+                    key={i.id}
+                    className={cn(
+                      'mb:mb-[50px] mb-10 grid grid-cols-[auto_1fr] items-start gap-2.5',
+                      index === helpItem.items.length - 1 && 'mb:mb-[190px]',
+                    )}
+                  >
+                    {item.variant === 'dark' ? <ItemIconBlue /> : <ItemIcon />}
+                    {i.content && (
+                      <p className="text-primary-cream mb:text-xl font-sans text-[18px] leading-140">
+                        {i.content}
+                      </p>
+                    )}
+                  </div>
+                ))}
+
+                {item.imageGif?.url && (
+                  <FadeIn
+                    delay={0.5}
+                    duration={2}
+                    className="mb-[90px] flex items-center justify-center"
+                  >
+                    <img src={item.imageGif.url} />
+                  </FadeIn>
+                )}
+              </div>
+            </FadeIn>
+          ))}
+          {item.items.slice(1).map((helpItem: any) => (
+            <FadeIn key={helpItem.id} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div
+                className={cn(
+                  'mb:mb-[90px] mx-auto mb-10 flex max-w-[1052px] items-center justify-center bg-[#FFBB91] p-2.5',
+                  item.variant === 'dark' && 'bg-[#6FE4E0]',
+                )}
+              >
+                {helpItem.headline && (
+                  <h3
+                    className={cn(
+                      'font-pixel mb:text-[31px] text-center text-[25px] leading-110 text-[#0B1023]',
+                      item.variant === 'dark' && 'text-primary-navy',
+                    )}
+                  >
+                    {helpItem.headline}
+                  </h3>
+                )}
+              </div>
+              <div className="mx-auto max-w-[900px]">
+                {helpItem.items.map((i: any, index: number) => (
+                  <div
+                    key={i.id}
+                    className={cn(
+                      'mb:mb-[50px] mb-10 grid grid-cols-[auto_1fr] items-start gap-2.5',
+                      index === helpItem.items.length - 1 && 'mb:mb-[190px]',
+                    )}
+                  >
+                    {item.variant === 'dark' ? <ItemIconBlue /> : <ItemIcon />}
+                    {i.content && (
+                      <p className="text-primary-cream mb:text-xl font-sans text-[18px] leading-140">
+                        {i.content}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+          ))}
+
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <FadeIn
+              className={cn(
+                'mb:p-[60px] mb:border-8 border-4 border-[#FFBB91] p-5',
+                item.variant === 'dark' && 'border-[#6FE4E0]',
+              )}
+            >
+              <FadeIn delay={0.5}>
+                <h3
                   className={cn(
-                    'tracking-031 mb:tracking-061 mb:text-[61px] mb:mb-6 mb-5 font-sans text-[32px] leading-110 font-semibold text-[#FFBB91]',
+                    'tracking-039 mb:text-[39px] mb:leading-110 mb:mb-[33px] mb-5 text-center font-sans text-[23px] leading-120 font-semibold text-[#FFBB91]',
                     item.variant === 'dark' && 'text-[#6FE4E0]',
                   )}
                 >
-                  {item.headline}
-                </h2>
-              )}
-              {item.content && (
+                  {item.helpHeadlineBox}
+                </h3>
+              </FadeIn>
+              <FadeIn delay={0.8}>
                 <div
-                  className="text-primary-cream mb:text-[22px] font-sans text-[20px] leading-130 [&>p]:mb-5"
-                  dangerouslySetInnerHTML={{ __html: item.content }}
+                  className="text-primary-cream mb:text-[22px] text-center font-sans text-xl leading-130"
+                  dangerouslySetInnerHTML={{ __html: item.helpContentBox }}
                 />
-              )}
+              </FadeIn>
             </FadeIn>
           </div>
         </div>
-      </div>
-      <div
-        className={cn(
-          'bg-primary-blue mb:pb-[300px] pb-[150px]',
-          item.variant === 'dark' && 'bg-[#030E20]',
-        )}
-      >
-        {item.items.slice(0, 1).map((helpItem: any) => (
-          <FadeIn key={helpItem.id} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div
-              className={cn(
-                'mb:mb-[90px] mx-auto mb-10 flex max-w-[1052px] items-center justify-center bg-[#FFBB91] p-2.5',
-                item.variant === 'dark' && 'bg-[#6FE4E0]',
-              )}
-            >
-              {helpItem.headline && (
-                <h3
-                  className={cn(
-                    'font-pixel mb:text-[31px] text-center text-[25px] leading-110 text-[#0B1023]',
-                    item.variant === 'dark' && 'text-primary-navy',
-                  )}
-                >
-                  {helpItem.headline}
-                </h3>
-              )}
-            </div>
-            <div className="mx-auto max-w-[900px]">
-              {helpItem.items.map((i: any, index: number) => (
-                <div
-                  key={i.id}
-                  className={cn(
-                    'mb:mb-[50px] mb-10 grid grid-cols-[auto_1fr] items-start gap-2.5',
-                    index === helpItem.items.length - 1 && 'mb:mb-[190px]',
-                  )}
-                >
-                  {item.variant === 'dark' ? <ItemIconBlue /> : <ItemIcon />}
-                  {i.content && (
-                    <p className="text-primary-cream mb:text-xl font-sans text-[18px] leading-140">
-                      {i.content}
-                    </p>
-                  )}
-                </div>
-              ))}
-
-              {item.imageGif?.url && (
-                <FadeIn
-                  delay={0.5}
-                  duration={2}
-                  className="mb-[90px] flex items-center justify-center"
-                >
-                  <img src={item.imageGif.url} />
-                </FadeIn>
-              )}
-            </div>
-          </FadeIn>
-        ))}
-        {item.items.slice(1).map((helpItem: any) => (
-          <FadeIn key={helpItem.id} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div
-              className={cn(
-                'mb:mb-[90px] mx-auto mb-10 flex max-w-[1052px] items-center justify-center bg-[#FFBB91] p-2.5',
-                item.variant === 'dark' && 'bg-[#6FE4E0]',
-              )}
-            >
-              {helpItem.headline && (
-                <h3
-                  className={cn(
-                    'font-pixel mb:text-[31px] text-center text-[25px] leading-110 text-[#0B1023]',
-                    item.variant === 'dark' && 'text-primary-navy',
-                  )}
-                >
-                  {helpItem.headline}
-                </h3>
-              )}
-            </div>
-            <div className="mx-auto max-w-[900px]">
-              {helpItem.items.map((i: any, index: number) => (
-                <div
-                  key={i.id}
-                  className={cn(
-                    'mb:mb-[50px] mb-10 grid grid-cols-[auto_1fr] items-start gap-2.5',
-                    index === helpItem.items.length - 1 && 'mb:mb-[190px]',
-                  )}
-                >
-                  {item.variant === 'dark' ? <ItemIconBlue /> : <ItemIcon />}
-                  {i.content && (
-                    <p className="text-primary-cream mb:text-xl font-sans text-[18px] leading-140">
-                      {i.content}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </FadeIn>
-        ))}
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <FadeIn
-            className={cn(
-              'mb:p-[60px] mb:border-8 border-4 border-[#FFBB91] p-5',
-              item.variant === 'dark' && 'border-[#6FE4E0]',
-            )}
-          >
-            <FadeIn delay={0.5}>
-              <h3
-                className={cn(
-                  'tracking-039 mb:text-[39px] mb:leading-110 mb:mb-[33px] mb-5 text-center font-sans text-[23px] leading-120 font-semibold text-[#FFBB91]',
-                  item.variant === 'dark' && 'text-[#6FE4E0]',
-                )}
-              >
-                {item.helpHeadlineBox}
-              </h3>
-            </FadeIn>
-            <FadeIn delay={0.8}>
-              <div
-                className="text-primary-cream mb:text-[22px] text-center font-sans text-xl leading-130"
-                dangerouslySetInnerHTML={{ __html: item.helpContentBox }}
-              />
-            </FadeIn>
-          </FadeIn>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
