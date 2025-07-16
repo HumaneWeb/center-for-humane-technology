@@ -6,7 +6,7 @@ import { AiSocietyQuery } from '@/lib/cms/query';
 export const generateMetadata = generateMetadataFn({
   query: AiSocietyQuery,
   // @ts-expect-error
-  pickSeoMetaTags: (data) => data.homepage?._seoMetaTags,
+  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
 });
 
 export default async function AiSocietyPage() {

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 import './globals.css';
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/kvx4yfh.css" />
+        <GoogleTagManager gtmId="GTM-PCWTN2N" />
       </head>
 
       <body className={`flex min-h-screen flex-col antialiased`}>

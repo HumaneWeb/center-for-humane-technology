@@ -943,3 +943,60 @@ hr {
     align-items: center;
   }
 }
+
+
+/* ai society  */
+@media screen and (max-width: 1420px) and (min-width: 992px) {
+  .ai-society-items-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 1230px) and (min-width: 992px) {
+  .content-section-grid h2 {
+    font-size: 45px;
+  }
+
+  .content-section-grid svg {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 767px) {
+  .content-section-grid {
+    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 560px) {
+  .ai-society-items-grid {
+    gap: calc(var(--spacing) * 10);
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media screen and (max-width: 1260px) and (min-width: 992px) {
+
+  .stake-section,
+  .stake-section .headline {
+    min-height: auto;
+    height: auto;
+  }
+
+  .headline-wrapper {
+    align-items: flex-start;
+  }
+
+  .headline-wrapper .headline {
+    padding: 0;
+  }
+
+  .headline-wrapper .headline h2 {
+    font-size: 45px;
+  }
+
+  .stake-section {
+    padding: 5rem 0;
+  }
+}
