@@ -22,6 +22,56 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_VIDEO_1}
+          as="video"
+          type="video/mp4"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_VIDEO_2}
+          as="video"
+          type="video/mp4"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_VIDEO_3}
+          as="video"
+          type="video/mp4"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_VIDEO_MOBILE_1}
+          as="video"
+          type="video/mp4"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_VIDEO_MOBILE_2}
+          as="video"
+          type="video/mp4"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_VIDEO_MOBILE_3}
+          as="video"
+          type="video/mp4"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href={process.env.NEXT_PUBLIC_VIDEO_MOBILE_4}
+          as="video"
+          type="video/mp4"
+          fetchPriority="high"
+        />
+
         <link rel="stylesheet" href="https://use.typekit.net/kvx4yfh.css" />
         <GoogleTagManager gtmId="GTM-PCWTN2N" />
       </head>
