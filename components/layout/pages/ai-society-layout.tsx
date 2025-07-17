@@ -137,8 +137,8 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
       </div>
 
       {/* The Big Picture */}
-      <div className="mb:py-[100px] bg-[#FFDECB] py-10">
-        <div className="mb:mb-[200px] mx-auto mb-10 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mb:py-[100px] bg-[#FFDECB] pt-10">
+        <div className="mb:mb-[150px] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {tbpHeadline && (
             <FadeIn>
               <h2 className="tracking-031 mb:tracking-061 text-primary-blue mb:text-[61px] mb:mb-[53px] mb-5 text-center font-sans text-[32px] leading-110 font-semibold">
@@ -175,6 +175,13 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
             </FadeIn>
           )}
         </div>
+      </div>
+      <div
+        className="mb:pt-10 mb:pb-0 pt-15 pb-10"
+        style={{
+          background: 'linear-gradient(180deg, #FFDECB 0%, #F8F4EF 30%)',
+        }}
+      >
         {narrative && <NarrativeBlock {...narrative} />}
       </div>
 
@@ -336,23 +343,25 @@ const Hero = ({ isMobile, mobileImage, image, preTitle, title, introduction, cta
       <FadeIn
         delay={0.3}
         className={cn(
-          'h-[130dvh] bg-contain bg-bottom-right bg-no-repeat',
+          'bg-contain bg-bottom-right bg-no-repeat',
           isMobile && mobileImage && 'complex-hero-grid',
           isMobile && 'h-auto',
         )}
         style={{
           backgroundImage: isMobile ? 'none' : `url(${image?.url})`,
-          backgroundAttachment: isMobile ? 'initial' : 'fixed',
+          // backgroundAttachment: isMobile ? 'initial' : 'fixed',
           backgroundSize: isMobile ? 'contain' : '870.878px 689.592px',
-          opacity: isMobile ? 1 : backgroundImageOpacity,
+          // opacity: isMobile ? 1 : backgroundImageOpacity,
         }}
       >
         <motion.div
           className="complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8"
-          style={{
-            opacity: isMobile ? 1 : contentOpacity,
-            y: isMobile ? '0%' : contentY,
-          }}
+          style={
+            {
+              // opacity: isMobile ? 1 : contentOpacity,
+              // y: isMobile ? '0%' : contentY,
+            }
+          }
         >
           <div className="max-w-[750px]">
             <FadeIn delay={0.3}>
@@ -413,7 +422,7 @@ const StakeSection = ({ isMobile, headline, subHeading, stakeIntroduction }) => 
         <div className="headline-wrapper mb:grid-cols-[1fr_2fr] mb:gap-20 relative grid gap-5">
           {headline && (
             <FadeIn
-              delay={1}
+              delay={isMobile ? 0 : 1}
               className="headline mb:sticky mb:top-0 mb:z-10 mb:h-screen mb:flex mb:p-8 mb:pt-8 items-center justify-center pt-8"
             >
               <motion.h2 className="mb:tracking-061 tracking-031 text-primary-navy mb:text-[61px] font-sans text-[32px] leading-110 font-semibold">
