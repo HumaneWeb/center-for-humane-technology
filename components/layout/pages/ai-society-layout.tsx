@@ -600,10 +600,7 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false, isLastItem =
                 duration={2}
                 className="mb-[80px] flex items-center justify-center"
               >
-                <img
-                  // @ts-ignore
-                  src={'https://s4.ezgif.com/tmp/ezgif-46c052c85073af.webp' || item.imageGif.url}
-                />
+                <img src={item.imageGif.url} />
               </FadeIn>
             </div>
           )}
