@@ -110,6 +110,8 @@ export default function DonationSteps() {
     lastName: '',
     email: '',
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const validateStep = (step: DonationStep): boolean => {
     switch (step) {
@@ -125,12 +127,16 @@ export default function DonationSteps() {
   };
 
   const handleNext = async (): Promise<void> => {
+    setErrorMessage(null);
+
     if (!validateStep(currentStep)) {
-      alert('Please fill in all required fields.');
+      setErrorMessage('Please fill in all required fields.');
       return;
     }
 
     if (currentStep === 2) {
+      setIsLoading(true);
+
       // Create payment intent when moving to step 3
       try {
         const response = await fetch(
@@ -155,11 +161,14 @@ export default function DonationSteps() {
           setClientSecret(clientSecret);
           setCurrentStep(3);
         } else {
-          alert('Error creating payment: ' + (error || 'Unknown error'));
+          console.log(error);
+          setErrorMessage('Error creating payment. Please try again.');
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        setErrorMessage('A network error occurred. Please try again.');
+      } finally {
+        setIsLoading(false);
       }
     } else if (currentStep < 3) {
       setCurrentStep((currentStep + 1) as DonationStep);
@@ -366,11 +375,18 @@ export default function DonationSteps() {
           </button>
           <button
             onClick={handleNext}
+            disabled={isLoading}
             className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb-4 inline-block min-w-[215px] cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
           >
-            Next
+            {isLoading ? 'Processing...' : 'Next'}
           </button>
         </div>
+
+        {errorMessage && (
+          <div className="mb-4 rounded-md bg-red-100 px-4 py-4 text-[16px] text-red-700">
+            {errorMessage}
+          </div>
+        )}
       </div>
     </div>
   );

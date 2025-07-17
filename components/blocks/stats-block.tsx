@@ -124,7 +124,7 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
             <div
               key={item.id}
               className={cn(
-                'flex w-fit items-end gap-2.5',
+                'flex w-fit items-center gap-2.5',
                 (variant === 'landing' || variant === 'landing-teal') &&
                   'mb:flex-row flex-col items-center',
               )}
@@ -134,7 +134,7 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
               </h4>
               <h6
                 className={cn(
-                  'text-primary-cream mb:text-xl mb:leading-110 max-w-24 font-sans text-[18px] leading-110 font-semibold',
+                  'text-primary-cream mb:text-xl mb:leading-110 mb:max-w-[140px] font-sans text-[18px] leading-110 font-semibold',
                   variant === 'landing' && 'mb:max-w-24 max-w-full leading-120',
                 )}
               >
