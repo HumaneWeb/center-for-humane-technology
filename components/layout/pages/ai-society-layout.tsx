@@ -132,6 +132,7 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
             item={item}
             scrollYProgress={scrollYProgress}
             hideFirst={index === 0}
+            isLastItem={index === items.length - 1}
           />
         ))}
       </div>
@@ -211,7 +212,7 @@ const FullCardEllipse = () => (
     height="852"
     viewBox="0 0 852 852"
     fill="none"
-    className="mb:w-auto h-auto w-full"
+    className="mb:w-auto content-image-issue h-auto w-full"
   >
     <mask
       id="mask0_5263_9317"
@@ -349,50 +350,48 @@ const Hero = ({ isMobile, mobileImage, image, preTitle, title, introduction, cta
         )}
         style={{
           backgroundImage: isMobile ? 'none' : `url(${image?.url})`,
-          // backgroundAttachment: isMobile ? 'initial' : 'fixed',
           backgroundSize: isMobile ? 'contain' : '870.878px 689.592px',
-          // opacity: isMobile ? 1 : backgroundImageOpacity,
         }}
       >
-        <motion.div
-          className="complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8"
-          style={
-            {
-              // opacity: isMobile ? 1 : contentOpacity,
-              // y: isMobile ? '0%' : contentY,
-            }
-          }
-        >
+        <motion.div className="complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8">
           <div className="max-w-[750px]">
-            <FadeIn delay={0.3}>
-              <h2
-                className={cn(
-                  'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
-                )}
-              >
-                {preTitle}
-              </h2>
-            </FadeIn>
-            <FadeIn delay={0.35}>
-              <h1
-                className={cn(
-                  'text-primary-cream mb:tracking-061 mb:text-6xl mb:mb-5 mb-2 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]',
-                )}
-              >
-                {title}
-              </h1>
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <div
-                className="text-neutral-white mb:text-2xl mb:mb-3.5 mb-2 max-w-[600px] font-sans text-xl leading-140"
-                dangerouslySetInnerHTML={{
-                  __html: introduction,
-                }}
-              />
-            </FadeIn>
-            <FadeIn delay={0.45}>
-              <Cta {...cta} />
-            </FadeIn>
+            {preTitle && (
+              <FadeIn delay={0.3}>
+                <h2
+                  className={cn(
+                    'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
+                  )}
+                >
+                  {preTitle}
+                </h2>
+              </FadeIn>
+            )}
+            {title && (
+              <FadeIn delay={0.35}>
+                <h1
+                  className={cn(
+                    'text-primary-cream mb:tracking-061 mb:text-6xl mb:mb-5 mb-2 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]',
+                  )}
+                >
+                  {title}
+                </h1>
+              </FadeIn>
+            )}
+            {introduction && (
+              <FadeIn delay={0.4}>
+                <div
+                  className="text-neutral-white mb:text-2xl mb:mb-3.5 mb-2 max-w-[600px] font-sans text-xl leading-140"
+                  dangerouslySetInnerHTML={{
+                    __html: introduction,
+                  }}
+                />
+              </FadeIn>
+            )}
+            {cta && (
+              <FadeIn delay={0.45}>
+                <Cta {...cta} />
+              </FadeIn>
+            )}
           </div>
         </motion.div>
 
@@ -414,16 +413,16 @@ const StakeSection = ({ isMobile, headline, subHeading, stakeIntroduction }) => 
   });
 
   const textOpacity = useTransform(scrollYProgress, [0.1, 0.6], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.2, 0.6], ['100%', '0%']);
+  const textY = useTransform(scrollYProgress, [0, 0.495], ['100%', '0%']);
 
   return (
-    <div ref={ref} className="stake-section mb:h-[100vh] bg-[#F0EBFF]">
+    <div ref={ref} className="stake-section mb:h-[70vh] bg-[#F0EBFF] py-5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="headline-wrapper mb:grid-cols-[1fr_2fr] mb:gap-20 relative grid gap-5">
           {headline && (
             <FadeIn
               delay={isMobile ? 0 : 1}
-              className="headline mb:sticky mb:top-0 mb:z-10 mb:h-screen mb:flex mb:p-8 mb:pt-8 items-center justify-center pt-8"
+              className="headline mb:sticky mb:top-0 mb:z-10 mb:h-[70vh] mb:flex mb:p-8 mb:pt-8 items-center justify-center pt-8"
             >
               <motion.h2 className="mb:tracking-061 tracking-031 text-primary-navy mb:text-[61px] font-sans text-[32px] leading-110 font-semibold">
                 {headline}
@@ -457,7 +456,7 @@ const StakeSection = ({ isMobile, headline, subHeading, stakeIntroduction }) => 
   );
 };
 // @ts-ignore
-const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
+const ContentSection = ({ item, scrollYProgress, hideFirst = false, isLastItem = false }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.08]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -5]);
 
@@ -472,7 +471,7 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
         <div
           id={`content-${item.id}`}
           className={cn(
-            'bg-ai-society-blue mb:py-[100px] py-10',
+            'bg-ai-society-blue mb:pt-[100px] mb:pb-0 pt-10 pb-10',
             item.variant === 'dark' && 'bg-ai-society-dark-blue',
           )}
         >
@@ -484,7 +483,7 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
                 </FadeIn>
                 {item.image?.url && (
                   <FadeIn className="absolute" delay={0.5} duration={2}>
-                    <img src={item.image.url} className="max-h-[595px]" />
+                    <img src={item.image.url} className="max-h-[557px]" />
                   </FadeIn>
                 )}
               </div>
@@ -511,8 +510,9 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
         </div>
         <div
           className={cn(
-            'bg-primary-blue mb:pb-[300px] pb-[150px]',
+            'bg-primary-blue mb:pb-[0px] pb-[0px]',
             item.variant === 'dark' && 'bg-[#030E20]',
+            isLastItem && 'mb:pb-[100px] pb-10',
           )}
         >
           {item.items.slice(0, 1).map((helpItem: any) => (
@@ -540,7 +540,7 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
                     key={i.id}
                     className={cn(
                       'mb:mb-[50px] mb-10 grid grid-cols-[auto_1fr] items-start gap-2.5',
-                      index === helpItem.items.length - 1 && 'mb:mb-[190px]',
+                      index === helpItem.items.length - 1 && 'mb:mb-[100px]',
                     )}
                   >
                     {item.variant === 'dark' ? <ItemIconBlue /> : <ItemIcon />}
@@ -551,16 +551,6 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
                     )}
                   </div>
                 ))}
-
-                {item.imageGif?.url && (
-                  <FadeIn
-                    delay={0.5}
-                    duration={2}
-                    className="mb-[90px] flex items-center justify-center"
-                  >
-                    <img src={item.imageGif.url} />
-                  </FadeIn>
-                )}
               </div>
             </FadeIn>
           ))}
@@ -589,7 +579,7 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
                     key={i.id}
                     className={cn(
                       'mb:mb-[50px] mb-10 grid grid-cols-[auto_1fr] items-start gap-2.5',
-                      index === helpItem.items.length - 1 && 'mb:mb-[190px]',
+                      index === helpItem.items.length - 1 && 'mb:mb-[100px]',
                     )}
                   >
                     {item.variant === 'dark' ? <ItemIconBlue /> : <ItemIcon />}
@@ -603,7 +593,17 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false }) => {
               </div>
             </FadeIn>
           ))}
-
+          {item.imageGif?.url && (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <FadeIn
+                delay={0.5}
+                duration={2}
+                className="mb-[80px] flex items-center justify-center"
+              >
+                <img src={item.imageGif.url} />
+              </FadeIn>
+            </div>
+          )}
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <FadeIn
               className={cn(

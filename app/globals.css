@@ -1023,3 +1023,17 @@ hr {
     padding: 5rem 0;
   }
 }
+
+@media screen and (max-width: 1440px) {
+  .content-image-issue {
+    max-height: 820px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .content-image-issue {
+    max-height: 820px;
+  }
+}
+
+/* 292px */
