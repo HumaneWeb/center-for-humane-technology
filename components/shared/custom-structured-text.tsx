@@ -43,6 +43,7 @@ export default function CustomStructuredText({
   defaultRules = false,
   isInnerContainer = false,
   centerContent = false,
+  special = false,
 }: {
   data: Document | Node | StructuredTextDocument | null | undefined;
   defaultRules: boolean;
@@ -107,7 +108,11 @@ export default function CustomStructuredText({
                   record.alignment === 'right' && 'float-right clear-right mr-5 mb-5 max-w-[410px]',
                 )}
               >
-                <CustomImage {...record.image} withCaption extraClass="max-w-[840px] w-full" />
+                <CustomImage
+                  {...record.image}
+                  withCaption
+                  extraClass={cn('max-w-[840px] w-full', special && 'max-h-[450px] object-contain')}
+                />
               </FadeIn>
             </div>
           );
@@ -228,6 +233,7 @@ export default function CustomStructuredText({
                 'generic-card-record mb:my-18 mx-auto my-8 max-w-7xl px-4 sm:px-6 lg:px-8 [&+.generic-card-record]:mt-4 [&:has(+.generic-card-record)]:mb-0',
                 isInnerContainer && 'my-0 h-full max-w-full px-0 sm:px-0 lg:px-0',
                 centerContent && 'px-0!',
+                special && 'mx-0 max-w-[840px]',
               )}
               key={record.id}
             >

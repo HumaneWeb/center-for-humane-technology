@@ -7,7 +7,7 @@ import ContentSidebar from '../shared/content-sidebar';
 import ContentTopBar from '../shared/content-top-bar';
 import { FadeIn } from '../shared/fade-in';
 
-export default function ContentLayout({ page, configuration, withImage = true }) {
+export default function ContentLayout({ page, configuration, withImage = true, special = false }) {
   const {
     slug,
     title,
@@ -50,7 +50,11 @@ export default function ContentLayout({ page, configuration, withImage = true })
         >
           {withSidebar && <ContentSidebar items={anchors} />}
           <FadeIn className="content-layout">
-            <CustomStructuredText data={page?.content} centerContent={withTopBar || none} />
+            <CustomStructuredText
+              data={page?.content}
+              centerContent={withTopBar || none}
+              special={special}
+            />
           </FadeIn>
         </div>
       </div>

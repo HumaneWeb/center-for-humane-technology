@@ -1332,6 +1332,14 @@ export const CaseStudyPageQuery = graphql(
             ...LinksBlockFragment
             ...HighlightedBlockFragment
             ...RelatedAnchorBlockFragment
+            ...AccordionBlockFragment
+            ...TableFragment
+            ...BlockquoteFragment
+            ...GridFragment
+            ...DonateBlockFragment
+            ...FootnoteFragment
+            ...GenericCardFragment
+            ...ImageContentBlockFragment
           }
         }
         _seoMetaTags {
@@ -1361,13 +1369,19 @@ export const CaseStudyPageQuery = graphql(
     SignUpBlockFragment,
     ThinkingBlockFragment,
     StatsBlockFragment,
-    ImpactBlockFragment,
     ColumnsBlockFragment,
     GenericCardsGridFragment,
     GalleryImageInformationFragment,
     LinksBlockFragment,
     HighlightedBlockFragment,
     RelatedAnchorBlockFragment,
+    AccordionBlockFragment,
+    TableFragment,
+    BlockquoteFragment,
+    GridFragment,
+    DonateBlockFragment,
+    FootnoteFragment,
+    GenericCardFragment,
   ],
 );
 
