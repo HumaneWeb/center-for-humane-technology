@@ -111,7 +111,7 @@ export default function CustomStructuredText({
                 <CustomImage
                   {...record.image}
                   withCaption
-                  extraClass={cn('max-w-[840px] w-full', special && 'max-h-[450px] object-contain')}
+                  extraClass={cn(special && 'max-w-[840px] w-full max-h-[450px] object-contain')}
                 />
               </FadeIn>
             </div>
