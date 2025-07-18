@@ -50,12 +50,6 @@ export default function CookieConsent() {
       </div>
       <div className="mt-4 flex w-full justify-center gap-2 md:mt-0 md:w-auto">
         <button
-          onClick={handleReject}
-          className="bg-primary-cream text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb:w-auto mb:justify-start group group flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-[5px] px-4 py-3 text-[18px] leading-120 font-semibold transition-all duration-200 ease-in"
-        >
-          Decline
-        </button>
-        <button
           onClick={handleAccept}
           className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb:w-auto mb:justify-start group group flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-[5px] px-4 py-3 text-[18px] leading-120 font-semibold transition-all duration-200 ease-in"
         >
