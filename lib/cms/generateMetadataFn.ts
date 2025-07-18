@@ -4,6 +4,8 @@ import { draftMode } from 'next/headers';
 import { type SeoOrFaviconTag, type TitleMetaLinkTag, toNextMetadata } from 'react-datocms/seo';
 import { executeQuery } from './executeQuery';
 
+const SHARE_IMAGE = 'https://www.datocms-assets.com/160835/1751894899-cht-share-image.png';
+
 /**
  * Generates a function that fits the Next.js `generateMetadata()` format. This
  * automates the creation of meta tags based on the `_seoMetaTags` present in a
@@ -27,12 +29,29 @@ export function generateMetadataFn<PageProps, Result, Variables>(
       }),
     ]);
 
-    const tags = options.pickSeoMetaTags(data as Result);
+    const updatedTags = (options.pickSeoMetaTags(data as Result) || []).map((tag) => {
+      if (
+        tag.tag === 'meta' &&
+        tag.attributes &&
+        // @ts-ignore
+        (tag.attributes.property === 'og:image' || tag.attributes.name === 'twitter:image')
+      ) {
+        return {
+          ...tag,
+          attributes: {
+            ...tag.attributes,
+            content: SHARE_IMAGE,
+          },
+        };
+      }
+      return tag;
+    });
 
     // Combine metadata from parent routes with those of this route:
     return {
       ...(parentMetadata as Metadata),
-      ...toNextMetadata(tags || []),
+      // @ts-ignore
+      ...toNextMetadata(updatedTags || []),
     };
   };
 }
