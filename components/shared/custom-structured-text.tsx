@@ -103,11 +103,11 @@ export default function CustomStructuredText({
             >
               <FadeIn
                 className={cn(
-                  record.alignment === 'left' && 'float-left clear-left mr-6 mb-5 max-w-[410px]',
+                  record.alignment === 'left' && 'float-left clear-left mr-8 mb-4 max-w-[410px]',
                   record.alignment === 'right' && 'float-right clear-right mr-5 mb-5 max-w-[410px]',
                 )}
               >
-                <CustomImage {...record.image} withCaption />
+                <CustomImage {...record.image} withCaption extraClass="max-w-[840px] w-full" />
               </FadeIn>
             </div>
           );
