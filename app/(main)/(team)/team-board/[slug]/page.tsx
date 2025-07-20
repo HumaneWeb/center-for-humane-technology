@@ -8,6 +8,7 @@ import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { TeamDetailQuery } from '@/lib/cms/query';
 import type { PageSlug } from '@/lib/utils/types';
+import { notFound } from 'next/navigation';
 
 export const generateMetadata = generateMetadataFn({
   query: TeamDetailQuery,
@@ -21,6 +22,11 @@ export default async function TeamDetailPage({ params }: PageSlug) {
   const { member, teamBoard, configuration } = await executeQuery(TeamDetailQuery, {
     variables: { slug },
   });
+
+  if (!member) {
+    notFound();
+  }
+
   const {
     fullName,
     image,

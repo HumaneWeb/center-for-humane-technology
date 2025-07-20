@@ -5,6 +5,7 @@ import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { PodcastDetailQuery } from '@/lib/cms/query';
 import type { PageSlug } from '@/lib/utils/types';
+import { notFound } from 'next/navigation';
 
 export const generateMetadata = generateMetadataFn({
   query: PodcastDetailQuery,
@@ -18,6 +19,10 @@ export default async function PodcastDetailPage({ params }: PageSlug) {
   const { podcast, podcastList, configuration } = await executeQuery(PodcastDetailQuery, {
     variables: { slug },
   });
+
+  if (!podcast) {
+    notFound();
+  }
 
   return (
     <section>
