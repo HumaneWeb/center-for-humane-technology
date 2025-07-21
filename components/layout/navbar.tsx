@@ -562,6 +562,7 @@ export default function Navbar({ items }: Props) {
             className="hover:text-primary-teal cursor-pointer border-l-[1px] px-5 transition-all duration-200 xl:px-8"
             onClick={() => setOpenSearchEngine((prev) => !prev)}
           >
+            <span className="sr-only">Search</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"

@@ -73,6 +73,7 @@ export default function RootLayout({
           fetchPriority="high"
         />
 
+        <link rel="preconnect" href="https://use.typekit.net" />
         <link rel="stylesheet" href="https://use.typekit.net/kvx4yfh.css" />
         <GoogleTagManager gtmId="GTM-PCWTN2N" />
       </head>

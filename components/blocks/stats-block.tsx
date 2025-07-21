@@ -24,7 +24,10 @@ function AnimatedValue({
   variant?: 'default' | 'landing' | 'landing-teal';
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, {
+    once: true,
+    // margin: '-100px',
+  });
 
   const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
   const numericValue = match ? Number.parseFloat(match[1]) : 0;
@@ -101,17 +104,19 @@ export default function StatsBlock({ title, items, variant = 'default', extraCla
           (variant === 'landing' || variant === 'landing-teal') && 'lg:px-16',
         )}
       >
-        <FadeIn>
-          <h3
-            className={cn(
-              'text-primary-cream mb:text-2xl mb:leading-130 mb:mb-14 mb-10 font-sans text-xl leading-120 font-semibold',
-              (variant === 'landing' || variant === 'landing-teal') &&
-                'tracking-025 mb:mb-20 mb-10 text-center leading-110 font-medium',
-            )}
-          >
-            {title}
-          </h3>
-        </FadeIn>
+        {title && (
+          <FadeIn>
+            <h3
+              className={cn(
+                'text-primary-cream mb:text-2xl mb:leading-130 mb:mb-14 mb-10 font-sans text-xl leading-120 font-semibold',
+                (variant === 'landing' || variant === 'landing-teal') &&
+                  'tracking-025 mb:mb-20 mb-10 text-center leading-110 font-medium',
+              )}
+            >
+              {title}
+            </h3>
+          </FadeIn>
+        )}
 
         <FadeIn
           className={cn(
