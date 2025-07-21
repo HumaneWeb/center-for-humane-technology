@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils/css.utils';
 import type { SidebarItem } from '@/lib/utils/types';
 import { handleClickJumpToSection } from '@/lib/utils/ui.utils';
 import { usePathname } from 'next/navigation';
+import { FadeIn } from './fade-in';
 
 interface ContentTopBarProps {
   items: SidebarItem[];
@@ -14,7 +15,7 @@ export default function ContentTopBar({ items }: ContentTopBarProps) {
   const shouldNavbarBeFixed = pathname.includes('/case-study/');
 
   return (
-    <div
+    <FadeIn
       className={cn(
         'jump-to-section-ui bg-neutral-white mb:mt-10 sticky top-0 self-start border border-[#A8ADB6]',
         shouldNavbarBeFixed && 'top-16',
@@ -33,6 +34,6 @@ export default function ContentTopBar({ items }: ContentTopBarProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </FadeIn>
   );
 }

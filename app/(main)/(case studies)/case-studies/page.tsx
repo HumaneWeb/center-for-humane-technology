@@ -8,6 +8,7 @@ import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import type { PodcastListPageProps } from '@/lib/utils/types';
 import GenericCard from '@/components/shared/generic-card';
 import BasicHero from '@/components/layout/basic-hero';
+import { FadeIn } from '@/components/shared/fade-in';
 
 export const generateMetadata = generateMetadataFn({
   query: CaseStudiesListQuery,
@@ -41,7 +42,7 @@ export default async function CaseStudiesListPage({ searchParams }: PodcastListP
     <>
       <BasicHero title={page.title} />
 
-      <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      <FadeIn className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         {studies.length > 0 && (
           <div className="mb:grid-cols-2 mb:gap-28 mb:mb-50 mb-15 grid gap-10">
             {studies.map((study) => (
@@ -56,7 +57,7 @@ export default async function CaseStudiesListPage({ searchParams }: PodcastListP
             ))}
           </div>
         )}
-      </section>
+      </FadeIn>
       <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}
