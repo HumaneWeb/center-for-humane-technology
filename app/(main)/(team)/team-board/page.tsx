@@ -59,24 +59,26 @@ export default async function TeamListPage() {
         </section>
       </div>
 
-      <section className="mb-10">
-        <FadeIn className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-16 mb-5 font-sans text-[29px] leading-120 font-semibold">
-            Careers
-          </h2>
+      {careers && careers.length > 0 && (
+        <section className="mb-10">
+          <FadeIn className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+            <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-16 mb-5 font-sans text-[29px] leading-120 font-semibold">
+              Careers
+            </h2>
 
-          <div className="mb:grid-cols-2 mb:mb-24 mb-12 grid gap-x-28 gap-y-5">
-            {careers.map((career) => (
-              <CareerCard {...career} key={career.id} />
-            ))}
-          </div>
+            <div className="mb:grid-cols-2 mb:mb-24 mb-12 grid gap-x-28 gap-y-5">
+              {careers.map((career) => (
+                <CareerCard {...career} key={career.id} />
+              ))}
+            </div>
 
-          <Cta
-            label="See All Openings"
-            link={{ content: { slug: careersList?.slug, __typename: careersList?.__typename } }}
-          />
-        </FadeIn>
-      </section>
+            <Cta
+              label="See All Openings"
+              link={{ content: { slug: careersList?.slug, __typename: careersList?.__typename } }}
+            />
+          </FadeIn>
+        </section>
+      )}
 
       <div className="bg-neutral-white mb:pt-24 mb:pb-28 pt-8 pb-15">
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
