@@ -665,6 +665,10 @@ hr {
 }
 
 @media screen and (max-width: 992px) {
+  .breakdown-of-shared-understanding {
+    max-height: 290px;
+  }
+
   .homepage-grid-parent {
     align-items: center;
   }
@@ -702,6 +706,10 @@ hr {
   animation: scroll-down linear infinite;
 }
 
+.impact-block-last-item-mobile {
+  display: none;
+}
+
 /* Grid */
 @media screen and (max-width: 992px) and (min-width: 570px) {
   .circle-grid {
@@ -715,6 +723,15 @@ hr {
     gap: 0;
     margin-top: 1.5rem;
     margin-bottom: 2.5rem;
+  }
+
+  .impact-block-last-item-mobile {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  .impact-block-last-item {
+    display: none;
   }
 
   .circle-grid-item-1 {
@@ -1035,5 +1052,3 @@ hr {
     max-height: 820px;
   }
 }
-
-/* 292px */

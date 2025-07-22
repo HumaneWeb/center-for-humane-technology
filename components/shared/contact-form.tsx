@@ -88,7 +88,7 @@ export default function ContactForm() {
         <RadioGroup
           value={formData.contactOption}
           onValueChange={(value) => handleInputChange('contactOption', value)}
-          className="mb:space-y-5 mb-8 space-y-3 border-b border-[#DBDEE6] pb-8"
+          className="mb:space-y-5 mb-0 space-y-3 border-b border-[#DBDEE6] pb-8"
         >
           <div className="flex items-center space-x-3">
             <RadioGroupItem value="general" id="general" className="h-[18px] w-[18px]" />

@@ -3,7 +3,7 @@
 import GenericCard from '../shared/generic-card';
 import Cta from '../shared/cta';
 import { cn } from '@/lib/utils/css.utils';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useIsMobile from '../hooks/is-mobile';
 import { FadeIn } from '../shared/fade-in';
 
@@ -26,6 +26,7 @@ export default function GenericCardsGrid({
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  const [showArrows, setShowArrows] = useState<boolean>(false);
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -50,6 +51,34 @@ export default function GenericCardsGrid({
       });
     }
   };
+
+  const checkForOverflow = () => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const cards = container.querySelectorAll('.generic-card-ui');
+
+      if (cards.length === 0) {
+        setShowArrows(false);
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const lastCardRect = cards[cards.length - 1].getBoundingClientRect();
+
+      const hasOverflow = lastCardRect.right > containerRect.right + 1;
+
+      setShowArrows(isMobile || hasOverflow);
+    }
+  };
+
+  useEffect(() => {
+    checkForOverflow();
+    window.addEventListener('resize', checkForOverflow);
+
+    return () => {
+      window.removeEventListener('resize', checkForOverflow);
+    };
+  }, [isMobile, items]);
 
   if (variant === 'minimal') {
     return (
@@ -103,7 +132,7 @@ export default function GenericCardsGrid({
             </FadeIn>
           </div>
 
-          {(items.length > 3 || isMobile) && (
+          {showArrows && (items.length > 3 || isMobile) && (
             <ArrowsHandler scrollLeft={scrollLeft} scrollRight={scrollRight} />
           )}
 
@@ -159,7 +188,7 @@ export default function GenericCardsGrid({
             className={cn(
               'grid',
               variant === 'default' &&
-                'no-responsive-grid mb:grid-cols-2 mb:gap-y-0 gap-x-32 gap-y-8',
+                'Xno-responsive-grid mb:grid-cols-2 mb:gap-y-0 gap-x-32 gap-y-8',
               variant === '4-columns' && 'responsive-grid mb:grid-cols-3 gap-5',
               variant === '3-columns' && 'responsive-grid mb:grid-cols-3 gap-6',
             )}
@@ -189,7 +218,7 @@ export function ArrowsHandler({
 }) {
   return (
     <FadeIn className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-center gap-5 sm:right-6 lg:right-8">
+      <div className="mb:justify-center flex gap-5 sm:right-6 lg:right-8">
         <button
           onClick={scrollLeft}
           className={cn(

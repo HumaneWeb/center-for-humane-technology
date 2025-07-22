@@ -483,7 +483,13 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false, isLastItem =
                 </FadeIn>
                 {item.image?.url && (
                   <FadeIn className="absolute" delay={0.5} duration={2}>
-                    <img src={item.image.url} className="max-h-[557px]" />
+                    <img
+                      src={item.image.url}
+                      className={cn(
+                        'max-h-[557px]',
+                        item.headline.toLowerCase().replace(/\s+/g, '-'),
+                      )}
+                    />
                   </FadeIn>
                 )}
               </div>

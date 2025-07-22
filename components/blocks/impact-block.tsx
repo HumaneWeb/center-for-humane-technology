@@ -66,13 +66,34 @@ export default function ImpactBlock({ title, introduction, items, cta, extraClas
                 />
               )}
             </div>
+
+            <div className="impact-block-last-item-mobile">
+              <div className="circle-grid-item-3">
+                <h3 className="text-primary-blue mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
+                  {secondItem.title}
+                </h3>
+                {secondItem.subtitle && (
+                  <span className="text-primary-blue mb:text-xl mb-3.5 block font-sans text-[18px] leading-120 font-semibold">
+                    {secondItem.subtitle}
+                  </span>
+                )}
+                {secondItem.introduction && (
+                  <div
+                    className="text-primary-navy mb:leading-135 mb:max-w-[340px] font-sans text-[16px] leading-140 font-normal"
+                    dangerouslySetInnerHTML={{
+                      __html: secondItem.introduction,
+                    }}
+                  />
+                )}
+              </div>
+            </div>
           </FadeIn>
 
           <FadeIn>
             <GraphicImpact />
           </FadeIn>
 
-          <FadeIn delay={0.6}>
+          <FadeIn delay={0.6} className="impact-block-last-item">
             <div className="circle-grid-item-3">
               <h3 className="text-primary-blue mb:text-3xl mb:leading-100 mb-3 font-sans text-[23px] leading-120 font-semibold">
                 {secondItem.title}
