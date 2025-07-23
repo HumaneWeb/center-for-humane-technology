@@ -1835,3 +1835,89 @@ export const NavbarQuery = graphql(
   `,
   [GlobalLinkFragment],
 );
+
+// Sitemap
+export const SitemapQuery = graphql(`
+  query SitemapQuery {
+    allBasicPages {
+      id
+      slug
+      _updatedAt
+    }
+    aiInSociety {
+      id
+      slug
+      _updatedAt
+    }
+    teamBoard {
+      id
+      slug
+      _updatedAt
+    }
+    allTeamMembers {
+      id
+      slug
+      _updatedAt
+    }
+    podcastList {
+      id
+      slug
+      _updatedAt
+    }
+    allPodcasts {
+      id
+      slug
+      _updatedAt
+    }
+    careersList {
+      id
+      slug
+      _updatedAt
+    }
+    allCareers {
+      id
+      slug
+      _updatedAt
+    }
+    blogList {
+      id
+      slug
+      _updatedAt
+    }
+    caseStudiesList {
+      id
+      slug
+      _updatedAt
+    }
+    allCaseStudies {
+      id
+      slug
+      _updatedAt
+    }
+    toolkitList {
+      id
+      slug
+      _updatedAt
+    }
+    allToolkits {
+      id
+      slug
+      _updatedAt
+    }
+    donate {
+      id
+      slug
+      _updatedAt
+    }
+    contact {
+      id
+      slug
+      _updatedAt
+    }
+    allLandings {
+      id
+      slug
+      _updatedAt
+    }
+  }
+`);
