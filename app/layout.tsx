@@ -75,6 +75,13 @@ export default function RootLayout({
 
         <link rel="preconnect" href="https://use.typekit.net" />
         <link rel="stylesheet" href="https://use.typekit.net/kvx4yfh.css" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" type="image/png" sizes="96x96" />
+        <link
+          rel="apple-touch-icon-precomposed"
+          href="/apple-icon.png"
+          type="image/png"
+          sizes="96x96"
+        />
         <GoogleTagManager gtmId="GTM-PCWTN2N" />
       </head>
 
