@@ -70,7 +70,7 @@ export default async function InThePressPage({ searchParams }: PodcastListPagePr
                   <PodcastMinimalCard
                     key={item.id}
                     title={item.title}
-                    episode={`${item.category} | ${formatDate(item.date)}`}
+                    episode={`${formatDate(item.date)}`}
                     image={item.image}
                     externalUrl={item.externalUrl}
                     introduction={`${item.source ? `<b>${item.source}</b> - ` : ''}${item.length ?? '-'}`}
