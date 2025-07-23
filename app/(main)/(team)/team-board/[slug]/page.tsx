@@ -105,7 +105,7 @@ export default async function TeamDetailPage({ params }: PageSlug) {
                 </a>
               )}
               {email && (
-                <a className={`mailto:${email}`}>
+                <a href={`mailto:${email}`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="45"
