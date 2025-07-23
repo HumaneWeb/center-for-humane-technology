@@ -200,7 +200,10 @@ export default function PodcastDetail({
                     </Cta>
                   )}
                   {videoUrl && (
-                    <Cta extraClass="flex items-center gap-2.5 mb:w-auto w-full mb:justify-start justify-center">
+                    <Cta
+                      extraClass="flex items-center gap-2.5 mb:w-auto w-full mb:justify-start justify-center"
+                      externalUrl={videoUrl}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -218,7 +221,10 @@ export default function PodcastDetail({
                     </Cta>
                   )}
                   {substackUrl && (
-                    <Cta extraClass="flex items-center gap-2.5 p-0 bg-transparent text-primary-blue underline hover:bg-transparent hover:text-primary-navy mb:w-auto w-full mb:justify-start justify-center">
+                    <Cta
+                      extraClass="flex items-center gap-2.5 p-0 bg-transparent text-primary-blue underline hover:bg-transparent hover:text-primary-navy mb:w-auto w-full mb:justify-start justify-center"
+                      externalUrl={substackUrl}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="28"
