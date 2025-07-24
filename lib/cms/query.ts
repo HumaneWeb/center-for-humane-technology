@@ -1203,6 +1203,61 @@ export const BasicPageQuery = graphql(
   ],
 );
 
+export const CareerPageQuery = graphql(
+  `
+    query CareerPageQuery($slug: String) {
+      page: career(filter: { slug: { eq: $slug } }) {
+        title
+        introduction
+        content {
+          value
+          blocks {
+            __typename
+            ... on RecordInterface {
+              id
+            }
+            ...CTAFragment
+            ...ImageBlockFragment
+            ...NarrativeBlockFragment
+            ...ColumnsBlockFragment
+            ...GenericCardsGridFragment
+            ...AccordionBlockFragment
+            ...TableFragment
+            ...BlockquoteFragment
+            ...FootnoteFragment
+            ...GenericCardFragment
+          }
+        }
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [
+    TagFragment,
+    CTAFragment,
+    ImageBlockFragment,
+    NarrativeBlockFragment,
+    ColumnsBlockFragment,
+    GenericCardsGridFragment,
+    AccordionBlockFragment,
+    TableFragment,
+    BlockquoteFragment,
+    FootnoteFragment,
+    GenericCardFragment,
+  ],
+);
+
 export const ToolkitPageQuery = graphql(
   `
     query ToolkitQuery($slug: String) {

@@ -616,6 +616,15 @@ type CampaignBlockRecord implements RecordInterface {
   title: String!
 }
 
+union CareerModelContentBlocksField = AccordionBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | FootnoteRecord | GenericCardRecord | GenericCardsGridRecord | ImageBlockRecord | NarrativeBlockRecord | TableRecord | VideoItemRecord
+
+type CareerModelContentField {
+  blocks: [CareerModelContentBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
 input CareerModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -626,6 +635,7 @@ input CareerModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  content: StructuredTextFilter
   introduction: TextFilter
   seo: SeoFilter
   slug: SlugFilter
@@ -677,6 +687,7 @@ type CareerRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  content: CareerModelContentField
   id: ItemId!
   introduction(
     """Process content as markdown"""
