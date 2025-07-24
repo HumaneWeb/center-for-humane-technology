@@ -5,6 +5,7 @@ const CMS_MODELS_ROUTE_MAP = {
   LandingRecord: '/landing',
   CaseStudyRecord: '/case-study',
   ToolkitRecord: '/youth',
+  CareerRecord: '/careers',
 } as const;
 
 type CmsModelKey = keyof typeof CMS_MODELS_ROUTE_MAP;

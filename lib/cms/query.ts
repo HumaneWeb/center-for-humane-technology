@@ -828,6 +828,8 @@ export const CareerFragment = graphql(`
     id
     title
     introduction
+    slug
+    __typename
   }
 `);
 

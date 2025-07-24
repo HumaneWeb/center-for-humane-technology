@@ -21,5 +21,23 @@ export default async function CareersPage({ params }: PageSlug) {
     notFound();
   }
 
-  return <ContentLayout page={page} configuration={configuration} withImage={false} special />;
+  return (
+    <ContentLayout
+      page={{
+        ...page,
+        backCta: {
+          label: 'Back to Careers',
+          link: {
+            content: {
+              slug: 'careers',
+              __typename: 'CareersListRecord',
+            },
+          },
+        },
+      }}
+      configuration={configuration}
+      withImage={false}
+      special
+    />
+  );
 }
