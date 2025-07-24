@@ -1228,6 +1228,7 @@ export const CareerPageQuery = graphql(
             ...BlockquoteFragment
             ...FootnoteFragment
             ...GenericCardFragment
+            ...VideoItemFragment
           }
         }
         _seoMetaTags {
@@ -1257,6 +1258,7 @@ export const CareerPageQuery = graphql(
     BlockquoteFragment,
     FootnoteFragment,
     GenericCardFragment,
+    VideoItemFragment,
   ],
 );
 

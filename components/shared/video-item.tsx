@@ -15,7 +15,7 @@ type Props = {
 export default function VideoItem({ video, thumbnailImage, extraClassnames }: Props) {
   return (
     <div className={cn('mb:mt-9 mb:mb-16 mb-10', extraClassnames)}>
-      <VideoEmbed {...video} thumbnailUrl={thumbnailImage?.url || video.thumbnailUrl} />
+      <VideoEmbed {...video} thumbnailUrl={thumbnailImage?.url || video?.thumbnailUrl} />
     </div>
   );
 }
