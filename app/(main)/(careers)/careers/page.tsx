@@ -8,6 +8,7 @@ import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import type { PodcastListPageProps } from '@/lib/utils/types';
 import BasicHero from '@/components/layout/basic-hero';
 import CareerCard from '@/components/shared/career-card';
+import { FadeIn } from '@/components/shared/fade-in';
 
 export const generateMetadata = generateMetadataFn({
   query: CareerListQuery,
@@ -32,15 +33,19 @@ export default async function CareersPage({ searchParams }: PodcastListPageProps
       <BasicHero title={page?.title} />
 
       <section className="mb:pt-16 mx-auto max-w-7xl px-4 pt-8 pb-20 sm:px-6 lg:px-8">
-        <div className="mb:grid-cols-2 grid gap-10">
-          {careers.length > 0 && (
+        <FadeIn className="mb:grid-cols-2 grid gap-10">
+          {careers.length > 0 ? (
             <div className="flex flex-col gap-10">
               {careers.map((career) => (
                 <CareerCard key={career.id} {...career} />
               ))}
             </div>
+          ) : (
+            <p className="mb:text-xl font-sans text-[16px] leading-140 font-normal">
+              Currently there are no open positions.
+            </p>
           )}
-        </div>
+        </FadeIn>
       </section>
 
       <PaginationControls
