@@ -78,7 +78,7 @@ export default function ComplexHero({
         </div>
         {isMobile && mobileImage && (
           <div className="complex-hero-grid-image">
-            <CustomImage {...mobileImage} extraClass="objet-cover" />
+            <CustomImage {...mobileImage} extraClass="objet-cover" alt="" aria-hidden="true" />
           </div>
         )}
       </FadeIn>

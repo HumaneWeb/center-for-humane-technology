@@ -11,7 +11,7 @@ export type CustomImageProps = {
   title: string;
   withCaption?: boolean;
   extraClass?: string;
-};
+} & React.HTMLAttributes<HTMLImageElement>;
 
 export default function CustomImage({
   url,
@@ -21,6 +21,7 @@ export default function CustomImage({
   title,
   withCaption = false,
   extraClass,
+  ...props
 }: CustomImageProps) {
   if (!url) {
     logWarning('[Custom Image] No url');
@@ -51,6 +52,7 @@ export default function CustomImage({
       width={width!}
       height={height!}
       className={cn(withCaption && title && 'mb-3.5', extraClass)}
+      {...props}
     />
   );
 }

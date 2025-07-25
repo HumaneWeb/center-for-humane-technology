@@ -637,6 +637,7 @@ input CareerModelFilter {
   _isValid: BooleanFilter
   content: StructuredTextFilter
   introduction: TextFilter
+  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
@@ -693,6 +694,7 @@ type CareerRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!

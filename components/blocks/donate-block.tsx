@@ -25,7 +25,7 @@ export default function DonateBlock({ title, cta, image }: Props) {
 
           {image && (
             <FadeIn className="mb:flex hidden justify-end">
-              <CustomImage {...image} />
+              <CustomImage {...image} alt="" aria-hidden="true" />
             </FadeIn>
           )}
         </div>

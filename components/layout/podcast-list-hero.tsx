@@ -39,7 +39,11 @@ export default function PodcastListHero({
         >
           {decoratorIcon && (
             <div className="podcast-list-hero-decorator mb:absolute left-[-60px] pt-3">
-              <CustomImage {...decoratorIcon} extraClass="mb:w-[65px] w-[50px] mb-2 mb:mb-0" />
+              <CustomImage
+                {...decoratorIcon}
+                extraClass="mb:w-[65px] w-[50px] mb-2 mb:mb-0"
+                alt="TED"
+              />
             </div>
           )}
           <div className="max-w-[620px]">
@@ -145,7 +149,7 @@ export default function PodcastListHero({
 
         {isMobile && image && (
           <div>
-            <CustomImage {...image} />
+            <CustomImage {...image} alt={title} />
           </div>
         )}
       </FadeIn>

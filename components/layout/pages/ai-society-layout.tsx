@@ -106,6 +106,7 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
                   <img
                     className="absolute h-[222px] w-[222px] object-contain"
                     src={item.cardImage.url}
+                    alt={item.cardImage.alt || item.cardHeadline}
                   />
                 )}
               </div>
@@ -489,6 +490,7 @@ const ContentSection = ({ item, scrollYProgress, hideFirst = false, isLastItem =
                         'max-h-[557px]',
                         item.headline.toLowerCase().replace(/\s+/g, '-'),
                       )}
+                      alt={item.image.alt || item.headline}
                     />
                   </FadeIn>
                 )}

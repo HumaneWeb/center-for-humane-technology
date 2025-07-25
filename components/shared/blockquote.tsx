@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils/css.utils';
 import CustomImage, { CustomImageProps } from './custom-image';
+import { htmlToText } from 'html-to-text';
 
 type Props = {
   content: string;
@@ -25,7 +26,13 @@ export default function Blockquote({ content, footer, image }: Props) {
         >
           {image && (
             <div>
-              <CustomImage {...image} extraClass="w-12" />
+              <CustomImage
+                {...image}
+                extraClass="w-12"
+                alt={htmlToText(footer, {
+                  wordwrap: false,
+                }).replace(/\n/g, ' ')}
+              />
             </div>
           )}
           <div dangerouslySetInnerHTML={{ __html: footer }} />

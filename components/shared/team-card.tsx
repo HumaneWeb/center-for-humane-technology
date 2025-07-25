@@ -35,6 +35,7 @@ export default function TeamCard({
               <CustomImage
                 {...image}
                 extraClass="aspect-square object-cover transition-all duration-500 ease-in-out group-hover:grayscale group-hover:scale-105 w-full"
+                alt={fullName}
               />
             </div>
           )}
@@ -79,6 +80,7 @@ export default function TeamCard({
           <CustomImage
             {...image}
             extraClass="aspect-square object-cover transition-all duration-500 ease-in-out w-full"
+            alt={fullName}
           />
         </div>
       )}

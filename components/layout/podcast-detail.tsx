@@ -11,6 +11,7 @@ import { formatDate } from '@/lib/utils/date.utils';
 import { useRef, useState } from 'react';
 import { PlayIcon, PauseIcon } from 'lucide-react';
 import { FadeIn } from '../shared/fade-in';
+import { isEmptyDocument } from 'datocms-structured-text-utils';
 
 export default function PodcastDetail({
   podcast,
@@ -42,7 +43,7 @@ export default function PodcastDetail({
 
   return (
     <>
-      <div className="bg-gradient-podcast-list mb:min-h-[700px] mb:pb-0 pt-10 pb-8">
+      <div className="bg-gradient-podcast-list mb:min-h-[700px] mb:pb-5 pt-10 pb-8">
         <FadeIn className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
           <CustomLink
             content={{ content: podcastList }}
@@ -74,6 +75,7 @@ export default function PodcastDetail({
                 <CustomImage
                   {...image}
                   extraClass="mb-0 mb:mb-10 mb:w-[400px] w-full mb:h-[400px]"
+                  alt={title}
                 />
               )}
 
@@ -261,7 +263,7 @@ export default function PodcastDetail({
       />
       <div className="mb:pt-[100px] mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
         <FadeIn className="mb:mb-50 mb:grid-cols-2 mb-10 grid gap-15">
-          {majorTakeaways && (
+          {!isEmptyDocument(majorTakeaways) && (
             <div>
               <h3 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
                 Major Takeaways
@@ -271,7 +273,7 @@ export default function PodcastDetail({
               </div>
             </div>
           )}
-          {recommendedMedia && (
+          {!isEmptyDocument(recommendedMedia) && (
             <div>
               <h3 className="text-primary-blue mb:text-[29px] mb:leading-130 mb:mb-[33px] mb-5 font-sans text-[23px] leading-120 font-semibold">
                 Other recommended reading
