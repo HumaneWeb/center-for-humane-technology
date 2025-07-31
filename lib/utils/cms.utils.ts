@@ -52,6 +52,15 @@ const PREVIEW_CMS_MODELS_ROUTE_MAP = {
   case_study: '/case-study',
   toolkit: '/youth',
   career: '/careers',
+  ai_in_society: '',
+  team_board: '',
+  podcast_list: '',
+  careers_list: '',
+  blog_list: '',
+  case_studies_list: '',
+  toolkit_list: '',
+  donate: '',
+  contact: '',
 } as const;
 type PreviewCmsModelKey = keyof typeof PREVIEW_CMS_MODELS_ROUTE_MAP;
 
@@ -63,12 +72,15 @@ export async function recordToWebsiteRoute(
   const __typename = itemTypeApiKey;
   const slug = item?.attributes?.slug;
 
-  // console.log({ __typename, slug });
+  if (__typename === 'homepage') {
+    return '/';
+  }
 
   if (__typename && __typename in PREVIEW_CMS_MODELS_ROUTE_MAP && slug) {
     const basePath = PREVIEW_CMS_MODELS_ROUTE_MAP[__typename as PreviewCmsModelKey];
     return basePath ? `${basePath}/${slug}` : `/${slug}`;
   }
 
+  console.log('No matching route found for __typename:', __typename);
   return null;
 }
