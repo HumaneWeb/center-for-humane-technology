@@ -11,6 +11,7 @@ import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { TeamAndBoardQuery } from '@/lib/cms/query';
 import { ExternalLink } from 'lucide-react';
+import { draftMode } from 'next/headers';
 import Link from 'next/link';
 
 export const generateMetadata = generateMetadataFn({
@@ -19,8 +20,12 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function TeamListPage() {
+  const { isEnabled } = await draftMode();
+
   const { page, teamList, boardList, careersList, supporters, allies, configuration } =
-    await executeQuery(TeamAndBoardQuery);
+    await executeQuery(TeamAndBoardQuery, {
+      includeDrafts: isEnabled,
+    });
   const { title, preTitle, careers } = page!;
 
   return (

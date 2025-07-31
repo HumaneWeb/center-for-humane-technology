@@ -42,3 +42,34 @@ export const getLinkCmsUrl = (rawLink: LinkType) => {
     path: `/${slug}`,
   };
 };
+
+export async function recordToWebsiteRoute(
+  item: any,
+  itemTypeApiKey: string,
+  locale: string,
+): Promise<string | null> {
+  switch (itemTypeApiKey) {
+    case 'page': {
+      return '/real-time-updates';
+    }
+    case 'article': {
+      return `/blog/${await recordToSlug(item, itemTypeApiKey, locale)}`;
+    }
+    default:
+      return null;
+  }
+}
+
+export async function recordToSlug(
+  item: any,
+  itemTypeApiKey: string,
+  locale: string,
+): Promise<string | null> {
+  switch (itemTypeApiKey) {
+    case 'article': {
+      return item.attributes.slug as string;
+    }
+    default:
+      return null;
+  }
+}

@@ -11,6 +11,7 @@ import Cta from '@/components/shared/cta';
 import PodcastMinimalCard from '@/components/shared/podcast-minimal-card';
 import { formatDate } from '@/lib/utils/date.utils';
 import { FadeIn } from '@/components/shared/fade-in';
+import { draftMode } from 'next/headers';
 
 export const generateMetadata = generateMetadataFn({
   query: InThePressListQuery,
@@ -21,12 +22,15 @@ export const generateMetadata = generateMetadataFn({
 const NEWS_PER_PAGE = 10;
 
 export default async function InThePressPage({ searchParams }: PodcastListPageProps) {
+  const { isEnabled } = await draftMode();
+
   const params = await searchParams;
   const currentPage = Number.parseInt(params.page || '1', 10);
   const skip = (currentPage - 1) * NEWS_PER_PAGE;
 
   const { page, press, pressCount, configuration } = await executeQuery(InThePressListQuery, {
     variables: { skip, first: NEWS_PER_PAGE },
+    includeDrafts: isEnabled,
   });
   const totalPages = Math.ceil(pressCount.count / NEWS_PER_PAGE);
 

@@ -3,6 +3,7 @@ import HomepageHero from '@/components/layout/homepage-hero';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { HomepageQuery } from '@/lib/cms/query';
+import { draftMode } from 'next/headers';
 
 export const generateMetadata = generateMetadataFn({
   query: HomepageQuery,
@@ -11,7 +12,8 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function HomePage() {
-  const { homepage } = await executeQuery(HomepageQuery);
+  const { isEnabled } = await draftMode();
+  const { homepage } = await executeQuery(HomepageQuery, { includeDrafts: isEnabled });
 
   return (
     <div>

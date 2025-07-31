@@ -9,6 +9,7 @@ import type { PodcastListPageProps } from '@/lib/utils/types';
 import GenericCard from '@/components/shared/generic-card';
 import BasicHero from '@/components/layout/basic-hero';
 import { FadeIn } from '@/components/shared/fade-in';
+import { draftMode } from 'next/headers';
 
 export const generateMetadata = generateMetadataFn({
   query: CaseStudiesListQuery,
@@ -23,6 +24,8 @@ export const generateMetadata = generateMetadataFn({
 const CASE_STUDIES_PER_PAGE = 12;
 
 export default async function CaseStudiesListPage({ searchParams }: PodcastListPageProps) {
+  const { isEnabled } = await draftMode();
+
   const params = await searchParams;
   const searchQuery = params.search?.toLowerCase() || '';
   const currentPage = Number.parseInt(params.page || '1', 10);
@@ -34,6 +37,7 @@ export default async function CaseStudiesListPage({ searchParams }: PodcastListP
       skip,
       first: CASE_STUDIES_PER_PAGE,
     },
+    includeDrafts: isEnabled,
   });
 
   const totalPages = Math.ceil(podcastsCount.count / CASE_STUDIES_PER_PAGE);

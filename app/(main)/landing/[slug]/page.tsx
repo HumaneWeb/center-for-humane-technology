@@ -9,6 +9,7 @@ import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { LandingPageQuery } from '@/lib/cms/query';
 import { cn } from '@/lib/utils/css.utils';
 import { PageSlug } from '@/lib/utils/types';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export const generateMetadata = generateMetadataFn({
@@ -18,8 +19,13 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function LandingPage({ params }: PageSlug) {
+  const { isEnabled } = await draftMode();
+
   const { slug } = await params;
-  const { landing, configuration } = await executeQuery(LandingPageQuery, { variables: { slug } });
+  const { landing, configuration } = await executeQuery(LandingPageQuery, {
+    variables: { slug },
+    includeDrafts: isEnabled,
+  });
 
   if (!landing) {
     notFound();

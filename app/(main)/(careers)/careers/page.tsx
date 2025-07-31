@@ -9,6 +9,7 @@ import type { PodcastListPageProps } from '@/lib/utils/types';
 import BasicHero from '@/components/layout/basic-hero';
 import CareerCard from '@/components/shared/career-card';
 import { FadeIn } from '@/components/shared/fade-in';
+import { draftMode } from 'next/headers';
 
 export const generateMetadata = generateMetadataFn({
   query: CareerListQuery,
@@ -19,12 +20,15 @@ export const generateMetadata = generateMetadataFn({
 const CAREERS_PER_PAGE = 10;
 
 export default async function CareersPage({ searchParams }: PodcastListPageProps) {
+  const { isEnabled } = await draftMode();
+
   const params = await searchParams;
   const currentPage = Number.parseInt(params.page || '1', 10);
   const skip = (currentPage - 1) * CAREERS_PER_PAGE;
 
   const { page, careers, careersCount, configuration } = await executeQuery(CareerListQuery, {
     variables: { skip, first: CAREERS_PER_PAGE },
+    includeDrafts: isEnabled,
   });
   const totalPages = Math.ceil(careersCount.count / CAREERS_PER_PAGE);
 

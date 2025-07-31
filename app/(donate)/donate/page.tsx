@@ -7,6 +7,7 @@ import { FadeIn } from '@/components/shared/fade-in';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { DonatePageQuery } from '@/lib/cms/query';
+import { draftMode } from 'next/headers';
 import Link from 'next/link';
 
 export const generateMetadata = generateMetadataFn({
@@ -15,7 +16,9 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function DonatePage() {
-  const { donate } = await executeQuery(DonatePageQuery);
+  const { isEnabled } = await draftMode();
+
+  const { donate } = await executeQuery(DonatePageQuery, { includeDrafts: isEnabled });
   const { title, informationTitle, information, helpItems } = donate!;
 
   return (

@@ -4,6 +4,7 @@ import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { CaseStudyPageQuery } from '@/lib/cms/query';
 import type { PageSlug } from '@/lib/utils/types';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export const generateMetadata = generateMetadataFn({
@@ -14,8 +15,13 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function CaseStudyPage({ params }: PageSlug) {
+  const { isEnabled } = await draftMode();
+
   const { slug } = await params;
-  const { page, configuration } = await executeQuery(CaseStudyPageQuery, { variables: { slug } });
+  const { page, configuration } = await executeQuery(CaseStudyPageQuery, {
+    variables: { slug },
+    includeDrafts: isEnabled,
+  });
 
   if (!page) {
     notFound();

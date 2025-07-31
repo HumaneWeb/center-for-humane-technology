@@ -11,6 +11,7 @@ import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import type { PodcastListPageProps } from '@/lib/utils/types';
 import ScrollToResults from '@/components/shared/scroll-to-results';
 import { FadeIn } from '@/components/shared/fade-in';
+import { draftMode } from 'next/headers';
 
 export const generateMetadata = generateMetadataFn({
   query: PodcastListQuery,
@@ -25,6 +26,8 @@ export const generateMetadata = generateMetadataFn({
 const PODCASTS_PER_PAGE = 6;
 
 export default async function PodcastListPage({ searchParams }: PodcastListPageProps) {
+  const { isEnabled } = await draftMode();
+
   const params = await searchParams;
   const searchQuery = params.search?.toLowerCase() || '';
   const currentPage = Number.parseInt(params.page || '1', 10);
@@ -36,6 +39,7 @@ export default async function PodcastListPage({ searchParams }: PodcastListPageP
       skip,
       first: PODCASTS_PER_PAGE,
     },
+    includeDrafts: isEnabled,
   });
 
   const totalPages = Math.ceil(podcastsCount.count / PODCASTS_PER_PAGE);

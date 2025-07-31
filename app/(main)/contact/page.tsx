@@ -11,6 +11,7 @@ import TeamCard from '@/components/shared/team-card';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { ContactPageQuery } from '@/lib/cms/query';
+import { draftMode } from 'next/headers';
 import { Suspense } from 'react';
 
 export const generateMetadata = generateMetadataFn({
@@ -19,7 +20,9 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function ContactPage() {
-  const { page } = await executeQuery(ContactPageQuery);
+  const { isEnabled } = await draftMode();
+
+  const { page } = await executeQuery(ContactPageQuery, { includeDrafts: isEnabled });
   const { title, preTitle, information, networks } = page!;
 
   return (

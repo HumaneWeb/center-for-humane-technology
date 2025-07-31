@@ -8,6 +8,7 @@ import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { TeamDetailQuery } from '@/lib/cms/query';
 import type { PageSlug } from '@/lib/utils/types';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export const generateMetadata = generateMetadataFn({
@@ -17,10 +18,12 @@ export const generateMetadata = generateMetadataFn({
 });
 
 export default async function TeamDetailPage({ params }: PageSlug) {
+  const { isEnabled } = await draftMode();
   const { slug } = await params;
 
   const { member, teamBoard, configuration } = await executeQuery(TeamDetailQuery, {
     variables: { slug },
+    includeDrafts: isEnabled,
   });
 
   if (!member) {
