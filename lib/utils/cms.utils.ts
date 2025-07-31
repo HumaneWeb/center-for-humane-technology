@@ -43,33 +43,32 @@ export const getLinkCmsUrl = (rawLink: LinkType) => {
   };
 };
 
+// Preview utils
+const PREVIEW_CMS_MODELS_ROUTE_MAP = {
+  basic_page: '',
+  podcast: '/podcast',
+  team_member: '/team-board',
+  landing: '/landing',
+  case_study: '/case-study',
+  toolkit: '/youth',
+  career: '/careers',
+} as const;
+type PreviewCmsModelKey = keyof typeof PREVIEW_CMS_MODELS_ROUTE_MAP;
+
 export async function recordToWebsiteRoute(
   item: any,
   itemTypeApiKey: string,
   locale: string,
 ): Promise<string | null> {
-  switch (itemTypeApiKey) {
-    case 'page': {
-      return '/real-time-updates';
-    }
-    case 'article': {
-      return `/blog/${await recordToSlug(item, itemTypeApiKey, locale)}`;
-    }
-    default:
-      return null;
-  }
-}
+  const __typename = itemTypeApiKey;
+  const slug = item?.attributes?.slug;
 
-export async function recordToSlug(
-  item: any,
-  itemTypeApiKey: string,
-  locale: string,
-): Promise<string | null> {
-  switch (itemTypeApiKey) {
-    case 'article': {
-      return item.attributes.slug as string;
-    }
-    default:
-      return null;
+  // console.log({ __typename, slug });
+
+  if (__typename && __typename in PREVIEW_CMS_MODELS_ROUTE_MAP && slug) {
+    const basePath = PREVIEW_CMS_MODELS_ROUTE_MAP[__typename as PreviewCmsModelKey];
+    return basePath ? `${basePath}/${slug}` : `/${slug}`;
   }
+
+  return null;
 }
