@@ -40,6 +40,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
             alt={item.title}
             fill
             className="object-cover"
+            unoptimized
           />
         </div>
 
@@ -79,6 +80,7 @@ export default function RSSCard({ item, variant = 'grid' }: RSSCardProps) {
           alt={item.title}
           fill
           className="aspect-square object-cover"
+          unoptimized
         />
       </div>
 

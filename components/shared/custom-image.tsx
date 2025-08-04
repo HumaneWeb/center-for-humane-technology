@@ -37,6 +37,7 @@ export default function CustomImage({
           width={width!}
           height={height!}
           className={cn(withCaption && title && 'mb-3.5', extraClass)}
+          unoptimized
         />
         {withCaption && title && (
           <p className="text-primary-navy font-sans text-[16px] leading-140">{title}</p>
@@ -52,6 +53,7 @@ export default function CustomImage({
       width={width!}
       height={height!}
       className={cn(withCaption && title && 'mb-3.5', extraClass)}
+      unoptimized
       {...props}
     />
   );

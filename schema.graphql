@@ -89,7 +89,6 @@ type AiInSocietyRecord implements RecordInterface {
   mobileImage: FileField
   narrative: NarrativeBlockRecord
   preTitle: String
-  preview: JsonField
   seo: SeoField
   slug: String!
   stakeIntroduction(
@@ -323,7 +322,6 @@ input BasicPageModelFilter {
   introduction: TextFilter
   mobileImage: FileFilter
   preTitle: StringFilter
-  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
@@ -402,7 +400,6 @@ type BasicPageRecord implements RecordInterface {
   ): String
   mobileImage: FileField
   preTitle: String
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -463,7 +460,6 @@ type BlogListRecord implements RecordInterface {
   _updatedAt: DateTime!
   featuredMedia: [PressRecord!]!
   id: ItemId!
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String
@@ -637,7 +633,6 @@ input CareerModelFilter {
   _isValid: BooleanFilter
   content: StructuredTextFilter
   introduction: TextFilter
-  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
@@ -694,7 +689,6 @@ type CareerRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -721,7 +715,6 @@ type CareersListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  preview: JsonField
   seo: SeoField
   slug: String
   title: String
@@ -748,7 +741,6 @@ type CaseStudiesListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String
@@ -780,7 +772,6 @@ input CaseStudyModelFilter {
   image: FileFilter
   introduction: TextFilter
   preTitle: StringFilter
-  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
@@ -855,7 +846,6 @@ type CaseStudyRecord implements RecordInterface {
     markdown: Boolean
   ): String
   preTitle: String
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -1066,7 +1056,6 @@ type ContactRecord implements RecordInterface {
   ): String
   networks: SocialNetworksBlockRecord
   preTitle: String
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -1352,7 +1341,6 @@ type DonateRecord implements RecordInterface {
     markdown: Boolean
   ): String
   informationTitle: String
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -2133,7 +2121,6 @@ type HomepageRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
-  preview: JsonField
   seo: SeoField
   title: String!
 }
@@ -4406,14 +4393,6 @@ enum ItemStatus {
 
 scalar JsonField
 
-"""Specifies how to filter JSON fields"""
-input JsonFilter {
-  """
-  Filter records with the specified field defined (i.e. with any value) or not
-  """
-  exists: BooleanType
-}
-
 """Block of type Landing Highlight CTA (landing_highlight_cta)"""
 type LandingHighlightCtaRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4493,7 +4472,6 @@ input LandingModelFilter {
   internalTitle: StringFilter
   introduction: TextFilter
   logo: FileFilter
-  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   subheading: StringFilter
@@ -4567,7 +4545,6 @@ type LandingRecord implements RecordInterface {
     markdown: Boolean
   ): String
   logo: FileField
-  preview: JsonField
   seo: SeoField
   slug: String!
   subheading: String
@@ -4909,7 +4886,6 @@ type PodcastListRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
-  preview: JsonField
   seo: SeoField
   slug: String!
   spotifyUrl: String
@@ -4951,7 +4927,6 @@ input PodcastModelFilter {
   introduction: TextFilter
   majorTakeaways: StructuredTextFilter
   moreListening: LinksFilter
-  preview: JsonFilter
   recommendedMedia: StructuredTextFilter
   seo: SeoFilter
   simplecastPodcastId: StringFilter
@@ -5090,7 +5065,6 @@ type PodcastRecord implements RecordInterface {
   ): String
   majorTakeaways: PodcastModelMajorTakeawaysField
   moreListening: [PodcastRecord!]!
-  preview: JsonField
   recommendedMedia: PodcastModelRecommendedMediaField
   seo: SeoField
   simplecastPodcastId: String
@@ -6812,7 +6786,6 @@ type TeamBoardRecord implements RecordInterface {
   careers: [CareerRecord!]!
   id: ItemId!
   preTitle: String
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String!
@@ -6836,7 +6809,6 @@ input TeamMemberModelFilter {
   information: StructuredTextFilter
   linkedinUrl: StringFilter
   organization: StringFilter
-  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   teamPosition: StringFilter
@@ -6918,7 +6890,6 @@ type TeamMemberRecord implements RecordInterface {
   linkedinUrl: String
   organization: String
   position: IntType
-  preview: JsonField
   seo: SeoField
   slug: String!
   teamPosition: String
@@ -7053,7 +7024,6 @@ type ToolkitListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  preview: JsonField
   seo: SeoField
   slug: String!
   title: String
@@ -7085,7 +7055,6 @@ input ToolkitModelFilter {
   image: FileFilter
   introduction: TextFilter
   preTitle: StringFilter
-  preview: JsonFilter
   seo: SeoFilter
   slug: SlugFilter
   textColor: StringFilter
@@ -7163,7 +7132,6 @@ type ToolkitRecord implements RecordInterface {
     markdown: Boolean
   ): String
   preTitle: String
-  preview: JsonField
   seo: SeoField
   slug: String!
   textColor: String

@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       new URL('https://substackcdn.com/**'),
       new URL('https://substack-post-media.s3.amazonaws.com/**'),
     ],
+    unoptimized: true,
   },
   async redirects() {
     return [
