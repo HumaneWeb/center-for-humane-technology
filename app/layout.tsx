@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { GoogleTagManager } from '@next/third-parties/google';
 import CookieConsent from '@/components/shared/cookie-consent';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import './globals.css';
 
@@ -88,6 +89,7 @@ export default function RootLayout({
 
       <body className={`flex min-h-screen flex-col antialiased`}>
         {children}
+        <SpeedInsights />
         <Analytics />
         <CookieConsent />
         <Script src="https://js.supascribe.com/v1/loader/0PyjPA3c4Cew9C80vN0BMFKcpWn1.js" />
