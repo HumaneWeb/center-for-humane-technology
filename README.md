@@ -82,16 +82,17 @@ Follow these steps to set up the project locally:
 
 All environment variables are defined in `.env.example`. Copy this file to `.env` and provide your own values.
 
-| Variable Name                           | Description                                                                                      |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN`   | **Required.** Read-only Content Delivery API token for DatoCMS. Used to fetch published content. |
-| `NEXT_DATOCMS_ENVIRONMENT`              | (Optional) Name of the DatoCMS environment to use (e.g., "main", "staging").                     |
-| `NEXT_PUBLIC_DATOCMS_SITE_SEARCH_TOKEN` | Public token for enabling DatoCMS site search features.                                          |
-| `NEXT_PUBLIC_DATOCMS_BUILD_TRIGGER_ID`  | Public build trigger ID for DatoCMS (used for triggering builds or revalidation).                |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`    | Stripe publishable key for client-side Stripe integration.                                       |
-| `STRIPE_SECRET_KEY`                     | Stripe secret key for server-side Stripe operations.                                             |
-| `GOOGLE_OPTIMIZE_ID`                    | Google Optimize container ID for A/B testing and personalization.                                |
-| `GOOGLE_TAG_MANAGER_ID`                 | Google Tag Manager container ID for analytics and tag management.                                |
+| Variable Name                           | Description                                                                                              |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN`   | **Required.** Read-only Content Delivery API token for DatoCMS. Used to fetch published content.         |
+| `DATOCMS_DRAFT_CONTENT_CDA_TOKEN`       | **Required.** Read-only Content Delivery API token for DatoCMS. Used to fetch draft + published content. |
+| `NEXT_DATOCMS_ENVIRONMENT`              | (Optional) Name of the DatoCMS environment to use (e.g., "main", "staging").                             |
+| `NEXT_PUBLIC_DATOCMS_SITE_SEARCH_TOKEN` | Public token for enabling DatoCMS site search features.                                                  |
+| `NEXT_PUBLIC_DATOCMS_BUILD_TRIGGER_ID`  | Public build trigger ID for DatoCMS (used for triggering builds or revalidation).                        |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`    | Stripe publishable key for client-side Stripe integration.                                               |
+| `STRIPE_SECRET_KEY`                     | Stripe secret key for server-side Stripe operations.                                                     |
+| `GOOGLE_OPTIMIZE_ID`                    | Google Optimize container ID for A/B testing and personalization.                                        |
+| `GOOGLE_TAG_MANAGER_ID`                 | Google Tag Manager container ID for analytics and tag management.                                        |
 
 > **Note:**  
 > Never commit your `.env` file or share your API tokens publicly.
