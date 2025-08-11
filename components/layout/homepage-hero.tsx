@@ -12,7 +12,7 @@ export default function HomepageHero({ homepage }: Props) {
   const desktopVideos = {
     video1: isProd ? process.env.NEXT_PUBLIC_VIDEO_1! : '/video1.mp4',
     video2: isProd ? process.env.NEXT_PUBLIC_VIDEO_2! : '/video2.mp4',
-    video3: isProd ? process.env.NEXT_PUBLIC_VIDEO_3! : '/video3.mp4',
+    video3: isProd ? process.env.NEXT_PUBLIC_VIDEO_3! : '/video-3.mp4',
   };
 
   const mobileVideos = [
@@ -26,7 +26,7 @@ export default function HomepageHero({ homepage }: Props) {
     },
     {
       id: 33,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_3! : '/video3-mobile.mp4',
+      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_3! : '/video-3.mp4',
     },
     {
       id: 44,
