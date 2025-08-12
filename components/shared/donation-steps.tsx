@@ -7,9 +7,6 @@ import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-
 import { RadioGroup, RadioGroupItem } from './forms/radio-group';
 import Label from './forms/label';
 import Input from './forms/input';
-import { Checkbox } from './forms/checkbox';
-import { redirect } from 'next/navigation';
-import Script from 'next/script';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -27,16 +24,17 @@ export type DonationStep = 1 | 2 | 3;
 function PaymentForm({
   formData,
   onBack,
-  onSuccess,
+  clientSecret,
 }: {
   formData: DonationFormData;
   onBack: () => void;
-  onSuccess: () => void;
+  clientSecret: string;
 }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -48,18 +46,36 @@ function PaymentForm({
     setIsProcessing(true);
     setErrorMessage('');
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/thank-you`,
-      },
-    });
+    try {
+      const { error: submitError } = await elements.submit();
 
-    if (error) {
-      setErrorMessage(error.message || 'An error occurred during payment');
+      if (submitError) {
+        setErrorMessage(submitError.message || 'Error validating payment information');
+        return;
+      }
+
+      const { error: stripeError } = await stripe.confirmPayment({
+        elements,
+        clientSecret,
+        confirmParams: {
+          return_url: `${window.location.origin}/thank-you`,
+        },
+        redirect: 'if_required',
+      });
+
+      if (stripeError) {
+        setErrorMessage(stripeError.message || 'An error occurred during payment');
+      } else {
+        setPaymentSuccess(true);
+        setTimeout(() => {
+          window.location.href = '/thank-you';
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      setErrorMessage('An unexpected error occurred. Please try again.');
+    } finally {
       setIsProcessing(false);
-    } else {
-      onSuccess();
     }
   };
 
@@ -73,6 +89,7 @@ function PaymentForm({
         <PaymentElement
           options={{
             layout: 'tabs',
+            paymentMethodOrder: ['card', 'apple_pay', 'google_pay'],
           }}
         />
       </div>
@@ -137,28 +154,32 @@ export default function DonationSteps() {
     if (currentStep === 2) {
       setIsLoading(true);
 
-      // Create payment intent when moving to step 3
       try {
-        const response = await fetch(
-          'https://ht-hbspt.loggins.workers.dev/api/create-contact-and-payment',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              amount: Number(formData.amount),
-              firstName: formData.firstName,
-              lastName: formData.lastName,
+        const response = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: Number(formData.amount) * 100,
+            currency: 'usd',
+            donationType: formData.frequency === 'once' ? 'one-time' : 'recurring',
+            frequency: formData.frequency,
+            customerInfo: {
+              name: `${formData.firstName} ${formData.lastName}`,
               email: formData.email,
-              // frequency: formData.frequency,
-              // coverFees: formData.coverFees,
-            }),
-          },
-        );
+            },
+          }),
+        });
 
-        const { success, clientSecret, error } = await response.json();
+        if (!response.ok) {
+          const errorData = await response.json();
+          setErrorMessage(errorData.error || 'Error creating payment. Please try again.');
+          return;
+        }
 
-        if (success && clientSecret) {
-          setClientSecret(clientSecret);
+        const { clientSecret: newClientSecret, error } = await response.json();
+
+        if (newClientSecret) {
+          setClientSecret(newClientSecret);
           setCurrentStep(3);
         } else {
           console.log(error);
@@ -188,19 +209,15 @@ export default function DonationSteps() {
     }));
   };
 
-  const handlePaymentSuccess = () => {
-    redirect('/thank-you');
-  };
-
   const renderStep1 = () => (
     <div className="w-full max-w-md">
-      {/* <div>
+      <div>
         <div className="text-primary-navy mb:text-xl mb-4 text-[18px] leading-140 font-normal">
           How often would you like to give?
         </div>
-      </div> */}
+      </div>
       <div>
-        {/* <RadioGroup
+        <RadioGroup
           value={formData.frequency}
           onValueChange={(value: string) =>
             handleInputChange('frequency', value as 'monthly' | 'once')
@@ -239,7 +256,7 @@ export default function DonationSteps() {
               Change to monthly
             </button>
           </div>
-        )} */}
+        )}
 
         <div>
           <Label className="text-primary-navy mb:text-xl mb-4 text-[18px] leading-140 font-normal">
@@ -260,35 +277,8 @@ export default function DonationSteps() {
               min="1"
               step="1"
             />
-            {/* <button
-              className="text-primary-navy absolute top-1/2 right-2 mr-1 -translate-y-1/2 transform cursor-pointer text-[16px] leading-140"
-              onClick={() => {
-                const newAmount: string | null = prompt('Enter amount:', formData.amount);
-                if (newAmount && !isNaN(Number(newAmount)) && Number(newAmount) > 0) {
-                  handleInputChange('amount', newAmount);
-                }
-              }}
-            >
-              Click to change
-            </button> */}
           </div>
         </div>
-
-        {/* <div className="mb-12 flex items-start space-x-2">
-          <Checkbox
-            id="cover-fees"
-            checked={formData.coverFees}
-            onCheckedChange={(checked: boolean | 'indeterminate') =>
-              handleInputChange('coverFees', checked as boolean)
-            }
-          />
-          <Label
-            htmlFor="cover-fees"
-            className="text-primary-navy text-[14px] leading-140 font-normal"
-          >
-            I'd like to cover the processing fee so that all of my gift will go to CHT
-          </Label>
-        </div> */}
 
         <button
           onClick={handleNext}
@@ -403,7 +393,7 @@ export default function DonationSteps() {
             },
           }}
         >
-          <PaymentForm formData={formData} onBack={handleBack} onSuccess={handlePaymentSuccess} />
+          <PaymentForm formData={formData} onBack={handleBack} clientSecret={clientSecret} />
         </Elements>
       )}
     </div>
