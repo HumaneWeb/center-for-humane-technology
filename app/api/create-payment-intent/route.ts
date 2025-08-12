@@ -23,12 +23,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Create or retrieve customer
-    const customer = await stripe.customers.create({
-      name: customerInfo.name,
+    const customers = await stripe.customers.list({
       email: customerInfo.email,
-      phone: customerInfo.phone,
-      address: customerInfo.address,
+      limit: 1,
     });
+
+    let customer;
+
+    if (customers.data.length > 0) {
+      customer = customers.data[0];
+    } else {
+      customer = await stripe.customers.create({
+        name: customerInfo.name,
+        email: customerInfo.email,
+      });
+    }
 
     let paymentIntent;
 
