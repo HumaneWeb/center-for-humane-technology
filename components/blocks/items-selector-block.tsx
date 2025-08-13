@@ -132,7 +132,7 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
         </h2>
 
         <div>
-          <div className="text-primary-navy [&>h5]:mb:text-[25px] [&>h5]:mb:leading-130 [&>p]:mb:mb-10 mb:text-xl text-[16px] leading-140 font-normal [&>h5]:mb-5 [&>h5]:text-xl [&>h5]:leading-120 [&>h5]:font-semibold [&>p]:mb-5">
+          <div className="text-primary-navy [&>h5]:mb:text-[25px] [&>h5]:mb:leading-130 [&>p]:mb:mb-10 mb:text-xl [&>h5]:mb:mb-5 text-[16px] leading-140 font-normal [&>h5]:mb-2 [&>h5]:text-xl [&>h5]:leading-120 [&>h5]:font-semibold [&>p]:mb-5">
             <StructuredText data={selectedItem.content} />
           </div>
         </div>
