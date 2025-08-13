@@ -87,7 +87,7 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
             key={item.id}
             // @ts-ignore
             ref={(el) => (itemRefs.current[index] = el)}
-            className={`mb:w-auto mb:flex-shrink mb:hover:scale-105 mb:px-[40px] w-[280px] flex-shrink-0 cursor-pointer rounded-[10px] px-[20px] py-[25px] transition-all duration-300 ${selectedItem.id === item.id ? 'transform bg-white' : 'bg-[#E0D8F6]'} `}
+            className={`mb:w-auto mb:flex-shrink mb:hover:scale-105 mb:px-[40px] mb:max-w-full w-[70%] max-w-[250px] flex-shrink-0 cursor-pointer rounded-[10px] px-[20px] py-[25px] transition-all duration-300 ${selectedItem.id === item.id ? 'transform bg-white' : 'bg-[#E0D8F6]'}`}
             style={
               selectedItem.id === item.id ? { boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.20)' } : {}
             }
