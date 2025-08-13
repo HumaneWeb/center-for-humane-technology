@@ -45,6 +45,7 @@ export default function CustomStructuredText({
   isInnerContainer = false,
   centerContent = false,
   special = false,
+  fullWidth = false,
 }: {
   data: Document | Node | StructuredTextDocument | null | undefined;
   defaultRules: boolean;
@@ -306,6 +307,7 @@ export default function CustomStructuredText({
                               'font-sans text-[18px] mb:text-xl [&>a]:font-semibold [&>a]:text-primary-teal font-normal leading-140 text-primary-navy mb-5 max-w-[840px]',
                               centerContent && '',
                               isInnerContainer && 'text-[16px]',
+                              fullWidth && 'max-w-full',
                             ),
                           },
                           children,
@@ -321,6 +323,7 @@ export default function CustomStructuredText({
                             className: cn(
                               'font-sans text-[18px] mb:text-xl [&>a]:font-semibold [&>a]:text-primary-teal font-normal leading-140 text-primary-navy mb-5 max-w-[840px]',
                               centerContent && '',
+                              fullWidth && 'max-w-full',
                             ),
                           },
                           children,
@@ -352,6 +355,7 @@ export default function CustomStructuredText({
                             'font-sans font-semibold leading-120 mb:leading-130 mb:text-[29px] text-primary-navy max-w-[840px] text-[23px]',
                             centerContent && '',
                             isInnerContainer && 'text-2xl mb-2',
+                            fullWidth && 'max-w-full',
                           ),
                         },
                         children,

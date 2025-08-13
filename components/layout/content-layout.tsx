@@ -14,6 +14,7 @@ export default function ContentLayout({
   special = false,
   containerClassNames = '',
   children = null,
+  fullWidth = false,
 }) {
   const {
     slug,
@@ -63,6 +64,7 @@ export default function ContentLayout({
                 data={page?.content}
                 centerContent={withTopBar || none}
                 special={special}
+                fullWidth={fullWidth}
               />
             </FadeIn>
           </div>

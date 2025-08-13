@@ -24,6 +24,7 @@ export default async function AreasOfWorkPage() {
       page={{ ...page, textColor: 'purple' }}
       configuration={configuration}
       containerClassNames="bg-[#F0EBFF] mb:mt-0 mt-0 mb:pt-15 pt-5"
+      fullWidth
     >
       <GenericCardsGrid {...page?.caseStudiesGrid} />
       <NewsletterBlock
