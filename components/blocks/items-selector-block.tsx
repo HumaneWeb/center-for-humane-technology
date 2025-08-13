@@ -9,6 +9,7 @@ interface Item {
   id: string;
   title: string;
   image: CustomImageProps;
+  defaultImage: CustomImageProps;
   content: any;
 }
 
@@ -93,7 +94,10 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
             onClick={() => handleItemClick(item)}
           >
             <div className="mx-auto mb-[30px] flex items-center justify-center overflow-hidden rounded-full bg-gray-100">
-              <CustomImage {...item.image} className="h-full w-full object-cover" />
+              <CustomImage
+                {...(selectedItem.id === item.id ? item.image : item.defaultImage)}
+                className="h-full w-full object-cover"
+              />
             </div>
             <h3
               className={cn(

@@ -7914,6 +7914,7 @@ type WorkItemRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   content: WorkItemModelContentField
+  defaultImage: FileField
   id: ItemId!
   image: FileField
   title: String!

@@ -1005,6 +1005,9 @@ export const AreasOfWorkQuery = graphql(
                   image {
                     ...ImageFragment
                   }
+                  defaultImage {
+                    ...ImageFragment
+                  }
                   content {
                     value
                   }
