@@ -7,7 +7,13 @@ import ContentSidebar from '../shared/content-sidebar';
 import ContentTopBar from '../shared/content-top-bar';
 import { FadeIn } from '../shared/fade-in';
 
-export default function ContentLayout({ page, configuration, withImage = true, special = false }) {
+export default function ContentLayout({
+  page,
+  configuration,
+  withImage = true,
+  special = false,
+  containerClassNames = '',
+}) {
   const {
     slug,
     title,
@@ -39,23 +45,26 @@ export default function ContentLayout({ page, configuration, withImage = true, s
       />
       {withTopBar && <ContentTopBar items={anchors} />}
 
-      <div
-        className={cn(
-          'mb:mt-35 mb:mx-auto mb:max-w-7xl mb:px-4 mt-10 px-0',
-          none && 'px-4 sm:px-6 lg:px-8',
-        )}
-      >
+      <div className={containerClassNames}>
         <div
-          className={cn('mb:pb-50 pb-10', withSidebar && 'mb:grid-cols-[1fr_3fr] mb:gap-13 grid')}
+          className={cn(
+            'mb:mt-35 mb:mx-auto mb:max-w-7xl mb:px-4 mt-10 px-0',
+            none && 'px-4 sm:px-6 lg:px-8',
+            containerClassNames,
+          )}
         >
-          {withSidebar && <ContentSidebar items={anchors} />}
-          <FadeIn className="content-layout">
-            <CustomStructuredText
-              data={page?.content}
-              centerContent={withTopBar || none}
-              special={special}
-            />
-          </FadeIn>
+          <div
+            className={cn('mb:pb-50 pb-10', withSidebar && 'mb:grid-cols-[1fr_3fr] mb:gap-13 grid')}
+          >
+            {withSidebar && <ContentSidebar items={anchors} />}
+            <FadeIn className="content-layout">
+              <CustomStructuredText
+                data={page?.content}
+                centerContent={withTopBar || none}
+                special={special}
+              />
+            </FadeIn>
+          </div>
         </div>
       </div>
       <DonateBlock title={donateTitle} cta={donateCta} image={donateImage} />

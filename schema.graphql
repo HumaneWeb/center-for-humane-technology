@@ -268,6 +268,42 @@ type ApproachBlockRecord implements RecordInterface {
   ): String
 }
 
+union AreasOfWorkModelContentBlocksField = CtaRecord | ImageBlockRecord | WorkAreasBlockRecord
+
+type AreasOfWorkModelContentField {
+  blocks: [AreasOfWorkModelContentBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+"""Record of type Areas Of Work (areas_of_work)"""
+type AreasOfWorkRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content: AreasOfWorkModelContentField
+  id: ItemId!
+  seo: SeoField
+  slug: String!
+  title: String!
+}
+
 """Block of type Awareness Block (awareness_block)"""
 type AwarenessBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -5729,6 +5765,17 @@ type Query {
     orderBy: [UploadOrderBy] = [_createdAt_DESC]
   ): [FileField!]!
 
+  """Returns the single instance record"""
+  areasOfWork(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): AreasOfWorkRecord
+
   """Returns a specific record"""
   basicPage(
     """The locale to use to fetch the field's content"""
@@ -7812,6 +7859,63 @@ type VideosBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   id: ItemId!
   videos: [VideoFileField!]!
+}
+
+"""Block of type Work Areas Block (work_areas_block)"""
+type WorkAreasBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  items: [WorkItemRecord!]!
+}
+
+type WorkItemModelContentField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+"""Block of type Work Item (work_item)"""
+type WorkItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content: WorkItemModelContentField
+  id: ItemId!
+  image: FileField
+  title: String!
 }
 
 type focalPoint {

@@ -37,6 +37,7 @@ import ContactWidgetBlock from '../blocks/contact-widget-block';
 import VideoItem from './video-item';
 import MediaBlock from '../blocks/media-block';
 import { FadeIn } from './fade-in';
+import ItemSelector from '../blocks/items-selector-block';
 
 export default function CustomStructuredText({
   data,
@@ -274,6 +275,9 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'MediaBlockRecord') {
           return <MediaBlock {...record} key={record.id} />;
+        }
+        if (record.__typename === 'WorkAreasBlockRecord') {
+          return <ItemSelector {...record} key={record.id} />;
         }
 
         return null;

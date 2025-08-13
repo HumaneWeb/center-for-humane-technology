@@ -980,6 +980,54 @@ export const AiSocietyQuery = graphql(
   [TagFragment, CTAFragment, NarrativeBlockFragment, GenericCardsGridFragment, ImageFragment],
 );
 
+export const AreasOfWorkQuery = graphql(
+  `
+    query AreasOfWorkQuery {
+      page: areasOfWork {
+        title
+        content {
+          value
+          blocks {
+            __typename
+            ... on RecordInterface {
+              id
+            }
+            ...CTAFragment
+            ...ImageBlockFragment
+            ... on WorkAreasBlockRecord {
+              items {
+                ... on WorkItemRecord {
+                  id
+                  title
+                  image {
+                    ...ImageFragment
+                  }
+                  content {
+                    value
+                  }
+                }
+              }
+            }
+          }
+        }
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [TagFragment, CTAFragment, ImageFragment, ImageBlockFragment],
+);
+
 export const TeamAndBoardQuery = graphql(
   `
     query TeamAndBoardQuery {
