@@ -13,6 +13,7 @@ export default function ContentLayout({
   withImage = true,
   special = false,
   containerClassNames = '',
+  children,
 }) {
   const {
     slug,
@@ -67,6 +68,7 @@ export default function ContentLayout({
           </div>
         </div>
       </div>
+      {children}
       <DonateBlock title={donateTitle} cta={donateCta} image={donateImage} />
     </>
   );

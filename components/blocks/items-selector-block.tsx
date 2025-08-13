@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import CustomImage, { CustomImageProps } from '../shared/custom-image';
-import { StructuredText } from 'react-datocms';
 import { cn } from '@/lib/utils/css.utils';
-import { se } from 'date-fns/locale';
+import { useState, useRef, useEffect } from 'react';
+import { StructuredText } from 'react-datocms';
+import CustomImage, { CustomImageProps } from '../shared/custom-image';
 
 interface Item {
   id: string;
@@ -22,18 +21,28 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [polygonPosition, setPolygonPosition] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const selectedIndex = items.findIndex((item) => item.id === selectedItem.id);
     const selectedElement = itemRefs.current[selectedIndex];
+    const container = containerRef.current;
 
-    if (selectedElement) {
+    if (selectedElement && container) {
       const rect = selectedElement.getBoundingClientRect();
-      const containerRect = selectedElement.parentElement?.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
 
-      if (containerRect) {
-        const itemCenter = rect.left - containerRect.left + rect.width / 2;
-        setPolygonPosition(itemCenter);
+      const itemCenter = rect.left - containerRect.left + rect.width / 2;
+      setPolygonPosition(itemCenter);
+
+      if (window.innerWidth < 992) {
+        const scrollLeft =
+          selectedElement.offsetLeft - container.offsetWidth / 2 + selectedElement.offsetWidth / 2;
+
+        container.scrollTo({
+          left: Math.max(0, scrollLeft),
+          behavior: 'smooth',
+        });
       }
     }
   }, [selectedItem, items]);
@@ -51,14 +60,29 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
 
   return (
     <div className="mb:mb-[24px] mx-auto my-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="relative mb-2 grid grid-cols-2 gap-[23px] md:grid-cols-4">
+      <div
+        ref={containerRef}
+        className={`scrollbar-hide mb:grid mb:overflow-visible relative mb-2 flex grid-cols-4 gap-[23px] overflow-x-auto pb-4`}
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+      >
+        <style jsx>
+          {`
+            @media (max-width: 992px) {
+              .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+              }
+            }
+          `}
+        </style>
+
         {items.map((item, index) => (
           <div
             key={item.id}
             ref={(el) => (itemRefs.current[index] = el)}
-            className={`cursor-pointer rounded-[10px] px-[40px] py-[25px] transition-all duration-300 hover:scale-105 ${
-              selectedItem.id === item.id ? 'transform bg-white' : 'bg-[#E0D8F6]'
-            } `}
+            className={`mb:w-auto mb:flex-shrink mb:hover:scale-105 w-[280px] flex-shrink-0 cursor-pointer rounded-[10px] px-[40px] py-[25px] transition-all duration-300 ${selectedItem.id === item.id ? 'transform bg-white' : 'bg-[#E0D8F6]'} `}
             style={
               selectedItem.id === item.id ? { boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.20)' } : {}
             }
@@ -93,14 +117,14 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
       </div>
 
       <div
-        className={`rounded-[10px] bg-white px-8 py-11 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'} `}
+        className={`mb:px-8 mb:py-11 rounded-[10px] bg-white px-4 py-6 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'} `}
       >
-        <h2 className="tracking-039 mb-10 text-[39px] leading-110 font-semibold text-[#262626]">
+        <h2 className="tracking-039 mb:text-[39px] mb:leading-110 mb:mb-10 mb-5 text-3xl font-semibold text-[#262626]">
           {selectedItem.title}
         </h2>
 
-        <div className="space-y-6">
-          <div className="text-primary-navy text-xl leading-140 font-normal [&>h5]:mb-5 [&>h5]:text-[25px] [&>h5]:leading-130 [&>h5]:font-semibold [&>p]:mb-10">
+        <div>
+          <div className="text-primary-navy [&>h5]:mb:text-[25px] [&>h5]:mb:leading-130 [&>p]:mb:mb-10 mb:text-xl text-[18px] leading-140 font-normal [&>h5]:mb-5 [&>h5]:text-xl [&>h5]:leading-140 [&>h5]:font-semibold [&>p]:mb-5">
             <StructuredText data={selectedItem.content} />
           </div>
         </div>

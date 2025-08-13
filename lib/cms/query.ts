@@ -985,6 +985,9 @@ export const AreasOfWorkQuery = graphql(
     query AreasOfWorkQuery {
       page: areasOfWork {
         title
+        caseStudiesGrid {
+          ...GenericCardsGridFragment
+        }
         content {
           value
           blocks {
@@ -1022,10 +1025,12 @@ export const AreasOfWorkQuery = graphql(
         donateCta {
           ...CTAFragment
         }
+        newsletterTitle
+        newsletterIntroduction
       }
     }
   `,
-  [TagFragment, CTAFragment, ImageFragment, ImageBlockFragment],
+  [TagFragment, CTAFragment, ImageFragment, ImageBlockFragment, GenericCardsGridFragment],
 );
 
 export const TeamAndBoardQuery = graphql(

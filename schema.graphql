@@ -268,7 +268,7 @@ type ApproachBlockRecord implements RecordInterface {
   ): String
 }
 
-union AreasOfWorkModelContentBlocksField = CtaRecord | ImageBlockRecord | WorkAreasBlockRecord
+union AreasOfWorkModelContentBlocksField = CtaRecord | GenericCardsGridRecord | ImageBlockRecord | WorkAreasBlockRecord
 
 type AreasOfWorkModelContentField {
   blocks: [AreasOfWorkModelContentBlocksField!]!
@@ -297,6 +297,7 @@ type AreasOfWorkRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  caseStudiesGrid: GenericCardsGridRecord
   content: AreasOfWorkModelContentField
   id: ItemId!
   seo: SeoField
