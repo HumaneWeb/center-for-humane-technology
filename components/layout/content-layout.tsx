@@ -13,7 +13,7 @@ export default function ContentLayout({
   withImage = true,
   special = false,
   containerClassNames = '',
-  children,
+  children = null,
 }) {
   const {
     slug,
