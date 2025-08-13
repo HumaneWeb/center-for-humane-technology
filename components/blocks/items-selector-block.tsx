@@ -29,12 +29,6 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
     const container = containerRef.current;
 
     if (selectedElement && container) {
-      const rect = selectedElement.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-
-      const itemCenter = rect.left - containerRect.left + rect.width / 2;
-      setPolygonPosition(itemCenter);
-
       if (window.innerWidth < 992) {
         const scrollLeft =
           selectedElement.offsetLeft - container.offsetWidth / 2 + selectedElement.offsetWidth / 2;
@@ -43,6 +37,15 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
           left: Math.max(0, scrollLeft),
           behavior: 'smooth',
         });
+
+        setTimeout(() => {
+          const itemCenter =
+            selectedElement.offsetLeft - container.scrollLeft + selectedElement.offsetWidth / 2;
+          setPolygonPosition(itemCenter);
+        }, 300);
+      } else {
+        const itemCenter = selectedElement.offsetLeft + selectedElement.offsetWidth / 2;
+        setPolygonPosition(itemCenter);
       }
     }
   }, [selectedItem, items]);
@@ -59,7 +62,7 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
   };
 
   return (
-    <div className="mb:mb-[24px] mx-auto my-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="mb:mb-[24px] mb:my-20 mx-auto my-10 max-w-7xl px-4 sm:px-6 lg:px-8">
       <div
         ref={containerRef}
         className={`scrollbar-hide mb:grid mb:overflow-visible relative mb-2 flex grid-cols-4 gap-[23px] overflow-x-auto pb-4`}
@@ -81,8 +84,9 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
         {items.map((item, index) => (
           <div
             key={item.id}
+            // @ts-ignore
             ref={(el) => (itemRefs.current[index] = el)}
-            className={`mb:w-auto mb:flex-shrink mb:hover:scale-105 w-[280px] flex-shrink-0 cursor-pointer rounded-[10px] px-[40px] py-[25px] transition-all duration-300 ${selectedItem.id === item.id ? 'transform bg-white' : 'bg-[#E0D8F6]'} `}
+            className={`mb:w-auto mb:flex-shrink mb:hover:scale-105 mb:px-[40px] w-[280px] flex-shrink-0 cursor-pointer rounded-[10px] px-[20px] py-[25px] transition-all duration-300 ${selectedItem.id === item.id ? 'transform bg-white' : 'bg-[#E0D8F6]'} `}
             style={
               selectedItem.id === item.id ? { boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.20)' } : {}
             }
@@ -93,7 +97,7 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
             </div>
             <h3
               className={cn(
-                'max-w-[190px] text-xl leading-120 font-semibold',
+                'mb:text-xl max-w-[190px] text-[18px] leading-120 font-semibold',
                 selectedItem.id === item.id ? 'text-[#B66736]' : 'text-primary-blue',
               )}
             >
@@ -105,7 +109,7 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
 
       <div className="relative mb-6">
         <div
-          className="absolute top-0 z-10 h-0 w-0 transition-all duration-300 ease-out"
+          className={`absolute top-[-4px] z-10 h-0 w-0 transition-all duration-300 ease-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
           style={{
             left: `${polygonPosition}px`,
             transform: 'translateX(-50%)',
@@ -117,14 +121,14 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
       </div>
 
       <div
-        className={`mb:px-8 mb:py-11 rounded-[10px] bg-white px-4 py-6 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'} `}
+        className={`mb:px-8 mb:py-11 rounded-[10px] bg-white px-4 py-6 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
       >
-        <h2 className="tracking-039 mb:text-[39px] mb:leading-110 mb:mb-10 mb-5 text-3xl font-semibold text-[#262626]">
+        <h2 className="tracking-039 mb:text-[39px] mb:leading-110 mb:mb-10 mb-5 text-[26px] leading-120 font-semibold text-[#262626]">
           {selectedItem.title}
         </h2>
 
         <div>
-          <div className="text-primary-navy [&>h5]:mb:text-[25px] [&>h5]:mb:leading-130 [&>p]:mb:mb-10 mb:text-xl text-[18px] leading-140 font-normal [&>h5]:mb-5 [&>h5]:text-xl [&>h5]:leading-140 [&>h5]:font-semibold [&>p]:mb-5">
+          <div className="text-primary-navy [&>h5]:mb:text-[25px] [&>h5]:mb:leading-130 [&>p]:mb:mb-10 mb:text-xl text-[16px] leading-140 font-normal [&>h5]:mb-5 [&>h5]:text-xl [&>h5]:leading-120 [&>h5]:font-semibold [&>p]:mb-5">
             <StructuredText data={selectedItem.content} />
           </div>
         </div>
