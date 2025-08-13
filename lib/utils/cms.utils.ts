@@ -53,6 +53,7 @@ const PREVIEW_CMS_MODELS_ROUTE_MAP = {
   toolkit: '/youth',
   career: '/careers',
   ai_in_society: '',
+  areas_of_work: '',
   team_board: '',
   podcast_list: '',
   careers_list: '',
