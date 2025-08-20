@@ -63,6 +63,8 @@ export default function GenericCard({
               'tracking-08 mb-2 font-sans text-[16px] leading-135 font-semibold uppercase',
               variant === 'vertical' && 'mb-5',
               variant === 'default' && 'generic-card-pre-title',
+              (variant === 'minimal' || variant === 'minimal-small') &&
+                'group-hover:text-neutral-white',
             )}
           >
             {preTitle}
@@ -104,13 +106,15 @@ export default function GenericCard({
         {introduction && (
           <div
             className={cn(
-              'text-primary-navy font-sans text-[16px] leading-140',
+              'special-introduction text-primary-navy font-sans text-[16px] leading-140',
               (variant === 'minimal' || variant === 'minimal-small') &&
                 'group-hover:text-neutral-white',
               variant === 'basic' && 'mb:mb-8',
               variant === 'vertical' && 'mb-5',
               variant === 'minimal-small' && 'text-[16px] leading-140',
               variant === 'default' && 'generic-card-introduction',
+              (variant === 'minimal' || variant === 'minimal-small') &&
+                'group-hover:text-neutral-white group-hover:[&>span]:text-neutral-white!',
             )}
             dangerouslySetInnerHTML={{ __html: introduction }}
           />

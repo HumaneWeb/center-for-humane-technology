@@ -11,7 +11,7 @@ type Props = {
   title: string;
   introduction: string;
   variant: 'default' | 'minimal' | '4-columns' | '3-columns';
-  backgroundColor: 'light-purple' | 'teal' | 'transparent';
+  backgroundColor: 'light-purple' | 'light-blue' | 'teal' | 'transparent';
   cta: any;
   items: any[];
 };
@@ -89,6 +89,7 @@ export default function GenericCardsGrid({
             backgroundColor === 'light-purple'
               ? 'bg-[#e4e0f7]'
               : 'text-primary-navy bg-[#0079810f] text-xl',
+            backgroundColor === 'light-blue' && 'bg-[#e6e5f7]',
           )}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -121,7 +122,10 @@ export default function GenericCardsGrid({
                 <GenericCard
                   {...item}
                   key={item.id}
-                  extraClassnames="generic-card-ui w-[calc(100dvw-48px)] sm:w-[55dvw] mb:w-[390px]! min-h-[500px] mb:p-7 p-3"
+                  extraClassnames={cn(
+                    'generic-card-ui w-[calc(100dvw-48px)] sm:w-[55dvw] mb:w-[390px]! min-h-[500px] mb:p-7 p-3',
+                    item.extraClassnames,
+                  )}
                 />
               ))}
 

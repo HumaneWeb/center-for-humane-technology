@@ -171,6 +171,7 @@ export const PressFragment = graphql(
       source
       length
       date
+      format
       category
       image {
         ...ImageFragment
