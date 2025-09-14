@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { RadioGroup, RadioGroupItem } from './forms/radio-group';
@@ -25,10 +25,12 @@ function PaymentForm({
   formData,
   onBack,
   clientSecret,
+  turnstileToken,
 }: {
   formData: DonationFormData;
   onBack: () => void;
   clientSecret: string;
+  turnstileToken: string | null;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -47,6 +49,12 @@ function PaymentForm({
     setErrorMessage('');
 
     try {
+      if (!turnstileToken) {
+        setErrorMessage('Please complete the security check before paying.');
+        setIsProcessing(false);
+        return;
+      }
+
       const { error: submitError } = await elements.submit();
 
       if (submitError) {
@@ -129,6 +137,48 @@ export default function DonationSteps() {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileReady, setTurnstileReady] = useState(false);
+  const turnstileWidgetId = useRef<string | null>(null);
+
+  // Check when Turnstile is ready
+  useEffect(() => {
+    const checkTurnstile = () => {
+      if (typeof window !== 'undefined' && (window as any).turnstile) {
+        setTurnstileReady(true);
+      } else {
+        setTimeout(checkTurnstile, 100);
+      }
+    };
+    checkTurnstile();
+  }, []);
+
+  // Render Turnstile when ready and on step 2
+  useEffect(() => {
+    if (currentStep === 2 && turnstileReady && !turnstileWidgetId.current) {
+      const container = document.getElementById("turnstile-container");
+      turnstileWidgetId.current = (window as any).turnstile.render(container, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+        callback: (token: string) => setTurnstileToken(token),
+        'error-callback': () => setTurnstileToken(null),
+        'expired-callback': () => setTurnstileToken(null),
+      });
+    }
+    
+    // Cleanup when leaving step 2
+    return () => {
+      if (turnstileWidgetId.current && (window as any).turnstile && 
+          (currentStep === 1 || currentStep === 3)) {
+        try {
+          (window as any).turnstile.remove(turnstileWidgetId.current);
+          turnstileWidgetId.current = null;
+          setTurnstileToken(null);
+        } catch (e) {
+          console.warn('Failed to remove Turnstile widget:', e);
+        }
+      }
+    };
+  }, [currentStep, turnstileReady]);
 
   const validateStep = (step: DonationStep): boolean => {
     switch (step) {
@@ -152,6 +202,11 @@ export default function DonationSteps() {
     }
 
     if (currentStep === 2) {
+      if (!turnstileToken) {
+        setErrorMessage("Please complete the security check.");
+        return;
+      }
+
       setIsLoading(true);
 
       try {
@@ -167,12 +222,18 @@ export default function DonationSteps() {
               name: `${formData.firstName} ${formData.lastName}`,
               email: formData.email,
             },
+            turnstileToken,
           }),
         });
 
         if (!response.ok) {
           const errorData = await response.json();
           setErrorMessage(errorData.error || 'Error creating payment. Please try again.');
+
+          if (turnstileWidgetId.current && (window as any).turnstile) {
+            (window as any).turnstile.reset(turnstileWidgetId.current);
+            setTurnstileToken(null);
+          }
           return;
         }
 
@@ -184,10 +245,20 @@ export default function DonationSteps() {
         } else {
           console.log(error);
           setErrorMessage('Error creating payment. Please try again.');
+
+          if (turnstileWidgetId.current && (window as any).turnstile) {
+            (window as any).turnstile.reset(turnstileWidgetId.current);
+            setTurnstileToken(null);
+          }
         }
       } catch (error) {
         console.error('Error:', error);
         setErrorMessage('A network error occurred. Please try again.');
+
+        if (turnstileWidgetId.current && (window as any).turnstile) {
+          (window as any).turnstile.reset(turnstileWidgetId.current);
+          setTurnstileToken(null);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -199,6 +270,10 @@ export default function DonationSteps() {
   const handleBack = (): void => {
     if (currentStep > 1) {
       setCurrentStep((currentStep - 1) as DonationStep);
+
+      if (currentStep === 3) {
+        setTurnstileToken(null);
+      }
     }
   };
 
@@ -303,8 +378,7 @@ export default function DonationSteps() {
             </svg>
           </div>
           <p className="text-primary-navy font-sans text-[13px] leading-135">
-            Secure Payment - This site is protected by reCAPTCHA and the Google Privacy Policy and
-            Terms of Service apply.
+            Secure Payment – Protected by Cloudflare Turnstile
           </p>
         </div>
       </div>
@@ -356,6 +430,10 @@ export default function DonationSteps() {
           />
         </div>
 
+        <div className="mt-4">
+          <div id="turnstile-container"></div>
+        </div>
+
         <div className="mb:flex-row flex flex-col-reverse justify-between space-x-3 pt-4">
           <button
             onClick={handleBack}
@@ -365,8 +443,33 @@ export default function DonationSteps() {
           </button>
           <button
             onClick={handleNext}
-            disabled={isLoading}
-            className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb-4 inline-block min-w-[215px] cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
+            disabled={isLoading || !turnstileToken}
+            className="
+              bg-secondary-light-teal 
+              text-primary-navy 
+              hover:bg-primary-blue 
+              hover:text-neutral-white 
+              tracking-02 
+              group 
+              mb-4 
+              inline-block 
+              min-w-[215px] 
+              rounded-[5px] 
+              px-5 
+              py-4 
+              text-xl 
+              leading-120 
+              font-semibold 
+              transition-all 
+              duration-200 
+              ease-in
+              cursor-pointer
+              disabled:bg-gray-300 
+              disabled:text-gray-500 
+              disabled:cursor-not-allowed 
+              disabled:hover:bg-gray-300 
+              disabled:hover:text-gray-500
+            "
           >
             {isLoading ? 'Processing...' : 'Next'}
           </button>
@@ -393,7 +496,7 @@ export default function DonationSteps() {
             },
           }}
         >
-          <PaymentForm formData={formData} onBack={handleBack} clientSecret={clientSecret} />
+          <PaymentForm formData={formData} onBack={handleBack} clientSecret={clientSecret} turnstileToken={turnstileToken} />
         </Elements>
       )}
     </div>
