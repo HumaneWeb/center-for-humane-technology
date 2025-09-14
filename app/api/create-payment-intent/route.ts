@@ -1,3 +1,4 @@
+import { track } from '@vercel/analytics';
 import { type NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
@@ -40,6 +41,10 @@ export async function POST(request: NextRequest) {
     const turnstileOutcome = await turnstileRes.json();
     if (!turnstileOutcome.success) {
       console.error('Turnstile validation failed:', turnstileOutcome);
+      track('server_turnstile_failed', {
+        outcome: JSON.stringify(turnstileOutcome),
+        step: 'create-payment-intent',
+      });
       return NextResponse.json({ error: 'Turnstile validation failed' }, { status: 400 });
     }
 
@@ -110,6 +115,11 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error creating payment intent:', error);
+
+    track('server_checkout_error', {
+      message: error instanceof Error ? error.message : String(error),
+      step: 'create-payment-intent',
+    });
 
     if (error instanceof Stripe.errors.StripeError) {
       return NextResponse.json({ error: `Error Stripe: ${error.message}` }, { status: 400 });

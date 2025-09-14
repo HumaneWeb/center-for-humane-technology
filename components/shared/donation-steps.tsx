@@ -7,6 +7,7 @@ import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-
 import { RadioGroup, RadioGroupItem } from './forms/radio-group';
 import Label from './forms/label';
 import Input from './forms/input';
+import { logAnalyticsError } from '@/lib/utils/logs.utils';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -59,6 +60,7 @@ function PaymentForm({
 
       if (submitError) {
         setErrorMessage(submitError.message || 'Error validating payment information');
+        logAnalyticsError('elements.submit', submitError);
         return;
       }
 
@@ -73,8 +75,13 @@ function PaymentForm({
 
       if (stripeError) {
         setErrorMessage(stripeError.message || 'An error occurred during payment');
+        logAnalyticsError('stripe.confirmPayment', stripeError);
       } else {
         setPaymentSuccess(true);
+        logAnalyticsError('checkout.success', {
+          amount: formData.amount,
+          frequency: formData.frequency,
+        });
         setTimeout(() => {
           window.location.href = '/thank-you';
         }, 2000);
@@ -82,6 +89,7 @@ function PaymentForm({
     } catch (error) {
       console.error('Payment error:', error);
       setErrorMessage('An unexpected error occurred. Please try again.');
+      logAnalyticsError('PaymentForm.handleSubmit', error);
     } finally {
       setIsProcessing(false);
     }
@@ -160,8 +168,14 @@ export default function DonationSteps() {
       turnstileWidgetId.current = (window as any).turnstile.render(container, {
         sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
         callback: (token: string) => setTurnstileToken(token),
-        'error-callback': () => setTurnstileToken(null),
-        'expired-callback': () => setTurnstileToken(null),
+        'error-callback': () => {
+          setTurnstileToken(null);
+          logAnalyticsError('turnstile.error', 'Turnstile error callback');
+        },
+        'expired-callback': () => {
+          setTurnstileToken(null);
+          logAnalyticsError('turnstile.expired', 'Turnstile token expired');
+        },
       });
     }
     
