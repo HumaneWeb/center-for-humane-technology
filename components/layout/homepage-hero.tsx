@@ -9,12 +9,12 @@ type Props = ResultOf<typeof HomepageQuery>;
 export default function HomepageHero({ homepage, configuration }: Props) {
   const { title, introduction, ctas } = homepage!;
 
-  const videos = configuration?.videosHomepage;
+  const videos = Array.isArray(configuration?.videosHomepage) ? configuration.videosHomepage : [];
 
   const desktopVideos = {
-    video1: videos?.find((v) => v.title === 'video1.mp4')?.video?.video?.muxPlaybackId,
-    video2: videos?.find((v) => v.title === 'video2.mp4')?.video?.video?.muxPlaybackId,
-    video3: videos?.find((v) => v.title === 'video3.mp4')?.video?.video?.muxPlaybackId,
+    video1: videos.find((v) => v.title === 'video1.mp4')?.video?.video?.muxPlaybackId,
+    video2: videos.find((v) => v.title === 'video2.mp4')?.video?.video?.muxPlaybackId,
+    video3: videos.find((v) => v.title === 'video3.mp4')?.video?.video?.muxPlaybackId,
   };
 
   const mobileVideos = [
