@@ -1,7 +1,10 @@
+import { track } from '@vercel/analytics';
 import { type NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY;
+
 // @ts-ignore
 const stripe = stripeSecretKey ? new Stripe(stripeSecretKey, { apiVersion: '2024-06-20' }) : null;
 
@@ -15,11 +18,34 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { amount, currency, donationType, frequency, customerInfo } = body;
+    const { amount, currency, donationType, frequency, customerInfo, turnstileToken } = body;
 
     // Validate required fields
     if (!amount || !currency || !donationType || !customerInfo) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    if (!turnstileToken) {
+      return NextResponse.json({ error: 'Missing Turnstile token' }, { status: 400 });
+    }
+
+    // Verify Turnstile token
+    const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${encodeURIComponent(turnstileSecretKey!)}&response=${encodeURIComponent(
+        turnstileToken,
+      )}`,
+    });
+
+    const turnstileOutcome = await turnstileRes.json();
+    if (!turnstileOutcome.success) {
+      console.error('Turnstile validation failed:', turnstileOutcome);
+      track('server_turnstile_failed', {
+        outcome: JSON.stringify(turnstileOutcome),
+        step: 'create-payment-intent',
+      });
+      return NextResponse.json({ error: 'Turnstile validation failed' }, { status: 400 });
     }
 
     // Create or retrieve customer
@@ -89,6 +115,11 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error creating payment intent:', error);
+
+    track('server_checkout_error', {
+      message: error instanceof Error ? error.message : String(error),
+      step: 'create-payment-intent',
+    });
 
     if (error instanceof Stripe.errors.StripeError) {
       return NextResponse.json({ error: `Error Stripe: ${error.message}` }, { status: 400 });

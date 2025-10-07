@@ -11,6 +11,7 @@ export default function DonateLayout({
       <main className="flex-1">{children}</main>
       <Footer />
       <Script src="https://js.stripe.com/v3" />
+      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" />
     </>
   );
 }
