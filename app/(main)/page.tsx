@@ -13,11 +13,13 @@ export const generateMetadata = generateMetadataFn({
 
 export default async function HomePage() {
   const { isEnabled } = await draftMode();
-  const { homepage } = await executeQuery(HomepageQuery, { includeDrafts: isEnabled });
+  const { homepage, configuration } = await executeQuery(HomepageQuery, {
+    includeDrafts: isEnabled,
+  });
 
   return (
     <div>
-      <HomepageHero homepage={homepage} />
+      <HomepageHero homepage={homepage} configuration={configuration} />
       {/* @ts-expect-error */}
       <BlockBuilder components={homepage?.blocks} />
     </div>

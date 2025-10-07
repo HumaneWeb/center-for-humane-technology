@@ -2,35 +2,37 @@ import type { ResultOf } from '@/lib/cms/graphql';
 import type { HomepageQuery } from '@/lib/cms/query';
 import CtaList from '../shared/cta-list';
 import { FadeIn } from '../shared/fade-in';
+import { VideoPlayer } from 'react-datocms';
 
 type Props = ResultOf<typeof HomepageQuery>;
 
-export default function HomepageHero({ homepage }: Props) {
+export default function HomepageHero({ homepage, configuration }: Props) {
   const { title, introduction, ctas } = homepage!;
-  const isProd = process.env.NODE_ENV === 'production';
+
+  const videos = configuration?.videosHomepage;
 
   const desktopVideos = {
-    video1: isProd ? process.env.NEXT_PUBLIC_VIDEO_1! : '/video1.mp4',
-    video2: isProd ? process.env.NEXT_PUBLIC_VIDEO_2! : '/video2.mp4',
-    video3: isProd ? process.env.NEXT_PUBLIC_VIDEO_3! : '/video-3.mp4',
+    video1: videos?.find((v) => v.title === 'video1.mp4')?.video?.video?.muxPlaybackId,
+    video2: videos?.find((v) => v.title === 'video2.mp4')?.video?.video?.muxPlaybackId,
+    video3: videos?.find((v) => v.title === 'video3.mp4')?.video?.video?.muxPlaybackId,
   };
 
   const mobileVideos = [
     {
       id: 11,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_1! : '/video1-mobile.mp4',
+      videoUrl: videos?.find((v) => v.title === 'video1-mobile.mp4')?.video?.video?.muxPlaybackId,
     },
     {
       id: 22,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_2! : '/video2-mobile.mp4',
+      videoUrl: videos?.find((v) => v.title === 'video2-mobile.mp4')?.video?.video?.muxPlaybackId,
     },
     {
       id: 33,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_3! : '/video-3.mp4',
+      videoUrl: videos?.find((v) => v.title === 'video3-mobile.mp4')?.video?.video?.muxPlaybackId,
     },
     {
       id: 44,
-      videoUrl: isProd ? process.env.NEXT_PUBLIC_VIDEO_MOBILE_4! : '/video4-mobile.mp4',
+      videoUrl: videos?.find((v) => v.title === 'video4-mobile.mp4')?.video?.video?.muxPlaybackId,
     },
   ];
 
@@ -94,22 +96,21 @@ export default function HomepageHero({ homepage }: Props) {
   );
 }
 
-const RawVideoPlayer = ({ src, className }: { src: string; className: string }) => {
+const RawVideoPlayer = ({ src, className }: { src: string | undefined; className: string }) => {
   return (
     <div className={`raw-video-player relative overflow-hidden ${className}`}>
-      <video
+      <VideoPlayer
         className="absolute inset-0 h-full w-full object-cover"
+        data={{
+          muxPlaybackId: src,
+        }}
         muted
         autoPlay
         loop
         playsInline
-        controls={false}
+        // controls={false}
         aria-label="Video player"
-      >
-        <source src={src} type="video/mp4" />
-        <source src={src.replace('.mp4', '.webm')} type="video/webm" />
-        Your browser does not support the video element.
-      </video>
+      />
     </div>
   );
 };
@@ -117,7 +118,7 @@ const RawVideoPlayer = ({ src, className }: { src: string; className: string }) 
 interface ScrollingColumnProps {
   videos: {
     id: number;
-    videoUrl: string;
+    videoUrl: string | undefined;
   }[];
   direction: 'up' | 'down';
   speed: number;

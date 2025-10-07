@@ -882,6 +882,20 @@ export const HomepageQuery = graphql(
           ...TagFragment
         }
       }
+      configuration {
+        videosHomepage {
+          title
+          video {
+            video {
+              muxPlaybackId
+              title
+              width
+              height
+              blurUpThumb
+            }
+          }
+        }
+      }
     }
   `,
   [

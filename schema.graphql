@@ -1064,6 +1064,7 @@ type ConfigurationRecord implements RecordInterface {
     markdown: Boolean
   ): String
   newsletterTitle: String
+  videosHomepage: [InternalVideoRecord!]!
 }
 
 """Record of type Contact (contact)"""
@@ -4404,6 +4405,31 @@ type InsightRecord implements RecordInterface {
 Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 """
 scalar IntType
+
+"""Block of type Internal Video (internal_video)"""
+type InternalVideoRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  title: String!
+  video: FileField
+}
 
 scalar ItemId
 
