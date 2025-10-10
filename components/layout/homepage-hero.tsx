@@ -8,31 +8,44 @@ type Props = ResultOf<typeof HomepageQuery>;
 
 export default function HomepageHero({ homepage, configuration }: Props) {
   const { title, introduction, ctas } = homepage!;
-
-  const videos = Array.isArray(configuration?.videosHomepage) ? configuration.videosHomepage : [];
+  const isProd = process.env.NODE_ENV === 'production';
 
   const desktopVideos = {
-    video1: videos.find((v) => v.title === 'video1.mp4')?.video?.video?.muxPlaybackId,
-    video2: videos.find((v) => v.title === 'video2.mp4')?.video?.video?.muxPlaybackId,
-    video3: videos.find((v) => v.title === 'video3.mp4')?.video?.video?.muxPlaybackId,
+    video1: isProd
+      ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video1.mp4'
+      : '/video1.mp4',
+    video2: isProd
+      ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video2.mp4'
+      : '/video2.mp4',
+    video3: isProd
+      ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video-3.mp4'
+      : '/video-3.mp4',
   };
 
   const mobileVideos = [
     {
       id: 11,
-      videoUrl: videos?.find((v) => v.title === 'video1-mobile.mp4')?.video?.video?.muxPlaybackId,
+      videoUrl: isProd
+        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video1-mobile.mp4'
+        : '/video1-mobile.mp4',
     },
     {
       id: 22,
-      videoUrl: videos?.find((v) => v.title === 'video2-mobile.mp4')?.video?.video?.muxPlaybackId,
+      videoUrl: isProd
+        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video2-mobile.mp4'
+        : '/video2-mobile.mp4',
     },
     {
       id: 33,
-      videoUrl: videos?.find((v) => v.title === 'video3-mobile.mp4')?.video?.video?.muxPlaybackId,
+      videoUrl: isProd
+        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video-3.mp4'
+        : '/video-3.mp4',
     },
     {
       id: 44,
-      videoUrl: videos?.find((v) => v.title === 'video4-mobile.mp4')?.video?.video?.muxPlaybackId,
+      videoUrl: isProd
+        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video4-mobile.mp4'
+        : '/video4-mobile.mp4',
     },
   ];
 
@@ -96,21 +109,22 @@ export default function HomepageHero({ homepage, configuration }: Props) {
   );
 }
 
-const RawVideoPlayer = ({ src, className }: { src: string | undefined; className: string }) => {
+const RawVideoPlayer = ({ src, className }: { src: string; className: string }) => {
   return (
     <div className={`raw-video-player relative overflow-hidden ${className}`}>
-      <VideoPlayer
+      <video
         className="absolute inset-0 h-full w-full object-cover"
-        data={{
-          muxPlaybackId: src,
-        }}
         muted
         autoPlay
         loop
         playsInline
-        // controls={false}
+        controls={false}
         aria-label="Video player"
-      />
+      >
+        <source src={src} type="video/mp4" />
+        <source src={src.replace('.mp4', '.webm')} type="video/webm" />
+        Your browser does not support the video element.
+      </video>
     </div>
   );
 };
@@ -138,7 +152,7 @@ function ScrollingColumn({ videos, direction, speed }: ScrollingColumnProps) {
         }}
       >
         {duplicatedVideos.map((item, index) => (
-          <RawVideoPlayer key={`${item.id}-${index}`} src={item.videoUrl} className="" />
+          <RawVideoPlayer key={`${item.id}-${index}`} src={item.videoUrl!} className="" />
         ))}
       </div>
     </div>
