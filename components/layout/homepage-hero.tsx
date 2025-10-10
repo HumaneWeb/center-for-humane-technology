@@ -11,40 +11,34 @@ export default function HomepageHero({ homepage, configuration }: Props) {
   const isProd = process.env.NODE_ENV === 'production';
 
   const desktopVideos = {
-    video1: isProd
-      ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video1.mp4'
-      : '/video1.mp4',
-    video2: isProd
-      ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video2.mp4'
-      : '/video2.mp4',
-    video3: isProd
-      ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video-3.mp4'
-      : '/video-3.mp4',
+    video1: isProd ? 'https://cht-videos.s3.eu-north-1.amazonaws.com/video1.mp4' : '/video1.mp4',
+    video2: isProd ? 'https://cht-videos.s3.eu-north-1.amazonaws.com/video2.mp4' : '/video2.mp4',
+    video3: isProd ? 'https://cht-videos.s3.eu-north-1.amazonaws.com/video-3.mp4' : '/video-3.mp4',
   };
 
   const mobileVideos = [
     {
       id: 11,
       videoUrl: isProd
-        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video1-mobile.mp4'
+        ? 'https://cht-videos.s3.eu-north-1.amazonaws.com/video1-mobile.mp4'
         : '/video1-mobile.mp4',
     },
     {
       id: 22,
       videoUrl: isProd
-        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video2-mobile.mp4'
+        ? 'https://cht-videos.s3.eu-north-1.amazonaws.com/video2-mobile.mp4'
         : '/video2-mobile.mp4',
     },
     {
       id: 33,
       videoUrl: isProd
-        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video-3.mp4'
+        ? 'https://cht-videos.s3.eu-north-1.amazonaws.com/video-3.mp4'
         : '/video-3.mp4',
     },
     {
       id: 44,
       videoUrl: isProd
-        ? 'https://videosresourcesfiles.s3.us-east-2.amazonaws.com/video4-mobile.mp4'
+        ? 'https://cht-videos.s3.eu-north-1.amazonaws.com/video4-mobile.mp4'
         : '/video4-mobile.mp4',
     },
   ];
