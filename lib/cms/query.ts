@@ -848,22 +848,16 @@ export const HomepageQuery = graphql(
         ctas {
           ...CTAFragment
         }
-        decorationVideos {
-          ... on VideosBlockRecord {
+        decorationVideosDesktop {
+          ... on S3VideoBlockRecord {
             id
-            videos {
-              ... on VideoFileField {
-                id
-                url
-                video {
-                  muxPlaybackId
-                  title
-                  width
-                  height
-                  blurUpThumb
-                }
-              }
-            }
+            s3Url
+          }
+        }
+        decorationVideosMobile {
+          ... on S3VideoBlockRecord {
+            id
+            s3Url
           }
         }
         blocks {

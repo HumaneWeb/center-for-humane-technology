@@ -2153,7 +2153,8 @@ type HomepageRecord implements RecordInterface {
   _updatedAt: DateTime!
   blocks: [HomepageModelBlocksField!]!
   ctas: [CtaRecord!]!
-  decorationVideos: VideosBlockRecord
+  decorationVideosDesktop: [S3VideoBlockRecord!]!
+  decorationVideosMobile: [S3VideoBlockRecord!]!
   id: ItemId!
   introduction(
     """Process content as markdown"""
@@ -6370,6 +6371,30 @@ type ResponsiveImage {
   title: String
   webpSrcSet: String!
   width: IntType!
+}
+
+"""Block of type S3 Video Block (s3_video_block)"""
+type S3VideoBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  s3Url: String
 }
 
 type SeoField {

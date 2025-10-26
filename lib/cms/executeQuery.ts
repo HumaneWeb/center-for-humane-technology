@@ -15,6 +15,7 @@ export async function executeQuery<Result, Variables>(
   const result = await libExecuteQuery(query, {
     variables: options?.variables,
     excludeInvalid: true,
+    environment: process.env.NEXT_DATOCMS_ENVIRONMENT || 'main',
     includeDrafts: options?.includeDrafts,
     token: options?.includeDrafts
       ? process.env.DATOCMS_DRAFT_CONTENT_CDA_TOKEN!

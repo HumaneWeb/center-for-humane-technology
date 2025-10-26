@@ -2,41 +2,25 @@ import type { ResultOf } from '@/lib/cms/graphql';
 import type { HomepageQuery } from '@/lib/cms/query';
 import CtaList from '../shared/cta-list';
 import { FadeIn } from '../shared/fade-in';
-import { VideoPlayer } from 'react-datocms';
 
 type Props = ResultOf<typeof HomepageQuery>;
 
 export default function HomepageHero({ homepage, configuration }: Props) {
-  const { title, introduction, ctas } = homepage!;
-  const isProd = process.env.NODE_ENV === 'production';
+  const { title, introduction, ctas, decorationVideosDesktop, decorationVideosMobile } = homepage!;
 
   const desktopVideos = {
-    video1: isProd ? 'https://static.humanetech.com/video1.mp4' : '/video1.mp4',
-    video2: isProd ? 'https://static.humanetech.com/video2.mp4' : '/video2.mp4',
-    video3: isProd ? 'https://static.humanetech.com/video-3.mp4' : '/video-3.mp4',
+    video1: (decorationVideosDesktop as any)?.[0]?.s3Url || '',
+    video2: (decorationVideosDesktop as any)?.[1]?.s3Url || '',
+    video3: (decorationVideosDesktop as any)?.[2]?.s3Url || '',
   };
 
-  const mobileVideos = [
-    {
-      id: 11,
-      videoUrl: isProd ? 'https://static.humanetech.com/video1-mobile.mp4' : '/video1-mobile.mp4',
-    },
-    {
-      id: 22,
-      videoUrl: isProd ? 'https://static.humanetech.com/video2-mobile.mp4' : '/video2-mobile.mp4',
-    },
-    {
-      id: 33,
-      videoUrl: isProd ? 'https://static.humanetech.com/video-3.mp4' : '/video-3.mp4',
-    },
-    {
-      id: 44,
-      videoUrl: isProd ? 'https://static.humanetech.com/video4-mobile.mp4' : '/video4-mobile.mp4',
-    },
-  ];
+  const mobileVideos = (decorationVideosMobile as any)?.map((video: any, index: number) => ({
+    id: video.id || index,
+    videoUrl: video.s3Url,
+  })) || [];
 
-  const mobileColumn1 = mobileVideos.filter((_, index) => index % 2 === 0);
-  const mobileColumn2 = mobileVideos.filter((_, index) => index % 2 === 1);
+  const mobileColumn1 = mobileVideos.filter((_: any, index: number) => index % 2 === 0);
+  const mobileColumn2 = mobileVideos.filter((_: any, index: number) => index % 2 === 1);
 
   return (
     <section className="homepage-hero mb:bg-contain mb:bg-right mb:bg-no-repeat mb:bg-[url('/homepage-circles.svg')] mb:h-dvh mb:py-20 bg-[#F8F4EF] pt-30 pb-10">
@@ -59,35 +43,43 @@ export default function HomepageHero({ homepage, configuration }: Props) {
           </FadeIn>
           <div className="homepage-videos-decoration absolute right-[-220px]">
             <div className="desktop-videos grid-cols-1 gap-5 md:grid-cols-2 lg:grid lg:grid-cols-3">
-              <FadeIn delay={0.4}>
-                <RawVideoPlayer src={desktopVideos.video1} className="h-[440px] w-[247px]" />
-              </FadeIn>
-              <FadeIn delay={0.5}>
-                <RawVideoPlayer
-                  src={desktopVideos.video2}
-                  className="relative top-30 h-[440px] w-[247px]"
-                />
-              </FadeIn>
-              <FadeIn delay={0.6}>
-                <RawVideoPlayer
-                  src={desktopVideos.video3}
-                  className="relative bottom-30 h-[440px] w-[247px]"
-                />
-              </FadeIn>
+              {desktopVideos.video1 && (
+                <FadeIn delay={0.4}>
+                  <RawVideoPlayer src={desktopVideos.video1} className="h-[440px] w-[247px]" />
+                </FadeIn>
+              )}
+              {desktopVideos.video2 && (
+                <FadeIn delay={0.5}>
+                  <RawVideoPlayer
+                    src={desktopVideos.video2}
+                    className="relative top-30 h-[440px] w-[247px]"
+                  />
+                </FadeIn>
+              )}
+              {desktopVideos.video3 && (
+                <FadeIn delay={0.6}>
+                  <RawVideoPlayer
+                    src={desktopVideos.video3}
+                    className="relative bottom-30 h-[440px] w-[247px]"
+                  />
+                </FadeIn>
+              )}
             </div>
 
             {/* Tablet devices */}
-            <FadeIn className="tablet-videos">
-              <div className="tablet-videos-child relative overflow-hidden">
-                <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-32 bg-gradient-to-b from-[#F8F4EF] to-transparent" />
+            {mobileVideos.length > 0 && (
+              <FadeIn className="tablet-videos">
+                <div className="tablet-videos-child relative overflow-hidden">
+                  <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-32 bg-gradient-to-b from-[#F8F4EF] to-transparent" />
 
-                <div className="tablet-videos-child-wrapper mx-auto grid max-w-4xl grid-cols-2 gap-2.5 px-4 sm:px-6 lg:px-8">
-                  <ScrollingColumn videos={mobileColumn1} direction="up" speed={30} />
-                  <ScrollingColumn videos={mobileColumn2} direction="down" speed={30} />
+                  <div className="tablet-videos-child-wrapper mx-auto grid max-w-4xl grid-cols-2 gap-2.5 px-4 sm:px-6 lg:px-8">
+                    <ScrollingColumn videos={mobileColumn1} direction="up" speed={30} />
+                    <ScrollingColumn videos={mobileColumn2} direction="down" speed={30} />
+                  </div>
+                  <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-32 bg-gradient-to-t from-[#F8F4EF] to-transparent" />
                 </div>
-                <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-32 bg-gradient-to-t from-[#F8F4EF] to-transparent" />
-              </div>
-            </FadeIn>
+              </FadeIn>
+            )}
           </div>
         </div>
       </div>
@@ -138,7 +130,9 @@ function ScrollingColumn({ videos, direction, speed }: ScrollingColumnProps) {
         }}
       >
         {duplicatedVideos.map((item, index) => (
-          <RawVideoPlayer key={`${item.id}-${index}`} src={item.videoUrl!} className="" />
+          item.videoUrl && (
+            <RawVideoPlayer key={`${item.id}-${index}`} src={item.videoUrl} className="" />
+          )
         ))}
       </div>
     </div>

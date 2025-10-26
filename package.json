@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "next lint && prettier --check .",
     "format": "npx prettier . --write",
-    "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\"'"
+    "generate-schema": "dotenv -c -- bash -c 'if [ -n \"$NEXT_DATOCMS_ENVIRONMENT\" ]; then gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\" --header \"X-Environment: $NEXT_DATOCMS_ENVIRONMENT\"; else gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\"; fi'"
   },
   "dependencies": {
     "@next/third-parties": "^15.4.1",
