@@ -661,6 +661,14 @@ export const ContentBlockFragment = graphql(`
   }
 `);
 
+export const ContentMarkdownFragment = graphql(`
+  fragment ContentMarkdownFragment on ContentMarkdownRecord {
+    __typename
+    id
+    content(markdown: true)
+  }
+`);
+
 export const ImageGalleryFragment = graphql(
   `
     fragment ImageGalleryFragment on ImageGalleryRecord {
@@ -1799,6 +1807,7 @@ export const LandingPageQuery = graphql(
           ...StatsBlockFragment
           ...VideoItemFragment
           ...ContentBlockFragment
+          ...ContentMarkdownFragment
           ...ImageGalleryFragment
           ...LandingHighlightCtaFragment
           ...ImageBlockFragment
@@ -1829,6 +1838,7 @@ export const LandingPageQuery = graphql(
     LandingHighlightTexFragment,
     VideoItemFragment,
     ContentBlockFragment,
+    ContentMarkdownFragment,
     ImageGalleryFragment,
     LandingHighlightCtaFragment,
     ImageBlockFragment,

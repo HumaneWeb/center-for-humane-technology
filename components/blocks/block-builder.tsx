@@ -9,6 +9,7 @@ import MediaBlock from './media-block';
 import NarrativeBlock from './narrative-block';
 import NewsletterBlock from './newsletter-block';
 import SubstackManualFeed from './generic-cards-grid';
+import ContentMarkdownBlock from './content-markdown-block';
 
 type Props = {
   components: {
@@ -29,6 +30,7 @@ const BaseComponents: Record<string, any> = {
   MediaBlockRecord: MediaBlock,
   DonateBlockRecord: DonateBlock,
   SubstackManualFeedRecord: SubstackManualFeed,
+  ContentMarkdownRecord: ContentMarkdownBlock,
 };
 
 const BlockBuilder: React.FC<Props> = ({ components = [] }) => {

@@ -9,6 +9,7 @@ import ContentBlock from './content-block';
 import VideoItem from '../shared/video-item';
 import ImageBlock from './image-block';
 import { FadeIn } from '../shared/fade-in';
+import ContentMarkdownBlock from './content-markdown-block';
 
 type Props = {
   components: {
@@ -29,6 +30,7 @@ const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
   ImageGalleryRecord: ImageGalleryBlock,
   LandingHighlightCtaRecord: LandingHighlightCtaBlock,
   ImageBlockRecord: ImageBlock,
+  ContentMarkdownRecord: ContentMarkdownBlock,
 };
 
 const ExtraProps: Record<string, any> = {
