@@ -953,6 +953,30 @@ type CategoryRecord implements RecordInterface {
   slug: String
 }
 
+"""Block of type Center CTA (center_cta)"""
+type CenterCtaRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  callOuts: String
+  id: ItemId!
+}
+
 type CollectionMetadata {
   count: IntType!
 }
@@ -1155,6 +1179,33 @@ type ContentBlockRecord implements RecordInterface {
   hideBlock: BooleanType!
   id: ItemId!
   title: String
+}
+
+"""Block of type Content (Markdown) (content_markdown)"""
+type ContentMarkdownRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  id: ItemId!
 }
 
 """Specifies how to filter by creation datetime"""
@@ -4457,6 +4508,35 @@ enum ItemStatus {
 
 scalar JsonField
 
+"""
+Block of type Landing Highlight CTA (copy #1) (landing_highlight_cta_copy1)
+"""
+type LandingHighlightCtaCopy1Record implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  cta: CtaRecord
+  hideBlock: BooleanType!
+  id: ItemId!
+  title: String
+  variant: String
+}
+
 """Block of type Landing Highlight CTA (landing_highlight_cta)"""
 type LandingHighlightCtaRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4518,7 +4598,7 @@ type LandingHighlightTextRecord implements RecordInterface {
   title: String
 }
 
-union LandingModelBlocksField = ContentBlockRecord | CtaRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | NarrativeBlockRecord | StatsBlockRecord | VideoItemRecord
+union LandingModelBlocksField = CenterCtaRecord | ContentBlockRecord | ContentMarkdownRecord | CtaRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | NarrativeBlockRecord | StatsBlockRecord | VideoItemRecord
 
 input LandingModelFilter {
   _createdAt: CreatedAtFilter
