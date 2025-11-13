@@ -88,6 +88,7 @@ type AiInSocietyRecord implements RecordInterface {
   items: [SocietyContentItemRecord!]!
   mobileImage: FileField
   narrative: NarrativeBlockRecord
+  narrative2: NarrativeBlockRecord
   preTitle: String
   seo: SeoField
   slug: String!
