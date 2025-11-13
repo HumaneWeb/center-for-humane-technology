@@ -93,6 +93,27 @@ export const AnchorItemFragment = graphql(`
   }
 `);
 
+export const ButtonFragment = graphql(`
+  fragment ButtonFragment on ButtonRecord {
+    id
+    label
+    link
+  }
+`);
+
+export const ButtonsBlockFragment = graphql(
+  `
+    fragment ButtonsBlockFragment on ButtonsBlockRecord {
+      id
+      alignment
+      buttons {
+        ...ButtonFragment
+      }
+    }
+  `,
+  [ButtonFragment],
+);
+
 export const GenericCardFragment = graphql(
   `
     fragment GenericCardFragment on GenericCardRecord {
@@ -1478,6 +1499,7 @@ export const CaseStudyPageQuery = graphql(
             ...FootnoteFragment
             ...GenericCardFragment
             ...ImageContentBlockFragment
+            ...ButtonsBlockFragment
           }
         }
         _seoMetaTags {
@@ -1520,6 +1542,7 @@ export const CaseStudyPageQuery = graphql(
     DonateBlockFragment,
     FootnoteFragment,
     GenericCardFragment,
+    ButtonsBlockFragment,
   ],
 );
 
@@ -1814,6 +1837,7 @@ export const LandingPageQuery = graphql(
           ...ImageGalleryFragment
           ...LandingHighlightCtaFragment
           ...ImageBlockFragment
+          ...ButtonsBlockFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -1845,6 +1869,7 @@ export const LandingPageQuery = graphql(
     ImageGalleryFragment,
     LandingHighlightCtaFragment,
     ImageBlockFragment,
+    ButtonsBlockFragment,
   ],
 );
 

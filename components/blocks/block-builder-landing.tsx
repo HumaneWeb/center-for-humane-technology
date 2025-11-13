@@ -10,6 +10,7 @@ import VideoItem from '../shared/video-item';
 import ImageBlock from './image-block';
 import { FadeIn } from '../shared/fade-in';
 import ContentMarkdownBlock from './content-markdown-block';
+import ButtonsBlock from './buttons-block';
 
 type Props = {
   components: {
@@ -31,6 +32,7 @@ const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
   LandingHighlightCtaRecord: LandingHighlightCtaBlock,
   ImageBlockRecord: ImageBlock,
   ContentMarkdownRecord: ContentMarkdownBlock,
+  ButtonsBlockRecord: ButtonsBlock,
 };
 
 const ExtraProps: Record<string, any> = {

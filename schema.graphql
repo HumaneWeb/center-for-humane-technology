@@ -619,6 +619,56 @@ input BooleanFilter {
 """Represents `true` or `false` values."""
 scalar BooleanType
 
+"""Block of type Button (button)"""
+type ButtonRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  label: String!
+  link: String
+}
+
+"""Block of type Buttons Block (buttons_block)"""
+type ButtonsBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  alignment: String
+  buttons: [ButtonRecord!]!
+  id: ItemId!
+}
+
 """Block of type Campaign Block (campaign_block)"""
 type CampaignBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -784,7 +834,7 @@ type CaseStudiesListRecord implements RecordInterface {
   title: String
 }
 
-union CaseStudyModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
+union CaseStudyModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ButtonsBlockRecord | ColumnsBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord
 
 type CaseStudyModelContentField {
   blocks: [CaseStudyModelContentBlocksField!]!
@@ -4599,7 +4649,7 @@ type LandingHighlightTextRecord implements RecordInterface {
   title: String
 }
 
-union LandingModelBlocksField = CenterCtaRecord | ContentBlockRecord | ContentMarkdownRecord | CtaRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | NarrativeBlockRecord | StatsBlockRecord | VideoItemRecord
+union LandingModelBlocksField = ButtonsBlockRecord | CenterCtaRecord | ContentBlockRecord | ContentMarkdownRecord | CtaRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | NarrativeBlockRecord | StatsBlockRecord | VideoItemRecord
 
 input LandingModelFilter {
   _createdAt: CreatedAtFilter
