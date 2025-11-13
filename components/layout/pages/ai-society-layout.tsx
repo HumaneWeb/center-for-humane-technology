@@ -33,6 +33,7 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
     cards,
     tbpExtraInformation,
     narrative,
+    narrative2,
   } = page;
   const { donateTitle, donateCta, donateImage } = configuration!;
 
@@ -185,6 +186,7 @@ export default function AiSocietyLayout({ page, configuration }: Props) {
         }}
       >
         {narrative && <NarrativeBlock {...narrative} />}
+        {narrative2 && <NarrativeBlock {...narrative2} />}
       </div>
 
       {/* @ts-ignore */}

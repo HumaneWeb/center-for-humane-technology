@@ -979,6 +979,9 @@ export const AiSocietyQuery = graphql(
         narrative {
           ...NarrativeBlockFragment
         }
+        narrative2 {
+          ...NarrativeBlockFragment
+        }
         _seoMetaTags {
           ...TagFragment
         }
