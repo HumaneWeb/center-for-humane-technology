@@ -38,6 +38,7 @@ import VideoItem from './video-item';
 import MediaBlock from '../blocks/media-block';
 import { FadeIn } from './fade-in';
 import ItemSelector from '../blocks/items-selector-block';
+import ButtonsBlock from '../blocks/buttons-block';
 
 export default function CustomStructuredText({
   data,
@@ -52,6 +53,9 @@ export default function CustomStructuredText({
   isInnerContainer?: boolean;
   centerContent?: boolean;
 }) {
+
+  console.log(data);
+
   return (
     <StructuredText
       data={data}
@@ -279,6 +283,19 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'WorkAreasBlockRecord') {
           return <ItemSelector {...record} key={record.id} />;
+        }
+        if (record.__typename === 'ButtonsBlockRecord') {
+          return (
+            <div
+              className={cn(
+                'mx-auto my-11 max-w-7xl px-4 sm:px-6 lg:px-8',
+                centerContent && 'px-0!',
+              )}
+              key={record.id}
+            >
+              <ButtonsBlock {...record} isInner={true} />
+            </div>
+          );
         }
 
         return null;
