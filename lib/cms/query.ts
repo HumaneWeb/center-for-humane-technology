@@ -47,6 +47,9 @@ export const GlobalLinkFragment = graphql(`
       ... on CareersListRecord {
         slug
       }
+      ... on AreasOfWorkRecord {
+        slug
+      }
     }
   }
 `);

@@ -298,6 +298,7 @@ type AreasOfWorkRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  areasOfWork: AreasOfWorkRecord
   caseStudiesGrid: GenericCardsGridRecord
   content: AreasOfWorkModelContentField
   id: ItemId!
@@ -1983,7 +1984,7 @@ type GenericCardsGridRecord implements RecordInterface {
   variant: String
 }
 
-union GlobalLinkModelContentField = AiInSocietyRecord | BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord | ToolkitListRecord | ToolkitRecord
+union GlobalLinkModelContentField = AiInSocietyRecord | AreasOfWorkRecord | BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord | ToolkitListRecord | ToolkitRecord
 
 input GlobalLinkModelFilter {
   _createdAt: CreatedAtFilter
@@ -7557,6 +7558,7 @@ input UploadFilter {
   title: UploadTitleFilter
   notes: UploadNotesFilter
   md5: UploadMd5Filter
+  path: UploadPathFilter
   author: UploadAuthorFilter
   copyright: UploadCopyrightFilter
   basename: UploadBasenameFilter
@@ -7695,6 +7697,21 @@ enum UploadOrientation {
   landscape
   portrait
   square
+}
+
+"""Specifies how to filter by path"""
+input UploadPathFilter {
+  """Search the asset with the specified path"""
+  eq: String
+
+  """Exclude the asset with the specified path"""
+  neq: String
+
+  """Search assets with the specified paths"""
+  in: [String]
+
+  """Search assets that do not have the specified paths"""
+  notIn: [String]
 }
 
 """Specifies how to filter by size"""
