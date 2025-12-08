@@ -27,7 +27,7 @@
     "html-to-text": "^9.0.5",
     "lucide-react": "^0.519.0",
     "motion": "^12.15.0",
-    "next": "15.4.1",
+    "next": "15.4.8",
     "next-hubspot": "^2.0.0",
     "react": "^19.0.0",
     "react-datocms": "^7.2.2",
