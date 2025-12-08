@@ -136,7 +136,7 @@ export default function DonationSteps() {
   const [currentStep, setCurrentStep] = useState<DonationStep>(1);
   const [clientSecret, setClientSecret] = useState<string>('');
   const [formData, setFormData] = useState<DonationFormData>({
-    frequency: 'monthly',
+    frequency: 'once',
     amount: '50',
     coverFees: false,
     firstName: '',
@@ -314,6 +314,15 @@ export default function DonationSteps() {
           className="mb-[18px] gap-4"
         >
           <div className="bg-neutral-white flex items-center space-x-3 rounded-[5px] border-2 border-[#A8ADB6] px-2.5 py-4">
+            <RadioGroupItem value="once" id="once" />
+            <Label
+              htmlFor="once"
+              className="text-primary-navy mb:text-[18px] flex-1 cursor-pointer text-[16px] leading-140 font-normal"
+            >
+              Donate once
+            </Label>
+          </div>
+          <div className="bg-neutral-white flex items-center space-x-3 rounded-[5px] border-2 border-[#A8ADB6] px-2.5 py-4">
             <RadioGroupItem value="monthly" id="monthly" />
             <Label
               htmlFor="monthly"
@@ -322,15 +331,6 @@ export default function DonationSteps() {
               Donate monthly
               <br />
               <span className="text-[16px]">Help us make a bigger difference</span>
-            </Label>
-          </div>
-          <div className="bg-neutral-white flex items-center space-x-3 rounded-[5px] border-2 border-[#A8ADB6] px-2.5 py-4">
-            <RadioGroupItem value="once" id="once" />
-            <Label
-              htmlFor="once"
-              className="text-primary-navy mb:text-[18px] flex-1 cursor-pointer text-[16px] leading-140 font-normal"
-            >
-              Donate once
             </Label>
           </div>
         </RadioGroup>
