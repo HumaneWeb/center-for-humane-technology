@@ -85,7 +85,7 @@ export default function AccordionBlock({ items, variant = 'default' }: Props) {
               ) : (
                 <div
                   className={cn(
-                    'text-primary-navy [&>ul>li>a]:text-primary-teal mb:text-xl [&_a]:overflow-wrap-anywhere text-[16px] leading-140 [&>ol]:list-decimal [&>ol]:py-5 [&>ol]:pl-10 [&>ol>li]:mb-3 [&>ol>li>a]:font-semibold [&>p]:mb-4 [&>p>a]:font-semibold [&>ul]:list-disc [&>ul]:py-5 [&>ul]:pl-10 [&>ul>li]:mb-3 [&>ul>li>a]:font-semibold',
+                    'text-primary-navy mb:text-xl [&_a]:overflow-wrap-anywhere text-[16px] leading-140 [&_ol]:list-decimal [&_ol]:py-5 [&_ol]:pl-10 [&_ol_li]:mb-3 [&_ol_li_a]:font-semibold [&_ol_li_a]:text-primary-teal [&_p]:mb-6 [&_p_a]:font-semibold [&_p_a]:text-primary-teal [&_ul]:list-disc [&_ul]:py-5 [&_ul]:pl-10 [&_ul_li]:mb-3 [&_ul_li_a]:font-semibold [&_ul_li_a]:text-primary-teal',
                     variant === 'small' && 'text-base',
                   )}
                   dangerouslySetInnerHTML={{ __html: item.content }}
