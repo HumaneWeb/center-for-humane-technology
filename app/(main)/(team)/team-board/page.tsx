@@ -22,7 +22,7 @@ export const generateMetadata = generateMetadataFn({
 export default async function TeamListPage() {
   const { isEnabled } = await draftMode();
 
-  const { page, teamList, boardList, careersList, supporters, allies, configuration } =
+  const { page, teamList, leadershipList, boardList, careersList, supporters, allies, configuration } =
     await executeQuery(TeamAndBoardQuery, {
       includeDrafts: isEnabled,
     });
@@ -31,6 +31,22 @@ export default async function TeamListPage() {
   return (
     <>
       <BasicHero title={title} preTitle={preTitle} variant="purple" />
+
+      {leadershipList && leadershipList.length > 0 && (
+        <section className="mb:py-14 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
+              Leadership
+            </h2>
+            <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3">
+              {leadershipList.map((leader) => (
+                <TeamCard key={leader.id} {...leader} type="team" />
+              ))}
+            </div>
+          </FadeIn>
+        </section>
+      )}
+
       <section className="mb:py-14 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <FadeIn className="mb:mb-36 mb-10">
           <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
