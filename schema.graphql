@@ -333,6 +333,100 @@ type AwarenessBlockRecord implements RecordInterface {
   podcastCard: PodcastCardRecord!
 }
 
+"""Block of type banner block (banner_block)"""
+type BannerBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  bannerPhoto: FileField
+  bannerText: String
+  bannerTitle: String
+  id: ItemId!
+}
+
+input BannerModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  headline: StringFilter
+  photo: FileFilter
+  text: StringFilter
+  OR: [BannerModelFilter]
+  AND: [BannerModelFilter]
+}
+
+enum BannerModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  headline_ASC
+  headline_DESC
+  text_ASC
+  text_DESC
+}
+
+"""Record of type Banner (banner)"""
+type BannerRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  headline: String
+  id: ItemId!
+  photo: FileField
+  text: String
+}
+
 union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | MediaBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | VideoItemRecord
 
 type BasicPageModelContentField {
@@ -1368,6 +1462,43 @@ input DateFilter {
 """A ISO 8601 compliant datetime value"""
 scalar DateTime
 
+union DeeplyHumanModelContentBlocksField = CtaRecord | GenericCardsGridRecord | ImageBlockRecord | WorkAreasBlockRecord
+
+type DeeplyHumanModelContentField {
+  blocks: [DeeplyHumanModelContentBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+"""Record of type Deeply Human (deeply_human)"""
+type DeeplyHumanRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content: DeeplyHumanModelContentField
+  deeplyHuman: DeeplyHumanRecord
+  id: ItemId!
+  seo: SeoField
+  slug: String!
+  title: String!
+}
+
 """Block of type Depth Area Item (depth_area_item)"""
 type DepthAreaItemRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -2232,7 +2363,7 @@ type HighlightedBlockRecord implements RecordInterface {
   variant: String
 }
 
-union HomepageModelBlocksField = AwarenessBlockRecord | CampaignBlockRecord | DepthAreasBlockRecord | DonateBlockRecord | HighlightTextBlockRecord | ImpactBlockRecord | MediaBlockRecord | NarrativeBlockRecord | SignUpBlockRecord
+union HomepageModelBlocksField = AwarenessBlockRecord | BannerBlockRecord | CampaignBlockRecord | DepthAreasBlockRecord | DonateBlockRecord | HighlightTextBlockRecord | ImpactBlockRecord | MediaBlockRecord | NarrativeBlockRecord | SignUpBlockRecord
 
 """Record of type Homepage (homepage)"""
 type HomepageRecord implements RecordInterface {
@@ -5436,6 +5567,13 @@ input PublishedAtFilter {
 """The query root for this schema"""
 type Query {
   """Returns meta information regarding a record collection"""
+  _allBannersMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: BannerModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
   _allBasicPagesMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5582,6 +5720,25 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): AiInSocietyRecord
+
+  """Returns a collection of records"""
+  allBanners(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: BannerModelFilter
+    orderBy: [BannerModelOrderBy] = [_updatedAt_DESC]
+  ): [BannerRecord!]!
 
   """Returns a collection of records"""
   allBasicPages(
@@ -5937,6 +6094,19 @@ type Query {
   ): AreasOfWorkRecord
 
   """Returns a specific record"""
+  banner(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: BannerModelFilter
+    orderBy: [BannerModelOrderBy] = [_updatedAt_DESC]
+  ): BannerRecord
+
+  """Returns a specific record"""
   basicPage(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -6055,6 +6225,17 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): ContactRecord
+
+  """Returns the single instance record"""
+  deeplyHuman(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): DeeplyHumanRecord
 
   """Returns the single instance record"""
   donate(
@@ -8112,6 +8293,7 @@ type WorkItemRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  block: String!
   content: WorkItemModelContentField
   defaultImage: FileField
   id: ItemId!

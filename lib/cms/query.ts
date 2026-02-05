@@ -1109,6 +1109,16 @@ export const TeamAndBoardQuery = graphql(
         slug
         __typename
       }
+      leadershipList: allTeamMembers(filter: { category: { eq: "leadership" } }) {
+        id
+        fullName
+        teamPosition
+        image {
+          ...ImageFragment
+        }
+        slug
+        __typename
+      }
       boardList: allTeamMembers(filter: { category: { eq: "board" } }) {
         id
         fullName
