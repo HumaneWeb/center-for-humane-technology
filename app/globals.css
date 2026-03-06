@@ -85,6 +85,22 @@ body {
   }
 }
 
+@utility bg-path-forward-hero {
+  background: linear-gradient(135deg, #0A1628 0%, #064E3B 60%, #022C22 100%);
+}
+
+@utility bg-path-forward-light {
+  background: linear-gradient(180deg, #ECFDF5 0%, #F0FDF4 100%);
+}
+
+@utility bg-path-forward-dark {
+  background: linear-gradient(180deg, #022C22 0%, #0A1628 100%);
+}
+
+@utility bg-path-forward-pillars {
+  background: linear-gradient(180deg, #0F2A1D 0%, #0A1628 50%, #0F2A1D 100%);
+}
+
 @utility bg-ai-society-blue {
   background: linear-gradient(180deg, #404A98 0%, #293462 100%);
 }
@@ -1063,5 +1079,39 @@ hr {
 @media screen and (max-width: 1024px) {
   .content-image-issue {
     max-height: 820px;
+  }
+}
+
+/* Path Forward */
+.path-forward-bridge {
+  min-height: 70vh;
+}
+
+@media screen and (max-width: 992px) {
+  .path-forward-bridge {
+    min-height: auto;
+  }
+
+  .path-forward-bridge .bridge-headline {
+    position: relative;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 560px) {
+  .path-forward-domains-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media screen and (max-width: 1260px) and (min-width: 992px) {
+  .path-forward-bridge,
+  .path-forward-bridge .bridge-headline {
+    min-height: auto;
+    height: auto;
+  }
+
+  .path-forward-bridge {
+    padding: 5rem 0;
   }
 }
