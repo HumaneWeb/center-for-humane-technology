@@ -4,7 +4,7 @@ import { FadeIn } from '@/components/shared/fade-in';
 import { cn } from '@/lib/utils/css.utils';
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { PATH_FORWARD_DATA } from './path-forward-data';
+import { PATH_FORWARD_DATA, type Pillar, type PillarHowSection } from './path-forward-data';
 
 const data = PATH_FORWARD_DATA;
 
@@ -75,7 +75,7 @@ function Hero() {
           </p>
         </FadeIn>
 
-        {/* <FadeIn delay={0.7}>
+        <FadeIn delay={0.7}>
           <div className="mt-16 flex items-center gap-3">
             <motion.div
               className="h-12 w-[1px] bg-[#6EE7B7]"
@@ -86,7 +86,7 @@ function Hero() {
               {data.hero.scrollLabel}
             </span>
           </div>
-        </FadeIn> */}
+        </FadeIn>
       </motion.div>
 
       {/* Decorative emerald glow */}
@@ -175,12 +175,12 @@ function DomainsSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <h2 className="tracking-031 mb:tracking-061 mb:text-[61px] mb:mb-4 mb-3 text-center font-sans text-[32px] leading-110 font-semibold text-[#064E3B]">
-            Lorem Ipsum Dolor
+            Three Domains of Change
           </h2>
         </FadeIn>
         <FadeIn delay={0.3}>
           <p className="mb:text-[22px] mb:leading-130 mb:mb-[80px] mx-auto mb-10 max-w-[700px] text-center font-sans text-lg leading-140 text-[#0A1628]/80">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna.
+            Each domain changes behaviors in the tech ecosystem in a different way. Together, these processes are mutually reinforcing.
           </p>
         </FadeIn>
 
@@ -215,24 +215,32 @@ function PillarsSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <h2 className="tracking-031 mb:tracking-061 mb:text-[61px] mb:mb-4 mb-3 text-center font-sans text-[32px] leading-110 font-semibold text-[#6EE7B7]">
-            Lorem Ipsum Dolor Sit
+            Seven Principles
           </h2>
         </FadeIn>
         <FadeIn delay={0.3}>
           <p className="mb:text-[22px] mb:leading-130 mb:mb-[80px] mx-auto mb-10 max-w-[750px] text-center font-sans text-lg leading-140 text-white/70">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl.
+            Robust enough to address the complex issues society faces with AI, while still nimble enough to navigate the pace of change.
           </p>
         </FadeIn>
 
-        <div className="space-y-16 mb:space-y-24">
+        <div className="space-y-20 mb:space-y-32">
           {data.pillars.map((pillar, index) => {
             const imageOnRight = index % 2 === 0;
             return (
-              <PillarBlock
-                key={pillar.id}
-                pillar={pillar}
-                imageOnRight={imageOnRight}
-              />
+              <React.Fragment key={pillar.id}>
+                {index > 0 && (
+                  <div className="mx-auto flex max-w-[200px] items-center justify-center gap-3">
+                    <div className="h-px flex-1 bg-[#10B981]/20" />
+                    <div className="h-2 w-2 rotate-45 border border-[#10B981]/30" />
+                    <div className="h-px flex-1 bg-[#10B981]/20" />
+                  </div>
+                )}
+                <PillarBlock
+                  pillar={pillar}
+                  imageOnRight={imageOnRight}
+                />
+              </React.Fragment>
             );
           })}
         </div>
@@ -242,56 +250,122 @@ function PillarsSection() {
 }
 
 type PillarBlockProps = {
-  pillar: (typeof data.pillars)[number];
+  pillar: Pillar;
   imageOnRight: boolean;
 };
 
 function PillarBlock({ pillar, imageOnRight }: PillarBlockProps) {
   return (
-    <div
-      className={cn(
-        'mb:grid-cols-2 mb:gap-16 mb:items-center grid grid-cols-1 gap-8',
-      )}
-    >
-      {/* Text column */}
-      <FadeIn
-        delay={0.2}
-        className={cn(imageOnRight ? 'mb:order-1' : 'mb:order-2')}
+    <div className="pillar-block">
+      {/* Hero row: number + title + summary + image */}
+      <div
+        className={cn(
+          'mb:grid-cols-2 mb:gap-16 mb:items-center grid grid-cols-1 gap-8',
+        )}
       >
-        <div>
-          <span className="font-pixel mb:text-[49px] mb-4 block text-[32px] leading-100 text-[#10B981]">
-            {pillar.number}
-          </span>
-          <h3 className="mb:text-[31px] mb-4 font-sans text-[25px] leading-120 font-semibold text-white">
-            {pillar.title}
-          </h3>
-          <p className="mb-5 font-sans text-[18px] leading-140 font-semibold text-[#6EE7B7]/80">
-            {pillar.summary}
-          </p>
-          {pillar.content.map((paragraph, i) => (
-            <p
-              key={i}
-              className="mb-4 font-sans text-[16px] leading-[160%] text-white/70 last:mb-0"
-            >
-              {paragraph}
+        <FadeIn
+          delay={0.2}
+          className={cn(imageOnRight ? 'mb:order-1' : 'mb:order-2')}
+        >
+          <div>
+            <span className="font-pixel mb:text-[49px] mb-4 block text-[32px] leading-100 text-[#10B981]">
+              {pillar.number}
+            </span>
+            <h3 className="mb:text-[31px] mb-4 font-sans text-[25px] leading-120 font-semibold text-white">
+              {pillar.title}
+            </h3>
+            <p className="font-sans text-[18px] leading-140 font-semibold text-[#6EE7B7]/80">
+              {pillar.summary}
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn
+          delay={0.4}
+          className={cn(imageOnRight ? 'mb:order-2' : 'mb:order-1')}
+        >
+          <div className="overflow-hidden rounded-xl">
+            <img
+              src={pillar.image}
+              alt={pillar.title}
+              className="h-auto w-full object-cover"
+            />
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Full content below */}
+      <div className="mx-auto mt-10 max-w-[860px] mb:mt-16">
+        {/* Current Path */}
+        <FadeIn delay={0.2}>
+          <h4 className="mb-4 font-sans text-sm tracking-widest text-[#10B981] uppercase">
+            Current Path
+          </h4>
+          {pillar.currentPath.map((p, i) => (
+            <p key={i} className="mb-4 font-sans text-[16px] leading-[160%] text-white/70 last:mb-0">
+              {p}
             </p>
           ))}
-        </div>
-      </FadeIn>
+        </FadeIn>
 
-      {/* Image column */}
-      <FadeIn
-        delay={0.4}
-        className={cn(imageOnRight ? 'mb:order-2' : 'mb:order-1')}
-      >
-        <div className="overflow-hidden rounded-xl">
-          <img
-            src={pillar.image}
-            alt={pillar.title}
-            className="h-auto w-full object-cover"
-          />
-        </div>
-      </FadeIn>
+        {/* Narrow Path */}
+        <FadeIn delay={0.2}>
+          <h4 className="mt-8 mb-4 font-sans text-sm tracking-widest text-[#10B981] uppercase">
+            Narrow Path
+          </h4>
+          {pillar.narrowPath.map((p, i) => (
+            <p key={i} className="mb-4 font-sans text-[16px] leading-[160%] text-white/70 last:mb-0">
+              {p}
+            </p>
+          ))}
+        </FadeIn>
+
+        {/* How We Get There */}
+        <FadeIn delay={0.2}>
+          <h4 className="mt-8 mb-6 font-sans text-sm tracking-widest text-[#10B981] uppercase">
+            How We Get There
+          </h4>
+          {pillar.howWeGetThere.map((section: PillarHowSection, si: number) => (
+            <div key={si} className="mb-8 last:mb-0">
+              <h5 className="mb-3 font-sans text-[18px] leading-120 font-semibold text-white">
+                {section.heading}
+              </h5>
+              {section.intro && (
+                <p className="mb-4 font-sans text-[16px] leading-[160%] text-white/70">
+                  {section.intro}
+                </p>
+              )}
+              <ul className="space-y-3 pl-1">
+                {section.items.map((item: string, ii: number) => (
+                  <li key={ii} className="flex items-start gap-3">
+                    <DiamondBullet />
+                    <span className="font-sans text-[16px] leading-[160%] text-white/70">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </FadeIn>
+
+        {/* What's Already Being Done */}
+        <FadeIn delay={0.2}>
+          <h4 className="mt-8 mb-4 font-sans text-sm tracking-widest text-[#10B981] uppercase">
+            What&#39;s Already Being Done
+          </h4>
+          <ul className="space-y-3 pl-1">
+            {pillar.whatsBeingDone.map((item: string, i: number) => (
+              <li key={i} className="flex items-start gap-3">
+                <CheckBullet />
+                <span className="font-sans text-[16px] leading-[160%] text-white/60">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </FadeIn>
+      </div>
     </div>
   );
 }
@@ -373,7 +447,7 @@ function CtaSection() {
 
         <FadeIn delay={0.2}>
           <h2 className="tracking-031 mb:tracking-061 mb:text-[49px] mb:mb-[60px] mb-8 text-center font-sans text-[32px] leading-110 font-semibold text-white">
-            Lorem Ipsum Dolor
+            What You Can Do Next
           </h2>
         </FadeIn>
 
@@ -409,6 +483,22 @@ function CtaSection() {
 // ---------------------------------------------------------------------------
 // Shared SVG Helpers
 // ---------------------------------------------------------------------------
+function DiamondBullet() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 19 19" fill="none" className="mt-1.5 shrink-0">
+      <path d="M9.5 6.32234L12.6777 9.5L9.5 12.6777L6.32234 9.5L9.5 6.32234ZM9.5 0L0 9.5L9.5 19L19 9.5L9.5 0Z" fill="#10B981" />
+    </svg>
+  );
+}
+
+function CheckBullet() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-1.5 shrink-0">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
 function DownloadIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -441,15 +531,15 @@ function ReportVisual() {
         <div>
           <div className="mb-3 h-1 w-12 rounded bg-[#10B981]" />
           <p className="font-sans text-xs tracking-widest text-[#6EE7B7]/60 uppercase">
-            Lorem Ipsum Dolor
+            Center for Humane Technology
           </p>
         </div>
         <div>
           <h4 className="mb-2 font-sans text-2xl leading-120 font-semibold text-white mb:text-3xl">
-            Lorem Ipsum
+            A Path Forward
           </h4>
           <p className="font-sans text-sm leading-140 text-white/50">
-            Lorem ipsum dolor sit amet — Consectetur adipiscing elit
+            Seven Principles for Humane AI — The Solutions Report
           </p>
         </div>
         <div className="flex items-center gap-2">
