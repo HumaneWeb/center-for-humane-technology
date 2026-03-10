@@ -36,7 +36,7 @@ function Hero() {
   return (
     <motion.section
       ref={ref}
-      className="bg-path-forward-hero relative flex min-h-[100vh] items-center overflow-hidden"
+      className="bg-path-forward-hero relative overflow-hidden py-10 mb:py-[100px]"
     >
       {/* Decorative grid lines */}
       <motion.div
@@ -51,11 +51,10 @@ function Hero() {
           }}
         />
       </motion.div>
-
       <motion.div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />
 
       <motion.div
-        className="relative z-10 mx-auto max-w-7xl px-4 py-40 sm:px-6 lg:px-8"
+        className="relative z-10 mx-auto max-w-[860px] px-4 sm:px-6 lg:px-8"
         style={{ opacity: contentOpacity }}
       >
         <FadeIn delay={0.2}>

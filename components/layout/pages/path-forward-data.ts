@@ -18,11 +18,10 @@ export type Pillar = {
 
 export const PATH_FORWARD_DATA = {
   hero: {
-    preTitle: 'A Path Forward',
-    title: 'Walking the Narrow Path',
-    subtitle:
-      'The path we choose with AI will govern how we live for decades, if not centuries. This report lays out seven principles that should govern how AI is built and deployed — a roadmap, and an invitation.',
-    scrollLabel: 'Scroll to explore',
+    preTitle: '',
+    title: 'Path Forward',
+    subtitle: '',
+    scrollLabel: '',
   },
   introduction: [
     'Two prevailing narratives have shadowed every major technological leap. One narrative casts a new technology as the solution to humanity\u2019s greatest problems. The other casts it as a destabilizing force and the catalyst for societal collapse. From the printing press, to the Industrial Revolution, to the internet, this dichotomy around new technology has endured for centuries. With artificial intelligence, these dueling narratives have emerged once again. While the narratives themselves are not new, what is new is the technology\u2019s velocity, its scale, and how all-encompassing it has become in so little time.',
