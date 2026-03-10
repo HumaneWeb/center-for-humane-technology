@@ -3,6 +3,7 @@
 import { FadeIn } from '@/components/shared/fade-in';
 import { cn } from '@/lib/utils/css.utils';
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
 import { PATH_FORWARD_DATA, SHOW_SEVEN_PRINCIPLES_HEADER, SHOW_THREE_DOMAINS_SECTION, type Pillar, type PillarHowSection } from './path-forward-data';
 
@@ -29,24 +30,18 @@ export default function PathForwardLayout() {
 }
 
 // ---------------------------------------------------------------------------
-// Floating navigation – visible after scrolling, links to each section
+// Floating navigation – button bottom-left to open/close section list
 // ---------------------------------------------------------------------------
 const NAV_ITEMS: { id: string; label: string }[] = [
   { id: SECTION_IDS.introduction, label: 'Introduction' },
   { id: SECTION_IDS.howWeChange, label: 'How We Change a System' },
   ...(SHOW_THREE_DOMAINS_SECTION ? [{ id: SECTION_IDS.threeDomains, label: 'Three Domains of Change' }] : []),
-  { id: SECTION_IDS.sevenPrinciples, label: 'Seven Principles' },
-  ...data.pillars.map((p) => ({ id: p.id, label: `${p.number} – ${p.title}` })),
+  ...data.pillars.map((p) => ({ id: p.id, label: `Principle ${p.number}` })),
 ];
 
 function FloatingNav() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
+  const [isOpen, setIsOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [canInteract, setCanInteract] = useState(false);
-
-  const opacity = useTransform(scrollY, [200, 450], [0, 1]);
-  useMotionValueEvent(scrollY, 'change', (v) => setCanInteract(v > 350));
 
   useEffect(() => {
     const ids = NAV_ITEMS.map((item) => item.id);
@@ -67,51 +62,70 @@ function FloatingNav() {
     return () => observers.forEach((cleanup) => cleanup());
   }, []);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setIsOpen(false);
   };
 
-  return (
-    <motion.nav
-      ref={containerRef}
-      className="fixed left-0 top-1/2 z-50 hidden -translate-y-1/2 lg:flex"
-      style={{ opacity, pointerEvents: canInteract ? 'auto' : 'none' }}
-      aria-label="Page sections"
-    >
-      {/* Vertical accent line matching the page "path" motif */}
-      <div
-        className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#007981]/40 to-transparent"
-        aria-hidden
-      />
-      {/* Panel with light background so nav stays readable over dark sections (e.g. Seven Principles) */}
-      <ul className="flex max-h-[70vh] w-80 flex-col gap-0.5 overflow-y-auto rounded-r-lg border-y border-r border-[#007981]/15 bg-[#F8F4EF]/98 py-4 pl-6 pr-4 shadow-[2px_0_12px_rgba(0,121,129,0.08)]">
-        {NAV_ITEMS.map((item) => (
-          <li key={item.id}>
-            <a
-              href={`#${item.id}`}
-              onClick={(e) => handleClick(e, item.id)}
-              className={cn(
-                'group flex items-center gap-3 rounded-r-md border-l-2 border-transparent py-2 pl-3 pr-2 font-sans text-[15px] leading-snug transition-colors',
-                activeId === item.id
-                  ? 'border-[#007981] font-semibold text-[#0B1023]'
-                  : 'border-transparent text-[#0B1023]/50 hover:border-[#007981]/40 hover:text-[#0B1023]'
-              )}
-            >
-              <span
+  const navContent = (
+    <div className="fixed bottom-6 left-6 z-40 flex flex-col items-start gap-2 lg:bottom-8 lg:left-8">
+      <motion.nav
+        initial={false}
+        animate={{
+          maxHeight: isOpen ? 400 : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className="w-56 overflow-hidden border border-[#007981]/25 bg-[#F8F4EF]/98 shadow-lg"
+        aria-label="Page sections"
+        aria-hidden={!isOpen}
+      >
+        <ul className="flex max-h-[min(60vh,400px)] flex-col overflow-y-auto py-2">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                onClick={(e) => handleLinkClick(e, item.id)}
                 className={cn(
-                  'h-1.5 w-1.5 shrink-0 rounded-full transition-colors',
-                  activeId === item.id ? 'bg-[#007981]' : 'bg-[#0B1023]/25 group-hover:bg-[#007981]/60'
+                  'block border-l-2 border-transparent py-2 pl-4 pr-3 font-sans text-[13px] leading-snug transition-colors',
+                  activeId === item.id
+                    ? 'border-[#007981] font-semibold text-[#0B1023]'
+                    : 'text-[#0B1023]/70 hover:border-[#007981]/40 hover:bg-[#007981]/05 hover:text-[#0B1023]'
                 )}
-                aria-hidden
-              />
-              <span className="min-w-0 break-words">{item.label}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </motion.nav>
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </motion.nav>
+
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-[#007981]/30 bg-[#F8F4EF]/98 text-[#0B1023] shadow-md transition-all duration-200 hover:scale-105 hover:border-[#007981]/60 hover:bg-[#F8F4EF] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#007981]/40"
+        aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+        aria-expanded={isOpen}
+      >
+        {isOpen ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        )}
+      </button>
+    </div>
   );
+
+  if (typeof document === 'undefined') return navContent;
+  return createPortal(navContent, document.body);
 }
 
 // ---------------------------------------------------------------------------
@@ -332,8 +346,6 @@ function DomainsSection() {
 // Section 4 – Seven Solution Pillars
 // ---------------------------------------------------------------------------
 function PillarsSection() {
-  const [activeAccordionId, setActiveAccordionId] = useState<string | null>(null);
-
   return (
     <div id={SECTION_IDS.sevenPrinciples} className="scroll-mt-24 bg-path-forward-pillars py-10 mb:py-[120px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -356,21 +368,11 @@ function PillarsSection() {
           {data.pillars.map((pillar, index) => {
             const imageOnRight = index % 2 === 1;
             return (
-              <React.Fragment key={pillar.id}>
-                {index > 0 && (
-                  <div className="mx-auto flex max-w-[200px] items-center justify-center gap-3">
-                    <div className="h-px flex-1 bg-[#68EEEA]/30" />
-                    <div className="h-2 w-2 rotate-45 border border-[#68EEEA]/50" />
-                    <div className="h-px flex-1 bg-[#68EEEA]/30" />
-                  </div>
-                )}
-                <PillarBlock
-                  pillar={pillar}
-                  imageOnRight={imageOnRight}
-                  activeAccordionId={activeAccordionId}
-                  onAccordionToggle={(id) => setActiveAccordionId((current) => (current === id ? null : id))}
-                />
-              </React.Fragment>
+              <PillarBlock
+                key={pillar.id}
+                pillar={pillar}
+                imageOnRight={imageOnRight}
+              />
             );
           })}
         </div>
@@ -380,10 +382,10 @@ function PillarsSection() {
 }
 
 const MAX_PREVIEW_WORDS = 120;
-
-const paragraphClass = 'mb-4 font-sans text-[16px] leading-[160%] text-white/70 last:mb-0';
+const paragraphClass = 'mb-4 font-sans text-[16px] leading-[160%] text-white last:mb-0';
 const listItemClass = 'flex items-start gap-3';
-const listItemTextClass = 'font-sans text-[16px] leading-[160%] text-white/70';
+const listItemTextClass = 'font-sans text-[16px] leading-[160%] text-white';
+const sectionTitleClass = 'mb-3 mt-8 font-sans text-[18px] font-semibold leading-tight text-white first:mt-0';
 
 function wordCount(s: string): number {
   return s.trim().split(/\s+/).filter(Boolean).length;
@@ -484,123 +486,154 @@ function renderListUpToWords(items: string[], maxWords: number): { node: React.R
   return { node: <ul className="space-y-3 pl-1">{nodes}</ul>, hasMore: wordCount(items.join(' ')) > maxWords };
 }
 
-type PrincipleSectionAccordionProps = {
-  accordionId: string;
-  title: string;
-  previewContent: React.ReactNode;
-  hasMoreContent: boolean;
-  children: React.ReactNode;
-  isExpanded: boolean;
-  onToggle: () => void;
-};
+/** Renders all pillar content in order (currentPath → narrowPath → howWeGetThere → whatsBeingDone), truncated to maxWords. Section titles are only shown when there is content from that section within the word budget. */
+function renderPillarContentUpToWords(pillar: Pillar, maxWords: number): { node: React.ReactNode; hasMore: boolean } {
+  let left = maxWords;
+  const nodes: React.ReactNode[] = [];
+  const pushParagraphs = (paragraphs: string[]) => {
+    for (let i = 0; i < paragraphs.length && left > 0; i++) {
+      const { text, consumed, hasMore } = takeWords(paragraphs[i], left);
+      left -= consumed;
+      nodes.push(
+        <p key={`p-${nodes.length}`} className={paragraphClass}>
+          {text}
+          {hasMore && '…'}
+        </p>,
+      );
+      if (hasMore) return true;
+    }
+    return false;
+  };
 
-function PrincipleSectionAccordion({
-  accordionId,
-  title,
-  previewContent,
-  hasMoreContent,
-  children,
-  isExpanded,
-  onToggle,
-}: PrincipleSectionAccordionProps) {
-  const [showFullContent, setShowFullContent] = useState(false);
-
-  // Reset "Read more" state when this accordion is closed
-  useEffect(() => {
-    if (!isExpanded) setShowFullContent(false);
-  }, [isExpanded]);
-
-  return (
-    <div className="mt-4 first:mt-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 transition-colors hover:border-white/20">
-      <button
-        type="button"
-        onClick={onToggle}
-        className="flex w-full cursor-pointer items-center justify-between gap-3 px-5 py-4 text-left font-sans transition-colors hover:bg-white/5"
-        aria-expanded={isExpanded}
-        aria-controls={`accordion-body-${accordionId}`}
-        id={`accordion-heading-${accordionId}`}
-      >
-        <span className="font-sans text-sm font-semibold tracking-widest uppercase text-[#68EEEA]">
-          {title}
-        </span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={cn(
-            'shrink-0 text-[#68EEEA] transition-transform duration-300',
-            isExpanded ? 'rotate-180' : 'rotate-0',
-          )}
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </button>
-      {isExpanded && (
-        <div id={`accordion-body-${accordionId}`} className="border-t border-white/10 bg-white/[0.02]" aria-labelledby={`accordion-heading-${accordionId}`}>
-          {!showFullContent ? (
-            <div className="px-5 py-4">
-              {previewContent}
-              {hasMoreContent && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowFullContent(true);
-                  }}
-                  className="mt-3 font-sans text-[16px] font-semibold text-[#68EEEA] underline transition-colors hover:text-[#8df5fc]"
-                >
-                  Read more
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="px-5 py-4">
-              {children}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowFullContent(false);
-                }}
-                className="mt-4 font-sans text-[16px] font-semibold text-[#68EEEA] underline transition-colors hover:text-[#8df5fc]"
-              >
-                Show less
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
+  if (left > 0 && pillar.currentPath.length > 0) {
+    nodes.push(<h5 key="current-path" className={sectionTitleClass}>Current Path</h5>);
+    if (pushParagraphs(pillar.currentPath)) return { node: <>{nodes}</>, hasMore: true };
+  }
+  if (left > 0 && pillar.narrowPath.length > 0) {
+    nodes.push(<h5 key="narrow-path" className={sectionTitleClass}>Narrow Path</h5>);
+    if (pushParagraphs(pillar.narrowPath)) return { node: <>{nodes}</>, hasMore: true };
+  }
+  if (left > 0 && pillar.howWeGetThere.length > 0) {
+    nodes.push(<h5 key="how-we-get-there" className={sectionTitleClass}>How We Get There</h5>);
+    for (let si = 0; si < pillar.howWeGetThere.length && left > 0; si++) {
+      const section = pillar.howWeGetThere[si];
+      const headingWords = wordCount(section.heading);
+      if (left < headingWords) break;
+      left -= headingWords;
+      const parts: React.ReactNode[] = [
+        <h5 key="h" className="mb-3 font-sans text-[18px] leading-120 font-semibold text-white">
+          {section.heading}
+        </h5>,
+      ];
+      if (section.intro) {
+        const { text, consumed, hasMore } = takeWords(section.intro, left);
+        left -= consumed;
+        parts.push(
+          <p key="intro" className="mb-4 font-sans text-[16px] leading-[160%] text-white">
+            {text}
+            {hasMore && '…'}
+          </p>,
+        );
+        if (hasMore) {
+          nodes.push(<div key={`hw-${si}`} className="mb-8 last:mb-0">{parts}</div>);
+          return { node: <>{nodes}</>, hasMore: true };
+        }
+      }
+      const listItems: React.ReactNode[] = [];
+      for (let ii = 0; ii < section.items.length && left > 0; ii++) {
+        const { text, consumed, hasMore } = takeWords(section.items[ii], left);
+        left -= consumed;
+        listItems.push(
+          <li key={ii} className={listItemClass}>
+            <DiamondBullet />
+            <span className={listItemTextClass}>{text}{hasMore && '…'}</span>
+          </li>,
+        );
+        if (hasMore) {
+          parts.push(<ul key="ul" className="space-y-3 pl-1">{listItems}</ul>);
+          nodes.push(<div key={`hw-${si}`} className="mb-8 last:mb-0">{parts}</div>);
+          return { node: <>{nodes}</>, hasMore: true };
+        }
+      }
+      parts.push(<ul key="ul" className="space-y-3 pl-1">{listItems}</ul>);
+      nodes.push(<div key={`hw-${si}`} className="mb-8 last:mb-0">{parts}</div>);
+    }
+  }
+  if (left > 0 && pillar.whatsBeingDone.length > 0) {
+    nodes.push(<h5 key="whats-being-done" className={sectionTitleClass}>What&apos;s Already Being Done</h5>);
+    const listResult = renderListUpToWords(pillar.whatsBeingDone, left);
+    nodes.push(<div key="wabd" className="mb-8 last:mb-0">{listResult.node}</div>);
+  }
+  const totalWords =
+    wordCount(pillar.currentPath.join(' ')) +
+    wordCount(pillar.narrowPath.join(' ')) +
+    pillar.howWeGetThere.reduce(
+      (acc, s) => acc + wordCount(s.heading) + (s.intro ? wordCount(s.intro) : 0) + s.items.reduce((a, i) => a + wordCount(i), 0),
+      0,
+    ) +
+    wordCount(pillar.whatsBeingDone.join(' '));
+  return { node: <>{nodes}</>, hasMore: totalWords > maxWords };
 }
 
-const ACCORDION_KEYS = {
-  currentPath: 'currentPath',
-  narrowPath: 'narrowPath',
-  howWeGetThere: 'howWeGetThere',
-  whatsBeingDone: 'whatsBeingDone',
-} as const;
+/** Renders full pillar content (all sections in order) */
+function renderPillarFullContent(pillar: Pillar): React.ReactNode {
+  return (
+    <>
+      <h5 className={sectionTitleClass}>Current Path</h5>
+      {pillar.currentPath.map((p, i) => (
+        <p key={`cp-${i}`} className={paragraphClass}>
+          {p}
+        </p>
+      ))}
+      <h5 className={sectionTitleClass}>Narrow Path</h5>
+      {pillar.narrowPath.map((p, i) => (
+        <p key={`np-${i}`} className={paragraphClass}>
+          {p}
+        </p>
+      ))}
+      <h5 className={sectionTitleClass}>How We Get There</h5>
+      {pillar.howWeGetThere.map((section, si) => (
+        <div key={`hw-${si}`} className="mb-8 last:mb-0">
+          <h5 className="mb-3 font-sans text-[18px] leading-120 font-semibold text-white">
+            {section.heading}
+          </h5>
+          {section.intro && (
+            <p className="mb-4 font-sans text-[16px] leading-[160%] text-white">
+              {section.intro}
+            </p>
+          )}
+          <ul className="space-y-3 pl-1">
+            {section.items.map((item, ii) => (
+              <li key={ii} className={listItemClass}>
+                <DiamondBullet />
+                <span className={listItemTextClass}>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <h5 className={sectionTitleClass}>What&apos;s Already Being Done</h5>
+      <ul className="space-y-3 pl-1">
+        {pillar.whatsBeingDone.map((item, i) => (
+          <li key={i} className={listItemClass}>
+            <CheckBullet />
+            <span className="font-sans text-[16px] leading-[160%] text-white/80">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
 
 type PillarBlockProps = {
   pillar: Pillar;
   imageOnRight: boolean;
-  activeAccordionId: string | null;
-  onAccordionToggle: (id: string) => void;
 };
 
-function PillarBlock({ pillar, imageOnRight, activeAccordionId, onAccordionToggle }: PillarBlockProps) {
-  const accordionId = (key: string) => `${pillar.id}-${key}`;
-
-  const currentPathPreview = renderParagraphsUpToWords(pillar.currentPath, MAX_PREVIEW_WORDS);
-  const narrowPathPreview = renderParagraphsUpToWords(pillar.narrowPath, MAX_PREVIEW_WORDS);
-  const howWeGetTherePreview = renderHowWeGetThereUpToWords(pillar.howWeGetThere, MAX_PREVIEW_WORDS);
-  const whatsBeingDonePreview = renderListUpToWords(pillar.whatsBeingDone, MAX_PREVIEW_WORDS);
+function PillarBlock({ pillar, imageOnRight }: PillarBlockProps) {
+  const [expanded, setExpanded] = useState(false);
+  const preview = renderPillarContentUpToWords(pillar, MAX_PREVIEW_WORDS);
+  const fullContent = renderPillarFullContent(pillar);
 
   return (
     <div id={pillar.id} className="scroll-mt-24 pillar-block">
@@ -647,86 +680,46 @@ function PillarBlock({ pillar, imageOnRight, activeAccordionId, onAccordionToggl
         </FadeIn>
       </div>
 
-      {/* Full content below – each section in an accordion (collapsed by default, max 120 words + Read more) */}
+      {/* Single expandable: first 120 words + Read more → full content + Show less */}
       <div className="mx-auto mt-10 max-w-[860px] mb:mt-16">
         <FadeIn delay={0.2}>
-          <PrincipleSectionAccordion
-            accordionId={accordionId(ACCORDION_KEYS.currentPath)}
-            title="Current Path"
-            previewContent={currentPathPreview.node}
-            hasMoreContent={currentPathPreview.hasMore}
-            isExpanded={activeAccordionId === accordionId(ACCORDION_KEYS.currentPath)}
-            onToggle={() => onAccordionToggle(accordionId(ACCORDION_KEYS.currentPath))}
-          >
-            {pillar.currentPath.map((p, i) => (
-              <p key={i} className={paragraphClass}>
-                {p}
-              </p>
-            ))}
-          </PrincipleSectionAccordion>
-
-          <PrincipleSectionAccordion
-            accordionId={accordionId(ACCORDION_KEYS.narrowPath)}
-            title="Narrow Path"
-            previewContent={narrowPathPreview.node}
-            hasMoreContent={narrowPathPreview.hasMore}
-            isExpanded={activeAccordionId === accordionId(ACCORDION_KEYS.narrowPath)}
-            onToggle={() => onAccordionToggle(accordionId(ACCORDION_KEYS.narrowPath))}
-          >
-            {pillar.narrowPath.map((p, i) => (
-              <p key={i} className={paragraphClass}>
-                {p}
-              </p>
-            ))}
-          </PrincipleSectionAccordion>
-
-          <PrincipleSectionAccordion
-            accordionId={accordionId(ACCORDION_KEYS.howWeGetThere)}
-            title="How We Get There"
-            previewContent={howWeGetTherePreview.node}
-            hasMoreContent={howWeGetTherePreview.hasMore}
-            isExpanded={activeAccordionId === accordionId(ACCORDION_KEYS.howWeGetThere)}
-            onToggle={() => onAccordionToggle(accordionId(ACCORDION_KEYS.howWeGetThere))}
-          >
-            {pillar.howWeGetThere.map((section: PillarHowSection, si: number) => (
-              <div key={si} className="mb-8 last:mb-0">
-                <h5 className="mb-3 font-sans text-[18px] leading-120 font-semibold text-white">
-                  {section.heading}
-                </h5>
-                {section.intro && (
-                  <p className="mb-4 font-sans text-[16px] leading-[160%] text-white/70">
-                    {section.intro}
-                  </p>
-                )}
-                <ul className="space-y-3 pl-1">
-                  {section.items.map((item: string, ii: number) => (
-                    <li key={ii} className={listItemClass}>
-                      <DiamondBullet />
-                      <span className={listItemTextClass}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </PrincipleSectionAccordion>
-
-          <PrincipleSectionAccordion
-            accordionId={accordionId(ACCORDION_KEYS.whatsBeingDone)}
-            title="What's Already Being Done"
-            previewContent={whatsBeingDonePreview.node}
-            hasMoreContent={whatsBeingDonePreview.hasMore}
-            isExpanded={activeAccordionId === accordionId(ACCORDION_KEYS.whatsBeingDone)}
-            onToggle={() => onAccordionToggle(accordionId(ACCORDION_KEYS.whatsBeingDone))}
-          >
-            <ul className="space-y-3 pl-1">
-              {pillar.whatsBeingDone.map((item: string, i: number) => (
-                <li key={i} className={listItemClass}>
-                  <CheckBullet />
-                  <span className="font-sans text-[16px] leading-[160%] text-white/60">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </PrincipleSectionAccordion>
+          <div id={`${pillar.id}-accordion`} className="overflow-hidden border border-white/15 bg-white/[0.03] transition-colors hover:border-white/40">
+            <div className="px-5 py-4">
+              {!expanded ? (
+                <>
+                  {preview.node}
+                  {preview.hasMore && (
+                    <button
+                      type="button"
+                      onClick={() => setExpanded(true)}
+                      className="mt-3 font-sans text-[16px] font-semibold text-white underline transition-colors hover:text-[#8df5fc]"
+                    >
+                      Read more
+                    </button>
+                  )}
+                </>
+              ) : (
+                <>
+                  {fullContent}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setExpanded(false);
+                      requestAnimationFrame(() => {
+                        const el = document.getElementById(`${pillar.id}-accordion`);
+                        if (!el) return;
+                        el.scrollIntoView({ behavior: 'auto', block: 'start' });
+                        window.scrollBy({ top: -80, left: 0, behavior: 'auto' });
+                      });
+                    }}
+                    className="mt-4 font-sans text-[16px] font-semibold text-white underline transition-colors hover:text-[#8df5fc]"
+                  >
+                    Show less
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
         </FadeIn>
       </div>
     </div>
