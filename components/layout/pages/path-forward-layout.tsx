@@ -12,6 +12,7 @@ export default function PathForwardLayout() {
   return (
     <div>
       <Hero />
+      <IntroductionSection />
       <BridgeSection />
       <DomainsSection />
       <PillarsSection />
@@ -75,18 +76,21 @@ function Hero() {
           </p>
         </FadeIn>
 
-        <FadeIn delay={0.7}>
-          <div className="mt-16 flex items-center gap-3">
-            <motion.div
-              className="h-12 w-[1px] bg-[#6EE7B7]"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <span className="font-sans text-sm tracking-widest text-[#6EE7B7]/70 uppercase">
-              {data.hero.scrollLabel}
-            </span>
-          </div>
+        <FadeIn delay={0.65}>
+          <a
+            href={data.report.downloadUrl}
+            download
+            className="mt-10 inline-flex items-center gap-3 border-2 border-[#6EE7B7] px-8 py-4 font-sans text-[16px] leading-100 font-semibold tracking-wide text-[#6EE7B7] uppercase transition-all duration-300 hover:bg-[#6EE7B7] hover:text-[#0A1628]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            {data.report.downloadLabel}
+          </a>
         </FadeIn>
+
       </motion.div>
 
       {/* Decorative emerald glow */}
@@ -99,6 +103,46 @@ function Hero() {
         }}
       />
     </motion.section>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Section – Introduction
+// ---------------------------------------------------------------------------
+function IntroductionSection() {
+  return (
+    <div className="bg-[#F8F4EF] py-10 mb:py-[100px]">
+      <div className="mx-auto max-w-[860px] px-4 sm:px-6 lg:px-8">
+        <FadeIn>
+          <h2 className="mb:tracking-061 tracking-031 mb:text-[49px] mb:mb-10 mb-6 font-sans text-[32px] leading-110 font-semibold text-[#064E3B]">
+            Introduction
+          </h2>
+        </FadeIn>
+        {data.introduction.map((p, i) => (
+          <FadeIn key={i} delay={0.1}>
+            <p className="mb:text-xl mb-6 font-sans text-[18px] leading-140 text-[#0A1628] last:mb-0">
+              {p}
+            </p>
+          </FadeIn>
+        ))}
+
+        {/* Signatures */}
+        {/* <FadeIn delay={0.2}>
+          <div className="mb:grid-cols-3 mb:gap-8 mt-10 grid grid-cols-1 gap-6 border-t border-[#064E3B]/15 pt-10">
+            {data.introSignatures.map((sig) => (
+              <div key={sig.name}>
+                <p className="font-sans text-[18px] leading-120 font-semibold text-[#064E3B]">
+                  {sig.name}
+                </p>
+                <p className="mt-1 font-sans text-[16px] leading-140 text-[#0A1628]/60">
+                  {sig.role}
+                </p>
+              </div>
+            ))}
+          </div>
+        </FadeIn> */}
+      </div>
+    </div>
   );
 }
 
