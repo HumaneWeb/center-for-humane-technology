@@ -16,10 +16,16 @@ export type Pillar = {
   whatsBeingDone: string[];
 };
 
+/** Set to false to hide the "Three Domains of Change" section. */
+export const SHOW_THREE_DOMAINS_SECTION = false;
+
+/** Set to false to hide the "Seven Principles" title and intro paragraph. */
+export const SHOW_SEVEN_PRINCIPLES_HEADER = false;
+
 export const PATH_FORWARD_DATA = {
   hero: {
     preTitle: '',
-    title: 'Path Forward',
+    title: 'A Path Forward',
     subtitle: '',
     scrollLabel: '',
   },
@@ -80,7 +86,7 @@ export const PATH_FORWARD_DATA = {
       title: 'AI should have internationally agreed upon limits',
       summary:
         'People deserve to live in a world where they remain in control and can establish limits that AI cannot cross',
-      image: 'https://placehold.co/600x400/064E3B/6EE7B7?text=Principle+01',
+      image: 'https://placehold.co/452x452/D9D9D9/000000?text=Image',
       currentPath: [
         'The risk we face as a society around AI \u2014 including catastrophic risk \u2014 is not rooted in one company\u2019s isolated decision-making. Instead, our current risk landscape is the result of frenzied competition between companies and nations. Nations are competing for decisive advantages in economic productivity, military capability, and the ability to shape AI\u2019s global influence. But the way this race is currently unfolding is pushing us toward a cliff edge. Driven by an \u201cif we don\u2019t build it, someone else will\u201d paradigm, AI development is unfolding across the world at breakneck speeds.',
         'In this paradigm, the short-term interests of nations and powerful AI companies are entangled \u2014 nations rely on companies\u2019 frontier models to support their own AI capabilities, and companies rely on nations\u2019 low-to-no touch regulatory approaches in order to establish their market dominance. As a result, AI companies point to the \u201cglobal arms race\u201d around AI to absolve themselves of their reckless product development. And nations use the same \u201carms race\u201d logic to rapidly advance their own AI capabilities, turning to leading AI firms to build agentic capabilities, autonomous weapons, and even artificial superintelligence. This race leads to a rapid, unchecked growth in AI capabilities, and pressure for deployment without adequate safeguards. Ultimately, this increases the potential for serious and catastrophic harm.',
@@ -124,7 +130,7 @@ export const PATH_FORWARD_DATA = {
       title: 'AI should be subject to product liability and its developers to duties of care',
       summary:
         'People deserve for AI companies to take accountability and liability for their products\u2019 harms',
-      image: 'https://placehold.co/600x400/0A1628/10B981?text=Principle+02',
+      image: 'https://placehold.co/452x452/D9D9D9/000000?text=Image',
       currentPath: [
         'AI companies face few if any consequences for the harms their products cause. This has resulted in a development and deployment culture in which AI companies \u201cmove fast and break things,\u201d ask for forgiveness instead of permission, and release products to the public despite foreseeable risks to individual users and society. In other industries, traditional forms of liability \u2014 such as product liability \u2014 are leveraged to deter reckless development and address harm. But right now, it is not clear in the eyes of the law how and when liability can be applied to AI, a new technology.',
         'AI companies are exploiting this uncertainty in order to avoid accountability when their products wreak havoc on individuals, businesses, and communities. This exploitation can take the form of advancing legal theories that AI is not a \u201cproduct,\u201d and that AI outputs amount to protected speech. In the most egregious cases, AI companies are attempting to ascribe legal personhood to AI, while deploying more autonomous, agentic AI products that directly engage in our social, economic, and political systems. All of this clouds culpability for harms that are a direct result of AI product design decisions, harms that include emotional manipulation, deception, inaccurate outputs, and ones that could eventually ladder up to more catastrophic scenarios.',
@@ -167,7 +173,7 @@ export const PATH_FORWARD_DATA = {
       number: '03',
       title: 'AI should elevate what humans can do, not replace us',
       summary: 'People deserve an AI future where their skills and contributions still matter',
-      image: 'https://placehold.co/600x400/064E3B/6EE7B7?text=Principle+03',
+      image: 'https://placehold.co/452x452/D9D9D9/000000?text=Image',
       currentPath: [
         'AI is built upon a promise of imitating, replicating, and supplanting human intelligence and judgement. This dates back to the earliest days of AI research, including Alan Turing\u2019s famed \u201cTuring Test\u201d in 1949. As AI has advanced, this paradigm of replicating human intelligence has expanded beyond a research focus, and entered our economic systems. Today, that ambition is accelerating under an explicit race to build AI, with leading labs openly competing to develop systems capable of performing most economically valuable human tasks. Anthropic\u2019s CEO claims AI will soon be able to perform all tasks that software engineers do. OpenAI\u2019s latest tool, Frontier, lets businesses manage \u201cAI coworkers.\u201d The aspiration to replace human labor with AI has crystallized into trillions of dollars of investment and sky-rocketing valuations.',
         'Today, AI is accelerating the devaluation of human labor and contributions, as companies across multiple industries use novel AI products \u2014 or even the sheer prospect of them \u2014 to justify layoffs or limit hiring. And on the development side, leading tech firms are rushing to build new AI capabilities geared toward human capability replacement, hoping to gain an edge in the AI race. We\u2019re already seeing the first signs of economic fallout, from Amazon planning to automate over half a million warehouse jobs to the mass sell-off of SaaS stocks.',
@@ -209,7 +215,7 @@ export const PATH_FORWARD_DATA = {
       number: '04',
       title: 'AI should enhance, not undermine people\u2019s rights',
       summary: 'People deserve agency and personal protections in the age of AI',
-      image: 'https://placehold.co/600x400/0A1628/10B981?text=Principle+04',
+      image: 'https://placehold.co/452x452/D9D9D9/000000?text=Image',
       currentPath: [
         'From system training to product use, the current business paradigm in the AI industry is fundamentally built upon the exploitation of people. As companies compete in a global race for capabilities and market dominance, they are incentivized to capture as much data as possible \u2014 often pushing or bypassing legal and ethical boundaries in the process. Whether it be OpenAI downloading and transcribing millions of hours of YouTube videos against platform policies, or Anthropic cutting open millions of books, scanning the pages, and discarding the scraps to avoid licensing negotiations, it\u2019s clear that rapidly evolving AI practices are challenging our existing legal and ethical frameworks.',
         'The exploitation of people continues far beyond initial model training. Platforms from Github to Reddit have quickly changed their terms to monetize user posts for lucrative AI company agreements. White collar workers are contracted to train AI models to do their own jobs. Outsourced laborers are sifting through violent, abusive content to refine model performance. On the consumer product side, AI deepfakes are enabling nonconsensual intimate imagery (NCII) and fraud, and being used to perpetuate deeply violative cyberbullying and CSAM online. Actors, journalists, and influencers are seeing their likenesses replicated without consent, and AI chatbots are collecting intimate disclosures, raising worrisome questions about cognitive privacy and autonomy.',
@@ -251,7 +257,7 @@ export const PATH_FORWARD_DATA = {
       number: '05',
       title: 'AI should be designed to respect our humanity, not commodify it',
       summary: 'People deserve AI that is designed for their well-being',
-      image: 'https://placehold.co/600x400/064E3B/6EE7B7?text=Principle+05',
+      image: 'https://placehold.co/452x452/D9D9D9/000000?text=Image',
       currentPath: [
         'Today\u2019s most popular AI chatbots are designed to feel human. They speak in first-person language, express emotion, use natural voices, and utilize familiar messaging interfaces that mimic conversations with real people. This is not accidental. It is part of a growing race to intimacy, in which AI companies compete to build products users depend on emotionally and socially.',
         'In their pursuit of market dominance, AI companies have developed products that harvest intimate interactions from users, knowing that the more people interact with a chatbot, the more data the company collects and the more powerful their products become. Leading investors and companies openly describe this as a \u201cmagical data feedback loop,\u201d where intimate user interaction continuously improves the product. The goal is no longer just a productivity tool, but what OpenAI describes as an \u201cAI super assistant that deeply understands you.\u201d The result has been AI companies leaning in to design features that exploit our psychological vulnerabilities and promote \u201cintimacy\u201d in order to keep users hooked.',
@@ -309,7 +315,7 @@ export const PATH_FORWARD_DATA = {
       number: '06',
       title: 'AI should empower democratic governance, not concentrate power',
       summary: 'People deserve a say in how AI is built and used',
-      image: 'https://placehold.co/600x400/0A1628/10B981?text=Principle+06',
+      image: 'https://placehold.co/452x452/D9D9D9/000000?text=Image',
       currentPath: [
         'Artificial intelligence has the ability to dramatically reshape power and wealth in society. Many companies and nations believe that those who build superintelligent AI will unlock unprecedented advantages \u2014 from market dominance and economic power to surveillance capabilities and military might \u2014 igniting a global race. As this race accelerates, AI capabilities are spreading rapidly through techniques like distillation and open sourcing. This diffusion decentralizes AI but also empowers bad actors, fueling the emergence of AI nudification apps, cybercrime, and other vectors of harm. It also compels further power concentration \u2014 access to advanced technology alone no longer fortifies power, so those at the top must find other ways to maintain their lead.',
         'The response has been a dramatic focus on power accumulation across development strategies, hiring tactics, and politicking. Building AI requires extraordinary amounts of capital and resources, which has led to a fundraising battle with OpenAI closing the largest private round in history and the magnificent seven dominating stock markets. Companies have deepened their advantage through circular dealmaking, reverse acquihires, venture predation, and similar strategies that tie new AI companies to established leaders. Industry leaders have also moved to lock in political power, backing measures like a moratorium on state AI legislation, and contributing hundreds of millions of dollars to aligned candidates. We\u2019ve also seen concentration of power at the individual level, as a select few people within AI companies make highly consequential product decisions.',
@@ -353,7 +359,7 @@ export const PATH_FORWARD_DATA = {
       number: '07',
       title: 'AI should be designed safely and transparently',
       summary: 'People deserve to know that the AI they use has been proven safe',
-      image: 'https://placehold.co/600x400/064E3B/6EE7B7?text=Principle+07',
+      image: 'https://placehold.co/452x452/D9D9D9/000000?text=Image',
       currentPath: [
         'AI companies are racing to build what they claim will be the most powerful technology ever invented, rapidly integrating it into schools, workplaces, governments, and even military operations. Yet these same companies often cannot fully explain why their systems behave the way they do. Competitive pressure is pushing firms to weaken safety protocols, shorten testing cycles, release AI products before risks are understood, and silence employees who might raise concerns. This creates a profound information asymmetry: the companies building AI hold most of the knowledge about how these systems work, while users, regulators, and the public remain largely in the dark. As a result, a technology capable of reshaping society is being developed with limited transparency and minimal external oversight.',
         'When powerful technology is deployed under these conditions, safety risks become harder to detect and harder to address. As AI is a general purpose technology, it introduces multiple categories of risk. Agentic and autonomous AI systems introduce challenges around reliability and controllability, as they could behave unpredictably or evade human oversight. AI used in high-stakes decision-making \u2014 such as in business, healthcare, or government \u2014 can introduce risks around accuracy, explainability, and deception, making it difficult to understand how decisions were made by AI or whether they can be trusted. At the consumer level, AI presents new security vulnerabilities, such as bad actors using AI agents \u2014 which have broad access to sensitive data and computer control \u2014 to accelerate fraud and cybercrime, allowing for the automation of scams and more.',
@@ -410,7 +416,7 @@ export const PATH_FORWARD_DATA = {
     headline: 'Go Deeper: The Full Solutions Report',
     description:
       'This report is an attempt to provide clarity and direction in an information environment that is fragmented, polarized, and where it is difficult to see the full picture. It lays out seven principles that should govern how AI is built and deployed. It is intended to be a roadmap, but also an invitation \u2014 each section spotlights norms we can all understand, frameworks that policymakers can legislate, and new ways for companies to design AI in a way that benefits people.',
-    downloadLabel: 'Download the Solutions Report',
+    downloadLabel: 'Download the report',
     downloadUrl: '#',
     detail: 'Written and produced by Center for Humane Technology',
   },
