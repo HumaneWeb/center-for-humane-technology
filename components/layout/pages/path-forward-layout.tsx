@@ -119,15 +119,15 @@ function IntroductionSection() {
           </h2>
         </FadeIn>
         {data.introduction.map((p, i) => (
-          <FadeIn key={i} delay={0.1}>
-            <p className="mb:text-xl mb-6 font-sans text-[18px] leading-140 text-[#0A1628] last:mb-0">
+          <FadeIn key={i} delay={0.1} className='mb-6'>
+            <p className="mb:text-xl font-sans text-[18px] leading-140 text-[#0A1628]">
               {p}
             </p>
           </FadeIn>
         ))}
 
         {/* Signatures */}
-        {/* <FadeIn delay={0.2}>
+        <FadeIn delay={0.2}>
           <div className="mb:grid-cols-3 mb:gap-8 mt-10 grid grid-cols-1 gap-6 border-t border-[#064E3B]/15 pt-10">
             {data.introSignatures.map((sig) => (
               <div key={sig.name}>
@@ -140,7 +140,7 @@ function IntroductionSection() {
               </div>
             ))}
           </div>
-        </FadeIn> */}
+        </FadeIn>
       </div>
     </div>
   );

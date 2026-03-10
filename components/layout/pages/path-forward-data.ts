@@ -34,7 +34,11 @@ export const PATH_FORWARD_DATA = {
     'History will judge this moment. Not by how fast we moved, but by whether we moved wisely. The narrow path doesn\u2019t require all of society to agree on everything. It simply requires enough of us to agree that the current path with AI is unacceptable, and that people deserve a better reality with this technology.',
     'And it asks us to then do something about it \u2014 together.',
   ],
-  introSignatures: [],
+  introSignatures: [
+    { name: 'Julie Guirado', role: 'Executive Director' },
+    { name: 'Camille Carlton', role: 'Policy Director' },
+    { name: 'Pete Furlong', role: 'Senior Policy Analyst' },
+  ],
   bridge: {
     headline: 'How We Change a System',
     paragraphs: [
