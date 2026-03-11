@@ -1024,6 +1024,49 @@ export const AiSocietyQuery = graphql(
   [TagFragment, CTAFragment, NarrativeBlockFragment, GenericCardsGridFragment, ImageFragment],
 );
 
+export const PathForwardQuery = graphql(
+  `
+    query PathForwardQuery {
+      page: pathForward {
+        title
+        introduction
+        introductionHighlight
+        introductionLabel
+        image {
+          ...ImageFragment
+        }
+        principles {
+          id
+          title
+          introduction
+          content
+          image {
+            ...ImageFragment
+          }
+        }
+        report {
+          url
+        }
+        signers {
+          id
+          name
+          signerPosition
+          image {
+            ...ImageFragment
+          }
+        }
+        systemIntroduction
+        systemIntroductionHighlight
+        systemLabel
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+    }
+  `,
+  [TagFragment, ImageFragment],
+);
+
 export const AreasOfWorkQuery = graphql(
   `
     query AreasOfWorkQuery {

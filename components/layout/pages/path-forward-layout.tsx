@@ -4,10 +4,40 @@ import { FadeIn } from '@/components/shared/fade-in';
 import { cn } from '@/lib/utils/css.utils';
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
-import { PATH_FORWARD_DATA, SHOW_SEVEN_PRINCIPLES_HEADER, SHOW_THREE_DOMAINS_SECTION, type Pillar, type PillarHowSection } from './path-forward-data';
+import { motion, useScroll, useTransform } from 'motion/react';
+import {
+  getBridgeFromCms,
+  mapRawPrincipleToPillar,
+  type Pillar,
+} from '@/lib/utils/path-forward.utils';
+import { takeWords, wordCount } from '@/lib/utils/text.utils';
 
-const data = PATH_FORWARD_DATA;
+/** Raw CMS page shape (DatoCMS Path Forward page). */
+type PathForwardLayoutProps = { data: PathForwardCmsData | null };
+
+type PathForwardCmsData = {
+  title?: string | null;
+  introduction?: string | null;
+  introductionHighlight?: string | null;
+  introductionLabel?: string | null;
+  image?: { url?: string | null } | null;
+  principles?: Array<{
+    id: string;
+    title?: string | null;
+    introduction?: string | null;
+    content?: string | null;
+    image?: { url?: string | null } | null;
+  }> | null;
+  report?: { url?: string | null } | null;
+  signers?: Array<{
+    name?: string | null;
+    signerPosition?: string | null;
+    image?: { url?: string | null } | null;
+  }> | null;
+  systemIntroduction?: string | null;
+  systemIntroductionHighlight?: string | null;
+  systemLabel?: string | null;
+};
 
 const SECTION_IDS = {
   introduction: 'introduction',
@@ -16,15 +46,25 @@ const SECTION_IDS = {
   sevenPrinciples: 'seven-principles',
 } as const;
 
-export default function PathForwardLayout() {
+const SHOW_THREE_DOMAINS_SECTION = false;
+const SHOW_SEVEN_PRINCIPLES_HEADER = false;
+
+export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutProps) {
+  if (!dataProp) return null;
+  const data = dataProp;
+  const principles: Pillar[] = (data.principles ?? []).map((p, i) => mapRawPrincipleToPillar(p, i));
+  const bridge = getBridgeFromCms(data);
+
+  const viewData = { ...data, principles, bridge };
+
   return (
     <div>
-      <FloatingNav />
-      <Hero />
-      <IntroductionSection />
-      <BridgeSection />
-      {SHOW_THREE_DOMAINS_SECTION && <DomainsSection />}
-      <PillarsSection />
+      <FloatingNav data={viewData} />
+      <Hero data={viewData} />
+      <IntroductionSection data={viewData} />
+      <BridgeSection data={viewData} />
+      {SHOW_THREE_DOMAINS_SECTION && <DomainsSection data={viewData} />}
+      <PillarsSection data={viewData} />
     </div>
   );
 }
@@ -32,19 +72,22 @@ export default function PathForwardLayout() {
 // ---------------------------------------------------------------------------
 // Floating navigation – button bottom-left to open/close section list
 // ---------------------------------------------------------------------------
-const NAV_ITEMS: { id: string; label: string }[] = [
-  { id: SECTION_IDS.introduction, label: 'Introduction' },
-  { id: SECTION_IDS.howWeChange, label: 'How We Change a System' },
-  ...(SHOW_THREE_DOMAINS_SECTION ? [{ id: SECTION_IDS.threeDomains, label: 'Three Domains of Change' }] : []),
-  ...data.pillars.map((p) => ({ id: p.id, label: `Principle ${p.number}` })),
-];
+function buildNavItems(data: { principles: readonly Pillar[] }): { id: string; label: string | number }[] {
+  return [
+    { id: SECTION_IDS.introduction, label: 'Introduction' },
+    { id: SECTION_IDS.howWeChange, label: 'How We Change a System' },
+    ...(SHOW_THREE_DOMAINS_SECTION ? [{ id: SECTION_IDS.threeDomains, label: 'Three Domains of Change' }] : []),
+    ...(data.principles ?? []).map((p, i) => ({ id: p.id, label: `Principle ${i + 1}` })),
+  ];
+}
 
-function FloatingNav() {
+function FloatingNav({ data }: { data: any }) {
+  const navItems = buildNavItems(data);
   const [isOpen, setIsOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
-    const ids = NAV_ITEMS.map((item) => item.id);
+    const ids = navItems.map((item) => item.id);
     const observers = ids.map((id) => {
       const el = document.getElementById(id);
       if (!el) return () => { };
@@ -82,7 +125,7 @@ function FloatingNav() {
         aria-hidden={!isOpen}
       >
         <ul className="flex max-h-[min(60vh,400px)] flex-col overflow-y-auto py-2">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
@@ -131,10 +174,11 @@ function FloatingNav() {
 // ---------------------------------------------------------------------------
 // Section 1 – Hero
 // ---------------------------------------------------------------------------
-function Hero() {
+function Hero({ data }: { data: any }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const heroImageSrc = data.image?.url ?? '';
 
   return (
     <motion.section
@@ -149,25 +193,26 @@ function Hero() {
           <div>
             <FadeIn delay={0.35}>
               <h1 className="mb:tracking-[-0.61px] mb:text-[61px] mb-4 font-sans text-[40px] leading-[1.1] font-semibold tracking-[-0.61px] text-[#F8F4EF]">
-                {data.hero.title}
+                {data.title}
               </h1>
             </FadeIn>
 
-            <FadeIn delay={0.65}>
-              <a
-                href={data.report.downloadUrl}
-                download
-                className="inline-flex items-center justify-center rounded-[5px] bg-[#68EEEA] px-5 py-[15px] font-sans text-[20px] leading-[1.2] font-semibold text-[#0B1023] transition-all duration-300 hover:bg-[#8df5fc]"
-              >
-                {data.report.downloadLabel}
-              </a>
-            </FadeIn>
+            {data.report?.url && (
+              <FadeIn delay={0.65}>
+                <a
+                  href={data.report.url}
+                  className="inline-flex items-center justify-center rounded-[5px] bg-[#68EEEA] px-5 py-[15px] font-sans text-[20px] leading-[1.2] font-semibold text-[#0B1023] transition-all duration-300 hover:bg-[#8df5fc]"
+                >
+                  Download the report
+                </a>
+              </FadeIn>
+            )}
           </div>
 
           <FadeIn delay={0.5} className="mb:justify-self-end">
             <div className="flex items-center justify-center">
               <img
-                src="https://placehold.co/452x452/D9D9D9/000000?text=Image"
+                src={heroImageSrc}
                 alt=""
                 className="h-[452px] w-[452px] rounded-[452px]"
               />
@@ -182,39 +227,30 @@ function Hero() {
 // ---------------------------------------------------------------------------
 // Section – Introduction (Figma: "The Stakes")
 // ---------------------------------------------------------------------------
-function IntroductionSection() {
+function IntroductionSection({ data }: { data: any }) {
   return (
     <div id={SECTION_IDS.introduction} className="scroll-mt-24 bg-[#053235] py-10 mb:py-[100px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb:grid-cols-[auto_1fr] mb:gap-16 grid grid-cols-1 gap-8">
           <FadeIn>
             <h2 className="mb:tracking-[-0.61px] font-sans text-[32px] leading-[1.1] font-semibold text-[#68EEEA] mb:text-[61px]">
-              Introduction
+              {data.introductionLabel}
             </h2>
           </FadeIn>
           <div>
-            {data.introduction.map((p, i) => (
-              <FadeIn key={i} delay={0.05 * i} className="mb-5 last:mb-0">
-                <p
-                  className={cn(
-                    'font-sans text-white',
-                    i === 0
-                      ? 'text-[25px] font-semibold leading-[1.3]'
-                      : 'text-[18px] leading-[1.4] mb:text-[20px]'
-                  )}
-                >
-                  {p}
-                </p>
-              </FadeIn>
-            ))}
+            <FadeIn>
+              <div className='font-sans text-white text-[25px] font-semibold leading-[1.3] mb-5' dangerouslySetInnerHTML={{ __html: data.introductionHighlight }} />
+
+              <div className='font-sans text-white text-[18px] leading-[1.4] mb:text-[20px] [&>p]:mb-5 ' dangerouslySetInnerHTML={{ __html: data.introduction }} />
+            </FadeIn>
 
             {/* Signatures */}
             <FadeIn delay={0.2}>
               <div className="mb:grid-cols-3 mb:gap-12 mt-12 grid grid-cols-1 gap-8">
-                {data.introSignatures.map((sig) => (
+                {(data.signers ?? []).map((sig: { name?: string | null; signerPosition?: string | null; image?: { url?: string | null } | null }) => (
                   <div key={sig.name} className="flex flex-col items-start">
                     <img
-                      src="https://www.datocms-assets.com/160835/1773161367-group-638.png"
+                      src={sig.image?.url ?? ''}
                       alt=""
                       className="mb-4 max-h-[102px] w-auto shrink-0 object-contain"
                     />
@@ -222,7 +258,7 @@ function IntroductionSection() {
                       {sig.name}
                     </p>
                     <p className="mt-1 font-sans text-[16px] leading-[1.4] text-white/80">
-                      {sig.role}
+                      {sig.signerPosition}
                     </p>
                   </div>
                 ))}
@@ -238,7 +274,7 @@ function IntroductionSection() {
 // ---------------------------------------------------------------------------
 // Section 2 – Bridge
 // ---------------------------------------------------------------------------
-function BridgeSection() {
+function BridgeSection({ data }: { data: any }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
 
@@ -258,7 +294,7 @@ function BridgeSection() {
           style={{ opacity: textOpacity, y: textY }}
           className="columns-1 max-w-[839px]"
         >
-          {data.bridge.paragraphs.map((p, i) => (
+          {data.bridge.paragraphs.map((p: any, i: number) => (
             <p
               key={i}
               className={cn(
@@ -305,7 +341,7 @@ const DOMAIN_ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-function DomainsSection() {
+function DomainsSection({ data }: { data: any }) {
   return (
     <div id={SECTION_IDS.threeDomains} className="scroll-mt-24 bg-[#F8F4EF] py-10 mb:py-[100px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -321,7 +357,7 @@ function DomainsSection() {
         </FadeIn>
 
         <div className="path-forward-domains-grid mb:grid-cols-3 mb:gap-10 grid grid-cols-1 gap-8">
-          {data.domains.map((domain, index) => (
+          {data.domains?.map((domain: any, index: number) => (
             <FadeIn key={domain.id} delay={0.25 * index}>
               <div className="rounded-2xl border border-[#007981]/20 bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-lg hover:shadow-[#007981]/10">
                 <div className="mb-5 text-[#007981]">
@@ -345,7 +381,7 @@ function DomainsSection() {
 // ---------------------------------------------------------------------------
 // Section 4 – Seven Solution Pillars
 // ---------------------------------------------------------------------------
-function PillarsSection() {
+function PillarsSection({ data }: { data: any }) {
   return (
     <div id={SECTION_IDS.sevenPrinciples} className="scroll-mt-24 bg-path-forward-pillars py-10 mb:py-[120px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -365,7 +401,7 @@ function PillarsSection() {
         )}
 
         <div className="space-y-20 mb:space-y-32">
-          {data.pillars.map((pillar, index) => {
+          {data.principles?.map((pillar: any, index: number) => {
             const imageOnRight = index % 2 === 1;
             return (
               <PillarBlock
@@ -387,87 +423,6 @@ const listItemClass = 'flex items-start gap-3';
 const listItemTextClass = 'font-sans text-[16px] leading-[160%] text-white';
 const sectionTitleClass = 'mb-3 mt-8 font-sans text-[18px] font-semibold leading-tight text-white first:mt-0';
 
-function wordCount(s: string): number {
-  return s.trim().split(/\s+/).filter(Boolean).length;
-}
-
-function takeWords(text: string, maxWords: number): { text: string; consumed: number; hasMore: boolean } {
-  const words = text.trim().split(/\s+/).filter(Boolean);
-  const hasMore = words.length > maxWords;
-  const taken = hasMore ? words.slice(0, maxWords).join(' ') : text.trim();
-  const consumed = hasMore ? maxWords : words.length; // words actually shown (to subtract from budget)
-  return { text: taken, consumed, hasMore };
-}
-
-/** Renders paragraphs in the same structure as full content, truncated to maxWords */
-function renderParagraphsUpToWords(paragraphs: string[], maxWords: number): { node: React.ReactNode; hasMore: boolean } {
-  let left = maxWords;
-  const nodes: React.ReactNode[] = [];
-  for (let i = 0; i < paragraphs.length && left > 0; i++) {
-    const { text, consumed, hasMore } = takeWords(paragraphs[i], left);
-    left -= consumed;
-    nodes.push(
-      <p key={i} className={paragraphClass}>
-        {text}
-        {hasMore && '…'}
-      </p>,
-    );
-    if (hasMore) break;
-  }
-  const totalWords = wordCount(paragraphs.join(' '));
-  return { node: <>{nodes}</>, hasMore: totalWords > maxWords };
-}
-
-/** Renders How We Get There sections in the same structure as full content, truncated to maxWords */
-function renderHowWeGetThereUpToWords(sections: PillarHowSection[], maxWords: number): { node: React.ReactNode; hasMore: boolean } {
-  let left = maxWords;
-  const sectionNodes: React.ReactNode[] = [];
-  for (let si = 0; si < sections.length && left > 0; si++) {
-    const section = sections[si];
-    left -= wordCount(section.heading);
-    if (left <= 0) break;
-    const parts: React.ReactNode[] = [];
-    parts.push(
-      <h5 key="h" className="mb-3 font-sans text-[18px] leading-120 font-semibold text-white">
-        {section.heading}
-      </h5>,
-    );
-    if (section.intro) {
-      const { text, consumed, hasMore } = takeWords(section.intro, left);
-      left -= consumed;
-      parts.push(
-        <p key="intro" className="mb-4 font-sans text-[16px] leading-[160%] text-white/70">
-          {text}
-          {hasMore && '…'}
-        </p>,
-      );
-      if (hasMore) {
-        sectionNodes.push(<div key={si} className="mb-8 last:mb-0">{parts}</div>);
-        return { node: <>{sectionNodes}</>, hasMore: true };
-      }
-    }
-    const listItems: React.ReactNode[] = [];
-    for (let ii = 0; ii < section.items.length && left > 0; ii++) {
-      const { text, consumed, hasMore } = takeWords(section.items[ii], left);
-      left -= consumed;
-      listItems.push(
-        <li key={ii} className={listItemClass}>
-          <DiamondBullet />
-          <span className={listItemTextClass}>{text}{hasMore && '…'}</span>
-        </li>,
-      );
-      if (hasMore) break;
-    }
-    parts.push(<ul key="ul" className="space-y-3 pl-1">{listItems}</ul>);
-    sectionNodes.push(<div key={si} className="mb-8 last:mb-0">{parts}</div>);
-  }
-  const totalWords = sections.reduce(
-    (acc, s) => acc + wordCount(s.heading) + (s.intro ? wordCount(s.intro) : 0) + s.items.reduce((a, i) => a + wordCount(i), 0),
-    0,
-  );
-  return { node: <>{sectionNodes}</>, hasMore: totalWords > maxWords };
-}
-
 /** Renders list items in the same structure as full content, truncated to maxWords */
 function renderListUpToWords(items: string[], maxWords: number): { node: React.ReactNode; hasMore: boolean } {
   let left = maxWords;
@@ -487,7 +442,7 @@ function renderListUpToWords(items: string[], maxWords: number): { node: React.R
 }
 
 /** Renders all pillar content in order (currentPath → narrowPath → howWeGetThere → whatsBeingDone), truncated to maxWords. Section titles are only shown when there is content from that section within the word budget. */
-function renderPillarContentUpToWords(pillar: Pillar, maxWords: number): { node: React.ReactNode; hasMore: boolean } {
+function renderPillarContentUpToWords(pillar: any, maxWords: number): { node: React.ReactNode; hasMore: boolean } {
   let left = maxWords;
   const nodes: React.ReactNode[] = [];
   const pushParagraphs = (paragraphs: string[]) => {
@@ -568,59 +523,76 @@ function renderPillarContentUpToWords(pillar: Pillar, maxWords: number): { node:
     wordCount(pillar.currentPath.join(' ')) +
     wordCount(pillar.narrowPath.join(' ')) +
     pillar.howWeGetThere.reduce(
-      (acc, s) => acc + wordCount(s.heading) + (s.intro ? wordCount(s.intro) : 0) + s.items.reduce((a, i) => a + wordCount(i), 0),
+      (acc: number, s: { heading: string; intro?: string; items: string[] }) =>
+        acc + wordCount(s.heading) + (s.intro ? wordCount(s.intro) : 0) + s.items.reduce((a: number, i: string) => a + wordCount(i), 0),
       0,
     ) +
     wordCount(pillar.whatsBeingDone.join(' '));
   return { node: <>{nodes}</>, hasMore: totalWords > maxWords };
 }
 
-/** Renders full pillar content (all sections in order) */
+/** Renders full pillar content (only sections that have content) */
 function renderPillarFullContent(pillar: Pillar): React.ReactNode {
   return (
     <>
-      <h5 className={sectionTitleClass}>Current Path</h5>
-      {pillar.currentPath.map((p, i) => (
-        <p key={`cp-${i}`} className={paragraphClass}>
-          {p}
-        </p>
-      ))}
-      <h5 className={sectionTitleClass}>Narrow Path</h5>
-      {pillar.narrowPath.map((p, i) => (
-        <p key={`np-${i}`} className={paragraphClass}>
-          {p}
-        </p>
-      ))}
-      <h5 className={sectionTitleClass}>How We Get There</h5>
-      {pillar.howWeGetThere.map((section, si) => (
-        <div key={`hw-${si}`} className="mb-8 last:mb-0">
-          <h5 className="mb-3 font-sans text-[18px] leading-120 font-semibold text-white">
-            {section.heading}
-          </h5>
-          {section.intro && (
-            <p className="mb-4 font-sans text-[16px] leading-[160%] text-white">
-              {section.intro}
+      {pillar.currentPath.length > 0 && (
+        <>
+          <h5 className={sectionTitleClass}>Current Path</h5>
+          {pillar.currentPath.map((p, i) => (
+            <p key={`cp-${i}`} className={paragraphClass}>
+              {p}
             </p>
-          )}
+          ))}
+        </>
+      )}
+      {pillar.narrowPath.length > 0 && (
+        <>
+          <h5 className={sectionTitleClass}>Narrow Path</h5>
+          {pillar.narrowPath.map((p, i) => (
+            <p key={`np-${i}`} className={paragraphClass}>
+              {p}
+            </p>
+          ))}
+        </>
+      )}
+      {pillar.howWeGetThere.length > 0 && (
+        <>
+          <h5 className={sectionTitleClass}>How We Get There</h5>
+          {pillar.howWeGetThere.map((section, si) => (
+            <div key={`hw-${si}`} className="mb-8 last:mb-0">
+              <h5 className="mb-3 font-sans text-[18px] leading-120 font-semibold text-white">
+                {section.heading}
+              </h5>
+              {section.intro && (
+                <p className="mb-4 font-sans text-[16px] leading-[160%] text-white">
+                  {section.intro}
+                </p>
+              )}
+              <ul className="space-y-3 pl-1">
+                {section.items.map((item, ii) => (
+                  <li key={ii} className={listItemClass}>
+                    <DiamondBullet />
+                    <span className={listItemTextClass}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </>
+      )}
+      {pillar.whatsBeingDone.length > 0 && (
+        <>
+          <h5 className={sectionTitleClass}>What&apos;s Already Being Done</h5>
           <ul className="space-y-3 pl-1">
-            {section.items.map((item, ii) => (
-              <li key={ii} className={listItemClass}>
-                <DiamondBullet />
-                <span className={listItemTextClass}>{item}</span>
+            {pillar.whatsBeingDone.map((item, i) => (
+              <li key={i} className={listItemClass}>
+                <CheckBullet />
+                <span className="font-sans text-[16px] leading-[160%] text-white/80">{item}</span>
               </li>
             ))}
           </ul>
-        </div>
-      ))}
-      <h5 className={sectionTitleClass}>What&apos;s Already Being Done</h5>
-      <ul className="space-y-3 pl-1">
-        {pillar.whatsBeingDone.map((item, i) => (
-          <li key={i} className={listItemClass}>
-            <CheckBullet />
-            <span className="font-sans text-[16px] leading-[160%] text-white/80">{item}</span>
-          </li>
-        ))}
-      </ul>
+        </>
+      )}
     </>
   );
 }
@@ -744,12 +716,3 @@ function CheckBullet() {
     </svg>
   );
 }
-
-function DownloadIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 16.5V18.75C3 19.3467 3.23705 19.919 3.65901 20.341C4.08097 20.7629 4.65326 21 5.25 21H18.75C19.3467 21 19.919 20.7629 20.341 20.341C20.7629 19.919 21 19.3467 21 18.75V16.5M16.5 12L12 16.5M12 16.5L7.5 12M12 16.5V3" />
-    </svg>
-  );
-}
-

@@ -1,12 +1,21 @@
 import PathForwardLayout from '@/components/layout/pages/path-forward-layout';
-import type { Metadata } from 'next';
+import { executeQuery } from '@/lib/cms/executeQuery';
+import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
+import { PathForwardQuery } from '@/lib/cms/query';
+import { draftMode } from 'next/headers';
 
-export const metadata: Metadata = {
-  title: 'A Path Forward — Center for Humane Technology',
-  description:
-    'Concrete, systemic solutions to reshape technology for the benefit of humanity. Explore seven solution pillars spanning global coordination, laws, and cultural norms.',
-};
+export const generateMetadata = generateMetadataFn({
+  query: PathForwardQuery,
+  // @ts-expect-error – shape from query
+  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
+});
 
-export default function PathForwardPage() {
-  return <PathForwardLayout />;
+export default async function PathForwardPage() {
+  const { isEnabled } = await draftMode();
+
+  const { page } = await executeQuery(PathForwardQuery, {
+    includeDrafts: isEnabled,
+  });
+
+  return <PathForwardLayout data={page} />;
 }
