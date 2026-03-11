@@ -12,7 +12,9 @@
     "start": "next start",
     "lint": "next lint && prettier --check .",
     "format": "npx prettier . --write",
-    "generate-schema": "dotenv -c -- bash -c 'if [ -n \"$NEXT_DATOCMS_ENVIRONMENT\" ]; then gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\" --header \"X-Environment: $NEXT_DATOCMS_ENVIRONMENT\"; else gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\"; fi'"
+    "generate-schema": "dotenv -c -- bash -c 'if [ -n \"$NEXT_DATOCMS_ENVIRONMENT\" ]; then gql.tada generate-schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\" --header \"X-Environment: $NEXT_DATOCMS_ENVIRONMENT\"; else gql.tada generate-schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\"; fi'",
+    "generate-output": "gql.tada generate-output",
+    "generate": "npm run generate-schema && npm run generate-output"
   },
   "dependencies": {
     "@next/third-parties": "^15.4.1",
