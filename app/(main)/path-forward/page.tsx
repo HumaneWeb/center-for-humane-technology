@@ -1,4 +1,4 @@
-import PathForwardLayout from '@/components/layout/pages/path-forward-layout';
+import PathForwardLayout, { PathForwardCmsData } from '@/components/layout/pages/path-forward-layout';
 import { executeQuery } from '@/lib/cms/executeQuery';
 import { generateMetadataFn } from '@/lib/cms/generateMetadataFn';
 import { PathForwardQuery } from '@/lib/cms/query';
@@ -17,5 +17,5 @@ export default async function PathForwardPage() {
     includeDrafts: isEnabled,
   });
 
-  return <PathForwardLayout data={page} />;
+  return <PathForwardLayout data={page as PathForwardCmsData} />;
 }

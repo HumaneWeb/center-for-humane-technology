@@ -15,7 +15,7 @@ import { takeWords, wordCount } from '@/lib/utils/text.utils';
 /** Raw CMS page shape (DatoCMS Path Forward page). */
 type PathForwardLayoutProps = { data: PathForwardCmsData | null };
 
-type PathForwardCmsData = {
+export type PathForwardCmsData = {
   title?: string | null;
   introduction?: string | null;
   introductionHighlight?: string | null;
