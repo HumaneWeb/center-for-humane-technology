@@ -6,7 +6,7 @@ import { draftMode } from 'next/headers';
 
 export const generateMetadata = generateMetadataFn({
   query: PathForwardQuery,
-  // @ts-expect-error – shape from query
+  // @ts-expect-error – shape from query .
   pickSeoMetaTags: (data) => data.page?._seoMetaTags,
 });
 
