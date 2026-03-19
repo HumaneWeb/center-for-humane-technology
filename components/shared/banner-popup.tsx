@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils/css.utils';
@@ -20,18 +21,22 @@ const DISMISS_DAYS = 30;
 
 export default function BannerPopup({ banner }: Props) {
   const [isVisible, setIsVisible] = useState(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const cookie = document.cookie
-      .split('; ')
-      .find((c) => c.startsWith(`${BANNER_DISMISSED_COOKIE}=`));
-    const dismissedVersion = cookie?.split('=')[1];
-    if (dismissedVersion === banner._updatedAt) return;
+    const debugBanner = searchParams.has('debug-banner');
+    if (!debugBanner) {
+      const cookie = document.cookie
+        .split('; ')
+        .find((c) => c.startsWith(`${BANNER_DISMISSED_COOKIE}=`));
+      const dismissedVersion = cookie?.split('=')[1];
+      if (dismissedVersion === banner._updatedAt) return;
+    }
 
     const delay = banner.delay ?? 0;
     const timer = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timer);
-  }, [banner._updatedAt, banner.delay]);
+  }, [banner._updatedAt, banner.delay, searchParams]);
 
   const handleClose = () => {
     const expires = new Date();
