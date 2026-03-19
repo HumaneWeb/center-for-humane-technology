@@ -26,6 +26,7 @@ export default function BannerPopup({ banner }: Props) {
   useEffect(() => {
     const debugBanner = searchParams.has('debug-banner');
     if (!debugBanner) {
+      if (!banner.enabled) return;
       const cookie = document.cookie
         .split('; ')
         .find((c) => c.startsWith(`${BANNER_DISMISSED_COOKIE}=`));
@@ -36,7 +37,7 @@ export default function BannerPopup({ banner }: Props) {
     const delay = banner.delay ?? 0;
     const timer = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timer);
-  }, [banner._updatedAt, banner.delay, searchParams]);
+  }, [banner._updatedAt, banner.delay, banner.enabled, searchParams]);
 
   const handleClose = () => {
     const expires = new Date();

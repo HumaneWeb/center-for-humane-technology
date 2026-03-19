@@ -6,7 +6,7 @@ import BannerPopup from './banner-popup';
 export default async function BannerPopupServer() {
   const { banner } = await executeQuery(BannerQuery);
 
-  if (!banner?.enabled) return null;
+  if (!banner) return null;
 
   return (
     <Suspense fallback={null}>
