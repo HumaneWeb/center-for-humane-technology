@@ -11,6 +11,9 @@ import ImageBlock from './image-block';
 import { FadeIn } from '../shared/fade-in';
 import ContentMarkdownBlock from './content-markdown-block';
 import ButtonsBlock from './buttons-block';
+import NumberedListBlock from './numbered-list-block';
+import ContentCardContainerBlock from './content-card-container-block';
+import EmbedBlock from './embed-block';
 
 type Props = {
   components: {
@@ -33,6 +36,9 @@ const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
   ImageBlockRecord: ImageBlock,
   ContentMarkdownRecord: ContentMarkdownBlock,
   ButtonsBlockRecord: ButtonsBlock,
+  NumberedListRecord: NumberedListBlock,
+  ContentCardContainerRecord: ContentCardContainerBlock,
+  EmbedRecord: EmbedBlock,
 };
 
 const ExtraProps: Record<string, any> = {
