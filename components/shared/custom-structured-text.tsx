@@ -39,6 +39,7 @@ import MediaBlock from '../blocks/media-block';
 import { FadeIn } from './fade-in';
 import ItemSelector from '../blocks/items-selector-block';
 import ButtonsBlock from '../blocks/buttons-block';
+import LogoGridBlock from '../blocks/logo-grid-block';
 
 export default function CustomStructuredText({
   data,
@@ -280,6 +281,9 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'MediaBlockRecord') {
           return <MediaBlock {...record} key={record.id} />;
+        }
+        if (record.__typename === 'LogoGridRecord') {
+          return <LogoGridBlock {...record} key={record.id} />;
         }
         if (record.__typename === 'WorkAreasBlockRecord') {
           return <ItemSelector {...record} key={record.id} />;

@@ -5,6 +5,7 @@ import DepthAreasBlock from './depth-areas-block';
 import DonateBlock from './donate-block';
 import HighlightTextBlock from './highlight-text-block';
 import ImpactBlock from './impact-block';
+import LogoGridBlock from './logo-grid-block';
 import MediaBlock from './media-block';
 import NarrativeBlock from './narrative-block';
 import NewsletterBlock from './newsletter-block';
@@ -33,6 +34,7 @@ const BaseComponents: Record<string, any> = {
   SubstackManualFeedRecord: SubstackManualFeed,
   ContentMarkdownRecord: ContentMarkdownBlock,
   ButtonsBlockRecord: ButtonsBlock,
+  LogoGridRecord: LogoGridBlock,
 };
 
 const BlockBuilder: React.FC<Props> = ({ components = [] }) => {

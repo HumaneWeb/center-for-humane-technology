@@ -819,6 +819,26 @@ export const MediaBlockFragment = graphql(
   [ImageBlockFragment, CTAFragment],
 );
 
+export const LogoGridFragment = graphql(
+  `
+    fragment LogoGridFragment on LogoGridRecord {
+      __typename
+      id
+      columns
+      logos {
+        id
+        logo {
+          ...ImageFragment
+        }
+        altText
+        linkUrl
+        openNewTab
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
 export const DonateBlockFragment = graphql(
   `
     fragment DonateBlockFragment on DonateBlockRecord {
@@ -1270,6 +1290,7 @@ export const BasicPageQuery = graphql(
             ...GuideFragment
             ...GridFragment
             ...FootnoteFragment
+            ...LogoGridFragment
           }
         }
         _seoMetaTags {
@@ -1315,6 +1336,7 @@ export const BasicPageQuery = graphql(
     GuideFragment,
     GridFragment,
     FootnoteFragment,
+    LogoGridFragment,
   ],
 );
 

@@ -11,6 +11,7 @@ import ImageBlock from './image-block';
 import { FadeIn } from '../shared/fade-in';
 import ContentMarkdownBlock from './content-markdown-block';
 import ButtonsBlock from './buttons-block';
+import LogoGridBlock from './logo-grid-block';
 
 type Props = {
   components: {
@@ -33,6 +34,7 @@ const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
   ImageBlockRecord: ImageBlock,
   ContentMarkdownRecord: ContentMarkdownBlock,
   ButtonsBlockRecord: ButtonsBlock,
+  LogoGridRecord: LogoGridBlock,
 };
 
 const ExtraProps: Record<string, any> = {
