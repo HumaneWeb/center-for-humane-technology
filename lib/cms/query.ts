@@ -1936,6 +1936,7 @@ export const LandingPageQuery = graphql(
           ...NumberedListFragment
           ...ContentCardContainerFragment
           ...EmbedFragment
+          ...LogoGridFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -1971,6 +1972,7 @@ export const LandingPageQuery = graphql(
     NumberedListFragment,
     ContentCardContainerFragment,
     EmbedFragment,
+    LogoGridFragment,
   ],
 );
 

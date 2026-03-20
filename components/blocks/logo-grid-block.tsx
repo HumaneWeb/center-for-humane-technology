@@ -20,8 +20,8 @@ type LogoItem = {
 };
 
 type Props = {
-  columns: number;
-  logos: LogoItem[];
+  columns?: number | null;
+  logos?: LogoItem[] | null;
 };
 
 const DESKTOP_COLS: Record<number, string> = {
@@ -35,11 +35,11 @@ const DESKTOP_COLS: Record<number, string> = {
 };
 
 const cardClass =
-  'group hover:border-blue-200/20 relative rounded-sm border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8';
+  'group relative rounded-sm border border-neutral-light-gray bg-neutral-white p-6 shadow-sm transition-all duration-300 hover:border-primary-blue/30 hover:shadow-lg md:p-8';
 
 const CardContent = ({ item }: { item: LogoItem }) => (
   <>
-    <div className="absolute inset-0 rounded-sm bg-gradient-to-br from-blue-50/0 to-purple-50/0 transition-all duration-300 group-hover:from-blue-50/30 group-hover:to-purple-50/30" />
+    <div className="absolute inset-0 rounded-sm bg-gradient-to-br from-neutral-200/0 to-neutral-200/0 transition-all duration-300 group-hover:from-neutral-200/25 group-hover:to-blue-50/20" />
 
     <div className="relative flex h-20 items-center justify-center md:h-24">
       <CustomImage
@@ -59,15 +59,20 @@ const CardContent = ({ item }: { item: LogoItem }) => (
   </>
 );
 
-export default function LogoGridBlock({ columns, logos }: Props) {
-  const desktopCols = DESKTOP_COLS[columns] ?? 'lg:grid-cols-4';
+export default function LogoGridBlock({ columns = 4, logos }: Props) {
+  const list = (logos ?? []).filter((item) => item?.logo?.url);
+  if (list.length === 0) {
+    return null;
+  }
+
+  const desktopCols = DESKTOP_COLS[columns ?? 4] ?? 'lg:grid-cols-4';
 
   return (
     <section className="py-10 mb:py-16">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className={cn('grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:gap-8', desktopCols)}>
-            {logos.map((item) =>
+            {list.map((item) =>
               item.linkUrl ? (
                 <Link
                   key={item.id}

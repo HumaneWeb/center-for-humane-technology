@@ -69,11 +69,12 @@ const BlockBuilderLanding: React.FC<Props> = ({ components = [], variant = 'text
         }
 
         const extraProps = ExtraProps[__typename] || {};
+        const variantProps = __typename === 'LogoGridRecord' ? {} : globalVariantProps;
         if (typeof BlockComponent === 'function' || typeof BlockComponent === 'object') {
           return (
             <FadeIn key={id}>
               {/* @ts-ignore */}
-              <BlockComponent {...rest} {...extraProps} {...globalVariantProps} />
+              <BlockComponent {...rest} {...extraProps} {...variantProps} />
             </FadeIn>
           );
         }

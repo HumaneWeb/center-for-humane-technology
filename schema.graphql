@@ -4827,7 +4827,7 @@ type LandingHighlightTextRecord implements RecordInterface {
   title: String
 }
 
-union LandingModelBlocksField = ButtonsBlockRecord | CenterCtaRecord | ContentBlockRecord | ContentCardContainerRecord | ContentMarkdownRecord | CtaRecord | EmbedRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | NarrativeBlockRecord | NumberedListRecord | StatsBlockRecord | VideoItemRecord
+union LandingModelBlocksField = ButtonsBlockRecord | CenterCtaRecord | ContentBlockRecord | ContentCardContainerRecord | ContentMarkdownRecord | CtaRecord | EmbedRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | LogoGridRecord | NarrativeBlockRecord | NumberedListRecord | StatsBlockRecord | VideoItemRecord
 
 input LandingModelFilter {
   _createdAt: CreatedAtFilter
