@@ -78,6 +78,7 @@ body {
 }
 
 @media screen and (max-width: 992px) {
+
   .pre-content-section,
   .pre-content-section-dark {
     height: 100px;
@@ -137,13 +138,11 @@ body {
 }
 
 @utility bg-basic-page {
-  background: linear-gradient(
-    180deg,
-    #f0ebff 0%,
-    #f0ebff 50%,
-    rgba(248, 244, 239, 0) 90%,
-    #f8f4ef 100%
-  );
+  background: linear-gradient(180deg,
+      #f0ebff 0%,
+      #f0ebff 50%,
+      rgba(248, 244, 239, 0) 90%,
+      #f8f4ef 100%);
 }
 
 @utility bg-white-page {
@@ -158,8 +157,7 @@ body {
   /* opacity: 0.35; */
   background:
     radial-gradient(0% 50% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%),
-    url('https://www.datocms-assets.com/160835/1749477555-photo-1.png') lightgray 30% / cover
-      no-repeat;
+    url('https://www.datocms-assets.com/160835/1749477555-photo-1.png') lightgray 30% / cover no-repeat;
   background-position: center;
   background-size: cover;
   mix-blend-mode: hard-light;
@@ -213,7 +211,7 @@ body {
 }
 
 /* Substack input widget */
-.supascribe-widget.custom-substack-widget + .success {
+.supascribe-widget.custom-substack-widget+.success {
   color: var(--color-primary-navy);
   font-size: 0.9rem;
 }
@@ -239,20 +237,20 @@ body {
   padding: 0;
 }
 
-.supascribe-widget a:nth-child(-n + 3) > div:nth-child(1) {
+.supascribe-widget a:nth-child(-n + 3)>div:nth-child(1) {
   width: 100%;
   height: 260px;
   border-radius: unset;
 }
 
-.supascribe-widget a:nth-child(-n + 3) > div:nth-child(2) {
+.supascribe-widget a:nth-child(-n + 3)>div:nth-child(2) {
   padding: 30px 10px;
   flex-direction: column-reverse;
   flex: initial;
   gap: 10px;
 }
 
-.supascribe-widget a:nth-child(-n + 3) > div:nth-child(2) > div:nth-child(2) {
+.supascribe-widget a:nth-child(-n + 3)>div:nth-child(2)>div:nth-child(2) {
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
@@ -262,11 +260,11 @@ body {
   color: var(--CHT-2---Blue, #293462);
 }
 
-.supascribe-widget a:nth-child(-n + 3) > div:nth-child(2) > div:nth-child(1) {
+.supascribe-widget a:nth-child(-n + 3)>div:nth-child(2)>div:nth-child(1) {
   gap: 10px;
 }
 
-.supascribe-widget a:nth-child(-n + 3) > div:nth-child(2) > div:nth-child(1) div {
+.supascribe-widget a:nth-child(-n + 3)>div:nth-child(2)>div:nth-child(1) div {
   color: var(--CHT-2---Teal, #007981);
   font-family: Elza;
   font-size: 25px;
@@ -275,7 +273,7 @@ body {
   line-height: 130%;
 }
 
-.supascribe-widget a:nth-child(-n + 3) > div:nth-child(2) > div:nth-child(1) p {
+.supascribe-widget a:nth-child(-n + 3)>div:nth-child(2)>div:nth-child(1) p {
   color: var(--CHT-2---Navy, #0b1023);
   font-family: Elza;
   font-size: 20px;
@@ -298,19 +296,19 @@ body {
   gap: 25px;
 }
 
-.supascribe-widget a:nth-child(n + 4) > div:nth-child(1) {
+.supascribe-widget a:nth-child(n + 4)>div:nth-child(1) {
   width: 300px;
   height: auto;
   aspect-ratio: 3 / 2;
   border-radius: unset;
 }
 
-.supascribe-widget a:nth-child(n + 4) > div:nth-child(2) {
+.supascribe-widget a:nth-child(n + 4)>div:nth-child(2) {
   flex-direction: column-reverse;
   justify-content: flex-end;
 }
 
-.supascribe-widget a:nth-child(n + 4) > div:nth-child(2) > div:nth-child(2) {
+.supascribe-widget a:nth-child(n + 4)>div:nth-child(2)>div:nth-child(2) {
   color: var(--CHT-2---Blue, #293462);
   font-family: Elza;
   font-size: 13px;
@@ -323,7 +321,7 @@ body {
   margin-top: 10px;
 }
 
-.supascribe-widget a:nth-child(n + 4) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) {
+.supascribe-widget a:nth-child(n + 4)>div:nth-child(2)>div:nth-child(1)>div:nth-child(1) {
   color: var(--CHT-2---Teal, #007981);
   font-family: Elza;
   font-size: 20px;
@@ -333,13 +331,144 @@ body {
   margin-bottom: 10px;
 }
 
-.supascribe-widget a:nth-child(n + 4) > div:nth-child(2) > div:nth-child(1) p {
+.supascribe-widget a:nth-child(n + 4)>div:nth-child(2)>div:nth-child(1) p {
   color: var(--CHT-2---Navy, #0b1023);
   font-family: Elza;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 140%;
+}
+
+/*
+ * HubSpot embedded forms — labels / copy inherit the section text color;
+ * fields stay white inside (readable on any section bg).
+ */
+.hbspt-form {
+  font-family: inherit;
+  color: inherit;
+}
+
+.hbspt-form .hs-form-field {
+  margin-bottom: 1rem;
+}
+
+.hbspt-form .hs-form-field:last-child {
+  margin-bottom: 0;
+}
+
+.hbspt-form .hs-form-field>label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  color: inherit;
+}
+
+.hbspt-form .hs-form-required {
+  color: inherit;
+  margin-left: 0.125rem;
+}
+
+.hbspt-form .input {
+  margin: 0;
+}
+
+.hbspt-form input.hs-input,
+.hbspt-form textarea.hs-input,
+.hbspt-form select.hs-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-primary-navy);
+  background-color: var(--color-neutral-white);
+  border: 1px solid var(--color-neutral-gray);
+  border-radius: 5px;
+  font-family: inherit;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.hbspt-form textarea.hs-input {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.hbspt-form input.hs-input::placeholder,
+.hbspt-form textarea.hs-input::placeholder {
+  color: var(--color-neutral-medium-gray);
+  opacity: 1;
+}
+
+.hbspt-form input.hs-input:focus,
+.hbspt-form input.hs-input:focus-visible,
+.hbspt-form textarea.hs-input:focus,
+.hbspt-form textarea.hs-input:focus-visible,
+.hbspt-form select.hs-input:focus,
+.hbspt-form select.hs-input:focus-visible {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px var(--color-primary-blue);
+}
+
+.hbspt-form .hs-button.primary,
+.hbspt-form input.hs-button.primary,
+.hbspt-form button.hs-button.primary {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-family: inherit;
+  color: var(--color-neutral-white);
+  background-color: var(--color-primary-teal);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.hbspt-form .hs-button.primary:hover,
+.hbspt-form input.hs-button.primary:hover,
+.hbspt-form button.hs-button.primary:hover {
+  background-color: var(--color-primary-navy);
+  color: var(--color-neutral-white);
+}
+
+.hbspt-form .hs-error-msgs,
+.hbspt-form .hs-error-msg {
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: #b91c1c;
+}
+
+.hbspt-form .submitted-message {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: inherit;
+}
+
+.hbspt-form .legal-consent-container {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: inherit;
+}
+
+.hbspt-form a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* Animations */
@@ -449,8 +578,8 @@ hr {
   }
 }
 
-.key-template-layout > .heading:first-child,
-.content-layout > .heading:first-child {
+.key-template-layout>.heading:first-child,
+.content-layout>.heading:first-child {
   margin-top: 0;
 }
 
@@ -478,7 +607,7 @@ hr {
   margin-bottom: 0;
 }
 
-.structured-content h5:has(+ p) + p {
+.structured-content h5:has(+ p)+p {
   margin-bottom: 1rem;
 }
 
@@ -1032,6 +1161,7 @@ hr {
 }
 
 @media screen and (max-width: 1260px) and (min-width: 992px) {
+
   .stake-section,
   .stake-section .headline {
     min-height: auto;

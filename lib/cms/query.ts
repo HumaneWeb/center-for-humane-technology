@@ -714,6 +714,50 @@ export const ImageGalleryFragment = graphql(
   [ImageFragment],
 );
 
+export const ContentCtaEmbedFragment = graphql(
+  `
+    fragment ContentCtaEmbedFragment on ContentCtaEmbedRecord {
+      __typename
+      id
+      content {
+        __typename
+        ... on ContentBlockRecord {
+          ...ContentBlockFragment
+        }
+        ... on ContentMarkdownRecord {
+          ...ContentMarkdownFragment
+        }
+        ... on ImageBlockRecord {
+          ...ImageBlockFragment
+        }
+        ... on ImageGalleryRecord {
+          ...ImageGalleryFragment
+        }
+        ... on ButtonsBlockRecord {
+          ...ButtonsBlockFragment
+        }
+        ... on AccordionBlockRecord {
+          id
+          __typename
+          ...AccordionBlockFragment
+        }
+      }
+      embed {
+        ...EmbedFragment
+      }
+    }
+  `,
+  [
+    ContentBlockFragment,
+    ContentMarkdownFragment,
+    ImageBlockFragment,
+    ImageGalleryFragment,
+    ButtonsBlockFragment,
+    AccordionBlockFragment,
+    EmbedFragment,
+  ],
+);
+
 export const LandingHighlightCtaFragment = graphql(
   `
     fragment LandingHighlightCtaFragment on LandingHighlightCtaRecord {
@@ -1936,6 +1980,7 @@ export const LandingPageQuery = graphql(
           ...NumberedListFragment
           ...ContentCardContainerFragment
           ...EmbedFragment
+          ...ContentCtaEmbedFragment
           ...LogoGridFragment
         }
         _seoMetaTags {
@@ -1972,6 +2017,7 @@ export const LandingPageQuery = graphql(
     NumberedListFragment,
     ContentCardContainerFragment,
     EmbedFragment,
+    ContentCtaEmbedFragment,
     LogoGridFragment,
   ],
 );

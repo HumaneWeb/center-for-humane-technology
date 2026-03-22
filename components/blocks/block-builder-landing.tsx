@@ -14,6 +14,7 @@ import ButtonsBlock from './buttons-block';
 import LogoGridBlock from './logo-grid-block';
 import NumberedListBlock from './numbered-list-block';
 import ContentCardContainerBlock from './content-card-container-block';
+import ContentCtaEmbedBlock from './content-cta-embed-block';
 import EmbedBlock from './embed-block';
 
 type Props = {
@@ -40,6 +41,7 @@ const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
   LogoGridRecord: LogoGridBlock,
   NumberedListRecord: NumberedListBlock,
   ContentCardContainerRecord: ContentCardContainerBlock,
+  ContentCtaEmbedRecord: ContentCtaEmbedBlock,
   EmbedRecord: EmbedBlock,
 };
 
