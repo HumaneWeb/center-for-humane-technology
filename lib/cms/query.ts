@@ -693,6 +693,14 @@ export const ContentMarkdownFragment = graphql(`
   }
 `);
 
+export const EmbedFragment = graphql(`
+  fragment EmbedFragment on EmbedRecord {
+    __typename
+    id
+    snippet
+  }
+`);
+
 export const ImageGalleryFragment = graphql(
   `
     fragment ImageGalleryFragment on ImageGalleryRecord {
@@ -704,6 +712,50 @@ export const ImageGalleryFragment = graphql(
     }
   `,
   [ImageFragment],
+);
+
+export const ContentCtaEmbedFragment = graphql(
+  `
+    fragment ContentCtaEmbedFragment on ContentCtaEmbedRecord {
+      __typename
+      id
+      content {
+        __typename
+        ... on ContentBlockRecord {
+          ...ContentBlockFragment
+        }
+        ... on ContentMarkdownRecord {
+          ...ContentMarkdownFragment
+        }
+        ... on ImageBlockRecord {
+          ...ImageBlockFragment
+        }
+        ... on ImageGalleryRecord {
+          ...ImageGalleryFragment
+        }
+        ... on ButtonsBlockRecord {
+          ...ButtonsBlockFragment
+        }
+        ... on AccordionBlockRecord {
+          id
+          __typename
+          ...AccordionBlockFragment
+        }
+      }
+      embed {
+        ...EmbedFragment
+      }
+    }
+  `,
+  [
+    ContentBlockFragment,
+    ContentMarkdownFragment,
+    ImageBlockFragment,
+    ImageGalleryFragment,
+    ButtonsBlockFragment,
+    AccordionBlockFragment,
+    EmbedFragment,
+  ],
 );
 
 export const LandingHighlightCtaFragment = graphql(
@@ -720,6 +772,58 @@ export const LandingHighlightCtaFragment = graphql(
     }
   `,
   [CTAFragment],
+);
+
+export const ContentCardFragment = graphql(
+  `
+    fragment ContentCardFragment on ContentCardRecord {
+      __typename
+      id
+      title
+      subtitle
+      content(markdown: true)
+      button {
+        ...ButtonFragment
+      }
+    }
+  `,
+  [ButtonFragment],
+);
+
+export const NumberedListItemFragment = graphql(`
+  fragment NumberedListItemFragment on NumberedListItemRecord {
+    __typename
+    id
+    title
+    content(markdown: true)
+  }
+`);
+
+export const NumberedListFragment = graphql(
+  `
+    fragment NumberedListFragment on NumberedListRecord {
+      __typename
+      id
+      listItems {
+        ...NumberedListItemFragment
+      }
+    }
+  `,
+  [NumberedListItemFragment],
+);
+
+export const ContentCardContainerFragment = graphql(
+  `
+    fragment ContentCardContainerFragment on ContentCardContainerRecord {
+      __typename
+      id
+      columns
+      cards {
+        ...ContentCardFragment
+      }
+    }
+  `,
+  [ContentCardFragment],
 );
 
 export const HighlightTextBlockFragment = graphql(
@@ -817,6 +921,26 @@ export const MediaBlockFragment = graphql(
     }
   `,
   [ImageBlockFragment, CTAFragment],
+);
+
+export const LogoGridFragment = graphql(
+  `
+    fragment LogoGridFragment on LogoGridRecord {
+      __typename
+      id
+      columns
+      logos {
+        id
+        logo {
+          ...ImageFragment
+        }
+        altText
+        linkUrl
+        openNewTab
+      }
+    }
+  `,
+  [ImageFragment],
 );
 
 export const DonateBlockFragment = graphql(
@@ -1270,6 +1394,7 @@ export const BasicPageQuery = graphql(
             ...GuideFragment
             ...GridFragment
             ...FootnoteFragment
+            ...LogoGridFragment
           }
         }
         _seoMetaTags {
@@ -1315,6 +1440,7 @@ export const BasicPageQuery = graphql(
     GuideFragment,
     GridFragment,
     FootnoteFragment,
+    LogoGridFragment,
   ],
 );
 
@@ -1851,6 +1977,11 @@ export const LandingPageQuery = graphql(
           ...LandingHighlightCtaFragment
           ...ImageBlockFragment
           ...ButtonsBlockFragment
+          ...NumberedListFragment
+          ...ContentCardContainerFragment
+          ...EmbedFragment
+          ...ContentCtaEmbedFragment
+          ...LogoGridFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -1883,6 +2014,11 @@ export const LandingPageQuery = graphql(
     LandingHighlightCtaFragment,
     ImageBlockFragment,
     ButtonsBlockFragment,
+    NumberedListFragment,
+    ContentCardContainerFragment,
+    EmbedFragment,
+    ContentCtaEmbedFragment,
+    LogoGridFragment,
   ],
 );
 

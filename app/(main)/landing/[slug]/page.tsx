@@ -125,7 +125,7 @@ export default async function LandingPage({ params }: PageSlug) {
               )}
               {subheading && (
                 <FadeIn delay={0.35}>
-                  <h2 className="tracking-039 font-sans text-4xl leading-110 font-semibold">
+                  <h2 className="text-neutral-white tracking-039 font-sans text-4xl leading-110 font-semibold">
                     {subheading}
                   </h2>
                 </FadeIn>

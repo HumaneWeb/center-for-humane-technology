@@ -8,12 +8,13 @@ import useIsMobile from '../hooks/is-mobile';
 import { FadeIn } from '../shared/fade-in';
 
 type Props = {
-  title: string;
-  introduction: string;
-  variant: 'default' | 'minimal' | '4-columns' | '3-columns';
-  backgroundColor: 'light-purple' | 'light-blue' | 'teal' | 'transparent';
+  title?: string;
+  introduction?: string;
+  variant?: 'default' | 'minimal' | '4-columns' | '3-columns';
+  backgroundColor?: 'light-purple' | 'light-blue' | 'teal' | 'transparent';
   cta: any;
-  items: any[];
+  /** CMS may omit the grid or `items` when not configured */
+  items?: any[];
 };
 
 export default function GenericCardsGrid({
@@ -22,7 +23,7 @@ export default function GenericCardsGrid({
   cta,
   variant,
   backgroundColor,
-  items,
+  items = [],
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
