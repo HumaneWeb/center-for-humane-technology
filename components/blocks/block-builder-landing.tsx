@@ -11,6 +11,11 @@ import ImageBlock from './image-block';
 import { FadeIn } from '../shared/fade-in';
 import ContentMarkdownBlock from './content-markdown-block';
 import ButtonsBlock from './buttons-block';
+import LogoGridBlock from './logo-grid-block';
+import NumberedListBlock from './numbered-list-block';
+import ContentCardContainerBlock from './content-card-container-block';
+import ContentCtaEmbedBlock from './content-cta-embed-block';
+import EmbedBlock from './embed-block';
 
 type Props = {
   components: {
@@ -33,6 +38,11 @@ const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
   ImageBlockRecord: ImageBlock,
   ContentMarkdownRecord: ContentMarkdownBlock,
   ButtonsBlockRecord: ButtonsBlock,
+  LogoGridRecord: LogoGridBlock,
+  NumberedListRecord: NumberedListBlock,
+  ContentCardContainerRecord: ContentCardContainerBlock,
+  ContentCtaEmbedRecord: ContentCtaEmbedBlock,
+  EmbedRecord: EmbedBlock,
 };
 
 const ExtraProps: Record<string, any> = {
@@ -61,11 +71,12 @@ const BlockBuilderLanding: React.FC<Props> = ({ components = [], variant = 'text
         }
 
         const extraProps = ExtraProps[__typename] || {};
+        const variantProps = __typename === 'LogoGridRecord' ? {} : globalVariantProps;
         if (typeof BlockComponent === 'function' || typeof BlockComponent === 'object') {
           return (
             <FadeIn key={id}>
               {/* @ts-ignore */}
-              <BlockComponent {...rest} {...extraProps} {...globalVariantProps} />
+              <BlockComponent {...rest} {...extraProps} {...variantProps} />
             </FadeIn>
           );
         }

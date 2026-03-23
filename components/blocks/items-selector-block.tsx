@@ -14,18 +14,22 @@ interface Item {
 }
 
 interface ItemSelectorProps {
-  items: Item[];
+  items?: Item[] | null;
 }
 
-export default function ItemSelector({ items }: ItemSelectorProps) {
-  const [selectedItem, setSelectedItem] = useState(items[0]);
+export default function ItemSelector({ items = [] }: ItemSelectorProps) {
+  const safeItems = items ?? [];
+  const [selectedItem, setSelectedItem] = useState<Item | undefined>(() => safeItems[0]);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [polygonPosition, setPolygonPosition] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const selectedIndex = items.findIndex((item) => item.id === selectedItem.id);
+    if (!selectedItem) {
+      return;
+    }
+    const selectedIndex = safeItems.findIndex((item) => item.id === selectedItem.id);
     const selectedElement = itemRefs.current[selectedIndex];
     const container = containerRef.current;
 
@@ -49,7 +53,11 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
         setPolygonPosition(itemCenter);
       }
     }
-  }, [selectedItem, items]);
+  }, [selectedItem, safeItems]);
+
+  if (safeItems.length === 0 || !selectedItem) {
+    return null;
+  }
 
   const handleItemClick = (item: Item) => {
     if (item.id === selectedItem.id) return;
@@ -82,7 +90,7 @@ export default function ItemSelector({ items }: ItemSelectorProps) {
           `}
         </style>
 
-        {items.map((item, index) => (
+        {safeItems.map((item, index) => (
           <div
             key={item.id}
             // @ts-ignore
