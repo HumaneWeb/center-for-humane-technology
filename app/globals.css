@@ -86,7 +86,7 @@ body {
 }
 
 @utility bg-path-forward-hero {
-  background: linear-gradient(116.42deg, #053235 12.898%, #207d83 87.884%);
+  background: linear-gradient(240deg, #5FCED6 0%, #016269 100%);
 }
 
 @utility bg-path-forward-light {

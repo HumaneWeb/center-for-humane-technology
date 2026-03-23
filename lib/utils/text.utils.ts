@@ -77,3 +77,37 @@ export function splitByH3(html: string): { heading: string; content: string }[] 
   }
   return sections;
 }
+
+export function getFirstParagraph(html: string): string {
+  const firstParagraphMatch = html.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
+  const paragraphHtml = firstParagraphMatch?.[1] ?? '';
+
+  const text = paragraphHtml
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&mdash;/gi, '—')
+    .replace(/&ndash;/gi, '–')
+    .replace(/&hellip;/gi, '...')
+    .replace(/&quot;/gi, '"')
+    .replace(/&apos;/gi, "'")
+    .replace(/&#39;/gi, "'")
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/\s+/g, ' ')
+    .replace(/&rsquo;/gi, "'")
+    .replace(/&lsquo;/gi, "'")
+    .trim();
+
+  return text;
+}
+
+export function getPrincipleAnchorId(title: string, index: number): string {
+  const slug = title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+  return `principle-${index}-${slug || 'item'}`;
+}

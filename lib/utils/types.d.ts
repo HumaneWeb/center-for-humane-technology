@@ -50,3 +50,27 @@ export interface SidebarItem {
   headline: string;
   sublinks: SidebarSubLink[];
 }
+
+export type PathForwardCmsData = {
+  title?: string | null;
+  introduction?: string | null;
+  introductionHighlight?: string | null;
+  introductionLabel?: string | null;
+  image?: { url?: string | null } | null;
+  principles?: Array<{
+    id: string;
+    title?: string | null;
+    introduction?: string | null;
+    content?: string | null;
+    image?: { url?: string | null } | null;
+  }> | null;
+  report?: { url?: string | null } | null;
+  signers?: Array<{
+    name?: string | null;
+    signerPosition?: string | null;
+    image?: { url?: string | null } | null;
+  }> | null;
+  systemIntroduction?: string | null;
+  systemIntroductionHighlight?: string | null;
+  systemLabel?: string | null;
+};

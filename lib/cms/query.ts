@@ -1030,41 +1030,39 @@ export const PathForwardQuery = graphql(
       page: pathForward {
         title
         introduction
-        introductionHighlight
         introductionLabel
-        image {
-          ...ImageFragment
-        }
         principles {
           id
           title
-          introduction
           content
           image {
+            ...ImageFragment
+          }
+          imageDetail {
             ...ImageFragment
           }
         }
         report {
           url
         }
-        signers {
-          id
-          name
-          signerPosition
-          image {
-            ...ImageFragment
-          }
-        }
         systemIntroduction
-        systemIntroductionHighlight
         systemLabel
         _seoMetaTags {
           ...TagFragment
         }
       }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
     }
   `,
-  [TagFragment, ImageFragment],
+  [TagFragment, ImageFragment, CTAFragment],
 );
 
 export const AreasOfWorkQuery = graphql(
