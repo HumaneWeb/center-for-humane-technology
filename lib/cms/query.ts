@@ -1257,7 +1257,7 @@ export const TeamAndBoardQuery = graphql(
         slug
         __typename
       }
-      supporters: allSupporters {
+      supporters: allSupporters(first: 100) {
         id
         internalTitle
         externalUrl
