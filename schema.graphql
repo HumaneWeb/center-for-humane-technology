@@ -1286,6 +1286,7 @@ type ContentBlockRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  contentColor: String
   hideBlock: BooleanType!
   id: ItemId!
   title: String

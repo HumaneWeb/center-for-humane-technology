@@ -65,6 +65,8 @@ export default async function LandingPage({ params }: PageSlug) {
                     backgroundColor === 'light-orange' && 'text-primary-navy mb:text-[61px]',
                     heroTextColor === 'light' && 'text-[#FFE7D8]',
                     heroTextColor === 'dark' && 'text-primary-navy',
+                    heroTextColor === 'teal' && 'text-primary-teal',
+                    heroTextColor === 'navy' && 'text-primary-navy',
                   )}
                 >
                   {title}
@@ -76,6 +78,8 @@ export default async function LandingPage({ params }: PageSlug) {
                     'tracking-039 mb:text-4xl font-sans text-[20px] leading-110 font-semibold',
                     heroTextColor === 'light' && 'text-[#FFE7D8]',
                     heroTextColor === 'dark' && 'text-primary-navy',
+                    heroTextColor === 'teal' && 'text-primary-teal',
+                    heroTextColor === 'navy' && 'text-primary-navy',
                   )}
                 >
                   {subheading}
@@ -88,6 +92,8 @@ export default async function LandingPage({ params }: PageSlug) {
                     'mb:my-12 mb:text-[25px] mx-auto my-5 max-w-[837px] font-sans text-xl leading-140 [&>p]:mb-3',
                     heroTextColor === 'light' && 'text-[#FFE7D8]',
                     heroTextColor === 'dark' && 'text-primary-navy',
+                    heroTextColor === 'teal' && 'text-primary-teal',
+                    heroTextColor === 'navy' && 'text-primary-navy',
                   )}
                 />
               )}
@@ -118,6 +124,8 @@ export default async function LandingPage({ params }: PageSlug) {
                     className={cn(
                       'text-neutral-white tracking-039 mb:text-[39px] mb:leading-110 mb:mb-9 mb-5 font-sans text-[23px] leading-120 font-semibold',
                       backgroundColor === 'light-orange' && 'text-primary-navy mb:text-[61px]',
+                      heroTextColor === 'teal' && 'text-primary-teal',
+                      heroTextColor === 'navy' && 'text-primary-navy',
                     )}
                   >
                     {title}
@@ -126,7 +134,7 @@ export default async function LandingPage({ params }: PageSlug) {
               )}
               {subheading && (
                 <FadeIn delay={0.35}>
-                  <h2 className={cn("text-neutral-white tracking-039 mb-8 font-sans text-4xl leading-110 font-semibold", backgroundColor === 'teal' && 'text-primary-navy')}>
+                  <h2 className={cn("text-neutral-white tracking-039 mb-8 font-sans text-4xl leading-110 font-semibold", backgroundColor === 'teal' && 'text-primary-navy', heroTextColor === 'teal' && 'text-primary-teal', heroTextColor === 'navy' && 'text-primary-navy')}>
                     {subheading}
                   </h2>
                 </FadeIn>
