@@ -1286,6 +1286,7 @@ type ContentBlockRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  contentColor: String
   hideBlock: BooleanType!
   id: ItemId!
   title: String
@@ -5347,12 +5348,7 @@ type PathForwardRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  image: FileField
   introduction(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
-  introductionHighlight(
     """Process content as markdown"""
     markdown: Boolean
   ): String
@@ -5360,12 +5356,7 @@ type PathForwardRecord implements RecordInterface {
   principles: [PrincipleRecord!]!
   report: FileField
   seo: SeoField
-  signers: [SignerRecord!]!
   systemIntroduction(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
-  systemIntroductionHighlight(
     """Process content as markdown"""
     markdown: Boolean
   ): String
@@ -5776,6 +5767,7 @@ type PrincipleRecord implements RecordInterface {
   ): String
   id: ItemId!
   image: FileField
+  imageDetail: FileField
   introduction: String
   title: String
 }

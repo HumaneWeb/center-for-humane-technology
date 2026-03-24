@@ -41,7 +41,7 @@ export default function NumberedListBlock({ listItems, isTextDark = false }: Pro
                   'numbered-list-block__item mb:gap-8 mb:py-10 flex gap-5 py-8 first:pt-0 last:pb-0',
                   /* ::before counter inherits `color` from the li — body default was leaving it navy */
                   !isTextDark && 'text-white/50',
-                  isTextDark && 'text-neutral-gray',
+                  isTextDark && 'text-primary-navy',
                 )}
               >
                 <div className="numbered-list-block__stack min-w-0 flex-1">
@@ -61,7 +61,7 @@ export default function NumberedListBlock({ listItems, isTextDark = false }: Pro
                         'numbered-list-block__body font-sans text-base leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0',
                         /* CMS HTML puts copy in <p>, <li>, nested headings, etc. — set color on descendants so it wins over body {} and Dato classes. */
                         isTextDark &&
-                          'text-neutral-medium-gray [&_p]:text-neutral-medium-gray [&_li]:text-neutral-medium-gray [&_strong]:text-primary-navy [&_a]:text-primary-teal',
+                          'text-primary-navy [&_p]:text-primary-navy [&_li]:text-primary-navy [&_strong]:text-primary-navy [&_a]:text-primary-teal',
                         !isTextDark &&
                           'text-neutral-white/85 [&_p]:text-neutral-white/85 [&_li]:text-neutral-white/85 [&_ul]:text-neutral-white/85 [&_ol]:text-neutral-white/85 [&_strong]:text-neutral-white [&_em]:text-neutral-white/90 [&_h1]:text-neutral-white [&_h2]:text-neutral-white [&_h3]:text-neutral-white [&_h4]:text-neutral-white [&_a]:text-secondary-light-teal [&_a]:underline',
                       )}
