@@ -100,6 +100,7 @@ export default async function LandingPage({ params }: PageSlug) {
         className={cn(
           'bg-landing-page pt-30 pb-10',
           backgroundColor === 'light-orange' && 'bg-landing-page-orange',
+          backgroundColor === 'teal' && 'bg-landing-page-teal',
           variant === 'with-hero-image' && 'mb:pt-15 pt-5',
         )}
       >
@@ -125,7 +126,7 @@ export default async function LandingPage({ params }: PageSlug) {
               )}
               {subheading && (
                 <FadeIn delay={0.35}>
-                  <h2 className="text-neutral-white tracking-039 font-sans text-4xl leading-110 font-semibold">
+                  <h2 className={cn("text-neutral-white tracking-039 mb-8 font-sans text-4xl leading-110 font-semibold", backgroundColor === 'teal' && 'text-primary-navy')}>
                     {subheading}
                   </h2>
                 </FadeIn>
@@ -135,7 +136,7 @@ export default async function LandingPage({ params }: PageSlug) {
 
           <BlockBuilderLanding
             components={blocks}
-            variant={backgroundColor === 'light-orange' ? 'text-dark' : 'text-default'}
+            variant={backgroundColor === 'light-orange' || backgroundColor === 'teal' ? 'text-dark' : 'text-default'}
           />
         </div>
       </div>

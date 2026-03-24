@@ -66,18 +66,22 @@ const ICON_MAP = {
   ),
 };
 
-export default function Cta({
-  label,
-  helperLabel,
-  extraClass,
-  labelExtraClass,
-  link,
-  externalUrl,
-  children,
-  variant = 'default',
-  icon,
-  onClick,
-}: CtaProps) {
+export default function Cta(props: CtaProps) {
+  const {
+    label,
+    helperLabel,
+    extraClass,
+    labelExtraClass,
+    link,
+    externalUrl,
+    children,
+    variant = 'default',
+    icon,
+    onClick,
+  } = props;
+
+  console.log(props);
+
   if (onClick) {
     return (
       <button

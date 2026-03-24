@@ -43,6 +43,10 @@
   --breakpoint-xl: 1450px;
 }
 
+html {
+  scroll-padding-top: 60px;
+}
+
 body {
   background: var(--color-neutral-white);
   color: var(--color-primary-navy);
@@ -169,6 +173,10 @@ body {
 
 @utility bg-landing-page-orange {
   background: linear-gradient(180deg, #ffdecb 0%, #fff 100%);
+}
+
+@utility bg-landing-page-teal {
+  background: linear-gradient(180deg, #68eeea 0%, #fff 100%);
 }
 
 @utility bg-landing-stats {

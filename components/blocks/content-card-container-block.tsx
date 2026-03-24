@@ -86,7 +86,7 @@ export default function ContentCardContainerBlock({
                     className={cn(
                       'mt-auto inline-flex w-full items-center justify-center rounded-lg border px-5 py-3.5 text-center font-sans text-base font-semibold text-inherit transition-colors duration-200',
                       isTextDark &&
-                        'border-neutral-light-gray hover:bg-neutral-light-gray/50',
+                        'border-neutral-light-gray hover:bg-neutral-light-gray/50 bg-secondary-light-teal hover:bg-primary-blue hover:text-neutral-white',
                       !isTextDark && 'border-white/35 hover:bg-white/10',
                     )}
                     {...(card.button.link.startsWith('http://') ||
