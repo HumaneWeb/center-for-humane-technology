@@ -155,7 +155,7 @@ export default async function TeamListPage() {
         </section>
       </div>
 
-      <div className="bg-primary-teal/[0.06] mb:pt-24 mb:pb-28 pt-8 pb-15">
+      {/* <div className="bg-primary-teal/[0.06] mb:pt-24 mb:pb-28 pt-8 pb-15">
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <h2 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-12 mb-5 font-sans text-[29px] leading-120 font-semibold">
@@ -191,7 +191,7 @@ export default async function TeamListPage() {
             </div>
           </FadeIn>
         </section>
-      </div>
+      </div> */}
 
       <DonateBlock
         title={configuration?.donateTitle}
