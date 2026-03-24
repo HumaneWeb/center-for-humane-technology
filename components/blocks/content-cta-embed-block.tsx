@@ -19,6 +19,9 @@ type ContentItem =
       id: string;
       title: string;
       content: string;
+      contentColor?: string | null;
+      disableMarginBottom?: boolean | null;
+      fontSize?: string | null;
       hideBlock?: boolean | null;
     }
   | {
@@ -65,7 +68,15 @@ function renderContentItem(block: ContentItem, isTextDark: boolean | undefined) 
         return null;
       }
       return (
-        <ContentBlock title={block.title} content={block.content} isTextDark={isTextDark} align="left" />
+        <ContentBlock
+          title={block.title}
+          content={block.content}
+          isTextDark={isTextDark}
+          contentColor={block.contentColor}
+          disableMarginBottom={block.disableMarginBottom}
+          fontSize={block.fontSize}
+          align="left"
+        />
       );
     case 'ContentMarkdownRecord':
       return (
