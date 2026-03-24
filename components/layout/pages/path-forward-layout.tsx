@@ -173,12 +173,12 @@ function ScrollingZoneVector({
 }
 
 const PRINCIPLE_DETAIL_IMAGE_SIZES: Record<number, { width: string; height: string }> = {
-  1: { width: '292px', height: '104px' },
+  1: { width: '248.262px', height: '144.752px' },
   2: { width: '203px', height: '269px' },
-  3: { width: '199px', height: '258px' },
-  4: { width: '234px', height: '236px' },
-  5: { width: '183px', height: '348px' },
-  7: { width: '248.262px', height: '144.752px' },
+  3: { width: '183px', height: '348px' },
+  4: { width: '199px', height: '258px' },
+  5: { width: '234px', height: '236px' },
+  6: { width: '292px', height: '104px' },
 };
 
 function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex: number }) {
