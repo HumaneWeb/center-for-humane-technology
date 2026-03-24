@@ -2238,3 +2238,24 @@ export const SitemapQuery = graphql(`
     }
   }
 `);
+
+export const BannerQuery = graphql(`
+  query BannerQuery {
+    banner {
+      _updatedAt
+      enabled
+      delay
+      headline
+      text(markdown: true)
+      linkUrl
+      photo {
+        id
+        url
+        alt
+        width
+        height
+        title
+      }
+    }
+  }
+`);

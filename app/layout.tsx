@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { GoogleTagManager } from '@next/third-parties/google';
 import CookieConsent from '@/components/shared/cookie-consent';
+import BannerPopupServer from '@/components/shared/banner-popup-server';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -92,6 +93,7 @@ export default function RootLayout({
         <SpeedInsights />
         <Analytics />
         <CookieConsent />
+        <BannerPopupServer />
         <Script src="https://js.supascribe.com/v1/loader/0PyjPA3c4Cew9C80vN0BMFKcpWn1.js" />
       </body>
     </html>
