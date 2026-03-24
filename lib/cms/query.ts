@@ -682,6 +682,8 @@ export const ContentBlockFragment = graphql(`
     title
     content
     contentColor
+    disableMarginBottom
+    fontSize
     hideBlock
   }
 `);
