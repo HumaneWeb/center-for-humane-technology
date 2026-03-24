@@ -122,7 +122,7 @@ export default async function LandingPage({ params }: PageSlug) {
                 <FadeIn delay={0.35}>
                   <h1
                     className={cn(
-                      'text-neutral-white tracking-039 mb:text-[39px] mb:leading-110 mb:mb-9 mb-5 font-sans text-[23px] leading-120 font-semibold',
+                      'text-center text-neutral-white tracking-039 mb:text-[39px] mb:leading-110 mb:mb-9 mb-5 font-sans text-[23px] leading-120 font-semibold',
                       backgroundColor === 'light-orange' && 'text-primary-navy mb:text-[61px]',
                       heroTextColor === 'teal' && 'text-primary-teal',
                       heroTextColor === 'navy' && 'text-primary-navy',
@@ -134,7 +134,7 @@ export default async function LandingPage({ params }: PageSlug) {
               )}
               {subheading && (
                 <FadeIn delay={0.35}>
-                  <h2 className={cn("text-neutral-white tracking-039 mb-8 font-sans text-4xl leading-110 font-semibold", backgroundColor === 'teal' && 'text-primary-navy', heroTextColor === 'teal' && 'text-primary-teal', heroTextColor === 'navy' && 'text-primary-navy')}>
+                  <h2 className={cn("text-center text-neutral-white tracking-039 mb-8 font-sans text-4xl leading-110 font-semibold", backgroundColor === 'teal' && 'text-primary-navy', heroTextColor === 'teal' && 'text-primary-teal', heroTextColor === 'navy' && 'text-primary-navy')}>
                     {subheading}
                   </h2>
                 </FadeIn>
