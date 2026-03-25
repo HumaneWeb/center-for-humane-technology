@@ -186,7 +186,7 @@ export default function ContentCtaEmbedBlock({
   }
 
   return (
-    <section className={cn('my-36', sectionText)}>
+    <section className={cn('my-20', sectionText)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-start">
           <div className="flex min-w-0 flex-col gap-8 [&>*]:!my-0">
