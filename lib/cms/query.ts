@@ -1959,6 +1959,7 @@ export const LandingPageQuery = graphql(
         introduction
         variant
         backgroundColor
+        hideSubstackFooter
         heroTextColor
         heroBackgroundImage {
           ...ImageFragment

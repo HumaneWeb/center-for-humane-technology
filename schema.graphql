@@ -4872,6 +4872,7 @@ input LandingModelFilter {
   backgroundColor: StringFilter
   heroBackgroundImage: FileFilter
   heroTextColor: StringFilter
+  hideSubstackFooter: BooleanFilter
   internalTitle: StringFilter
   introduction: TextFilter
   logo: FileFilter
@@ -4907,6 +4908,8 @@ enum LandingModelOrderBy {
   backgroundColor_DESC
   heroTextColor_ASC
   heroTextColor_DESC
+  hideSubstackFooter_ASC
+  hideSubstackFooter_DESC
   internalTitle_ASC
   internalTitle_DESC
   subheading_ASC
@@ -4941,6 +4944,7 @@ type LandingRecord implements RecordInterface {
   blocks: [LandingModelBlocksField!]!
   heroBackgroundImage: FileField
   heroTextColor: String
+  hideSubstackFooter: BooleanType!
   id: ItemId!
   internalTitle: String!
   introduction(

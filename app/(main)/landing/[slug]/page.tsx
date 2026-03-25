@@ -38,6 +38,7 @@ export default async function LandingPage({ params }: PageSlug) {
     introduction,
     variant,
     backgroundColor,
+    hideSubstackFooter,
     heroTextColor,
     heroBackgroundImage,
     blocks,
@@ -150,7 +151,9 @@ export default async function LandingPage({ params }: PageSlug) {
         </div>
       </div>
 
-      <NewsletterBlock title={newsletterTitle} introduction={newsletterIntroduction} />
+      {!hideSubstackFooter && (
+        <NewsletterBlock title={newsletterTitle} introduction={newsletterIntroduction} />
+      )}
       <DonateBlock title={donateTitle} cta={donateCta} image={donateImage} />
     </>
   );
