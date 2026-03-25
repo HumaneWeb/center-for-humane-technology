@@ -15,6 +15,7 @@ type Props = {
   cards: ContentCard[];
   /** When true, dark text on light surfaces (matches `ContentBlock` / landing `text-dark` variant). */
   isTextDark?: boolean;
+  invertPrimaryButtons?: boolean;
 };
 
 function gridColsClass(n: number): string {
@@ -34,6 +35,7 @@ export default function ContentCardContainerBlock({
   columns,
   cards,
   isTextDark = false,
+  invertPrimaryButtons = false,
 }: Props) {
   if (!cards?.length) {
     return null;
@@ -86,7 +88,11 @@ export default function ContentCardContainerBlock({
                     className={cn(
                       'mt-auto inline-flex w-full items-center justify-center rounded-lg border px-5 py-3.5 text-center font-sans text-base font-semibold text-inherit transition-colors duration-200',
                       isTextDark &&
+                        !invertPrimaryButtons &&
                         'border-neutral-light-gray hover:bg-neutral-light-gray/50 bg-secondary-light-teal hover:bg-primary-blue hover:text-neutral-white',
+                      isTextDark &&
+                        invertPrimaryButtons &&
+                        'border-neutral-light-gray bg-primary-blue text-neutral-white hover:bg-secondary-light-teal hover:text-primary-navy',
                       !isTextDark && 'border-white/35 hover:bg-white/10',
                     )}
                     {...(card.button.link.startsWith('http://') ||

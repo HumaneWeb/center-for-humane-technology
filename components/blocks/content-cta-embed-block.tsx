@@ -59,9 +59,14 @@ type Props = {
   content: ContentItem[] | null | undefined;
   embed: EmbedPayload;
   isTextDark?: boolean;
+  invertPrimaryButtons?: boolean;
 };
 
-function renderContentItem(block: ContentItem, isTextDark: boolean | undefined) {
+function renderContentItem(
+  block: ContentItem,
+  isTextDark: boolean | undefined,
+  invertPrimaryButtons?: boolean,
+) {
   switch (block.__typename) {
     case 'ContentBlockRecord':
       if (block.hideBlock) {
@@ -99,7 +104,13 @@ function renderContentItem(block: ContentItem, isTextDark: boolean | undefined) 
       );
     case 'ButtonsBlockRecord':
       return (
-        <ButtonsBlock id={block.id} alignment={block.alignment} buttons={block.buttons} isInner />
+        <ButtonsBlock
+          id={block.id}
+          alignment={block.alignment}
+          buttons={block.buttons}
+          isInner
+          invertPrimaryButtons={invertPrimaryButtons}
+        />
       );
     case 'AccordionBlockRecord':
       if (block.hideBlock) {
@@ -131,7 +142,12 @@ function EmbedPanel({ snippet }: { snippet: string }) {
 }
 
 /** Landing modular block: copy/modules on the left, raw embed (e.g. HubSpot) on the right. */
-export default function ContentCtaEmbedBlock({ content, embed, isTextDark }: Props) {
+export default function ContentCtaEmbedBlock({
+  content,
+  embed,
+  isTextDark,
+  invertPrimaryButtons,
+}: Props) {
   const items = content ?? [];
   const snippet = embed?.snippet?.trim() ?? '';
   const hasLeft = items.length > 0;
@@ -159,7 +175,9 @@ export default function ContentCtaEmbedBlock({ content, embed, isTextDark }: Pro
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 flex-col gap-8 [&>*]:!my-0">
             {items.map((block) => (
-              <div key={block.id}>{renderContentItem(block, isTextDark)}</div>
+              <div key={block.id}>
+                {renderContentItem(block, isTextDark, invertPrimaryButtons)}
+              </div>
             ))}
           </div>
         </div>
@@ -173,7 +191,9 @@ export default function ContentCtaEmbedBlock({ content, embed, isTextDark }: Pro
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-start">
           <div className="flex min-w-0 flex-col gap-8 [&>*]:!my-0">
             {items.map((block) => (
-              <div key={block.id}>{renderContentItem(block, isTextDark)}</div>
+              <div key={block.id}>
+                {renderContentItem(block, isTextDark, invertPrimaryButtons)}
+              </div>
             ))}
           </div>
           <EmbedPanel snippet={snippet} />

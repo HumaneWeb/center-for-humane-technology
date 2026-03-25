@@ -145,6 +145,7 @@ export default async function LandingPage({ params }: PageSlug) {
           <BlockBuilderLanding
             components={blocks}
             variant={backgroundColor === 'light-orange' || backgroundColor === 'teal' ? 'text-dark' : 'text-default'}
+            invertPrimaryButtons={backgroundColor === 'light-orange'}
           />
         </div>
       </div>

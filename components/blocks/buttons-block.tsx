@@ -7,9 +7,15 @@ type Props = {
   alignment?: string | null;
   buttons: ButtonBlockProps[];
   isInner?: boolean;
+  invertPrimaryButtons?: boolean;
 };
 
-export default function ButtonsBlock({ alignment, buttons, isInner = false }: Props) {
+export default function ButtonsBlock({
+  alignment,
+  buttons,
+  isInner = false,
+  invertPrimaryButtons,
+}: Props) {
 
   // Bail early if no buttons
   if (!buttons || buttons.length === 0) {
@@ -28,7 +34,7 @@ export default function ButtonsBlock({ alignment, buttons, isInner = false }: Pr
       <FadeIn>
         <div className={cn('flex flex-wrap items-center gap-4', alignmentClass)}>
           {buttons.map((button) => (
-            <ButtonBlock key={button.id} {...button} />
+            <ButtonBlock key={button.id} {...button} invertPrimaryButtons={invertPrimaryButtons} />
           ))}
         </div>
       </FadeIn>
@@ -42,7 +48,7 @@ export default function ButtonsBlock({ alignment, buttons, isInner = false }: Pr
         <FadeIn>
           <div className={cn('flex flex-wrap items-center gap-4', alignmentClass)}>
             {buttons.map((button) => (
-              <ButtonBlock key={button.id} {...button} />
+              <ButtonBlock key={button.id} {...button} invertPrimaryButtons={invertPrimaryButtons} />
             ))}
           </div>
         </FadeIn>
