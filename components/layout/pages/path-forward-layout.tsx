@@ -1,7 +1,7 @@
 'use client';
 
 import { FadeIn } from '@/components/shared/fade-in';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { PrincipleIcon } from '@/components/shared/principle-icon';
 import { mapRawPrincipleToPillar, type Pillar } from '@/lib/utils/path-forward.utils';
@@ -9,6 +9,7 @@ import BasicHero from '../basic-hero';
 import { PathForwardCmsData } from '@/lib/utils/types';
 import { getFirstParagraph, getPrincipleAnchorId } from '@/lib/utils/text.utils';
 import { SubstackNewsletterWidget } from '@/components/blocks/newsletter-block';
+import useIsMobile from '@/components/hooks/is-mobile';
 
 type PathForwardLayoutProps = { data: PathForwardCmsData | null };
 
@@ -188,6 +189,16 @@ function ScrollingZoneVector({
   const r5 = useTransform(scrollYProgress, [0.45, 0.54], [1, 0]);
   const r6 = useTransform(scrollYProgress, [0.54, 0.63], [1, 0]);
   const ringOpacities = [r0, r1, r2, r3, r4, r5, r6];
+
+  const isMobile = useIsMobile({ breakpoint: 1450 });
+  const [isVisible, setIsVisible] = useState(true);
+  useEffect(() => {
+    if (isMobile) {
+      setIsVisible(false);
+    }
+  }, [isMobile]);
+
+  if (!isVisible) return null;
 
   return (
     <div className="mb:block pointer-events-none absolute inset-0 z-10 hidden pt-[47px] pb-[47px]">
