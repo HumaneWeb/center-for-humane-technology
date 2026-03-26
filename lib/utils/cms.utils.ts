@@ -94,6 +94,7 @@ const PREVIEW_CMS_MODELS_ROUTE_MAP = {
   toolkit_list: '',
   donate: '',
   contact: '',
+  path_forward: '',
 } as const;
 type PreviewCmsModelKey = keyof typeof PREVIEW_CMS_MODELS_ROUTE_MAP;
 
