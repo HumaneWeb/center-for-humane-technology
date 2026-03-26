@@ -13,7 +13,7 @@ import { SubstackNewsletterWidget } from '@/components/blocks/newsletter-block';
 type PathForwardLayoutProps = { data: PathForwardCmsData | null };
 
 //#F8F4EF
-const PRINCIPLE_ZONE_BGS = ['#E2F9FB', '#F0F7F7', '#F6F1EB'] as const;
+const PRINCIPLE_ZONE_BGS = ['#E2F9FB', '#ECF6F5', '#F6F1EB'] as const;
 
 export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutProps) {
   if (!dataProp) return null;
