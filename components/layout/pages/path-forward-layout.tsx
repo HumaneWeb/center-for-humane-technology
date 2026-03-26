@@ -5,11 +5,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { PrincipleIcon } from '@/components/shared/principle-icon';
 import { mapRawPrincipleToPillar, type Pillar } from '@/lib/utils/path-forward.utils';
-import BasicHero from '../basic-hero';
 import { PathForwardCmsData } from '@/lib/utils/types';
 import { getFirstParagraph, getPrincipleAnchorId } from '@/lib/utils/text.utils';
 import { SubstackNewsletterWidget } from '@/components/blocks/newsletter-block';
 import useIsMobile from '@/components/hooks/is-mobile';
+import ComplexHero from '../complex-hero';
 
 type PathForwardLayoutProps = { data: PathForwardCmsData | null };
 
@@ -28,7 +28,8 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
 
   return (
     <div>
-      <BasicHero title={data.title ?? null} preTitle={data.introductionLabel} variant="green" />
+      {/* @ts-ignore */}
+      <ComplexHero title={data.title!} preTitle={data.introductionLabel!} image={data.heroImage!} variant="green-ai" />
       <IntroSection introduction={data.introduction ?? ''} reportUrl={data.report?.url} downloadLabel={data.downloadLabel ?? ''} />
       <PrinciplesOverview principles={principles} />
       <div ref={zonesRef} className="relative">
@@ -265,8 +266,8 @@ function ScrollingZoneVector({
 const PRINCIPLE_DETAIL_IMAGE_SIZES: Record<number, { width: string; height: string }> = {
   1: { width: '289px', height: '281px' },
   2: { width: '203px', height: '269px' },
-  3: { width: '222px', height: '368px' },
-  4: { width: '325px', height: '190px' },
+  3: { width: '325px', height: '190px' },
+  4: { width: '222px', height: '368px' },
   5: { width: '299px', height: '313px' },
   6: { width: '378px', height: '222px' },
   7: { width: '371px', height: '273px' },

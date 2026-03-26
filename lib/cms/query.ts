@@ -1156,6 +1156,9 @@ export const PathForwardQuery = graphql(
         introduction
         introductionLabel
         downloadLabel
+        heroImage {
+          ...ImageFragment
+        }
         principles {
           id
           title

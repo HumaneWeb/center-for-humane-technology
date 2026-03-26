@@ -12,23 +12,7 @@ type CmsModelKey = keyof typeof CMS_MODELS_ROUTE_MAP;
 
 export type LinkType = {
   externalUrl?: string;
-  content: {
-    __typename: string;
-    basicPageSlug?: string | null;
-    podcastListSlug?: string | null;
-    podcastSlug?: string | null;
-    teamBoardSlug?: string | null;
-    landingSlug?: string | null;
-    donateSlug?: string | null;
-    contactSlug?: string | null;
-    caseStudySlug?: string | null;
-    caseStudiesListSlug?: string | null;
-    blogListSlug?: string | null;
-    toolkitSlug?: string | null;
-    aiInSocietySlug?: string | null;
-    careersListSlug?: string | null;
-    areasOfWorkSlug?: string | null;
-  };
+  content: { __typename: string; slug: string };
 };
 
 export const getLinkCmsUrl = (rawLink: LinkType) => {
@@ -45,23 +29,8 @@ export const getLinkCmsUrl = (rawLink: LinkType) => {
     };
   }
 
-  const __typename = content?.__typename;
-  const slug =
-    content?.basicPageSlug ??
-    content?.podcastListSlug ??
-    content?.podcastSlug ??
-    content?.teamBoardSlug ??
-    content?.landingSlug ??
-    content?.donateSlug ??
-    content?.contactSlug ??
-    content?.caseStudySlug ??
-    content?.caseStudiesListSlug ??
-    content?.blogListSlug ??
-    content?.toolkitSlug ??
-    content?.aiInSocietySlug ??
-    content?.careersListSlug ??
-    content?.areasOfWorkSlug ??
-    '';
+  const { __typename, slug } = content || {};
+
   if (__typename in CMS_MODELS_ROUTE_MAP) {
     return {
       external: false,

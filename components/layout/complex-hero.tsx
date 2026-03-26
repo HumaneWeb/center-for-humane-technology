@@ -11,7 +11,7 @@ type Props = {
   introduction: string;
   image: CustomImageProps;
   mobileImage?: CustomImageProps;
-  variant: 'blue' | 'light-blue' | 'green' | 'purple';
+  variant: 'blue' | 'light-blue' | 'green' | 'purple' | 'green-ai';
 };
 
 export default function ComplexHero({
@@ -32,6 +32,7 @@ export default function ComplexHero({
         variant === 'light-blue' && 'bg-complex-hero-light-blue',
         variant === 'green' && 'bg-complex-hero-green',
         variant === 'purple' && 'bg-complex-hero-purple',
+        variant === 'green-ai' && 'bg-path-forward-hero',
       )}
     >
       <FadeIn
@@ -43,7 +44,10 @@ export default function ComplexHero({
           backgroundImage: isMobile ? 'none' : `url(${image?.url})`,
         }}
       >
-        <div className="complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8">
+        <div className={cn(
+          "complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8",
+          variant === 'green-ai' && 'mb:pt-52 mb:pb-14 pt-35 pb-8 mb:h-auto',
+        )}>
           <div className="max-w-[750px]">
             {preTitle && (
               <FadeIn delay={0.3}>
@@ -51,6 +55,7 @@ export default function ComplexHero({
                   className={cn(
                     'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
                     variant === 'green' && 'text-[#ACFFFC]',
+                    variant === 'green-ai' && 'text-[#ACFFFC] mb:mb-5 mb-2',
                   )}
                 >
                   {preTitle}

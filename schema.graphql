@@ -5359,6 +5359,7 @@ type PathForwardRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  heroImage: FileField
   id: ItemId!
   introduction(
     """Process content as markdown"""

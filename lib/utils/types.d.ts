@@ -57,6 +57,7 @@ export type PathForwardCmsData = {
   introductionHighlight?: string | null;
   introductionLabel?: string | null;
   image?: { url?: string | null } | null;
+  heroImage?: { url?: string | null } | null;
   principles?: Array<{
     id: string;
     title?: string | null;
