@@ -122,7 +122,7 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
             summarySrc={pillar.image}
             detailSrc={pillar.imageDetail}
             alt={pillar.title}
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105 mb:object-contain"
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105 mb:object-contain sm:p-3 p-0"
           />
         </div>
         <div className="flex flex-col gap-[10px] text-center sm:text-left">
