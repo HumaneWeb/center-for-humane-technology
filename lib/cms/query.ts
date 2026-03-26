@@ -1155,6 +1155,7 @@ export const PathForwardQuery = graphql(
         title
         introduction
         introductionLabel
+        downloadLabel
         principles {
           id
           title

@@ -5354,6 +5354,7 @@ type PathForwardRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  downloadLabel: String
   formText(
     """Process content as markdown"""
     markdown: Boolean

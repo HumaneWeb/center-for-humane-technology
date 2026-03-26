@@ -29,7 +29,7 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
   return (
     <div>
       <BasicHero title={data.title ?? null} preTitle={data.introductionLabel} variant="green" />
-      <IntroSection introduction={data.introduction ?? ''} reportUrl={data.report?.url} />
+      <IntroSection introduction={data.introduction ?? ''} reportUrl={data.report?.url} downloadLabel={data.downloadLabel ?? ''} />
       <PrinciplesOverview principles={principles} />
       <div ref={zonesRef} className="relative">
         <ScrollingZoneVector containerRef={zonesRef} />
@@ -42,6 +42,7 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
         introduction={data.systemIntroduction ?? ''}
         reportUrl={data.report?.url}
         formText={data.formText ?? ''}
+        downloadLabel={data.downloadLabel ?? ''}
       />
     </div>
   );
@@ -50,9 +51,11 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
 function IntroSection({
   introduction,
   reportUrl,
+  downloadLabel,
 }: {
   introduction: string;
   reportUrl?: string | null;
+  downloadLabel?: string | null;
 }) {
   return (
     <section className="mb:py-[80px] bg-white py-12">
@@ -70,7 +73,7 @@ function IntroSection({
                 href={reportUrl}
                 className="bg-secondary-light-teal text-primary-navy inline-flex w-fit items-center justify-center rounded-[5px] px-5 py-[15px] font-sans text-[20px] leading-120 font-semibold transition-colors hover:bg-[#8df5fc]"
               >
-                Download the report
+                {downloadLabel}
               </a>
             </FadeIn>
           )}
@@ -193,6 +196,7 @@ function ScrollingZoneVector({
 
   const isMobile = useIsMobile({ breakpoint: 1450 });
   const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
     if (isMobile) {
       setIsVisible(false);
@@ -358,12 +362,14 @@ function HowChangeHappens({
   label,
   introduction,
   reportUrl,
-  formText
+  formText,
+  downloadLabel,
 }: {
   label: string;
   introduction: string;
   reportUrl?: string | null;
   formText?: string | null;
+  downloadLabel?: string | null;
 }) {
   return (
     <section className="mb:py-[60px] bg-white py-8 sm:py-12 md:mb:py-[100px]">
@@ -385,7 +391,7 @@ function HowChangeHappens({
                   href={reportUrl}
                   className="bg-secondary-light-teal text-primary-navy inline-flex w-fit items-center justify-center rounded-[5px] px-4 py-3 font-sans text-[18px] sm:px-5 sm:py-[15px] sm:text-[20px] leading-120 font-semibold transition-colors hover:bg-[#8df5fc]"
                 >
-                  Download the report
+                  {downloadLabel}
                 </a>
               )}
             </div>
@@ -445,3 +451,7 @@ function ChevronUp() {
   );
 }
 
+
+function TestVector() {
+  return <></>
+}
