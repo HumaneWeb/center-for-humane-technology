@@ -114,14 +114,14 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
         href={`#${anchorId}`}
         className="group flex flex-col items-center gap-8 sm:items-start sm:gap-[30px]"
       >
-        <div className="aspect-square w-[200px] max-w-full overflow-hidden rounded-full bg-[#FFBD89]/20 p-4 sm:p-5 mb:size-[242px]">
+        <div className="aspect-square w-[200px] max-w-full overflow-hidden rounded-full bg-[#FFBD89]/20 p-10 sm:p-5 mb:size-[242px]">
           <PrincipleIcon
             kind="summary"
             variant={pillar.imageVariant}
             summarySrc={pillar.image}
             detailSrc={pillar.imageDetail}
             alt={pillar.title}
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105 mb:object-none"
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105 mb:object-contain"
           />
         </div>
         <div className="flex flex-col gap-[10px] text-center sm:text-left">
