@@ -1172,6 +1172,7 @@ export const PathForwardQuery = graphql(
         }
         systemIntroduction
         systemLabel
+        formText
         _seoMetaTags {
           ...TagFragment
         }

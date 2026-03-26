@@ -41,6 +41,7 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
         label={data.systemLabel ?? ''}
         introduction={data.systemIntroduction ?? ''}
         reportUrl={data.report?.url}
+        formText={data.formText ?? ''}
       />
     </div>
   );
@@ -357,10 +358,12 @@ function HowChangeHappens({
   label,
   introduction,
   reportUrl,
+  formText
 }: {
   label: string;
   introduction: string;
   reportUrl?: string | null;
+  formText?: string | null;
 }) {
   return (
     <section className="mb:py-[60px] bg-white py-8 sm:py-12 md:mb:py-[100px]">
@@ -389,7 +392,7 @@ function HowChangeHappens({
 
             <div className="bg-[#F3F0FF] p-6 sm:p-8 md:p-10 mt-4 md:mt-0">
               <p className="text-primary-navy font-sans text-[16px] leading-140 mb-7 sm:text-[18px] sm:mb:text-[22px]">
-                Stay up to date on the latest with AI and what you can do to be a part of the change.
+                {formText}
               </p>
               <SubstackNewsletterWidget />
             </div>
