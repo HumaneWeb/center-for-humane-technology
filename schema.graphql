@@ -380,6 +380,7 @@ type BannerRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   delay: IntType
+  dismissedDuration: IntType
   enabled: BooleanType!
   headline: String
   id: ItemId!
@@ -5774,6 +5775,7 @@ type PrincipleRecord implements RecordInterface {
   id: ItemId!
   image: FileField
   imageDetail: FileField
+  imageVariant: String
   introduction: String
   title: String
 }

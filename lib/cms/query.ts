@@ -2246,6 +2246,7 @@ export const BannerQuery = graphql(`
       _updatedAt
       enabled
       delay
+      dismissedDuration
       headline
       text(markdown: true)
       linkUrl

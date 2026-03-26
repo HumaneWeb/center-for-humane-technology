@@ -17,7 +17,9 @@ type Props = {
 };
 
 export const BANNER_DISMISSED_COOKIE = 'banner_dismissed';
-const DISMISS_DAYS = 30;
+
+/** Hours when CMS omits dismissedDuration */
+const DEFAULT_DISMISSED_DURATION_HOURS = 24;
 
 export default function BannerPopup({ banner }: Props) {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,8 +42,10 @@ export default function BannerPopup({ banner }: Props) {
   }, [banner._updatedAt, banner.delay, banner.enabled, searchParams]);
 
   const handleClose = () => {
+    const hours =
+      banner.dismissedDuration ?? DEFAULT_DISMISSED_DURATION_HOURS;
     const expires = new Date();
-    expires.setDate(expires.getDate() + DISMISS_DAYS);
+    expires.setTime(expires.getTime() + hours * 60 * 60 * 1000);
     document.cookie = `${BANNER_DISMISSED_COOKIE}=${banner._updatedAt}; path=/; expires=${expires.toUTCString()}; SameSite=Lax`;
     setIsVisible(false);
   };
