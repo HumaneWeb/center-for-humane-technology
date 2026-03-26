@@ -97,6 +97,8 @@ export function getFirstParagraph(html: string): string {
     .replace(/\s+/g, ' ')
     .replace(/&rsquo;/gi, "'")
     .replace(/&lsquo;/gi, "'")
+    .replace(/&ldquo;/gi, '“')
+    .replace(/&rdquo;/gi, '”')
     .trim();
 
   return text;

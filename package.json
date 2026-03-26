@@ -31,6 +31,7 @@
     "motion": "^12.15.0",
     "next": "15.4.8",
     "next-hubspot": "^2.0.0",
+    "p5": "2.2.3",
     "react": "^19.0.0",
     "react-datocms": "^7.2.2",
     "react-dom": "^19.0.0",

@@ -1159,6 +1159,7 @@ export const PathForwardQuery = graphql(
           id
           title
           content
+          imageVariant
           image {
             ...ImageFragment
           }

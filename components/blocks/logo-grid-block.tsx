@@ -68,10 +68,12 @@ export default function LogoGridBlock({ columns = 4, logos }: Props) {
   const desktopCols = DESKTOP_COLS[columns ?? 4] ?? 'lg:grid-cols-4';
 
   return (
-    <section className="py-10 mb:py-16">
+    <section className="mb:py-16 py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
-          <div className={cn('grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:gap-8', desktopCols)}>
+          <div
+            className={cn('grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:gap-8', desktopCols)}
+          >
             {list.map((item) =>
               item.linkUrl ? (
                 <Link

@@ -62,7 +62,9 @@ export type PathForwardCmsData = {
     title?: string | null;
     introduction?: string | null;
     content?: string | null;
+    imageVariant?: string | null;
     image?: { url?: string | null } | null;
+    imageDetail?: { url?: string | null } | null;
   }> | null;
   report?: { url?: string | null } | null;
   signers?: Array<{

@@ -29,15 +29,15 @@ export default function ContentMarkdownBlock({ content, isTextDark, align = 'cen
           '[&>h3]:mb:text-[25px] [&>h3]:mb:mb-5 [&>h3]:mb-3 [&>h3]:font-sans [&>h3]:text-[18px] [&>h3]:leading-130 [&>h3]:font-semibold',
           isLeft ? '[&>h3]:text-left' : '[&>h3]:text-center',
           isLeft
-            ? '[&>ul]:list-disc [&>ul]:pl-10 [&>ul]:mx-0 [&>ul]:max-w-none [&>ul>li]:mb-3 [&>ul>li]:text-left'
-            : '[&>ul]:list-disc [&>ul]:pl-10 [&>ul]:mx-auto [&>ul]:max-w-fit [&>ul>li]:mb-3 [&>ul>li]:text-left',
+            ? '[&>ul]:mx-0 [&>ul]:max-w-none [&>ul]:list-disc [&>ul]:pl-10 [&>ul>li]:mb-3 [&>ul>li]:text-left'
+            : '[&>ul]:mx-auto [&>ul]:max-w-fit [&>ul]:list-disc [&>ul]:pl-10 [&>ul>li]:mb-3 [&>ul>li]:text-left',
           isLeft
-            ? '[&>ol]:list-decimal [&>ol]:pl-10 [&>ol]:mx-0 [&>ol]:max-w-none [&>ol>li]:mb-3 [&>ol>li]:text-left'
-            : '[&>ol]:list-decimal [&>ol]:pl-10 [&>ol]:mx-auto [&>ol]:max-w-fit [&>ol>li]:mb-3 [&>ol>li]:text-left',
+            ? '[&>ol]:mx-0 [&>ol]:max-w-none [&>ol]:list-decimal [&>ol]:pl-10 [&>ol>li]:mb-3 [&>ol>li]:text-left'
+            : '[&>ol]:mx-auto [&>ol]:max-w-fit [&>ol]:list-decimal [&>ol]:pl-10 [&>ol>li]:mb-3 [&>ol>li]:text-left',
           '[&_a]:font-semibold [&_a]:underline [&_a]:hover:opacity-80',
-          '[&>blockquote]:border-l-4 [&>blockquote]:border-primary-blue [&>blockquote]:pl-5 [&>blockquote]:italic [&>blockquote]:my-6',
-          '[&>code]:bg-gray-100 [&>code]:px-2 [&>code]:py-1 [&>code]:rounded [&>code]:text-sm',
-          '[&>pre]:bg-gray-100 [&>pre]:p-4 [&>pre]:rounded [&>pre]:overflow-x-auto [&>pre]:text-left [&>pre]:my-4',
+          '[&>blockquote]:border-primary-blue [&>blockquote]:my-6 [&>blockquote]:border-l-4 [&>blockquote]:pl-5 [&>blockquote]:italic',
+          '[&>code]:rounded [&>code]:bg-gray-100 [&>code]:px-2 [&>code]:py-1 [&>code]:text-sm',
+          '[&>pre]:my-4 [&>pre]:overflow-x-auto [&>pre]:rounded [&>pre]:bg-gray-100 [&>pre]:p-4 [&>pre]:text-left',
           '[&>pre>code]:bg-transparent [&>pre>code]:p-0',
           isTextDark && 'text-primary-navy',
         )}

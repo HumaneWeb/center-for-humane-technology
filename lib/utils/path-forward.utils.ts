@@ -1,5 +1,14 @@
 import { extractParagraphsFromHtml } from './text.utils';
 
+export type ImageVariant =
+  | 'glass'
+  | 'rules'
+  | 'hooks'
+  | 'hand-brain'
+  | 'justice'
+  | 'missile'
+  | 'hand-chart';
+
 /** Safely get URL from DatoCMS FileField (object with url) or string. */
 function getUrl(field: unknown): string | undefined {
   if (field == null) return undefined;
@@ -19,6 +28,7 @@ export type Pillar = {
   number: string;
   title: string;
   summary: string;
+  imageVariant?: ImageVariant;
   image: string;
   imageDetail?: string;
   content: string;
@@ -54,6 +64,7 @@ type RawPrinciple = {
   title?: string | null;
   introduction?: string | null;
   content?: string | null;
+  imageVariant?: string | null;
   image?: { url?: string | null } | null;
   imageDetail?: { url?: string | null } | null;
 };
@@ -69,10 +80,23 @@ export function mapRawPrincipleToPillar(raw: RawPrinciple, index: number): Pilla
     number,
     title: raw.title ?? '',
     summary: raw.introduction ?? '',
+    imageVariant: isImageVariant(raw.imageVariant) ? raw.imageVariant : undefined,
     image: getUrl(raw.image) ?? '',
     imageDetail: getUrl(raw.imageDetail) ?? '',
     content: raw.content ?? '',
   };
+}
+
+function isImageVariant(v: unknown): v is ImageVariant {
+  return (
+    v === 'glass' ||
+    v === 'rules' ||
+    v === 'hooks' ||
+    v === 'hand-brain' ||
+    v === 'justice' ||
+    v === 'missile' ||
+    v === 'hand-chart'
+  );
 }
 
 /**

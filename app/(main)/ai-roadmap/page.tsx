@@ -19,12 +19,14 @@ export default async function PathForwardPage() {
     includeDrafts: isEnabled,
   });
 
-  return <>
-    <PathForwardLayout data={page as PathForwardCmsData} />
-    <DonateBlock
-      title={configuration?.donateTitle ?? null} // @ts-ignore
-      cta={configuration?.donateCta ?? null} // @ts-ignore
-      image={configuration?.donateImage ?? null}
-    />
-  </>;
+  return (
+    <>
+      <PathForwardLayout data={page as PathForwardCmsData} />
+      <DonateBlock
+        title={configuration?.donateTitle ?? null} // @ts-ignore
+        cta={configuration?.donateCta ?? null} // @ts-ignore
+        image={configuration?.donateImage ?? null}
+      />
+    </>
+  );
 }

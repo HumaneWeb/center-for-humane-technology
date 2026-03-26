@@ -65,12 +65,15 @@ function renderContentItem(block: ContentItem, isTextDark: boolean | undefined) 
         return null;
       }
       return (
-        <ContentBlock title={block.title} content={block.content} isTextDark={isTextDark} align="left" />
+        <ContentBlock
+          title={block.title}
+          content={block.content}
+          isTextDark={isTextDark}
+          align="left"
+        />
       );
     case 'ContentMarkdownRecord':
-      return (
-        <ContentMarkdownBlock content={block.content} isTextDark={isTextDark} align="left" />
-      );
+      return <ContentMarkdownBlock content={block.content} isTextDark={isTextDark} align="left" />;
     case 'ImageBlockRecord':
       if (block.hideBlock) {
         return null;
@@ -112,7 +115,7 @@ function EmbedPanel({ snippet }: { snippet: string }) {
   return (
     <div className="min-w-0 lg:sticky lg:top-8">
       <div
-        className="rounded-sm border border-neutral-light-gray bg-neutral-white p-6 shadow-sm text-primary-navy"
+        className="border-neutral-light-gray bg-neutral-white text-primary-navy rounded-sm border p-6 shadow-sm"
         dangerouslySetInnerHTML={{ __html: snippet }}
       />
     </div>
@@ -159,7 +162,7 @@ export default function ContentCtaEmbedBlock({ content, embed, isTextDark }: Pro
   return (
     <section className={cn('my-36', sectionText)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-start">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-14">
           <div className="flex min-w-0 flex-col gap-8 [&>*]:!my-0">
             {items.map((block) => (
               <div key={block.id}>{renderContentItem(block, isTextDark)}</div>

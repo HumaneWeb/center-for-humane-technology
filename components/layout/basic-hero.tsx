@@ -59,7 +59,12 @@ export default function BasicHero({
             </div>
           )}
           {preTitle && (
-            <h2 className={cn("text-secondary-light-purple mb:text-xl mb:leading-135 mb:tracking-[1px] mb:mb-5 mb-2 font-sans text-[15px] leading-120 font-semibold tracking-[0.9px] uppercase", variant === 'green' && 'text-[#ACFFFC]')}>
+            <h2
+              className={cn(
+                'text-secondary-light-purple mb:text-xl mb:leading-135 mb:tracking-[1px] mb:mb-5 mb-2 font-sans text-[15px] leading-120 font-semibold tracking-[0.9px] uppercase',
+                variant === 'green' && 'text-[#ACFFFC]',
+              )}
+            >
               {preTitle}
             </h2>
           )}

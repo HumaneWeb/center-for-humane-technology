@@ -30,11 +30,7 @@ function gridColsClass(n: number): string {
   return map[c] ?? map[2];
 }
 
-export default function ContentCardContainerBlock({
-  columns,
-  cards,
-  isTextDark = false,
-}: Props) {
+export default function ContentCardContainerBlock({ columns, cards, isTextDark = false }: Props) {
   if (!cards?.length) {
     return null;
   }
@@ -57,11 +53,11 @@ export default function ContentCardContainerBlock({
                   'mb:p-10 flex flex-col rounded-lg border p-8 shadow-[0_4px_24px_rgba(11,16,35,0.06)]',
                   isTextDark && 'border-neutral-light-gray bg-neutral-white text-primary-navy',
                   !isTextDark &&
-                    'border-white/15 bg-primary-blue text-neutral-white shadow-[0_4px_32px_rgba(0,0,0,0.25)]',
+                    'bg-primary-blue text-neutral-white border-white/15 shadow-[0_4px_32px_rgba(0,0,0,0.25)]',
                 )}
               >
                 {card.subtitle && (
-                  <p className="mb:mb-4 mb-3 font-sans text-xs font-semibold tracking-wider uppercase text-inherit opacity-70">
+                  <p className="mb:mb-4 mb-3 font-sans text-xs font-semibold tracking-wider text-inherit uppercase opacity-70">
                     {card.subtitle}
                   </p>
                 )}
@@ -85,8 +81,7 @@ export default function ContentCardContainerBlock({
                     href={card.button.link}
                     className={cn(
                       'mt-auto inline-flex w-full items-center justify-center rounded-lg border px-5 py-3.5 text-center font-sans text-base font-semibold text-inherit transition-colors duration-200',
-                      isTextDark &&
-                        'border-neutral-light-gray hover:bg-neutral-light-gray/50',
+                      isTextDark && 'border-neutral-light-gray hover:bg-neutral-light-gray/50',
                       !isTextDark && 'border-white/35 hover:bg-white/10',
                     )}
                     {...(card.button.link.startsWith('http://') ||
