@@ -156,7 +156,7 @@ export default function Navbar({ items }: Props) {
 
     const baseClasses = isMobile
       ? `uppercase text-primary-navy flex items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold tracking-018 hover:bg-accent transition-colors ${extraClassnames ? extraClassnames : ''}`
-      : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[18px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
+      : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[17px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
 
     const renderDropdownItem = (dropdownItem: NavbarChildren, depth = 1) => {
       const hasChildren = dropdownItem.children && dropdownItem.children.length > 0;
@@ -213,7 +213,7 @@ export default function Navbar({ items }: Props) {
             <div
               className={cn(
                 'text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
-                isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[18px]',
+                isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[17px]',
               )}
             >
               {dropdownItem.label}
@@ -243,7 +243,7 @@ export default function Navbar({ items }: Props) {
             ref={buttonRef}
             className={cn(
               'text-primary-navy tracking-02 hover:text-primary-teal flex cursor-pointer items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
-              isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[18px]',
+              isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[17px]',
             )}
             onClick={() => {
               setSubmenuOpen((prev) => !prev);
@@ -275,10 +275,10 @@ export default function Navbar({ items }: Props) {
                   ? 'max-h-screen overflow-hidden pl-5 transition-all'
                   : 'max-h-0 overflow-hidden transition-all'
                 : cn(
-                    'border-primary-navy bg-neutral-white absolute top-0 z-50 min-w-[300px] flex-col gap-5 border px-5 py-4 shadow-sm',
-                    submenuOpen ? 'flex' : 'hidden',
-                    openToLeft ? 'right-[calc(100%+1.3rem)]' : 'left-[calc(100%+1.3rem)]',
-                  ),
+                  'border-primary-navy bg-neutral-white absolute top-0 z-50 min-w-[300px] flex-col gap-5 border px-5 py-4 shadow-sm',
+                  submenuOpen ? 'flex' : 'hidden',
+                  openToLeft ? 'right-[calc(100%+1.3rem)]' : 'left-[calc(100%+1.3rem)]',
+                ),
             )}
           >
             {dropdownItem.children!.map((child) => renderDropdownItem(child, depth + 1))}
@@ -323,7 +323,7 @@ export default function Navbar({ items }: Props) {
           className={cn(
             isMobile
               ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200'
-              : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[18px]',
+              : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[17px]',
             extraClassnames,
           )}
           aria-expanded={isOpen}
@@ -355,9 +355,9 @@ export default function Navbar({ items }: Props) {
                 ? 'block max-h-screen border-t-[1px] opacity-100'
                 : 'hidden max-h-0 opacity-0'
               : cn(
-                  'absolute top-full left-0 z-50 hidden w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm',
-                  isOpen && 'flex',
-                ),
+                'absolute top-full left-0 z-50 hidden w-64 flex-col gap-5 border-[1px] px-5 py-4 shadow-sm',
+                isOpen && 'flex',
+              ),
           )}
           role="menu"
           aria-orientation="vertical"

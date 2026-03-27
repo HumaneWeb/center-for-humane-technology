@@ -46,7 +46,7 @@ export default function ComplexHero({
       >
         <div className={cn(
           "complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8",
-          variant === 'green-ai' && 'mb:pt-55 mb:pb-20 pt-35 pb-8 mb:h-auto mt-16',
+          variant === 'green-ai' && 'mb:pt-55 mb:pb-20 pt-35 pb-8 mb:h-auto mb:mt-16',
         )}>
           <div className="max-w-[750px]">
             {preTitle && (
