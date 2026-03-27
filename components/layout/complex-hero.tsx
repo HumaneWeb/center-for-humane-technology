@@ -36,6 +36,7 @@ export default function ComplexHero({
       )}
     >
       <FadeIn
+        id='complex-hero-background'
         className={cn(
           'bg-contain bg-bottom-right bg-no-repeat',
           isMobile && mobileImage && 'complex-hero-grid',

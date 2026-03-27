@@ -83,6 +83,28 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
 
   const zonesRef = useRef<HTMLDivElement>(null);
 
+
+  // Create event listener for width less than 1260px, if true hide the background image of the complex hero
+  useEffect(() => {
+    const heroImageUrl = data.heroImage?.url;
+
+    const handleResize = () => {
+      const el = document.getElementById('complex-hero-background');
+      if (!el) return;
+
+      if (window.innerWidth < 1260) {
+        el.style.backgroundImage = 'none';
+      } else {
+        el.style.backgroundImage = heroImageUrl ? `url(${heroImageUrl})` : 'none';
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [data.heroImage?.url]);
+
   return (
     <div>
       {/* @ts-ignore */}
