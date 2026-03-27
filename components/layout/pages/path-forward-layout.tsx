@@ -307,8 +307,6 @@ function ScrollingZoneVector({
     offset: ['start start', 'end end'],
   });
 
-  // Complete one full spin exactly at the end of the section.
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const t = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   const principleAnchorIds = useMemo(
@@ -318,6 +316,27 @@ function ScrollingZoneVector({
 
   const stepThresholdsRef = useRef<number[]>([]);
   const [, forceRerender] = useState(0);
+
+  // Rotate until the start of the final transition (step 6 -> 7), then hold.
+  // This avoids showing the final SVG in a rotated state.
+  const rotate = useTransform(t, (value) => {
+    const thresholds = stepThresholdsRef.current;
+    const fallbackStart = 0.12;
+    const fallbackStop = 0.85;
+    const startAt =
+      // Keep step 1 fully still/visible until first real transition.
+      thresholds && thresholds.length >= 2 ? thresholds[1] : fallbackStart;
+    const stopAt =
+      // We start showing the final SVG already in transition 5 (step 5 -> 6),
+      // so we stop rotating at the start of that transition.
+      thresholds && thresholds.length >= 3 ? thresholds[thresholds.length - 3] : fallbackStop;
+
+    if (value <= startAt) return 0;
+
+    const denom = Math.max(1e-6, stopAt - startAt);
+    const normalized = Math.max(0, Math.min(1, (value - startAt) / denom));
+    return 360 * normalized;
+  });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -353,6 +372,10 @@ function ScrollingZoneVector({
         if (normalized[i] <= normalized[i - 1]) normalized[i] = normalized[i - 1] + eps;
       }
 
+      // Anchor the range so the first and last steps can be reached fully.
+      normalized[0] = 0;
+      normalized[normalized.length - 1] = 1;
+
       stepThresholdsRef.current = normalized;
       forceRerender((x) => x + 1);
     };
@@ -371,6 +394,7 @@ function ScrollingZoneVector({
     useTransform(t, (value) => {
       const thresholds = stepThresholdsRef.current;
       const clamped = Math.max(0, Math.min(1, value));
+      const snapEps = 1e-3;
 
       // If we couldn't compute thresholds, fall back to equal segmentation.
       if (!thresholds || thresholds.length < 2) {
@@ -385,20 +409,55 @@ function ScrollingZoneVector({
       }
 
       const segments = Math.min(SCROLL_SVG_STEPS.length - 1, thresholds.length - 1);
+      const firstTransitionStart = thresholds[1];
+
+      // Hard clamp ends so first/last SVG show fully.
+      const lastStepIndex = segments;
+      if (clamped <= (thresholds[0] ?? 0) + snapEps) return stepIndex === 0 ? 1 : 0;
+      if (clamped >= (thresholds[lastStepIndex] ?? 1) - snapEps)
+        return stepIndex === lastStepIndex ? 1 : 0;
+      if (typeof firstTransitionStart === 'number' && clamped < firstTransitionStart - snapEps) {
+        return stepIndex === 0 ? 1 : 0;
+      }
+
+      // Start showing the final SVG during transition 5 (step 5 -> 6).
+      // From the beginning of step 6 onward, keep the final at 100%.
+      const transition5Start = thresholds[4];
+      const transition5End = thresholds[5];
+      if (typeof transition5End === 'number' && clamped >= transition5End - snapEps) {
+        return stepIndex === lastStepIndex ? 1 : 0;
+      }
 
       // Find current segment by thresholds.
       let current = 0;
       while (current < segments - 1 && clamped >= thresholds[current + 1]) current++;
-      const next = Math.min(segments, current + 1);
+      let next = Math.min(segments, current + 1);
 
       const start = thresholds[current] ?? 0;
       const end = thresholds[next] ?? 1;
       const denom = Math.max(1e-6, end - start);
       const localT = (clamped - start) / denom;
       const localClamped = Math.max(0, Math.min(1, localT));
+      const isLastTransition = next === lastStepIndex;
+      const snapToEnd = isLastTransition && clamped >= end - snapEps;
 
-      if (stepIndex === current) return 1 - localClamped;
-      if (stepIndex === next) return localClamped;
+      // During transition 5 (index 4 -> 5), crossfade step 5 directly into the final step (7).
+      if (
+        typeof transition5Start === 'number' &&
+        typeof transition5End === 'number' &&
+        clamped >= transition5Start &&
+        clamped < transition5End
+      ) {
+        const denom5 = Math.max(1e-6, transition5End - transition5Start);
+        const local5 = (clamped - transition5Start) / denom5;
+        const local5Clamped = Math.max(0, Math.min(1, local5));
+        if (stepIndex === 4) return 1 - local5Clamped;
+        if (stepIndex === lastStepIndex) return local5Clamped;
+        return 0;
+      }
+
+      if (stepIndex === current) return snapToEnd ? 0 : 1 - localClamped;
+      if (stepIndex === next) return snapToEnd ? 1 : localClamped;
       return 0;
     })
   );
