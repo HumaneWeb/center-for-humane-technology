@@ -681,6 +681,9 @@ export const ContentBlockFragment = graphql(`
     id
     title
     content
+    contentColor
+    disableMarginBottom
+    fontSize
     hideBlock
   }
 `);
@@ -1301,7 +1304,7 @@ export const TeamAndBoardQuery = graphql(
         slug
         __typename
       }
-      supporters: allSupporters {
+      supporters: allSupporters(first: 100) {
         id
         internalTitle
         externalUrl
@@ -2003,6 +2006,7 @@ export const LandingPageQuery = graphql(
         introduction
         variant
         backgroundColor
+        hideSubstackFooter
         heroTextColor
         heroBackgroundImage {
           ...ImageFragment
@@ -2279,6 +2283,28 @@ export const SitemapQuery = graphql(`
       id
       slug
       _updatedAt
+    }
+  }
+`);
+
+export const BannerQuery = graphql(`
+  query BannerQuery {
+    banner {
+      _updatedAt
+      enabled
+      delay
+      dismissedDuration
+      headline
+      text(markdown: true)
+      linkUrl
+      photo {
+        id
+        url
+        alt
+        width
+        height
+        title
+      }
     }
   }
 `);

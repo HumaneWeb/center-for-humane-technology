@@ -6,9 +6,16 @@ type Props = {
   extraClassnames?: string;
   variant?: 'default' | 'minimal' | 'underline';
   ctaExtraClassnames?: string;
+  invertPrimaryButtons?: boolean;
 };
 
-export default function CtaList({ items, extraClassnames, variant, ctaExtraClassnames }: Props) {
+export default function CtaList({
+  items,
+  extraClassnames,
+  variant,
+  ctaExtraClassnames,
+  invertPrimaryButtons,
+}: Props) {
   return (
     <div className={cn('flex flex-wrap gap-3', extraClassnames)}>
       {items.map((item) => (
@@ -17,6 +24,7 @@ export default function CtaList({ items, extraClassnames, variant, ctaExtraClass
           {...item}
           variant={variant || item.variant}
           extraClass={ctaExtraClassnames}
+          invertPrimaryButtons={invertPrimaryButtons ?? item.invertPrimaryButtons}
         />
       ))}
     </div>

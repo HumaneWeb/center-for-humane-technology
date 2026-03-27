@@ -15,6 +15,7 @@ type Props = {
   headingExtraClass?: string;
   textExtraClass?: string;
   isTextDark?: boolean;
+  invertPrimaryButtons?: boolean;
 };
 
 export default function NarrativeBlock({
@@ -27,6 +28,7 @@ export default function NarrativeBlock({
   textExtraClass,
   headingExtraClass,
   isTextDark = false,
+  invertPrimaryButtons,
 }: Props) {
   const isImageLeft = imagePosition === 'left';
 
@@ -65,7 +67,7 @@ export default function NarrativeBlock({
                     dangerouslySetInnerHTML={{ __html: introduction }}
                   />
                 )}
-                {ctas && <CtaList items={ctas} />}
+                {ctas && <CtaList items={ctas} invertPrimaryButtons={invertPrimaryButtons} />}
               </div>
             </FadeIn>
           </div>

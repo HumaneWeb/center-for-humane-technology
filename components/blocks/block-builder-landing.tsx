@@ -24,6 +24,7 @@ type Props = {
     hideBlock?: boolean;
   }[];
   variant?: 'text-dark' | 'text-default';
+  invertPrimaryButtons?: boolean;
 };
 
 const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
@@ -52,8 +53,15 @@ const ExtraProps: Record<string, any> = {
   },
 };
 
-const BlockBuilderLanding: React.FC<Props> = ({ components = [], variant = 'text-default' }) => {
-  const globalVariantProps = variant === 'text-dark' ? { isTextDark: true } : {};
+const BlockBuilderLanding: React.FC<Props> = ({
+  components = [],
+  variant = 'text-default',
+  invertPrimaryButtons = false,
+}) => {
+  const globalVariantProps = {
+    ...(variant === 'text-dark' ? { isTextDark: true as const } : {}),
+    ...(invertPrimaryButtons ? { invertPrimaryButtons: true as const } : {}),
+  };
 
   return (
     <>

@@ -43,6 +43,10 @@
   --breakpoint-xl: 1450px;
 }
 
+html {
+  scroll-padding-top: 60px;
+}
+
 body {
   background: var(--color-neutral-white);
   color: var(--color-primary-navy);
@@ -187,6 +191,10 @@ body {
 
 @utility bg-landing-page-orange {
   background: linear-gradient(180deg, #ffdecb 0%, #fff 100%);
+}
+
+@utility bg-landing-page-teal {
+  background: linear-gradient(180deg, #68eeea 0%, #fff 100%);
 }
 
 @utility bg-landing-stats {
@@ -358,9 +366,397 @@ body {
   line-height: 140%;
 }
 
+/**
+ * MailerLite embedded forms — any `.ml-form-embedContainer` instance (not tied to embed ID).
+ */
+.ml-form-embedSubmitLoad {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.ml-form-embedSubmitLoad::after {
+  content: ' ';
+  display: block;
+  width: 11px;
+  height: 11px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 4px solid var(--color-neutral-white);
+  border-color: var(--color-neutral-white) var(--color-neutral-white) var(--color-neutral-white) transparent;
+  animation: ml-form-embedSubmitLoad 1.2s linear infinite;
+}
+
+@keyframes ml-form-embedSubmitLoad {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ml-form-embedContainer {
+  box-sizing: border-box;
+  display: table;
+  margin: 0 auto;
+  position: static;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.ml-form-embedContainer h4,
+.ml-form-embedContainer p,
+.ml-form-embedContainer span,
+.ml-form-embedContainer button {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper {
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  max-width: none;
+  padding: 0;
+  position: relative;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper.embedForm {
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-align-left {
+  text-align: left;
+}
+
+.ml-form-embedContainer .ml-form-align-center {
+  text-align: center;
+}
+
+.ml-form-embedContainer .ml-form-align-default {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.ml-form-embedContainer .ml-form-align-right {
+  text-align: right;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
+  padding: 0;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
+  margin: 0 0 1.25rem;
+  text-align: left;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: var(--leading-120);
+  margin: 0 0 0.625rem;
+  text-align: left;
+  word-break: break-word;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: var(--leading-140);
+  margin: 0 0 0.625rem;
+  text-align: left;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p:last-child,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p:last-child {
+  margin-bottom: 0;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p a,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p a {
+  color: var(--color-primary-teal);
+  text-decoration: underline;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group {
+  text-align: left;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label {
+  color: inherit;
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 0.375rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+  margin: 0;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+  margin: 0 0 1.25rem;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+  margin: 0 0 0.625rem;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
+  margin-bottom: 0;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']),
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']),
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow textarea {
+  background-color: var(--color-neutral-white);
+  border: 1px solid var(--color-neutral-gray);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--color-primary-navy);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 100%;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::placeholder,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::placeholder,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea::placeholder {
+  color: var(--color-neutral-medium-gray);
+  opacity: 1;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea:focus-visible {
+  border-color: var(--color-primary-blue);
+  box-shadow: 0 0 0 2px rgb(41 52 98 / 0.2);
+  outline: none;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error textarea:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error textarea:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error select:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error select:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error .custom-select:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error .custom-select:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error textarea:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error textarea:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error select:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error select:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error .custom-select:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error .custom-select:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form input[aria-invalid='true']:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form input[aria-invalid='true']:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form textarea[aria-invalid='true']:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form textarea[aria-invalid='true']:focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form select[aria-invalid='true']:focus,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form select[aria-invalid='true']:focus-visible {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 2px rgb(220 38 38 / 0.35);
+  outline: none;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-select,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-select {
+  appearance: none;
+  background-color: var(--color-neutral-white);
+  background-image: url('https://assets.mlcdn.com/ml/images/default/dropdown.svg');
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 8px 10px;
+  border: 1px solid var(--color-neutral-gray);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--color-primary-navy);
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  height: auto;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+  float: none;
+  margin: 0 0 1.25rem;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
+  /* MailerLite toggles visibility; do not force display — avoids breaking loading state */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: auto;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:not(.loading),
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit input[type='submit'] {
+  appearance: none;
+  background-color: var(--color-primary-blue);
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: var(--color-neutral-white);
+  cursor: pointer;
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  height: auto;
+  letter-spacing: var(--tracking-02);
+  line-height: var(--leading-120);
+  margin: 0;
+  padding: 1rem 1.25rem;
+  transition: color 200ms ease-in, background-color 200ms ease-in;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:not(.loading):hover,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit input[type='submit']:hover {
+  background-color: var(--color-secondary-light-teal);
+  color: var(--color-primary-navy);
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:not(.loading):focus-visible,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit input[type='submit']:focus-visible {
+  outline: 2px solid var(--color-primary-blue);
+  outline-offset: 2px;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:not(.loading) {
+  appearance: none;
+  background-color: var(--color-primary-blue);
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: var(--color-neutral-white);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-02);
+  line-height: var(--leading-120);
+  margin: 0;
+  padding: 0.625rem 1rem;
+  transition: color 200ms ease-in, background-color 200ms ease-in;
+  width: 100%;
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:not(.loading):hover {
+  background-color: var(--color-secondary-light-teal);
+  color: var(--color-primary-navy);
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error .form-control,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']),
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error textarea,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error select,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error .custom-select,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']),
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error textarea,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error select,
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-error .custom-select {
+  border-color: #dc2626;
+  border-width: 1px;
+  box-shadow: 0 0 0 1px rgb(220 38 38 / 0.2);
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form .form-control[aria-invalid='true'],
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form input[aria-invalid='true']:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']),
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form textarea[aria-invalid='true'],
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-block-form select[aria-invalid='true'] {
+  border-color: #dc2626;
+  border-width: 1px;
+  box-shadow: 0 0 0 1px rgb(220 38 38 / 0.2);
+}
+
+.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-field-group.ml-error label {
+  color: #dc2626;
+}
+
+.ml-form-embedContainer .ml-error .custom-checkbox-radio-list {
+  border: 1px solid #dc2626;
+  border-radius: 5px;
+  padding: 0.625rem;
+}
+
+.ml-form-embedContainer .ml-error .label-description,
+.ml-form-embedContainer .ml-error .label-description p,
+.ml-form-embedContainer .ml-error .label-description p a,
+.ml-form-embedContainer .ml-error label:first-child {
+  color: #dc2626;
+}
+
+@media only screen and (max-width: 400px) {
+
+  .ml-form-embedContainer .ml-form-embedWrapper.embedDefault,
+  .ml-form-embedContainer .ml-form-embedWrapper.embedPopup {
+    width: 100%;
+  }
+}
+
 /*
- * HubSpot embedded forms — labels / copy inherit the section text color;
- * fields stay white inside (readable on any section bg).
+ * HubSpot embedded forms
  */
 .hbspt-form {
   font-family: inherit;

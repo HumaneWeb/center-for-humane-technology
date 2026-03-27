@@ -15,50 +15,58 @@ type EmbedPayload = {
 
 type ContentItem =
   | {
-      __typename: 'ContentBlockRecord';
-      id: string;
-      title: string;
-      content: string;
-      hideBlock?: boolean | null;
-    }
+    __typename: 'ContentBlockRecord';
+    id: string;
+    title: string;
+    content: string;
+    contentColor?: string | null;
+    disableMarginBottom?: boolean | null;
+    fontSize?: string | null;
+    hideBlock?: boolean | null;
+  }
   | {
-      __typename: 'ContentMarkdownRecord';
-      id: string;
-      content: string;
-    }
+    __typename: 'ContentMarkdownRecord';
+    id: string;
+    content: string;
+  }
   | {
-      __typename: 'ImageBlockRecord';
-      id: string;
-      image: ComponentProps<typeof ImageBlock>['image'];
-      link: ComponentProps<typeof ImageBlock>['link'];
-      hideBlock?: boolean | null;
-    }
+    __typename: 'ImageBlockRecord';
+    id: string;
+    image: ComponentProps<typeof ImageBlock>['image'];
+    link: ComponentProps<typeof ImageBlock>['link'];
+    hideBlock?: boolean | null;
+  }
   | {
-      __typename: 'ImageGalleryRecord';
-      id: string;
-      images: ComponentProps<typeof ImageGalleryBlock>['images'];
-    }
+    __typename: 'ImageGalleryRecord';
+    id: string;
+    images: ComponentProps<typeof ImageGalleryBlock>['images'];
+  }
   | {
-      __typename: 'ButtonsBlockRecord';
-      id: string;
-      alignment?: string | null;
-      buttons: ComponentProps<typeof ButtonsBlock>['buttons'];
-    }
+    __typename: 'ButtonsBlockRecord';
+    id: string;
+    alignment?: string | null;
+    buttons: ComponentProps<typeof ButtonsBlock>['buttons'];
+  }
   | {
-      __typename: 'AccordionBlockRecord';
-      id: string;
-      items: { id: string; title: string; content: string }[];
-      hideBlock?: boolean | null;
-    };
+    __typename: 'AccordionBlockRecord';
+    id: string;
+    items: { id: string; title: string; content: string }[];
+    hideBlock?: boolean | null;
+  };
 
 type Props = {
   id: string;
   content: ContentItem[] | null | undefined;
   embed: EmbedPayload;
   isTextDark?: boolean;
+  invertPrimaryButtons?: boolean;
 };
 
-function renderContentItem(block: ContentItem, isTextDark: boolean | undefined) {
+function renderContentItem(
+  block: ContentItem,
+  isTextDark: boolean | undefined,
+  invertPrimaryButtons?: boolean,
+) {
   switch (block.__typename) {
     case 'ContentBlockRecord':
       if (block.hideBlock) {
@@ -69,6 +77,9 @@ function renderContentItem(block: ContentItem, isTextDark: boolean | undefined) 
           title={block.title}
           content={block.content}
           isTextDark={isTextDark}
+          contentColor={block.contentColor}
+          disableMarginBottom={block.disableMarginBottom}
+          fontSize={block.fontSize}
           align="left"
         />
       );
@@ -91,7 +102,13 @@ function renderContentItem(block: ContentItem, isTextDark: boolean | undefined) 
       );
     case 'ButtonsBlockRecord':
       return (
-        <ButtonsBlock id={block.id} alignment={block.alignment} buttons={block.buttons} isInner />
+        <ButtonsBlock
+          id={block.id}
+          alignment={block.alignment}
+          buttons={block.buttons}
+          isInner
+          invertPrimaryButtons={invertPrimaryButtons}
+        />
       );
     case 'AccordionBlockRecord':
       if (block.hideBlock) {
@@ -123,7 +140,12 @@ function EmbedPanel({ snippet }: { snippet: string }) {
 }
 
 /** Landing modular block: copy/modules on the left, raw embed (e.g. HubSpot) on the right. */
-export default function ContentCtaEmbedBlock({ content, embed, isTextDark }: Props) {
+export default function ContentCtaEmbedBlock({
+  content,
+  embed,
+  isTextDark,
+  invertPrimaryButtons,
+}: Props) {
   const items = content ?? [];
   const snippet = embed?.snippet?.trim() ?? '';
   const hasLeft = items.length > 0;
@@ -151,7 +173,9 @@ export default function ContentCtaEmbedBlock({ content, embed, isTextDark }: Pro
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 flex-col gap-8 [&>*]:!my-0">
             {items.map((block) => (
-              <div key={block.id}>{renderContentItem(block, isTextDark)}</div>
+              <div key={block.id}>
+                {renderContentItem(block, isTextDark, invertPrimaryButtons)}
+              </div>
             ))}
           </div>
         </div>
@@ -160,12 +184,14 @@ export default function ContentCtaEmbedBlock({ content, embed, isTextDark }: Pro
   }
 
   return (
-    <section className={cn('my-36', sectionText)}>
+    <section className={cn('my-20', sectionText)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-14">
           <div className="flex min-w-0 flex-col gap-8 [&>*]:!my-0">
             {items.map((block) => (
-              <div key={block.id}>{renderContentItem(block, isTextDark)}</div>
+              <div key={block.id}>
+                {renderContentItem(block, isTextDark, invertPrimaryButtons)}
+              </div>
             ))}
           </div>
           <EmbedPanel snippet={snippet} />

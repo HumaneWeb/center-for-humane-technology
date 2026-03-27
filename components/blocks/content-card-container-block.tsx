@@ -15,6 +15,7 @@ type Props = {
   cards: ContentCard[];
   /** When true, dark text on light surfaces (matches `ContentBlock` / landing `text-dark` variant). */
   isTextDark?: boolean;
+  invertPrimaryButtons?: boolean;
 };
 
 function gridColsClass(n: number): string {
@@ -30,7 +31,12 @@ function gridColsClass(n: number): string {
   return map[c] ?? map[2];
 }
 
-export default function ContentCardContainerBlock({ columns, cards, isTextDark = false }: Props) {
+export default function ContentCardContainerBlock({
+  columns,
+  cards,
+  isTextDark = false,
+  invertPrimaryButtons = false,
+}: Props) {
   if (!cards?.length) {
     return null;
   }
@@ -53,7 +59,7 @@ export default function ContentCardContainerBlock({ columns, cards, isTextDark =
                   'mb:p-10 flex flex-col rounded-lg border p-8 shadow-[0_4px_24px_rgba(11,16,35,0.06)]',
                   isTextDark && 'border-neutral-light-gray bg-neutral-white text-primary-navy',
                   !isTextDark &&
-                    'bg-primary-blue text-neutral-white border-white/15 shadow-[0_4px_32px_rgba(0,0,0,0.25)]',
+                  'bg-primary-blue text-neutral-white border-white/15 shadow-[0_4px_32px_rgba(0,0,0,0.25)]',
                 )}
               >
                 {card.subtitle && (
@@ -81,11 +87,16 @@ export default function ContentCardContainerBlock({ columns, cards, isTextDark =
                     href={card.button.link}
                     className={cn(
                       'mt-auto inline-flex w-full items-center justify-center rounded-lg border px-5 py-3.5 text-center font-sans text-base font-semibold text-inherit transition-colors duration-200',
-                      isTextDark && 'border-neutral-light-gray hover:bg-neutral-light-gray/50',
+                      isTextDark &&
+                      !invertPrimaryButtons &&
+                      'border-neutral-light-gray hover:bg-neutral-light-gray/50 bg-secondary-light-teal hover:bg-primary-blue hover:text-neutral-white',
+                      isTextDark &&
+                      invertPrimaryButtons &&
+                      'border-neutral-light-gray bg-primary-blue text-neutral-white hover:bg-secondary-light-teal hover:text-primary-navy',
                       !isTextDark && 'border-white/35 hover:bg-white/10',
                     )}
                     {...(card.button.link.startsWith('http://') ||
-                    card.button.link.startsWith('https://')
+                      card.button.link.startsWith('https://')
                       ? { target: '_blank', rel: 'noopener noreferrer' }
                       : {})}
                   >

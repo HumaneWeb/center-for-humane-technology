@@ -14,6 +14,8 @@ export type CtaProps = {
   variant?: 'default' | 'minimal' | 'underline' | 'border' | 'underline-help' | 'underline-bold';
   icon?: 'play' | 'video' | 'substack' | 'download' | 'back';
   onClick?: () => void;
+  /** Light orange landing: swap primary fill / hover colors */
+  invertPrimaryButtons?: boolean;
 };
 
 const ICON_MAP = {
@@ -66,22 +68,34 @@ const ICON_MAP = {
   ),
 };
 
-export default function Cta({
-  label,
-  helperLabel,
-  extraClass,
-  labelExtraClass,
-  link,
-  externalUrl,
-  children,
-  variant = 'default',
-  icon,
-  onClick,
-}: CtaProps) {
+const defaultPrimaryFill = `bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in`;
+const invertedPrimaryFill = `bg-primary-blue text-neutral-white hover:bg-secondary-light-teal hover:text-primary-navy tracking-02 group rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in`;
+
+export default function Cta(props: CtaProps) {
+  const {
+    label,
+    helperLabel,
+    extraClass,
+    labelExtraClass,
+    link,
+    externalUrl,
+    children,
+    variant = 'default',
+    icon,
+    onClick,
+    invertPrimaryButtons = false,
+  } = props;
+
+  const primaryFillClasses =
+    invertPrimaryButtons && variant === 'default' ? invertedPrimaryFill : defaultPrimaryFill;
+
   if (onClick) {
     return (
       <button
-        className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb:w-auto mb:justify-start group group flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in"
+        className={cn(
+          primaryFillClasses,
+          'mb:w-auto mb:justify-start flex w-full cursor-pointer items-center justify-center gap-2.5',
+        )}
         onClick={onClick}
       >
         {children}
@@ -90,7 +104,8 @@ export default function Cta({
   }
 
   const css = cn(
-    `bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group inline-block rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in`,
+    primaryFillClasses,
+    'inline-block',
     variant === 'minimal' &&
       'text-primary-teal hover:text-primary-navy bg-transparent p-0 hover:bg-transparent',
     (variant === 'underline' || variant === 'underline-bold') &&
