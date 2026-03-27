@@ -120,5 +120,3 @@ export const SubstackNewsletterWidget = () => {
     </div>
   );
 };
-
-

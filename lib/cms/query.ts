@@ -1151,6 +1151,53 @@ export const AiSocietyQuery = graphql(
   [TagFragment, CTAFragment, NarrativeBlockFragment, GenericCardsGridFragment, ImageFragment],
 );
 
+export const PathForwardQuery = graphql(
+  `
+    query PathForwardQuery {
+      page: pathForward {
+        title
+        introduction
+        introductionLabel
+        downloadLabel
+        heroImage {
+          ...ImageFragment
+        }
+        principles {
+          id
+          title
+          content
+          imageVariant
+          image {
+            ...ImageFragment
+          }
+          imageDetail {
+            ...ImageFragment
+          }
+        }
+        report {
+          url
+        }
+        systemIntroduction
+        systemLabel
+        formText
+        _seoMetaTags {
+          ...TagFragment
+        }
+      }
+      configuration {
+        donateTitle
+        donateImage {
+          ...ImageFragment
+        }
+        donateCta {
+          ...CTAFragment
+        }
+      }
+    }
+  `,
+  [TagFragment, ImageFragment, CTAFragment],
+);
+
 export const AreasOfWorkQuery = graphql(
   `
     query AreasOfWorkQuery {

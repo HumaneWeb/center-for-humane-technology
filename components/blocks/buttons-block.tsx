@@ -22,11 +22,12 @@ export default function ButtonsBlock({
     return null;
   }
 
-  const alignmentClass = {
-    left: 'justify-start',
-    center: 'justify-center',
-    right: 'justify-end',
-  }[alignment || 'left'] || 'justify-start';
+  const alignmentClass =
+    {
+      left: 'justify-start',
+      center: 'justify-center',
+      right: 'justify-end',
+    }[alignment || 'left'] || 'justify-start';
 
   // If rendered within structured text, just render the buttons without section wrapper
   if (isInner) {
@@ -56,4 +57,3 @@ export default function ButtonsBlock({
     </section>
   );
 }
-

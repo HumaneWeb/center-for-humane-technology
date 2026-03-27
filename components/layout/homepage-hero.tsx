@@ -14,10 +14,11 @@ export default function HomepageHero({ homepage, configuration }: Props) {
     video3: (decorationVideosDesktop as any)?.[2]?.s3Url || '',
   };
 
-  const mobileVideos = (decorationVideosMobile as any)?.map((video: any, index: number) => ({
-    id: video.id || index,
-    videoUrl: video.s3Url,
-  })) || [];
+  const mobileVideos =
+    (decorationVideosMobile as any)?.map((video: any, index: number) => ({
+      id: video.id || index,
+      videoUrl: video.s3Url,
+    })) || [];
 
   const mobileColumn1 = mobileVideos.filter((_: any, index: number) => index % 2 === 0);
   const mobileColumn2 = mobileVideos.filter((_: any, index: number) => index % 2 === 1);
@@ -129,11 +130,12 @@ function ScrollingColumn({ videos, direction, speed }: ScrollingColumnProps) {
           animationIterationCount: 'infinite',
         }}
       >
-        {duplicatedVideos.map((item, index) => (
-          item.videoUrl && (
-            <RawVideoPlayer key={`${item.id}-${index}`} src={item.videoUrl} className="" />
-          )
-        ))}
+        {duplicatedVideos.map(
+          (item, index) =>
+            item.videoUrl && (
+              <RawVideoPlayer key={`${item.id}-${index}`} src={item.videoUrl} className="" />
+            ),
+        )}
       </div>
     </div>
   );

@@ -54,7 +54,6 @@ export default function CustomStructuredText({
   isInnerContainer?: boolean;
   centerContent?: boolean;
 }) {
-
   console.log(data);
 
   return (

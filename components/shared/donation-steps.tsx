@@ -164,7 +164,7 @@ export default function DonationSteps() {
   // Render Turnstile when ready and on step 2
   useEffect(() => {
     if (currentStep === 2 && turnstileReady && !turnstileWidgetId.current) {
-      const container = document.getElementById("turnstile-container");
+      const container = document.getElementById('turnstile-container');
       turnstileWidgetId.current = (window as any).turnstile.render(container, {
         sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
         callback: (token: string) => setTurnstileToken(token),
@@ -178,11 +178,14 @@ export default function DonationSteps() {
         },
       });
     }
-    
+
     // Cleanup when leaving step 2
     return () => {
-      if (turnstileWidgetId.current && (window as any).turnstile && 
-          (currentStep === 1 || currentStep === 3)) {
+      if (
+        turnstileWidgetId.current &&
+        (window as any).turnstile &&
+        (currentStep === 1 || currentStep === 3)
+      ) {
         try {
           (window as any).turnstile.remove(turnstileWidgetId.current);
           turnstileWidgetId.current = null;
@@ -217,7 +220,7 @@ export default function DonationSteps() {
 
     if (currentStep === 2) {
       if (!turnstileToken) {
-        setErrorMessage("Please complete the security check.");
+        setErrorMessage('Please complete the security check.');
         return;
       }
 
@@ -458,32 +461,7 @@ export default function DonationSteps() {
           <button
             onClick={handleNext}
             disabled={isLoading || !turnstileToken}
-            className="
-              bg-secondary-light-teal 
-              text-primary-navy 
-              hover:bg-primary-blue 
-              hover:text-neutral-white 
-              tracking-02 
-              group 
-              mb-4 
-              inline-block 
-              min-w-[215px] 
-              rounded-[5px] 
-              px-5 
-              py-4 
-              text-xl 
-              leading-120 
-              font-semibold 
-              transition-all 
-              duration-200 
-              ease-in
-              cursor-pointer
-              disabled:bg-gray-300 
-              disabled:text-gray-500 
-              disabled:cursor-not-allowed 
-              disabled:hover:bg-gray-300 
-              disabled:hover:text-gray-500
-            "
+            className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group mb-4 inline-block min-w-[215px] cursor-pointer rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500 disabled:hover:bg-gray-300 disabled:hover:text-gray-500"
           >
             {isLoading ? 'Processing...' : 'Next'}
           </button>
@@ -510,7 +488,12 @@ export default function DonationSteps() {
             },
           }}
         >
-          <PaymentForm formData={formData} onBack={handleBack} clientSecret={clientSecret} turnstileToken={turnstileToken} />
+          <PaymentForm
+            formData={formData}
+            onBack={handleBack}
+            clientSecret={clientSecret}
+            turnstileToken={turnstileToken}
+          />
         </Elements>
       )}
     </div>

@@ -22,10 +22,18 @@ export const generateMetadata = generateMetadataFn({
 export default async function TeamListPage() {
   const { isEnabled } = await draftMode();
 
-  const { page, teamList, leadershipList, boardList, careersList, supporters, allies, configuration } =
-    await executeQuery(TeamAndBoardQuery, {
-      includeDrafts: isEnabled,
-    });
+  const {
+    page,
+    teamList,
+    leadershipList,
+    boardList,
+    careersList,
+    supporters,
+    allies,
+    configuration,
+  } = await executeQuery(TeamAndBoardQuery, {
+    includeDrafts: isEnabled,
+  });
   const { title, preTitle, careers } = page!;
 
   return (

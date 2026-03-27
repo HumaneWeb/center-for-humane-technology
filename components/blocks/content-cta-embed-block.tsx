@@ -15,44 +15,44 @@ type EmbedPayload = {
 
 type ContentItem =
   | {
-      __typename: 'ContentBlockRecord';
-      id: string;
-      title: string;
-      content: string;
-      contentColor?: string | null;
-      disableMarginBottom?: boolean | null;
-      fontSize?: string | null;
-      hideBlock?: boolean | null;
-    }
+    __typename: 'ContentBlockRecord';
+    id: string;
+    title: string;
+    content: string;
+    contentColor?: string | null;
+    disableMarginBottom?: boolean | null;
+    fontSize?: string | null;
+    hideBlock?: boolean | null;
+  }
   | {
-      __typename: 'ContentMarkdownRecord';
-      id: string;
-      content: string;
-    }
+    __typename: 'ContentMarkdownRecord';
+    id: string;
+    content: string;
+  }
   | {
-      __typename: 'ImageBlockRecord';
-      id: string;
-      image: ComponentProps<typeof ImageBlock>['image'];
-      link: ComponentProps<typeof ImageBlock>['link'];
-      hideBlock?: boolean | null;
-    }
+    __typename: 'ImageBlockRecord';
+    id: string;
+    image: ComponentProps<typeof ImageBlock>['image'];
+    link: ComponentProps<typeof ImageBlock>['link'];
+    hideBlock?: boolean | null;
+  }
   | {
-      __typename: 'ImageGalleryRecord';
-      id: string;
-      images: ComponentProps<typeof ImageGalleryBlock>['images'];
-    }
+    __typename: 'ImageGalleryRecord';
+    id: string;
+    images: ComponentProps<typeof ImageGalleryBlock>['images'];
+  }
   | {
-      __typename: 'ButtonsBlockRecord';
-      id: string;
-      alignment?: string | null;
-      buttons: ComponentProps<typeof ButtonsBlock>['buttons'];
-    }
+    __typename: 'ButtonsBlockRecord';
+    id: string;
+    alignment?: string | null;
+    buttons: ComponentProps<typeof ButtonsBlock>['buttons'];
+  }
   | {
-      __typename: 'AccordionBlockRecord';
-      id: string;
-      items: { id: string; title: string; content: string }[];
-      hideBlock?: boolean | null;
-    };
+    __typename: 'AccordionBlockRecord';
+    id: string;
+    items: { id: string; title: string; content: string }[];
+    hideBlock?: boolean | null;
+  };
 
 type Props = {
   id: string;
@@ -84,9 +84,7 @@ function renderContentItem(
         />
       );
     case 'ContentMarkdownRecord':
-      return (
-        <ContentMarkdownBlock content={block.content} isTextDark={isTextDark} align="left" />
-      );
+      return <ContentMarkdownBlock content={block.content} isTextDark={isTextDark} align="left" />;
     case 'ImageBlockRecord':
       if (block.hideBlock) {
         return null;
@@ -134,7 +132,7 @@ function EmbedPanel({ snippet }: { snippet: string }) {
   return (
     <div className="min-w-0 lg:sticky lg:top-8">
       <div
-        className="rounded-sm border border-neutral-light-gray bg-neutral-white p-6 shadow-sm text-primary-navy"
+        className="border-neutral-light-gray bg-neutral-white text-primary-navy rounded-sm border p-6 shadow-sm"
         dangerouslySetInnerHTML={{ __html: snippet }}
       />
     </div>
@@ -188,7 +186,7 @@ export default function ContentCtaEmbedBlock({
   return (
     <section className={cn('my-20', sectionText)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-start">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-14">
           <div className="flex min-w-0 flex-col gap-8 [&>*]:!my-0">
             {items.map((block) => (
               <div key={block.id}>
