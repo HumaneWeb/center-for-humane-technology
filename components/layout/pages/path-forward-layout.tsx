@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { PrincipleIcon } from '@/components/shared/principle-icon';
 import { mapRawPrincipleToPillar, type Pillar } from '@/lib/utils/path-forward.utils';
 import { PathForwardCmsData } from '@/lib/utils/types';
-import { getFirstParagraph, getPrincipleAnchorId } from '@/lib/utils/text.utils';
+import { extractParagraphsFromHtml, getPrincipleAnchorId } from '@/lib/utils/text.utils';
 import { SubstackNewsletterWidget } from '@/components/blocks/newsletter-block';
 import useIsMobile from '@/components/hooks/is-mobile';
 import ComplexHero from '../complex-hero';
@@ -519,7 +519,7 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
   const [expanded, setExpanded] = useState(false);
   const num = globalIndex + 1;
   const style = getPrincipleStyleByIndex(globalIndex);
-  const preview = getFirstParagraph(pillar.content);
+  const previewParagraphs = extractParagraphsFromHtml(pillar.content).slice(0, 2);
   const imageSize = PRINCIPLE_DETAIL_IMAGE_SIZES[num];
   const anchorId = getPrincipleAnchorId(pillar.title, num);
 
@@ -558,15 +558,20 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
               <div className="flex flex-col gap-[15px]">
                 {!expanded ? (
                   <>
-                    <p className="text-primary-navy mb:text-[20px] font-sans text-[18px] leading-140">
-                      {preview}
-                    </p>
+                    {previewParagraphs.map((paragraph, index) => (
+                      <p
+                        key={`${anchorId}-preview-${index}`}
+                        className="text-primary-navy mb:text-[20px] font-sans text-[18px] leading-140"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
                     <button
                       type="button"
                       onClick={() => setExpanded(true)}
                       className="text-primary-navy hover:text-primary-teal mb:text-[20px] flex cursor-pointer items-center gap-2 font-sans text-[18px] leading-130 font-medium underline decoration-solid transition-colors"
                     >
-                      Expand more
+                      How We Get There
                       <ChevronDown />
                     </button>
                   </>
