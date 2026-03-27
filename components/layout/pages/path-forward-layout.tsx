@@ -22,46 +22,46 @@ type PrincipleStyleConfig = {
 
 const PRINCIPLE_STYLES_BY_INDEX: PrincipleStyleConfig[] = [
   {
-    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
-    overviewIndexColor: '#00909A',
+    overviewCardBg: 'rgba(217, 233, 232, 1)',
+    overviewIndexColor: '#008488',
     detailBg: '#E2F9FB',
-    detailIndexColor: '#d6753a',
+    detailIndexColor: '#008488',
   },
   {
-    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
-    overviewIndexColor: '#00909A',
+    overviewCardBg: 'rgba(236, 217, 211, 1)',
+    overviewIndexColor: '#C26F62',
     detailBg: '#E2F9FB',
-    detailIndexColor: '#d6753a',
+    detailIndexColor: '#C26F62',
   },
   {
-    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
-    overviewIndexColor: '#00909A',
+    overviewCardBg: 'rgba(232, 227, 233, 1)',
+    overviewIndexColor: '#8D81B7',
     detailBg: '#ECF6F5',
-    detailIndexColor: '#d6753a',
+    detailIndexColor: '#8D81B7',
   },
   {
-    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
-    overviewIndexColor: '#00909A',
+    overviewCardBg: 'rgba(207, 230, 216, 1)',
+    overviewIndexColor: '#2EAE7C',
     detailBg: '#ECF6F5',
-    detailIndexColor: '#d6753a',
+    detailIndexColor: '#2EAE7C',
   },
   {
-    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
-    overviewIndexColor: '#00909A',
+    overviewCardBg: 'rgba(230, 219, 214, 1)',
+    overviewIndexColor: '#876D6A',
     detailBg: '#F6F1EB',
-    detailIndexColor: '#d6753a',
+    detailIndexColor: '#876D6A',
   },
   {
-    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
-    overviewIndexColor: '#00909A',
+    overviewCardBg: 'rgba(246, 225, 212, 1)',
+    overviewIndexColor: '#D57437',
     detailBg: '#F6F1EB',
-    detailIndexColor: '#d6753a',
+    detailIndexColor: '#D57437',
   },
   {
-    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
-    overviewIndexColor: '#00909A',
+    overviewCardBg: 'rgba(217, 218, 227, 1)',
+    overviewIndexColor: '#6274B6',
     detailBg: '#F6F1EB',
-    detailIndexColor: '#d6753a',
+    detailIndexColor: '#6274B6',
   },
 ];
 
@@ -692,9 +692,4 @@ function ChevronUp() {
       />
     </svg>
   );
-}
-
-
-function TestVector() {
-  return <></>
 }
