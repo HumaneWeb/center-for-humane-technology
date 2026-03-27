@@ -519,7 +519,15 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
   const [expanded, setExpanded] = useState(false);
   const num = globalIndex + 1;
   const style = getPrincipleStyleByIndex(globalIndex);
-  const previewParagraphs = extractParagraphsFromHtml(pillar.content).slice(0, 2);
+  const previewParagraphs = useMemo(() => {
+    const htmlParagraphs = pillar.content.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi)?.slice(0, 2);
+    if (htmlParagraphs?.length) return htmlParagraphs;
+
+    // Fallback for content that might not include <p> tags.
+    return extractParagraphsFromHtml(pillar.content)
+      .slice(0, 2)
+      .map((paragraph) => `<p>${paragraph}</p>`);
+  }, [pillar.content]);
   const imageSize = PRINCIPLE_DETAIL_IMAGE_SIZES[num];
   const anchorId = getPrincipleAnchorId(pillar.title, num);
 
@@ -559,12 +567,11 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
                 {!expanded ? (
                   <>
                     {previewParagraphs.map((paragraph, index) => (
-                      <p
+                      <div
                         key={`${anchorId}-preview-${index}`}
                         className="text-primary-navy mb:text-[20px] font-sans text-[18px] leading-140"
-                      >
-                        {paragraph}
-                      </p>
+                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                      />
                     ))}
                     <button
                       type="button"
