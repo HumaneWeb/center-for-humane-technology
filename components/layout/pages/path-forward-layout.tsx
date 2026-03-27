@@ -13,16 +13,73 @@ import ComplexHero from '../complex-hero';
 
 type PathForwardLayoutProps = { data: PathForwardCmsData | null };
 
-const PRINCIPLE_ZONE_BGS = ['#E2F9FB', '#ECF6F5', '#F6F1EB'] as const;
+type PrincipleStyleConfig = {
+  overviewCardBg: string;
+  overviewIndexColor: string;
+  detailBg: string;
+  detailIndexColor: string;
+};
+
+const PRINCIPLE_STYLES_BY_INDEX: PrincipleStyleConfig[] = [
+  {
+    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+    overviewIndexColor: '#00909A',
+    detailBg: '#E2F9FB',
+    detailIndexColor: '#d6753a',
+  },
+  {
+    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+    overviewIndexColor: '#00909A',
+    detailBg: '#E2F9FB',
+    detailIndexColor: '#d6753a',
+  },
+  {
+    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+    overviewIndexColor: '#00909A',
+    detailBg: '#ECF6F5',
+    detailIndexColor: '#d6753a',
+  },
+  {
+    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+    overviewIndexColor: '#00909A',
+    detailBg: '#ECF6F5',
+    detailIndexColor: '#d6753a',
+  },
+  {
+    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+    overviewIndexColor: '#00909A',
+    detailBg: '#F6F1EB',
+    detailIndexColor: '#d6753a',
+  },
+  {
+    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+    overviewIndexColor: '#00909A',
+    detailBg: '#F6F1EB',
+    detailIndexColor: '#d6753a',
+  },
+  {
+    overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+    overviewIndexColor: '#00909A',
+    detailBg: '#F6F1EB',
+    detailIndexColor: '#d6753a',
+  },
+];
+
+const DEFAULT_PRINCIPLE_STYLE: PrincipleStyleConfig = {
+  overviewCardBg: 'rgba(255, 189, 137, 0.2)',
+  overviewIndexColor: '#00909A',
+  detailBg: '#F6F1EB',
+  detailIndexColor: '#d6753a',
+};
+
+function getPrincipleStyleByIndex(index: number): PrincipleStyleConfig {
+  return PRINCIPLE_STYLES_BY_INDEX[index] ?? DEFAULT_PRINCIPLE_STYLE;
+}
 
 export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutProps) {
   if (!dataProp) return null;
   const data = dataProp;
   const principles: Pillar[] = (data.principles ?? []).map((p, i) => mapRawPrincipleToPillar(p, i));
-
-  const zone1 = principles.slice(0, 2);
-  const zone2 = principles.slice(2, 4);
-  const zone3 = principles.slice(4, 7);
 
   const zonesRef = useRef<HTMLDivElement>(null);
 
@@ -34,9 +91,7 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
       <PrinciplesOverview principles={principles} />
       <div ref={zonesRef} className="relative">
         <ScrollingZoneVector containerRef={zonesRef} />
-        <PrincipleDetailsZone principles={zone1} bg={PRINCIPLE_ZONE_BGS[0]} startIndex={0} />
-        <PrincipleDetailsZone principles={zone2} bg={PRINCIPLE_ZONE_BGS[1]} startIndex={2} />
-        <PrincipleDetailsZone principles={zone3} bg={PRINCIPLE_ZONE_BGS[2]} startIndex={4} />
+        <PrincipleDetailsZone principles={principles} />
       </div>
       <HowChangeHappens
         label={data.systemLabel ?? ''}
@@ -113,13 +168,17 @@ function PrinciplesOverview({ principles }: { principles: Pillar[] }) {
 function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
   const num = String(index + 1).padStart(2, '0');
   const anchorId = getPrincipleAnchorId(pillar.title, index + 1);
+  const style = getPrincipleStyleByIndex(index);
   return (
     <FadeIn delay={0.1 * index}>
       <a
         href={`#${anchorId}`}
         className="group flex flex-col items-center gap-8 sm:items-start sm:gap-[30px]"
       >
-        <div className="aspect-square w-[200px] max-w-full overflow-hidden rounded-full bg-[#FFBD89]/20 p-10 sm:p-5 mb:size-[242px]">
+        <div
+          className="aspect-square w-[200px] max-w-full overflow-hidden rounded-full p-10 sm:p-5 mb:size-[242px]"
+          style={{ backgroundColor: style.overviewCardBg }}
+        >
           <PrincipleIcon
             kind="summary"
             variant={pillar.imageVariant}
@@ -130,7 +189,10 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
           />
         </div>
         <div className="flex flex-col gap-[10px] text-center sm:text-left">
-          <p className="mb:text-[20px] font-sans text-[18px] leading-120 font-semibold text-[#00909A]">
+          <p
+            className="mb:text-[20px] font-sans text-[18px] leading-120 font-semibold"
+            style={{ color: style.overviewIndexColor }}
+          >
             {num}
           </p>
           <p className="text-primary-blue mb:text-[20px] font-sans text-[16px] leading-120 font-semibold">
@@ -144,18 +206,16 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
 
 function PrincipleDetailsZone({
   principles,
-  bg,
-  startIndex,
 }: {
   principles: Pillar[];
-  bg: string;
-  startIndex: number;
 }) {
   if (principles.length === 0) return null;
   return (
-    <div style={{ backgroundColor: bg }}>
+    <div>
       {principles.map((p, i) => (
-        <PrincipleDetail key={p.id} pillar={p} globalIndex={startIndex + i} />
+        <div key={p.id} style={{ backgroundColor: getPrincipleStyleByIndex(i).detailBg }}>
+          <PrincipleDetail pillar={p} globalIndex={i} />
+        </div>
       ))}
     </div>
   );
@@ -276,6 +336,7 @@ const PRINCIPLE_DETAIL_IMAGE_SIZES: Record<number, { width: string; height: stri
 function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex: number }) {
   const [expanded, setExpanded] = useState(false);
   const num = globalIndex + 1;
+  const style = getPrincipleStyleByIndex(globalIndex);
   const preview = getFirstParagraph(pillar.content);
   const imageSize = PRINCIPLE_DETAIL_IMAGE_SIZES[num];
   const anchorId = getPrincipleAnchorId(pillar.title, num);
@@ -308,7 +369,7 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
           <FadeIn delay={0.3}>
             <div className="flex max-w-[840px] flex-col gap-[25px]">
               <h3 className="mb:text-[39px] font-sans text-[28px] leading-110 font-semibold tracking-[-0.39px]">
-                <span className="text-[#d6753a]">Principle {num}:</span>{' '}
+                <span style={{ color: style.detailIndexColor }}>Principle {num}:</span>{' '}
                 <span className="text-primary-blue">{pillar.title}</span>
               </h3>
 
