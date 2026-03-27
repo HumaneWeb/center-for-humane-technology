@@ -2192,7 +2192,7 @@ type GenericCardsGridRecord implements RecordInterface {
   variant: String
 }
 
-union GlobalLinkModelContentField = AiInSocietyRecord | AreasOfWorkRecord | BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord | ToolkitListRecord | ToolkitRecord
+union GlobalLinkModelContentField = AiInSocietyRecord | AreasOfWorkRecord | BasicPageRecord | BlogListRecord | CareersListRecord | CaseStudiesListRecord | CaseStudyRecord | ContactRecord | DonateRecord | HomepageRecord | LandingRecord | PathForwardRecord | PodcastListRecord | PodcastRecord | ResourceListRecord | ResourceRecord | TeamBoardRecord | ToolkitListRecord | ToolkitRecord
 
 input GlobalLinkModelFilter {
   _createdAt: CreatedAtFilter

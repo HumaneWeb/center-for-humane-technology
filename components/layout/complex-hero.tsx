@@ -32,7 +32,7 @@ export default function ComplexHero({
         variant === 'light-blue' && 'bg-complex-hero-light-blue',
         variant === 'green' && 'bg-complex-hero-green',
         variant === 'purple' && 'bg-complex-hero-purple',
-        variant === 'green-ai' && 'bg-path-forward-hero',
+        variant === 'green-ai' && 'bg-[#FCF1E6]',
       )}
     >
       <FadeIn
@@ -46,7 +46,7 @@ export default function ComplexHero({
       >
         <div className={cn(
           "complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8",
-          variant === 'green-ai' && 'mb:pt-52 mb:pb-14 pt-35 pb-8 mb:h-auto',
+          variant === 'green-ai' && 'mb:pt-55 mb:pb-20 pt-35 pb-8 mb:h-auto mt-16',
         )}>
           <div className="max-w-[750px]">
             {preTitle && (
@@ -55,7 +55,7 @@ export default function ComplexHero({
                   className={cn(
                     'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
                     variant === 'green' && 'text-[#ACFFFC]',
-                    variant === 'green-ai' && 'text-[#ACFFFC] mb:mb-5 mb-2',
+                    variant === 'green-ai' && 'text-[#007981] mb:mb-5 mb-2',
                   )}
                 >
                   {preTitle}
@@ -66,6 +66,7 @@ export default function ComplexHero({
               <h1
                 className={cn(
                   'text-primary-cream mb:tracking-061 mb:text-6xl mb:mb-5 mb-2 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]',
+                  variant === 'green-ai' && 'text-[#293462]',
                 )}
               >
                 {title}

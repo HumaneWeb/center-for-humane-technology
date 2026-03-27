@@ -22,46 +22,46 @@ type PrincipleStyleConfig = {
 
 const PRINCIPLE_STYLES_BY_INDEX: PrincipleStyleConfig[] = [
   {
-    overviewCardBg: 'rgba(217, 233, 232, 1)',
-    overviewIndexColor: '#008488',
-    detailBg: '#E2F9FB',
-    detailIndexColor: '#008488',
+    overviewCardBg: '#DFEBE8',
+    overviewIndexColor: '#00909A',
+    detailBg: '#E9F4F2',
+    detailIndexColor: '#00909A',
   },
   {
-    overviewCardBg: 'rgba(236, 217, 211, 1)',
-    overviewIndexColor: '#C26F62',
-    detailBg: '#E2F9FB',
-    detailIndexColor: '#C26F62',
+    overviewCardBg: '#ECD9D0',
+    overviewIndexColor: '#C26F61',
+    detailBg: '#F5ECE7',
+    detailIndexColor: '#C26F61',
   },
   {
-    overviewCardBg: 'rgba(232, 227, 233, 1)',
-    overviewIndexColor: '#8D81B7',
-    detailBg: '#ECF6F5',
-    detailIndexColor: '#8D81B7',
+    overviewCardBg: '#E8E3EB',
+    overviewIndexColor: '#978CBE',
+    detailBg: '#F1EEF3',
+    detailIndexColor: '#8376B3',
   },
   {
-    overviewCardBg: 'rgba(207, 230, 216, 1)',
-    overviewIndexColor: '#2EAE7C',
-    detailBg: '#ECF6F5',
-    detailIndexColor: '#2EAE7C',
+    overviewCardBg: '#DBE7D9',
+    overviewIndexColor: '#2DAE7C',
+    detailBg: '#EDF3EC',
+    detailIndexColor: '#259268',
   },
   {
-    overviewCardBg: 'rgba(230, 219, 214, 1)',
-    overviewIndexColor: '#876D6A',
-    detailBg: '#F6F1EB',
-    detailIndexColor: '#876D6A',
+    overviewCardBg: '#E4D9D4',
+    overviewIndexColor: '#8D7572',
+    detailBg: '#F1ECE9',
+    detailIndexColor: '#907774',
   },
   {
-    overviewCardBg: 'rgba(246, 225, 212, 1)',
-    overviewIndexColor: '#D57437',
-    detailBg: '#F6F1EB',
-    detailIndexColor: '#D57437',
+    overviewCardBg: '#F7E3D4',
+    overviewIndexColor: '#D77D43',
+    detailBg: '#FBF1E9',
+    detailIndexColor: '#D6753A',
   },
   {
-    overviewCardBg: 'rgba(217, 218, 227, 1)',
-    overviewIndexColor: '#6274B6',
-    detailBg: '#F6F1EB',
-    detailIndexColor: '#6274B6',
+    overviewCardBg: '#D9D9E5',
+    overviewIndexColor: '#6C7CBA',
+    detailBg: '#ECECF2',
+    detailIndexColor: '#6273B5',
   },
 ];
 
@@ -144,7 +144,7 @@ function PrinciplesOverview({ principles }: { principles: Pillar[] }) {
   const bottomRow = principles.slice(4, 7);
 
   return (
-    <section className="mb:py-[80px] bg-[#fbede4]/80 py-12">
+    <section className="mb:py-[80px] bg-[#F8F4EF]/80 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {topRow.length > 0 && (
           <div className="mb-20 grid grid-cols-2 gap-6 mb:grid-cols-4 mb:gap-10">
@@ -193,6 +193,7 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
             className="mb:text-[20px] font-sans text-[18px] leading-120 font-semibold"
             style={{ color: style.overviewIndexColor }}
           >
+            {/* Principle */}
             {num}
           </p>
           <p className="text-primary-blue mb:text-[20px] font-sans text-[16px] leading-120 font-semibold">
@@ -508,7 +509,7 @@ const PRINCIPLE_DETAIL_IMAGE_SIZES: Record<number, { width: string; height: stri
   1: { width: '289px', height: '281px' },
   2: { width: '203px', height: '269px' },
   3: { width: '325px', height: '190px' },
-  4: { width: '222px', height: '368px' },
+  4: { width: '243px', height: '325px' },
   5: { width: '299px', height: '313px' },
   6: { width: '378px', height: '222px' },
   7: { width: '371px', height: '273px' },
