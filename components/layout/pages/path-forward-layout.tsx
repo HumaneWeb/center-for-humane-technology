@@ -431,7 +431,7 @@ function ScrollingZoneVector({
       // Find current segment by thresholds.
       let current = 0;
       while (current < segments - 1 && clamped >= thresholds[current + 1]) current++;
-      let next = Math.min(segments, current + 1);
+      const next = Math.min(segments, current + 1);
 
       const start = thresholds[current] ?? 0;
       const end = thresholds[next] ?? 1;
