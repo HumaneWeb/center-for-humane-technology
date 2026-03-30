@@ -1,13 +1,6 @@
 import { extractParagraphsFromHtml } from './text.utils';
 
-export type ImageVariant =
-  | 'glass'
-  | 'rules'
-  | 'hooks'
-  | 'hand-brain'
-  | 'justice'
-  | 'missile'
-  | 'hand-chart';
+export type ImageVariant = 'brain' | 'glass' | 'missile' | 'justice' | 'pie' | 'robot' | 'rules';
 
 /** Safely get URL from DatoCMS FileField (object with url) or string. */
 function getUrl(field: unknown): string | undefined {
@@ -89,13 +82,13 @@ export function mapRawPrincipleToPillar(raw: RawPrinciple, index: number): Pilla
 
 function isImageVariant(v: unknown): v is ImageVariant {
   return (
+    v === 'brain' ||
     v === 'glass' ||
-    v === 'rules' ||
-    v === 'hooks' ||
-    v === 'hand-brain' ||
-    v === 'justice' ||
     v === 'missile' ||
-    v === 'hand-chart'
+    v === 'justice' ||
+    v === 'pie' ||
+    v === 'robot' ||
+    v === 'rules'
   );
 }
 
