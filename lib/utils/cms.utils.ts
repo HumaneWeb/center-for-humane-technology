@@ -10,10 +10,32 @@ const CMS_MODELS_ROUTE_MAP = {
 
 type CmsModelKey = keyof typeof CMS_MODELS_ROUTE_MAP;
 
+/** Record types whose front-end URL is fixed (no slug in CMS). */
+const CMS_SINGLETON_RECORD_PATH = {
+  PathForwardRecord: '/ai-roadmap',
+} as const;
+
+type CmsSingletonRecordKey = keyof typeof CMS_SINGLETON_RECORD_PATH;
+
 export type LinkType = {
   externalUrl?: string;
   content: { __typename: string; slug: string };
 };
+
+/** Website path for a record type + slug (same rules as {@link getLinkCmsUrl}). */
+export function getCmsRecordPath(
+  __typename: string,
+  slug?: string | null,
+): string | null {
+  if (__typename in CMS_SINGLETON_RECORD_PATH) {
+    return CMS_SINGLETON_RECORD_PATH[__typename as CmsSingletonRecordKey];
+  }
+  if (!slug || !(__typename in CMS_MODELS_ROUTE_MAP)) {
+    return null;
+  }
+  const base = CMS_MODELS_ROUTE_MAP[__typename as CmsModelKey];
+  return `${base}/${slug}`;
+}
 
 export const getLinkCmsUrl = (rawLink: LinkType) => {
   const { externalUrl, content } = rawLink || {};

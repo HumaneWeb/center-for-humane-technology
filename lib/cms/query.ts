@@ -2305,6 +2305,18 @@ export const BannerQuery = graphql(`
         height
         title
       }
+      pageExclusions {
+        __typename
+        ... on BasicPageRecord {
+          slug
+        }
+        ... on LandingRecord {
+          slug
+        }
+        ... on PathForwardRecord {
+          id
+        }
+      }
     }
   }
 `);

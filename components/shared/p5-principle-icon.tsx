@@ -42,6 +42,7 @@ export function P5PrincipleIcon({
 }: P5PrincipleIconProps) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const handleRef = useRef<RenderRulesIconHandle | RenderBrainIconHandle | null>(null);
+  const bootTokenRef = useRef(0);
   const ioRef = useRef<IntersectionObserver | null>(null);
   const bootTimerRef = useRef<number | null>(null);
   const hasBootedRef = useRef(false);
@@ -94,6 +95,7 @@ export function P5PrincipleIcon({
     if (!shouldBoot || hasBootedRef.current) return;
 
     hasBootedRef.current = true;
+    const token = ++bootTokenRef.current;
 
     if (bootTimerRef.current != null) window.clearTimeout(bootTimerRef.current);
     bootTimerRef.current = window.setTimeout(() => {
@@ -105,11 +107,20 @@ export function P5PrincipleIcon({
       handleRef.current?.destroy();
       handleRef.current = null;
 
-      if (variant === 'brain') {
-        handleRef.current = renderBrainIcon(liveHost, { imageSrc: resolvedSrc, ...brainOptions });
-      } else {
-        handleRef.current = renderRulesIcon(liveHost, { imageSrc: resolvedSrc, ...rulesOptions });
-      }
+      const boot = variant === 'brain'
+        ? renderBrainIcon(liveHost, { imageSrc: resolvedSrc, ...brainOptions })
+        : renderRulesIcon(liveHost, { imageSrc: resolvedSrc, ...rulesOptions });
+
+      void boot.then((h) => {
+        // If a newer boot started, destroy immediately.
+        if (bootTokenRef.current !== token) {
+          h.destroy();
+          return;
+        }
+        handleRef.current = h;
+        // Respect current visibility right away.
+        if (bootOnViewport && !isVisible) (h.p5 as any)?.noLoop?.();
+      });
     }, Math.max(0, bootDelayMs));
 
     return () => {
@@ -118,7 +129,7 @@ export function P5PrincipleIcon({
         bootTimerRef.current = null;
       }
     };
-  }, [shouldBoot, bootDelayMs, variant, resolvedSrc, rulesOptions, brainOptions]);
+  }, [shouldBoot, bootDelayMs, variant, resolvedSrc, rulesOptions, brainOptions, bootOnViewport, isVisible]);
 
   // Pause/resume on visibility changes (doesn't re-boot).
   useEffect(() => {
@@ -133,6 +144,8 @@ export function P5PrincipleIcon({
   useEffect(() => {
     hasBootedRef.current = false;
     setShouldBoot(!bootOnViewport);
+    // Invalidate any in-flight boot.
+    bootTokenRef.current += 1;
   }, [variant, resolvedSrc, bootOnViewport]);
 
   if (!variant) return null;

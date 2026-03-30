@@ -359,7 +359,7 @@ type BannerBlockRecord implements RecordInterface {
   id: ItemId!
 }
 
-union BannerModelPageExclusionsField = BasicPageRecord | LandingRecord
+union BannerModelPageExclusionsField = BasicPageRecord | LandingRecord | PathForwardRecord
 
 """Record of type Banner (banner)"""
 type BannerRecord implements RecordInterface {

@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils/css.utils';
+import { getCmsRecordPath } from '@/lib/utils/cms.utils';
 import { type ResultOf } from '@/lib/cms/graphql';
 import { type BannerQuery } from '@/lib/cms/query';
 
@@ -21,11 +22,35 @@ export const BANNER_DISMISSED_COOKIE = 'banner_dismissed';
 /** Hours when CMS omits dismissedDuration */
 const DEFAULT_DISMISSED_DURATION_HOURS = 24;
 
+function normalizeSitePath(path: string): string {
+  if (path === '/' || path === '') return '/';
+  return path.replace(/\/+$/, '') || '/';
+}
+
 export default function BannerPopup({ banner }: Props) {
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const excludedPaths = useMemo(() => {
+    return new Set(
+      banner.pageExclusions
+        .map((item) => {
+          const slug = 'slug' in item ? item.slug : null;
+          const path = getCmsRecordPath(item.__typename, slug);
+          return path ? normalizeSitePath(path) : null;
+        })
+        .filter((p): p is string => p != null),
+    );
+  }, [banner.pageExclusions]);
+
   useEffect(() => {
+    const path = normalizeSitePath(pathname ?? '');
+    if (excludedPaths.has(path)) {
+      setIsVisible(false);
+      return;
+    }
+
     const debugBanner = searchParams.has('debug-banner');
     if (!debugBanner) {
       if (!banner.enabled) return;
@@ -39,7 +64,14 @@ export default function BannerPopup({ banner }: Props) {
     const delay = banner.delay ?? 0;
     const timer = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timer);
-  }, [banner._updatedAt, banner.delay, banner.enabled, searchParams]);
+  }, [
+    banner._updatedAt,
+    banner.delay,
+    banner.enabled,
+    excludedPaths,
+    pathname,
+    searchParams,
+  ]);
 
   const handleClose = () => {
     const hours =
