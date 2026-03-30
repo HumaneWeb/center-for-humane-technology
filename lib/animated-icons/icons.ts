@@ -1,5 +1,4 @@
-'use client';
-import p5 from 'p5';
+import type p5 from 'p5';
 
 export type RenderRulesIconOptions = {
   /** Defaults to 8 (bigger = chunkier / faster). */
@@ -63,7 +62,7 @@ export type RenderBrainIconHandle = RenderRulesIconHandle;
 export const renderRulesIcon = (
   container: HTMLElement,
   opts: RenderRulesIconOptions = {},
-): RenderRulesIconHandle => {
+): Promise<RenderRulesIconHandle> => {
   const STEP = opts.step ?? 8;
   const IMAGE_SRC = opts.imageSrc ?? '/rules.jpg';
   const BG = opts.backgroundRgb ?? [226, 249, 251];
@@ -72,6 +71,11 @@ export const renderRulesIcon = (
   const REVEAL = opts.reveal ?? 'random';
   const CELLS_PER_FRAME = opts.cellsPerFrame ?? 800;
   const RANDOM_SEED = opts.randomSeed ?? 42;
+
+  if (typeof window === 'undefined') {
+    // SSR guard: this should never run on the server.
+    return Promise.reject(new Error('renderRulesIcon must run in the browser'));
+  }
 
   const sketch = (p: p5) => {
     const pp = p as unknown as p5 & {
@@ -363,18 +367,20 @@ export const renderRulesIcon = (
     };
   };
 
-  const instance = new p5(sketch);
-
-  return {
-    p5: instance,
-    destroy: () => {
-      (instance as unknown as { __disconnectResizeObserver?: () => void }).__disconnectResizeObserver?.();
-      instance.remove();
-    },
-    rerender: () => {
-      (instance as any).__rerender?.();
-    },
-  };
+  return import('p5').then((mod) => {
+    const P5 = mod.default;
+    const instance = new P5(sketch);
+    return {
+      p5: instance,
+      destroy: () => {
+        (instance as unknown as { __disconnectResizeObserver?: () => void }).__disconnectResizeObserver?.();
+        instance.remove();
+      },
+      rerender: () => {
+        (instance as any).__rerender?.();
+      },
+    };
+  });
 };
 
 /**
@@ -384,7 +390,7 @@ export const renderRulesIcon = (
 export const renderBrainIcon = (
   container: HTMLElement,
   opts: RenderBrainIconOptions = {},
-): RenderBrainIconHandle => {
+): Promise<RenderBrainIconHandle> => {
   const STEP = opts.step ?? 5;
   const IMAGE_SRC = opts.imageSrc ?? '/brain.jpg';
   const BG = opts.backgroundRgb ?? [240, 247, 247];
@@ -394,6 +400,10 @@ export const renderBrainIcon = (
   const REVEAL = opts.reveal ?? 'random';
   const CELLS_PER_FRAME = opts.cellsPerFrame ?? 800;
   const RANDOM_SEED = opts.randomSeed ?? 42;
+
+  if (typeof window === 'undefined') {
+    return Promise.reject(new Error('renderBrainIcon must run in the browser'));
+  }
 
   const sketch = (p: p5) => {
     const pp = p as unknown as p5 & {
@@ -679,16 +689,18 @@ export const renderBrainIcon = (
     };
   };
 
-  const instance = new p5(sketch);
-
-  return {
-    p5: instance,
-    destroy: () => {
-      (instance as unknown as { __disconnectResizeObserver?: () => void }).__disconnectResizeObserver?.();
-      instance.remove();
-    },
-    rerender: () => {
-      (instance as any).__rerender?.();
-    },
-  };
+  return import('p5').then((mod) => {
+    const P5 = mod.default;
+    const instance = new P5(sketch);
+    return {
+      p5: instance,
+      destroy: () => {
+        (instance as unknown as { __disconnectResizeObserver?: () => void }).__disconnectResizeObserver?.();
+        instance.remove();
+      },
+      rerender: () => {
+        (instance as any).__rerender?.();
+      },
+    };
+  });
 };
