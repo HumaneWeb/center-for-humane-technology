@@ -37,7 +37,6 @@ export default function BannerPopup({ banner }: Props) {
       banner.pageExclusions
         .map((item) => {
           const slug = 'slug' in item ? item.slug : null;
-          if (!slug) return null;
           const path = getCmsRecordPath(item.__typename, slug);
           return path ? normalizeSitePath(path) : null;
         })
