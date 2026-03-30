@@ -2313,6 +2313,9 @@ export const BannerQuery = graphql(`
         ... on LandingRecord {
           slug
         }
+        ... on PathForwardRecord {
+          id
+        }
       }
     }
   }
