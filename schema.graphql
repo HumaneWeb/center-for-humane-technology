@@ -359,6 +359,8 @@ type BannerBlockRecord implements RecordInterface {
   id: ItemId!
 }
 
+union BannerModelPageExclusionsField = BasicPageRecord | LandingRecord
+
 """Record of type Banner (banner)"""
 type BannerRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -385,6 +387,7 @@ type BannerRecord implements RecordInterface {
   headline: String
   id: ItemId!
   linkUrl: String
+  pageExclusions: [BannerModelPageExclusionsField!]!
   photo: FileField
   text(
     """Process content as markdown"""

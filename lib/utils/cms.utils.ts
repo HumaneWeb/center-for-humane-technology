@@ -15,6 +15,18 @@ export type LinkType = {
   content: { __typename: string; slug: string };
 };
 
+/** Website path for a record type + slug (same rules as {@link getLinkCmsUrl}). */
+export function getCmsRecordPath(
+  __typename: string,
+  slug: string,
+): string | null {
+  if (!slug || !(__typename in CMS_MODELS_ROUTE_MAP)) {
+    return null;
+  }
+  const base = CMS_MODELS_ROUTE_MAP[__typename as CmsModelKey];
+  return `${base}/${slug}`;
+}
+
 export const getLinkCmsUrl = (rawLink: LinkType) => {
   const { externalUrl, content } = rawLink || {};
   if (externalUrl) {
