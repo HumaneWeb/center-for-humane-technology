@@ -1,5 +1,25 @@
 import type p5 from 'p5';
 
+/** Simple debounce: delays `fn` until `ms` after the last call. */
+const debounce = (fn: () => void, ms: number) => {
+  let id: ReturnType<typeof setTimeout> | undefined;
+  return () => {
+    if (id !== undefined) clearTimeout(id);
+    id = setTimeout(fn, ms);
+  };
+};
+
+/** Cached p5 module import — resolved once, reused by all icons. */
+let _p5Promise: Promise<typeof import('p5')> | undefined;
+const loadP5 = () => {
+  if (!_p5Promise) _p5Promise = import('p5');
+  return _p5Promise;
+};
+
+/** Returns true when the viewport is narrower than 768 px (typical mobile). */
+const isMobileViewport = () =>
+  typeof window !== 'undefined' && window.innerWidth < 768;
+
 export type RenderRulesIconOptions = {
   /** Defaults to 8 (bigger = chunkier / faster). */
   step?: number;
@@ -162,7 +182,7 @@ export const renderRulesIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? 800;
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 300 : 800);
   const RANDOM_SEED = opts.randomSeed ?? 42;
 
   if (typeof window === 'undefined') {
@@ -329,10 +349,10 @@ export const renderRulesIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(debounce(() => {
         if (!container.isConnected) return;
         applyCanvasSizeFromContainer();
-      });
+      }, 150));
       resizeObserver.observe(container);
 
       // p5 typings may treat `loadImage` as async; use callback form.
@@ -436,7 +456,7 @@ export const renderRulesIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) rendered = true;
+        if (renderY >= img.height) { rendered = true; p.noLoop(); }
         return;
       }
 
@@ -446,12 +466,13 @@ export const renderRulesIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) rendered = true;
+      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
     };
 
     pp.__rerender = () => {
       computeLayout();
       clearAndReset();
+      p.loop();
     };
 
     pp.__disconnectResizeObserver = () => {
@@ -460,7 +481,7 @@ export const renderRulesIcon = (
     };
   };
 
-  return import('p5').then((mod) => {
+  return loadP5().then((mod) => {
     const P5 = mod.default;
     const instance = new P5(sketch);
     return {
@@ -493,7 +514,7 @@ export const renderBrainIcon = (
   const FIT = opts.scale ?? 0.95;
   const PAINT_BG_CELLS = opts.paintBgCells ?? true;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? 800;
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 300 : 800);
   const RANDOM_SEED = opts.randomSeed ?? 42;
 
   if (typeof window === 'undefined') {
@@ -707,10 +728,10 @@ export const renderBrainIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(debounce(() => {
         if (!container.isConnected) return;
         applyCanvasSizeFromContainer();
-      });
+      }, 150));
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -760,7 +781,7 @@ export const renderBrainIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) rendered = true;
+        if (renderY >= img.height) { rendered = true; p.noLoop(); }
         return;
       }
 
@@ -770,12 +791,13 @@ export const renderBrainIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) rendered = true;
+      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
     };
 
     pp.__rerender = () => {
       computeLayout();
       clearAndReset();
+      p.loop();
     };
 
     pp.__disconnectResizeObserver = () => {
@@ -784,7 +806,7 @@ export const renderBrainIcon = (
     };
   };
 
-  return import('p5').then((mod) => {
+  return loadP5().then((mod) => {
     const P5 = mod.default;
     const instance = new P5(sketch);
     return {
@@ -816,7 +838,7 @@ export const renderJusticeIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? 900;
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 350 : 900);
   const RANDOM_SEED = opts.randomSeed ?? 101;
 
   if (typeof window === 'undefined') {
@@ -1041,10 +1063,10 @@ export const renderJusticeIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(debounce(() => {
         if (!container.isConnected) return;
         applyCanvasSizeFromContainer();
-      });
+      }, 150));
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -1087,7 +1109,7 @@ export const renderJusticeIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) rendered = true;
+        if (renderY >= img.height) { rendered = true; p.noLoop(); }
         return;
       }
 
@@ -1097,12 +1119,13 @@ export const renderJusticeIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) rendered = true;
+      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
     };
 
     pp.__rerender = () => {
       computeLayout();
       clearAndReset();
+      p.loop();
     };
 
     pp.__disconnectResizeObserver = () => {
@@ -1111,7 +1134,7 @@ export const renderJusticeIcon = (
     };
   };
 
-  return import('p5').then((mod) => {
+  return loadP5().then((mod) => {
     const P5 = mod.default;
     const instance = new P5(sketch);
     return {
@@ -1143,7 +1166,7 @@ export const renderGlassIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? 900;
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 350 : 900);
   const RANDOM_SEED = opts.randomSeed ?? 73;
 
   if (typeof window === 'undefined') {
@@ -1396,10 +1419,10 @@ export const renderGlassIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(debounce(() => {
         if (!container.isConnected) return;
         applyCanvasSizeFromContainer();
-      });
+      }, 150));
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -1442,7 +1465,7 @@ export const renderGlassIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) rendered = true;
+        if (renderY >= img.height) { rendered = true; p.noLoop(); }
         return;
       }
 
@@ -1452,12 +1475,13 @@ export const renderGlassIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) rendered = true;
+      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
     };
 
     pp.__rerender = () => {
       computeLayout();
       clearAndReset();
+      p.loop();
     };
 
     pp.__disconnectResizeObserver = () => {
@@ -1466,7 +1490,7 @@ export const renderGlassIcon = (
     };
   };
 
-  return import('p5').then((mod) => {
+  return loadP5().then((mod) => {
     const P5 = mod.default;
     const instance = new P5(sketch);
     return {
@@ -1498,7 +1522,7 @@ export const renderPieIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? 900;
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 350 : 900);
   const RANDOM_SEED = opts.randomSeed ?? 137;
 
   if (typeof window === 'undefined') {
@@ -1719,10 +1743,10 @@ export const renderPieIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(debounce(() => {
         if (!container.isConnected) return;
         applyCanvasSizeFromContainer();
-      });
+      }, 150));
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -1765,7 +1789,7 @@ export const renderPieIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) rendered = true;
+        if (renderY >= img.height) { rendered = true; p.noLoop(); }
         return;
       }
 
@@ -1775,12 +1799,13 @@ export const renderPieIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) rendered = true;
+      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
     };
 
     pp.__rerender = () => {
       computeLayout();
       clearAndReset();
+      p.loop();
     };
 
     pp.__disconnectResizeObserver = () => {
@@ -1789,7 +1814,7 @@ export const renderPieIcon = (
     };
   };
 
-  return import('p5').then((mod) => {
+  return loadP5().then((mod) => {
     const P5 = mod.default;
     const instance = new P5(sketch);
     return {
@@ -1815,7 +1840,7 @@ export const renderRobotIcon = (
   container: HTMLElement,
   opts: RenderRobotIconOptions = {},
 ): Promise<RenderRobotIconHandle> => {
-  const STEP = opts.step ?? 3;
+  const STEP = opts.step ?? 5;
   const IMAGE_SRC = opts.imageSrc ?? '/robot.gif';
   const BG = opts.backgroundRgb ?? [240, 247, 247];
   const FIT = opts.scale ?? 0.95;
@@ -1896,8 +1921,10 @@ export const renderRobotIcon = (
 
     let resizeObserver: ResizeObserver | undefined;
 
+    let bufferReady = false;
+
     const ensureBuffer = () => {
-      if (!img) return;
+      if (!img || bufferReady) return;
       if (!buf) {
         buf = p.createGraphics(img.width, img.height);
         buf.pixelDensity(1);
@@ -1906,6 +1933,29 @@ export const renderRobotIcon = (
       buf.image(img, 0, 0);
       buf.loadPixels();
       pw = buf.width;
+      bufferReady = true;
+    };
+
+    // Precompute drawable cells once after image loads (avoids per-frame pixel checks).
+    let cells: Array<{ x: number; y: number; bright: number; n: number }> = [];
+
+    const precomputeCells = () => {
+      if (!img || !buf) return;
+      cells = [];
+      for (let x = 0; x < img.width; x += STEP) {
+        for (let y = 0; y < img.height; y += STEP) {
+          const i = (y * pw + x) * 4;
+          const a = buf.pixels[i + 3];
+          if (a < 128) continue;
+          const r = buf.pixels[i];
+          const g = buf.pixels[i + 1];
+          const b = buf.pixels[i + 2];
+          const bright = (r + g + b) / 3;
+          if (bright < 70) continue;
+          const n = p.noise(x * 0.05, y * 0.05);
+          cells.push({ x, y, bright, n });
+        }
+      }
     };
 
     const getPaletteColor = (bright: number, n: number, t: number) => {
@@ -1970,17 +2020,18 @@ export const renderRobotIcon = (
       p.textAlign(p.CENTER, p.CENTER);
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
-      p.frameRate(24);
+      p.frameRate(12);
 
-      resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(debounce(() => {
         if (!container.isConnected) return;
         applyCanvasSizeFromContainer();
-      });
+      }, 150));
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
         img = loaded;
         ensureBuffer();
+        precomputeCells();
         computeLayout();
       });
     };
@@ -1990,9 +2041,7 @@ export const renderRobotIcon = (
     };
 
     pp.draw = () => {
-      if (!img) return;
-      ensureBuffer();
-      computeLayout();
+      if (!img || cells.length === 0) return;
 
       if (TRANSPARENT_BG) {
         p.clear();
@@ -2001,42 +2050,31 @@ export const renderRobotIcon = (
       }
       const t = p.frameCount;
 
-      for (let x = 0; x < img.width; x += STEP) {
-        for (let y = 0; y < img.height; y += STEP) {
-          const i = (y * pw + x) * 4;
-          const r = buf!.pixels[i];
-          const g = buf!.pixels[i + 1];
-          const b = buf!.pixels[i + 2];
-          const a = buf!.pixels[i + 3];
+      for (let k = 0; k < cells.length; k++) {
+        const c = cells[k];
+        const { x, y, bright, n } = c;
+        const [cr, cg, cb] = getPaletteColor(bright, n, t);
 
-          if (a < 128) continue;
-          const bright = (r + g + b) / 3;
-          if (bright < 70) continue;
+        const wobbleX = p.sin(t * 0.02 + n * 20) * 0.5;
+        const wobbleY = p.cos(t * 0.015 + n * 20) * 0.3;
+        const dx = cx + (x - img.width / 2) * sc + wobbleX;
+        const dy = cy + (y - img.height / 2) * sc + wobbleY;
+        const sz = STEP * sc * (0.8 + n * 0.2);
 
-          const n = p.noise(x * 0.05, y * 0.05);
-          const [cr, cg, cb] = getPaletteColor(bright, n, t);
-
-          const wobbleX = p.sin(t * 0.02 + n * 20) * 0.5;
-          const wobbleY = p.cos(t * 0.015 + n * 20) * 0.3;
-          const dx = cx + (x - img.width / 2) * sc + wobbleX;
-          const dy = cy + (y - img.height / 2) * sc + wobbleY;
-          const sz = STEP * sc * (0.8 + n * 0.2);
-
-          if (n < 0.25) {
-            p.noStroke();
-            p.fill(cr, cg, cb);
-            p.textSize(sz * 1.1);
-            p.text(CHARS[Math.floor(n * 100) % CHARS.length], dx, dy);
-          } else if (n < 0.45) {
-            p.noFill();
-            p.stroke(cr, cg, cb);
-            p.strokeWeight(0.8);
-            p.rect(dx, dy, sz, sz);
-          } else {
-            p.noStroke();
-            p.fill(cr, cg, cb);
-            p.rect(dx, dy, sz, sz);
-          }
+        if (n < 0.25) {
+          p.noStroke();
+          p.fill(cr, cg, cb);
+          p.textSize(sz * 1.1);
+          p.text(CHARS[Math.floor(n * 100) % CHARS.length], dx, dy);
+        } else if (n < 0.45) {
+          p.noFill();
+          p.stroke(cr, cg, cb);
+          p.strokeWeight(0.8);
+          p.rect(dx, dy, sz, sz);
+        } else {
+          p.noStroke();
+          p.fill(cr, cg, cb);
+          p.rect(dx, dy, sz, sz);
         }
       }
       p.noStroke();
@@ -2052,7 +2090,7 @@ export const renderRobotIcon = (
     };
   };
 
-  return import('p5').then((mod) => {
+  return loadP5().then((mod) => {
     const P5 = mod.default;
     const instance = new P5(sketch);
     return {
@@ -2078,7 +2116,7 @@ export const renderMissileIcon = (
   container: HTMLElement,
   opts: RenderMissileIconOptions = {},
 ): Promise<RenderMissileIconHandle> => {
-  const STEP = opts.step ?? 2;
+  const STEP = opts.step ?? 4;
   const IMAGE_SRC = opts.imageSrc ?? '/missile2.gif';
   const BG = opts.backgroundRgb ?? [240, 247, 247];
   const FIT = opts.scale ?? 1.1;
@@ -2238,8 +2276,10 @@ export const renderMissileIcon = (
 
     let resizeObserver: ResizeObserver | undefined;
 
+    let bufferReady = false;
+
     const ensureBuffer = () => {
-      if (!img) return;
+      if (!img || bufferReady) return;
       if (!buf) {
         buf = p.createGraphics(img.width, img.height);
         buf.pixelDensity(1);
@@ -2252,6 +2292,7 @@ export const renderMissileIcon = (
       if (!bgColor && buf.pixels.length >= 3) {
         bgColor = [buf.pixels[0], buf.pixels[1], buf.pixels[2]];
       }
+      bufferReady = true;
     };
 
     const isBackground = (r: number, g: number, b: number): boolean => {
@@ -2262,18 +2303,35 @@ export const renderMissileIcon = (
       return dr + dg + db < 40;
     };
 
+    // Precompute drawable cells once after image loads.
+    let cells: Array<{ x: number; y: number; r: number; g: number; b: number; n: number }> = [];
+
+    const precomputeCells = () => {
+      if (!img || !buf) return;
+      cells = [];
+      for (let x = 0; x < img.width; x += STEP) {
+        for (let y = 0; y < img.height; y += STEP) {
+          const i = (y * pw + x) * 4;
+          const a = buf.pixels[i + 3];
+          if (a < 128) continue;
+          const r = buf.pixels[i];
+          const g = buf.pixels[i + 1];
+          const b = buf.pixels[i + 2];
+          if (isBackground(r, g, b)) continue;
+          const n = p.noise(x * 0.05, y * 0.05);
+          cells.push({ x, y, r, g, b, n });
+        }
+      }
+    };
+
     const getCellColor = (r: number, g: number, b: number, n: number, t: number) => {
       const bright = (r + g + b) / 3;
 
-      // Naranjas para zonas brillantes (cuerpo del avión)
-      // Verdes para zonas medias/oscuras (alas y detalles)
       let pal: [number, number, number];
 
       if (bright < 80) {
-        // Zonas muy oscuras → verde oscuro
-        pal = PALETTE[4]; // #2A8A50
+        pal = PALETTE[4];
       } else if (bright < 130) {
-        // Transición oscuro-medio → verde principal
         const m = p.map(bright, 80, 130, 0, 1);
         pal = [
           p.lerp(PALETTE[4][0], PALETTE[2][0], m),
@@ -2281,9 +2339,7 @@ export const renderMissileIcon = (
           p.lerp(PALETTE[4][2], PALETTE[2][2], m),
         ];
       } else if (bright < 190) {
-        // Zona media → mezcla verde/naranja según ruido
-        // n alto → naranja, n bajo → verde amarillento
-        const base = n > 0.5 ? PALETTE[0] : PALETTE[5]; // naranja o verde amarillento
+        const base = n > 0.5 ? PALETTE[0] : PALETTE[5];
         const m = p.map(bright, 130, 190, 0, 1);
         pal = [
           p.lerp(PALETTE[2][0], base[0], m),
@@ -2291,7 +2347,6 @@ export const renderMissileIcon = (
           p.lerp(PALETTE[2][2], base[2], m),
         ];
       } else {
-        // Zonas brillantes → naranja claro/principal
         const m = p.map(bright, 190, 255, 0, 1);
         pal = [
           p.lerp(PALETTE[0][0], PALETTE[1][0], m),
@@ -2300,20 +2355,15 @@ export const renderMissileIcon = (
         ];
       }
 
-      // Acento: verde claro en zonas de ruido alto (simula el efecto puntillista)
-      const accent = PALETTE[3]; // verde claro #6DD47E
+      const accent = PALETTE[3];
       const accentMix = n > 0.6 ? p.constrain(p.map(bright, 80, 200, 0.1, 0.35), 0.1, 0.35) : 0;
 
       const cycle = (p.sin(t * 0.02 + n * 30) + 1) / 2;
-      const imgMix = 0.35; // menos mezcla con la imagen original → colores más vivos
+      const imgMix = 0.35;
 
-      const sr = bright;
-      const sg = bright;
-      const sb = bright;
-
-      let cr = p.lerp(pal[0], sr, imgMix + cycle * 0.08);
-      let cg = p.lerp(pal[1], sg, imgMix + cycle * 0.08);
-      let cb = p.lerp(pal[2], sb, imgMix + cycle * 0.08);
+      let cr = p.lerp(pal[0], bright, imgMix + cycle * 0.08);
+      let cg = p.lerp(pal[1], bright, imgMix + cycle * 0.08);
+      let cb = p.lerp(pal[2], bright, imgMix + cycle * 0.08);
 
       cr = p.lerp(cr, accent[0], accentMix);
       cg = p.lerp(cg, accent[1], accentMix);
@@ -2322,6 +2372,7 @@ export const renderMissileIcon = (
       const alpha = p.map(bright, 25, 220, 180, 255);
       return [cr, cg, cb, alpha] as const;
     };
+
     pp.setup = () => {
       if (!container.style.position) container.style.position = 'relative';
       if (!container.style.width) container.style.width = '100%';
@@ -2343,17 +2394,18 @@ export const renderMissileIcon = (
       p.textFont('monospace');
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
-      p.frameRate(20);
+      p.frameRate(12);
 
-      resizeObserver = new ResizeObserver(() => {
+      resizeObserver = new ResizeObserver(debounce(() => {
         if (!container.isConnected) return;
         applyCanvasSizeFromContainer();
-      });
+      }, 150));
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
         img = loaded;
         ensureBuffer();
+        precomputeCells();
         computeLayout();
       });
     };
@@ -2363,9 +2415,7 @@ export const renderMissileIcon = (
     };
 
     pp.draw = () => {
-      if (!img) return;
-      ensureBuffer();
-      computeLayout();
+      if (!img || cells.length === 0) return;
 
       if (TRANSPARENT_BG) {
         p.clear();
@@ -2375,41 +2425,32 @@ export const renderMissileIcon = (
 
       const t = p.frameCount;
 
-      for (let x = 0; x < img.width; x += STEP) {
-        for (let y = 0; y < img.height; y += STEP) {
-          const i = (y * pw + x) * 4;
-          const r = buf!.pixels[i];
-          const g = buf!.pixels[i + 1];
-          const b = buf!.pixels[i + 2];
-          const a = buf!.pixels[i + 3];
-          if (a < 128) continue;
-          if (isBackground(r, g, b)) continue;
+      for (let k = 0; k < cells.length; k++) {
+        const c = cells[k];
+        const { x, y, r, g, b, n } = c;
+        const [cr, cg, cb, alpha] = getCellColor(r, g, b, n, t);
 
-          const n = p.noise(x * 0.05, y * 0.05);
-          const [cr, cg, cb, alpha] = getCellColor(r, g, b, n, t);
+        const wobbleX = p.sin(t * 0.01 + n * 20) * 0.5;
+        const wobbleY = p.cos(t * 0.008 + n * 20) * 0.3;
+        const dx = cx + (x - img.width / 2) * sc + wobbleX;
+        const dy = cy + (y - img.height / 2) * sc + wobbleY;
+        const sz = STEP * sc * (0.8 + n * 0.2);
 
-          const wobbleX = p.sin(t * 0.01 + n * 20) * 0.5;
-          const wobbleY = p.cos(t * 0.008 + n * 20) * 0.3;
-          const dx = cx + (x - img.width / 2) * sc + wobbleX;
-          const dy = cy + (y - img.height / 2) * sc + wobbleY;
-          const sz = STEP * sc * (0.8 + n * 0.2);
-
-          if (n < 0.3) {
-            const charIdx = Math.floor(n * 100 + t * 0.05) % CODE_CHARS.length;
-            p.noStroke();
-            p.fill(cr, cg, cb, alpha);
-            p.textSize(sz * 1.1);
-            p.text(CODE_CHARS[charIdx]!, dx, dy);
-          } else if (n < 0.45) {
-            p.noFill();
-            p.stroke(cr, cg, cb, alpha);
-            p.strokeWeight(0.8);
-            p.rect(dx, dy, sz, sz);
-          } else {
-            p.noStroke();
-            p.fill(cr, cg, cb, alpha);
-            p.rect(dx, dy, sz, sz);
-          }
+        if (n < 0.3) {
+          const charIdx = Math.floor(n * 100 + t * 0.05) % CODE_CHARS.length;
+          p.noStroke();
+          p.fill(cr, cg, cb, alpha);
+          p.textSize(sz * 1.1);
+          p.text(CODE_CHARS[charIdx]!, dx, dy);
+        } else if (n < 0.45) {
+          p.noFill();
+          p.stroke(cr, cg, cb, alpha);
+          p.strokeWeight(0.8);
+          p.rect(dx, dy, sz, sz);
+        } else {
+          p.noStroke();
+          p.fill(cr, cg, cb, alpha);
+          p.rect(dx, dy, sz, sz);
         }
       }
       p.noStroke();
@@ -2425,7 +2466,7 @@ export const renderMissileIcon = (
     };
   };
 
-  return import('p5').then((mod) => {
+  return loadP5().then((mod) => {
     const P5 = mod.default;
     const instance = new P5(sketch);
     return {

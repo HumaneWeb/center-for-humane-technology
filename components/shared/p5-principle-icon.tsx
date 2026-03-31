@@ -26,6 +26,11 @@ import {
   renderRobotIcon,
   renderRulesIcon,
 } from '@/lib/animated-icons/icons';
+import {
+  isOffscreenSupported,
+  renderIconOffscreen,
+  type OffscreenIconHandle,
+} from '@/lib/animated-icons/offscreen-renderer';
 
 type P5PrincipleIconProps = {
   variant?: ImageVariant;
@@ -51,53 +56,82 @@ type P5PrincipleIconProps = {
   pieOptions?: Omit<RenderPieIconOptions, 'imageSrc'>;
 };
 
-export function P5PrincipleIcon({
-  variant,
-  className,
-  style,
-  alt,
-  bootOnViewport = true,
-  bootDelayMs = 150,
-  imageSrc,
-  rulesOptions,
-  brainOptions,
-  pieOptions,
-  robotOptions,
-  missileOptions,
-  glassOptions,
-  justiceOptions,
-}: P5PrincipleIconProps) {
+/** Unified handle that works for both p5 and offscreen renderers. */
+type IconHandle = {
+  pause: () => void;
+  resume: () => void;
+  destroy: () => void;
+};
+
+/** Resolve the image source for a given variant. */
+function resolveImageSrc(variant: ImageVariant, imageSrc?: string): string {
+  if (imageSrc) return imageSrc;
+  if (variant === 'glass' || variant === 'justice' || variant === 'pie' || variant === 'missile' || variant === 'robot') {
+    return `/${variant}.jpg`;
+  }
+  return `/${variant}.png`;
+}
+
+/** Get the variant-specific options object. */
+function getVariantOptions(
+  variant: ImageVariant,
+  props: P5PrincipleIconProps,
+): Record<string, any> | undefined {
+  switch (variant) {
+    case 'rules': return props.rulesOptions;
+    case 'brain': return props.brainOptions;
+    case 'robot': return props.robotOptions;
+    case 'missile': return props.missileOptions;
+    case 'glass': return props.glassOptions;
+    case 'justice': return props.justiceOptions;
+    case 'pie': return props.pieOptions;
+    default: return undefined;
+  }
+}
+
+// Check once at module level (avoids per-render checks).
+// TODO: enable once the worker bundling is verified in dev + prod.
+// Set to `true` to test the OffscreenCanvas path.
+const ENABLE_OFFSCREEN = false;
+let _offscreenOk: boolean | null = null;
+function canUseOffscreen(): boolean {
+  if (!ENABLE_OFFSCREEN) return false;
+  if (_offscreenOk == null) _offscreenOk = isOffscreenSupported();
+  return _offscreenOk;
+}
+
+export function P5PrincipleIcon(props: P5PrincipleIconProps) {
+  const {
+    variant,
+    className,
+    style,
+    alt,
+    bootOnViewport = true,
+    bootDelayMs = 150,
+    imageSrc,
+    rulesOptions,
+    brainOptions,
+    pieOptions,
+    robotOptions,
+    missileOptions,
+    glassOptions,
+    justiceOptions,
+  } = props;
+
   const hostRef = useRef<HTMLDivElement | null>(null);
-  const handleRef = useRef<
-    | RenderRulesIconHandle
-    | RenderBrainIconHandle
-    | RenderGlassIconHandle
-    | RenderRobotIconHandle
-    | RenderJusticeIconHandle
-    | RenderMissileIconHandle
-    | null
-  >(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const handleRef = useRef<IconHandle | null>(null);
   const bootTokenRef = useRef(0);
   const ioRef = useRef<IntersectionObserver | null>(null);
   const bootTimerRef = useRef<number | null>(null);
   const hasBootedRef = useRef(false);
+  const resizeObsRef = useRef<ResizeObserver | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [shouldBoot, setShouldBoot] = useState(!bootOnViewport);
 
   const resolvedSrc = useMemo(() => {
     if (!variant) return undefined;
-    if (imageSrc) return imageSrc;
-
-    // missile/robot use animated GIFs; others use PNG.
-    // if (variant === 'missile' || variant === 'robot') {
-    //   return `/${variant}.gif`;
-    // }
-
-    if (variant === 'glass' || variant === 'justice' || variant === 'pie' || variant === 'missile' || variant === 'robot') {
-      return `/${variant}.jpg`;
-    }
-
-    return `/${variant}.png`;
+    return resolveImageSrc(variant, imageSrc);
   }, [variant, imageSrc]);
 
   const hostCallbackRef = useCallback(
@@ -125,6 +159,8 @@ export function P5PrincipleIcon({
     return () => {
       ioRef.current?.disconnect();
       ioRef.current = null;
+      resizeObsRef.current?.disconnect();
+      resizeObsRef.current = null;
       if (bootTimerRef.current != null) {
         window.clearTimeout(bootTimerRef.current);
         bootTimerRef.current = null;
@@ -145,14 +181,65 @@ export function P5PrincipleIcon({
 
     if (bootTimerRef.current != null) window.clearTimeout(bootTimerRef.current);
     bootTimerRef.current = window.setTimeout(() => {
-      // If something changed while we were waiting, bail out.
       const liveHost = hostRef.current;
       if (!liveHost) return;
 
-      // Cleanup any previous instance before creating a new one.
+      // Cleanup previous instance
       handleRef.current?.destroy();
       handleRef.current = null;
+      resizeObsRef.current?.disconnect();
+      resizeObsRef.current = null;
 
+      const opts = getVariantOptions(variant, props) ?? {};
+
+      // ── Try OffscreenCanvas path ──────────────────────────────────────
+      if (canUseOffscreen()) {
+        // Create a <canvas> element inside the host div
+        const canvas = document.createElement('canvas');
+        canvas.style.display = 'block';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        // Remove any previous canvas
+        if (canvasRef.current?.parentElement === liveHost) {
+          liveHost.removeChild(canvasRef.current);
+        }
+        liveHost.appendChild(canvas);
+        canvasRef.current = canvas;
+
+        const offHandle = renderIconOffscreen(canvas, variant, resolvedSrc, opts);
+        if (offHandle) {
+          // Debounced resize
+          let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+          const ro = new ResizeObserver(() => {
+            if (!liveHost.isConnected) return;
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+              const r = liveHost.getBoundingClientRect();
+              offHandle.resize(Math.max(1, Math.round(r.width)), Math.max(1, Math.round(r.height)));
+            }, 150);
+          });
+          ro.observe(liveHost);
+          resizeObsRef.current = ro;
+
+          handleRef.current = {
+            pause: () => offHandle.pause(),
+            resume: () => offHandle.resume(),
+            destroy: () => {
+              offHandle.destroy();
+              ro.disconnect();
+              if (canvas.parentElement) canvas.parentElement.removeChild(canvas);
+            },
+          };
+
+          // Respect current visibility
+          if (bootOnViewport && !isVisible) offHandle.pause();
+          return;
+        }
+        // If offscreen failed (e.g. transferControlToOffscreen threw), remove canvas and fall through to p5
+        if (canvas.parentElement) canvas.parentElement.removeChild(canvas);
+      }
+
+      // ── Fallback: p5 path ─────────────────────────────────────────────
       const boot =
         variant === 'brain'
           ? renderBrainIcon(liveHost, { imageSrc: resolvedSrc, ...brainOptions })
@@ -169,13 +256,15 @@ export function P5PrincipleIcon({
                     : renderRulesIcon(liveHost, { imageSrc: resolvedSrc, ...rulesOptions });
 
       void boot.then((h) => {
-        // If a newer boot started, destroy immediately.
         if (bootTokenRef.current !== token) {
           h.destroy();
           return;
         }
-        handleRef.current = h;
-        // Respect current visibility right away.
+        handleRef.current = {
+          pause: () => (h.p5 as any)?.noLoop?.(),
+          resume: () => (h.p5 as any)?.loop?.(),
+          destroy: () => h.destroy(),
+        };
         if (bootOnViewport && !isVisible) (h.p5 as any)?.noLoop?.();
       });
     }, Math.max(0, bootDelayMs));
@@ -203,17 +292,16 @@ export function P5PrincipleIcon({
   // Pause/resume on visibility changes (doesn't re-boot).
   useEffect(() => {
     if (!bootOnViewport) return;
-    const inst = handleRef.current?.p5 as null | { noLoop?: () => void; loop?: () => void };
-    if (!inst) return;
-    if (!isVisible) inst.noLoop?.();
-    else inst.loop?.();
+    const h = handleRef.current;
+    if (!h) return;
+    if (!isVisible) h.pause();
+    else h.resume();
   }, [bootOnViewport, isVisible]);
 
   // If variant changes, allow a new boot.
   useEffect(() => {
     hasBootedRef.current = false;
     setShouldBoot(!bootOnViewport);
-    // Invalidate any in-flight boot.
     bootTokenRef.current += 1;
   }, [variant, resolvedSrc, bootOnViewport]);
 
@@ -229,4 +317,3 @@ export function P5PrincipleIcon({
     />
   );
 }
-
