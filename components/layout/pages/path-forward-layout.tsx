@@ -208,7 +208,7 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
               variant={pillar.imageVariant}
               alt={pillar.title}
               className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105 p-10"
-              bootDelayMs={300 + index * 150}
+              bootDelayMs={200 + index * 150}
               rulesOptions={REVEAL_RANDOM_TRANSPARENT}
               brainOptions={REVEAL_RANDOM_TRANSPARENT}
               robotOptions={TRANSPARENT_ONLY}

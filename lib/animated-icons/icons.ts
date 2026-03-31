@@ -182,7 +182,7 @@ export const renderRulesIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 300 : 800);
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 180 : 400);
   const RANDOM_SEED = opts.randomSeed ?? 42;
 
   if (typeof window === 'undefined') {
@@ -514,7 +514,7 @@ export const renderBrainIcon = (
   const FIT = opts.scale ?? 0.95;
   const PAINT_BG_CELLS = opts.paintBgCells ?? true;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 300 : 800);
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 180 : 400);
   const RANDOM_SEED = opts.randomSeed ?? 42;
 
   if (typeof window === 'undefined') {
@@ -838,7 +838,7 @@ export const renderJusticeIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 350 : 900);
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 200 : 450);
   const RANDOM_SEED = opts.randomSeed ?? 101;
 
   if (typeof window === 'undefined') {
@@ -1166,7 +1166,7 @@ export const renderGlassIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 350 : 900);
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 200 : 450);
   const RANDOM_SEED = opts.randomSeed ?? 73;
 
   if (typeof window === 'undefined') {
@@ -1522,7 +1522,7 @@ export const renderPieIcon = (
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
   const FIT = opts.scale ?? 0.95;
   const REVEAL = opts.reveal ?? 'random';
-  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 350 : 900);
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 200 : 450);
   const RANDOM_SEED = opts.randomSeed ?? 137;
 
   if (typeof window === 'undefined') {
