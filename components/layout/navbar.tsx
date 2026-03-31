@@ -323,7 +323,7 @@ export default function Navbar({ items }: Props) {
           className={cn(
             isMobile
               ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200'
-              : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[17px]',
+              : 'navbar-link text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[17px]',
             extraClassnames,
           )}
           aria-expanded={isOpen}
@@ -382,7 +382,7 @@ export default function Navbar({ items }: Props) {
     >
       <div className="mb:px-0 mb:gap-0 flex h-16 items-center justify-between gap-7 px-4">
         <div className="mb:pl-4 flex items-center">
-          <Link href="/" className="w-full">
+          <Link href="/" className="w-full navbar-logo">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="372"
