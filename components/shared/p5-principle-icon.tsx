@@ -5,10 +5,27 @@ import type { ImageVariant } from '@/lib/utils/path-forward.utils';
 import type {
   RenderBrainIconHandle,
   RenderBrainIconOptions,
+  RenderGlassIconHandle,
+  RenderGlassIconOptions,
+  RenderMissileIconHandle,
+  RenderMissileIconOptions,
+  RenderJusticeIconHandle,
+  RenderJusticeIconOptions,
+  RenderRobotIconHandle,
+  RenderRobotIconOptions,
   RenderRulesIconHandle,
   RenderRulesIconOptions,
+  RenderPieIconOptions,
 } from '@/lib/animated-icons/icons';
-import { renderBrainIcon, renderRulesIcon } from '@/lib/animated-icons/icons';
+import {
+  renderBrainIcon,
+  renderGlassIcon,
+  renderJusticeIcon,
+  renderMissileIcon,
+  renderPieIcon,
+  renderRobotIcon,
+  renderRulesIcon,
+} from '@/lib/animated-icons/icons';
 
 type P5PrincipleIconProps = {
   variant?: ImageVariant;
@@ -27,6 +44,11 @@ type P5PrincipleIconProps = {
   /** For advanced tuning per renderer. */
   rulesOptions?: Omit<RenderRulesIconOptions, 'imageSrc'>;
   brainOptions?: Omit<RenderBrainIconOptions, 'imageSrc'>;
+  robotOptions?: Omit<RenderRobotIconOptions, 'imageSrc'>;
+  missileOptions?: Omit<RenderMissileIconOptions, 'imageSrc'>;
+  glassOptions?: Omit<RenderGlassIconOptions, 'imageSrc'>;
+  justiceOptions?: Omit<RenderJusticeIconOptions, 'imageSrc'>;
+  pieOptions?: Omit<RenderPieIconOptions, 'imageSrc'>;
 };
 
 export function P5PrincipleIcon({
@@ -39,9 +61,22 @@ export function P5PrincipleIcon({
   imageSrc,
   rulesOptions,
   brainOptions,
+  pieOptions,
+  robotOptions,
+  missileOptions,
+  glassOptions,
+  justiceOptions,
 }: P5PrincipleIconProps) {
   const hostRef = useRef<HTMLDivElement | null>(null);
-  const handleRef = useRef<RenderRulesIconHandle | RenderBrainIconHandle | null>(null);
+  const handleRef = useRef<
+    | RenderRulesIconHandle
+    | RenderBrainIconHandle
+    | RenderGlassIconHandle
+    | RenderRobotIconHandle
+    | RenderJusticeIconHandle
+    | RenderMissileIconHandle
+    | null
+  >(null);
   const bootTokenRef = useRef(0);
   const ioRef = useRef<IntersectionObserver | null>(null);
   const bootTimerRef = useRef<number | null>(null);
@@ -51,7 +86,18 @@ export function P5PrincipleIcon({
 
   const resolvedSrc = useMemo(() => {
     if (!variant) return undefined;
-    return imageSrc ?? `/${variant}.jpg`;
+    if (imageSrc) return imageSrc;
+
+    // missile/robot use animated GIFs; others use PNG.
+    // if (variant === 'missile' || variant === 'robot') {
+    //   return `/${variant}.gif`;
+    // }
+
+    if (variant === 'glass' || variant === 'justice' || variant === 'pie' || variant === 'missile' || variant === 'robot') {
+      return `/${variant}.jpg`;
+    }
+
+    return `/${variant}.png`;
   }, [variant, imageSrc]);
 
   const hostCallbackRef = useCallback(
@@ -107,9 +153,20 @@ export function P5PrincipleIcon({
       handleRef.current?.destroy();
       handleRef.current = null;
 
-      const boot = variant === 'brain'
-        ? renderBrainIcon(liveHost, { imageSrc: resolvedSrc, ...brainOptions })
-        : renderRulesIcon(liveHost, { imageSrc: resolvedSrc, ...rulesOptions });
+      const boot =
+        variant === 'brain'
+          ? renderBrainIcon(liveHost, { imageSrc: resolvedSrc, ...brainOptions })
+          : variant === 'justice'
+            ? renderJusticeIcon(liveHost, { imageSrc: resolvedSrc, ...justiceOptions })
+            : variant === 'glass'
+              ? renderGlassIcon(liveHost, { imageSrc: resolvedSrc, ...glassOptions })
+              : variant === 'robot'
+                ? renderRobotIcon(liveHost, { imageSrc: resolvedSrc, ...robotOptions })
+                : variant === 'missile'
+                  ? renderMissileIcon(liveHost, { imageSrc: resolvedSrc, ...missileOptions })
+                  : variant === 'pie'
+                    ? renderPieIcon(liveHost, { imageSrc: resolvedSrc, ...pieOptions })
+                    : renderRulesIcon(liveHost, { imageSrc: resolvedSrc, ...rulesOptions });
 
       void boot.then((h) => {
         // If a newer boot started, destroy immediately.
@@ -129,7 +186,19 @@ export function P5PrincipleIcon({
         bootTimerRef.current = null;
       }
     };
-  }, [shouldBoot, bootDelayMs, variant, resolvedSrc, rulesOptions, brainOptions, bootOnViewport, isVisible]);
+  }, [
+    shouldBoot,
+    bootDelayMs,
+    variant,
+    resolvedSrc,
+    rulesOptions,
+    brainOptions,
+    robotOptions,
+    missileOptions,
+    glassOptions,
+    bootOnViewport,
+    isVisible,
+  ]);
 
   // Pause/resume on visibility changes (doesn't re-boot).
   useEffect(() => {

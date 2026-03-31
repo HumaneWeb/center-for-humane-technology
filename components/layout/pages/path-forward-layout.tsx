@@ -205,9 +205,32 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
               variant={pillar.imageVariant}
               alt={pillar.title}
               className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105 p-10"
-              bootDelayMs={300 * index}
-              rulesOptions={{ reveal: 'random', cellsPerFrame: 120, transparentBackground: true }}
-              brainOptions={{ reveal: 'random', cellsPerFrame: 120, transparentBackground: true }}
+              bootDelayMs={300}
+              rulesOptions={{
+                reveal: 'random',
+                cellsPerFrame: 120,
+                transparentBackground: true,
+              }}
+              brainOptions={{
+                reveal: 'random',
+                cellsPerFrame: 120,
+                transparentBackground: true,
+              }}
+              robotOptions={{
+                transparentBackground: true
+              }}
+              missileOptions={{
+                transparentBackground: true
+              }}
+              glassOptions={{
+                transparentBackground: true
+              }}
+              justiceOptions={{
+                transparentBackground: true
+              }}
+              pieOptions={{
+                transparentBackground: true
+              }}
             />
           ) : (
             null
@@ -557,8 +580,18 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
                   alt={pillar.title}
                   className="w-full shrink-0 aspect-square"
                   bootDelayMs={250}
-                  rulesOptions={{ reveal: 'random', cellsPerFrame: 50, transparentBackground: true }}
-                  brainOptions={{ reveal: 'random', cellsPerFrame: 50, transparentBackground: true }}
+                  rulesOptions={{
+                    reveal: 'random',
+                    cellsPerFrame: 50,
+                    transparentBackground: true,
+                  }}
+                  brainOptions={{
+                    reveal: 'random',
+                    cellsPerFrame: 50,
+                    transparentBackground: true,
+                  }}
+                  robotOptions={{ transparentBackground: true }}
+                  missileOptions={{ transparentBackground: true }}
                 />
               ) : (
                 <div className="bg-neutral-light-gray size-[242px] rounded-full" />
