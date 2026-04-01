@@ -381,7 +381,8 @@ export const renderRulesIcon = (
     };
 
     const getCellColor = (bright: number, n: number) => {
-      const stretched = p.constrain(p.map(bright, 100, 250, 0, 255), 0, 255);
+      // Subimos ligeramente el rango para que el mosaico se vea menos apagado.
+      const stretched = p.constrain(p.map(bright, 90, 240, 15, 255), 0, 255);
 
       let cr: number, cg: number, cb: number;
       if (stretched < 60) {
@@ -410,6 +411,12 @@ export const renderRulesIcon = (
       cr = p.lerp(cr, pal2[0], 0.12);
       cg = p.lerp(cg, pal2[1], 0.12);
       cb = p.lerp(cb, pal2[2], 0.12);
+
+      // Lift global para que la variante "rules" no quede más oscura que el JPG base.
+      const lift = 0.12;
+      cr = p.lerp(cr, 255, lift);
+      cg = p.lerp(cg, 255, lift);
+      cb = p.lerp(cb, 255, lift);
 
       return [cr, cg, cb, 255] as const;
     };
@@ -668,7 +675,8 @@ export const renderBrainIcon = (
     };
 
     const getCellColor = (bright: number, n: number) => {
-      const stretched = p.constrain(p.map(bright, 60, 250, 0, 255), 0, 255);
+      // Empujamos el rango hacia arriba para que el promedio quede más claro.
+      const stretched = p.constrain(p.map(bright, 55, 235, 15, 255), 0, 255);
       let cr: number, cg: number, cb: number;
       if (stretched < 60) {
         const m = stretched / 60;
@@ -696,6 +704,13 @@ export const renderBrainIcon = (
       cr = p.lerp(cr, pal2[0], 0.12);
       cg = p.lerp(cg, pal2[1], 0.12);
       cb = p.lerp(cb, pal2[2], 0.12);
+
+      // Levantamos la luminosidad global para que el cerebro no se vea opaco.
+      const lift = 0.14;
+      cr = p.lerp(cr, 255, lift);
+      cg = p.lerp(cg, 255, lift);
+      cb = p.lerp(cb, 255, lift);
+
       return [cr, cg, cb, 255] as const;
     };
 
@@ -890,13 +905,12 @@ export const renderJusticeIcon = (
     let cellIndex = 0;
     let cells: Array<[number, number]> = [];
 
-    // Palette tuned by eye from the reference:
-    // deep teal shadows, warm orange mids, cream highlights, cool accent.
+    // Palette afinada para que teal y naranja sean más brillantes y cercanos al JPG final.
     const PALETTE: Array<[number, number, number]> = [
-      [28, 140, 132], // deep teal
-      [233, 163, 90], // warm orange
-      [252, 246, 236], // cream
-      [120, 204, 198], // aqua accent
+      [18, 168, 156], // deep teal muy vivo
+      [252, 170, 86], // warm orange más saturado y claramente naranja
+      [253, 248, 240], // cream ligeramente más claro
+      [142, 224, 216], // aqua accent brillante
     ];
 
     const CHARS = [
@@ -1001,9 +1015,9 @@ export const renderJusticeIcon = (
       clearAndReset();
     };
 
-    const getCellColor = (bright: number, n: number) => {
-      // Contrast stretch: shadows get more teal, mids orange, highlights cream.
-      const stretched = p.constrain(p.map(bright, 80, 245, 0, 255), 0, 255);
+    const getCellColor = (r: number, g: number, b: number, bright: number, n: number) => {
+      // Contrast stretch: rango alto y con offset, pero con menos clipping de sombras.
+      const stretched = p.constrain(p.map(bright, 65, 230, 20, 255), 0, 255);
 
       let cr: number, cg: number, cb: number;
       if (stretched < 70) {
@@ -1012,18 +1026,18 @@ export const renderJusticeIcon = (
         cr = p.lerp(10, PALETTE[0][0], m);
         cg = p.lerp(50, PALETTE[0][1], m);
         cb = p.lerp(60, PALETTE[0][2], m);
-      } else if (stretched < 150) {
-        // Mids: teal to warm orange
-        const m = p.map(stretched, 70, 150, 0, 1);
+      } else if (stretched < 158) {
+        // Mids: teal to warm orange (empujamos un poco más hacia el naranja)
+        const m = p.map(stretched, 70, 158, 0, 1);
         cr = p.lerp(PALETTE[0][0], PALETTE[1][0], m);
         cg = p.lerp(PALETTE[0][1], PALETTE[1][1], m);
         cb = p.lerp(PALETTE[0][2], PALETTE[1][2], m);
       } else if (stretched < 220) {
         // Upper mids: warm orange dominant
         const m = p.map(stretched, 150, 220, 0, 1);
-        cr = p.lerp(PALETTE[1][0], PALETTE[1][0] * 1.08, m);
-        cg = p.lerp(PALETTE[1][1], PALETTE[1][1] * 0.92, m);
-        cb = p.lerp(PALETTE[1][2], PALETTE[1][2] * 0.9, m);
+        cr = p.lerp(PALETTE[1][0], PALETTE[1][0] * 1.12, m);
+        cg = p.lerp(PALETTE[1][1], PALETTE[1][1] * 0.9, m);
+        cb = p.lerp(PALETTE[1][2], PALETTE[1][2] * 0.86, m);
       } else {
         // Highlights: orange to cream
         const m = p.map(stretched, 220, 255, 0, 1);
@@ -1034,10 +1048,22 @@ export const renderJusticeIcon = (
 
       // Subtle aqua accent from noise
       const pal2 = PALETTE[3];
-      const accentStrength = 0.12 + n * 0.06;
+      const accentStrength = 0.06 + n * 0.04; // menos aqua para no lavar el naranja/teal
       cr = p.lerp(cr, pal2[0], accentStrength);
       cg = p.lerp(cg, pal2[1], accentStrength);
       cb = p.lerp(cb, pal2[2], accentStrength);
+
+      // Mezclamos parte del color original del píxel para acercarnos más al PNG de referencia.
+      const srcMix = 0.22;
+      cr = p.lerp(cr, r, srcMix);
+      cg = p.lerp(cg, g, srcMix);
+      cb = p.lerp(cb, b, srcMix);
+
+      // Lift global más suave: sube la luminosidad sin dejarlo pastel.
+      const lift = 0.1;
+      cr = p.lerp(cr, 255, lift);
+      cg = p.lerp(cg, 255, lift);
+      cb = p.lerp(cb, 255, lift);
 
       return [cr, cg, cb, 255] as const;
     };
@@ -1123,7 +1149,7 @@ export const renderJusticeIcon = (
         if (bright < 35) return;
 
         const n = p.noise(x * 0.05, y * 0.05);
-        const [cr, cg, cb, alpha] = getCellColor(bright, n);
+        const [cr, cg, cb, alpha] = getCellColor(r, g, b, bright, n);
 
         const dx = cx + (x + STEP / 2 - img!.width / 2) * sc;
         const dy = cy + (y + STEP / 2 - img!.height / 2) * sc;
@@ -1225,17 +1251,17 @@ export const renderGlassIcon = (
     let cellIndex = 0;
     let cells: Array<[number, number]> = [];
 
-    // Cooler glassy palette: deep teal shadows, aqua mids, warm light accents, soft highlight.
+    // Cooler glassy palette: más saturada para que se acerque al arte final.
     const PALETTE: Array<[number, number, number]> = [
-      [8, 144, 110], // verde profundo      #08906E  → sombras oscuras
-      [13, 184, 160], // cyan-verde vivo     #0DB8A0  → teal medio
-      [58, 232, 200], // turquesa brillante  #3AE8C8  → medio-alto
-      [26, 110, 168], // azul océano         #1A6EA8  → sombras frías
-      [91, 184, 240], // azul cielo          #5BB8F0  → acento frío
-      [200, 120, 32], // dorado oscuro       #C87820  → marco lupa oscuro
-      [232, 160, 48], // naranja dorado      #E8A030  → marco lupa
-      [240, 192, 96], // amarillo cálido     #F0C060  → highlights cálidos
-      [232, 245, 240], // blanco verdoso      #E8F5F0  → highlight máximo
+      [6, 150, 120], // teal profundo más saturado
+      [10, 195, 170], // teal medio más brillante
+      [70, 235, 205], // turquesa fuerte
+      [24, 120, 185], // azul océano intenso
+      [105, 190, 245], // azul cielo vivo
+      [210, 130, 30], // dorado oscuro saturado
+      [238, 170, 52], // naranja dorado intenso
+      [245, 198, 110], // amarillo cálido fuerte
+      [238, 248, 242], // highlight casi blanco
     ];
 
     const CHARS = [
@@ -1340,7 +1366,8 @@ export const renderGlassIcon = (
     };
 
     const getCellColor = (bright: number, n: number) => {
-      const stretched = p.constrain(p.map(bright, 70, 245, 0, 255), 0, 255);
+      // Rango más apretado y desplazado hacia arriba para que el promedio quede más claro.
+      const stretched = p.constrain(p.map(bright, 80, 230, 20, 255), 0, 255);
 
       // El ruido distingue zonas "globo" (teal/cyan) de zonas "lupa" (dorado)
       // n < 0.45  → familia fría (verdes/cyan/azul) = interior del globo
@@ -1396,12 +1423,18 @@ export const renderGlassIcon = (
         }
       }
 
-      // Shimmer: acento cyan sobre zonas frías, azul cielo sobre zonas cálidas
-      const shimmer = 0.05 + 0.07 * n;
+      // Shimmer: bajamos un poco la mezcla para no “lavar” el color base.
+      const shimmer = 0.04 + 0.05 * n;
       const accent = isCold ? PALETTE[2] : PALETTE[4]; // turquesa o azul cielo
       cr = p.lerp(cr, accent[0], shimmer);
       cg = p.lerp(cg, accent[1], shimmer);
       cb = p.lerp(cb, accent[2], shimmer);
+
+      // Levantamos globalmente la luminosidad para evitar que se vea apagado.
+      const lift = 0.16; // 0 = sin lift, 1 = blanco total
+      cr = p.lerp(cr, 255, lift);
+      cg = p.lerp(cg, 255, lift);
+      cb = p.lerp(cb, 255, lift);
 
       return [cr, cg, cb, 255] as const;
     };
@@ -1589,12 +1622,12 @@ export const renderPieIcon = (
     let cellIndex = 0;
     let cells: Array<[number, number]> = [];
 
-    // Warm chart palette: muted teal, warm orange, soft yellow, light cream.
+    // Warm chart palette: ligeramente más saturada para igualar el arte final.
     const PALETTE: Array<[number, number, number]> = [
-      [53, 148, 139], // teal slice
-      [228, 151, 79], // orange slice
-      [243, 206, 110], // yellow slice
-      [250, 245, 236], // cream highlight
+      [45, 160, 148], // teal más saturado
+      [235, 158, 88], // naranja algo más fuerte
+      [247, 212, 122], // amarillo más brillante
+      [252, 247, 238], // crema algo más clara
     ];
 
     const CHARS = [
@@ -1699,7 +1732,8 @@ export const renderPieIcon = (
     };
 
     const getCellColor = (bright: number, n: number) => {
-      const stretched = p.constrain(p.map(bright, 70, 245, 0, 255), 0, 255);
+      // Rango algo elevado para empujar el promedio hacia tonos más claros.
+      const stretched = p.constrain(p.map(bright, 75, 225, 30, 255), 0, 255);
 
       let cr: number, cg: number, cb: number;
       if (stretched < 80) {
@@ -1728,12 +1762,18 @@ export const renderPieIcon = (
         cb = p.lerp(PALETTE[2][2], PALETTE[3][2], m);
       }
 
-      // Very light teal tint to keep cohesion with other icons.
+      // Very light teal tint to keep cohesion with other icons, pero un pelín más suave.
       const accent = PALETTE[0];
-      const accentMix = 0.04 + 0.06 * n;
+      const accentMix = 0.03 + 0.05 * n;
       cr = p.lerp(cr, accent[0], accentMix);
       cg = p.lerp(cg, accent[1], accentMix);
       cb = p.lerp(cb, accent[2], accentMix);
+
+      // Levantamos aún más la luminosidad global para acercarnos al PNG final.
+      const lift = 0.2;
+      cr = p.lerp(cr, 255, lift);
+      cg = p.lerp(cg, 255, lift);
+      cb = p.lerp(cb, 255, lift);
 
       return [cr, cg, cb, 255] as const;
     };
@@ -2076,9 +2116,16 @@ export const renderRobotIcon = (
       let cg = p.lerp(pal[1], pal2[1], cycle * 0.25);
       let cb = p.lerp(pal[2], pal2[2], cycle * 0.25);
 
-      cr *= 0.85;
-      cg *= 0.85;
-      cb *= 0.85;
+      // Desaturamos un poco para que no se vea demasiado chillón…
+      cr *= 0.88;
+      cg *= 0.88;
+      cb *= 0.88;
+
+      // …y luego levantamos la luminosidad global para evitar que el robot se vea apagado.
+      const lift = 0.14;
+      cr = p.lerp(cr, 255, lift);
+      cg = p.lerp(cg, 255, lift);
+      cb = p.lerp(cb, 255, lift);
 
       return [cr, cg, cb] as const;
     };
@@ -2258,13 +2305,13 @@ export const renderMissileIcon = (
     let buf: p5.Graphics | undefined;
 
     const PALETTE: Array<[number, number, number]> = [
-      [232, 137, 42], // naranja principal  #E8892A
-      [245, 168, 64], // naranja claro      #F5A840
-      [61, 184, 122], // verde principal    #3DB87A
-      [109, 212, 126], // verde claro        #6DD47E
-      [42, 138, 80], // verde oscuro       #2A8A50
-      [139, 168, 48], // verde amarillento  #8BA830
-      [212, 192, 96], // amarillo apagado   #D4C060
+      [246, 132, 34], // naranja principal muy intenso      #F68422
+      [255, 185, 88], // naranja claro brillante            #FFB958
+      [60, 204, 124], // verde principal muy saturado       #3CCC7C
+      [124, 232, 148], // verde claro brillante              #7CE894
+      [46, 152, 88], // verde oscuro saturado              #2E9858
+      [164, 194, 60], // verde amarillento intenso          #A4C23C
+      [230, 210, 118], // amarillo algo más claro             #E6D276
     ];
 
     const CODE_CHARS = [
@@ -2475,24 +2522,30 @@ export const renderMissileIcon = (
 
       let pal: [number, number, number];
 
+      // Sombras y parte muy baja del misil: verdes oscuros.
       if (bright < 80) {
         pal = PALETTE[4];
-      } else if (bright < 130) {
-        const m = p.map(bright, 80, 130, 0, 1);
+      }
+      // Parte inferior verde intensa.
+      else if (bright < 145) {
+        const m = p.map(bright, 80, 145, 0, 1);
         pal = [
           p.lerp(PALETTE[4][0], PALETTE[2][0], m),
           p.lerp(PALETTE[4][1], PALETTE[2][1], m),
           p.lerp(PALETTE[4][2], PALETTE[2][2], m),
         ];
-      } else if (bright < 190) {
-        const base = n > 0.5 ? PALETTE[0] : PALETTE[5];
-        const m = p.map(bright, 130, 190, 0, 1);
+      }
+      // Zona intermedia: mezcla de verde brillante y verde amarillento.
+      else if (bright < 190) {
+        const m = p.map(bright, 145, 190, 0, 1);
         pal = [
-          p.lerp(PALETTE[2][0], base[0], m),
-          p.lerp(PALETTE[2][1], base[1], m),
-          p.lerp(PALETTE[2][2], base[2], m),
+          p.lerp(PALETTE[2][0], PALETTE[5][0], m),
+          p.lerp(PALETTE[2][1], PALETTE[5][1], m),
+          p.lerp(PALETTE[2][2], PALETTE[5][2], m),
         ];
-      } else {
+      }
+      // Parte superior y highlights: naranjas fuertes.
+      else {
         const m = p.map(bright, 190, 255, 0, 1);
         pal = [
           p.lerp(PALETTE[0][0], PALETTE[1][0], m),
@@ -2502,20 +2555,33 @@ export const renderMissileIcon = (
       }
 
       const accent = PALETTE[3];
-      const accentMix = n > 0.6 ? p.constrain(p.map(bright, 80, 200, 0.1, 0.35), 0.1, 0.35) : 0;
+      const accentMix = n > 0.6 ? p.constrain(p.map(bright, 80, 200, 0.06, 0.22), 0.06, 0.22) : 0;
 
       const cycle = (p.sin(t * 0.02 + n * 30) + 1) / 2;
-      const imgMix = 0.35;
+      const imgMix = 0.12; // aún menos mezcla con gris para preservar saturación
 
-      let cr = p.lerp(pal[0], bright, imgMix + cycle * 0.08);
-      let cg = p.lerp(pal[1], bright, imgMix + cycle * 0.08);
-      let cb = p.lerp(pal[2], bright, imgMix + cycle * 0.08);
+      let cr = p.lerp(pal[0], bright, imgMix + cycle * 0.05);
+      let cg = p.lerp(pal[1], bright, imgMix + cycle * 0.05);
+      let cb = p.lerp(pal[2], bright, imgMix + cycle * 0.05);
 
       cr = p.lerp(cr, accent[0], accentMix);
       cg = p.lerp(cg, accent[1], accentMix);
       cb = p.lerp(cb, accent[2], accentMix);
 
-      const alpha = p.map(bright, 25, 220, 180, 255);
+      // Mezclamos con el propio color del píxel original para respetar la forma,
+      // pero manteniendo predominancia de la paleta vibrante.
+      const srcMix = 0.16;
+      cr = p.lerp(cr, r, srcMix);
+      cg = p.lerp(cg, g, srcMix);
+      cb = p.lerp(cb, b, srcMix);
+
+      // Levantamos la luminosidad, pero menos que antes para evitar el look pastel.
+      const lift = 0.1;
+      cr = p.lerp(cr, 255, lift);
+      cg = p.lerp(cg, 255, lift);
+      cb = p.lerp(cb, 255, lift);
+
+      const alpha = p.map(bright, 25, 220, 185, 255);
       return [cr, cg, cb, alpha] as const;
     };
 

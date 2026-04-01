@@ -218,7 +218,7 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
               brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
               robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 300 }}
               justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 60 }}
-              missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
+              missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 150 }}
               pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 40 }}
             />
           ) : (
@@ -573,7 +573,7 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
                   brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 70 }}
                   robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 350 }}
                   justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 50 }}
-                  missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 200 }}
+                  missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 250 }}
                   pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
                 />
               ) : (
