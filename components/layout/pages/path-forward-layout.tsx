@@ -3,7 +3,7 @@
 import { FadeIn } from '@/components/shared/fade-in';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { PrincipleIcon } from '@/components/shared/principle-icon';
+import { P5PrincipleIcon } from '@/components/shared/p5-principle-icon';
 import { mapRawPrincipleToPillar, type Pillar } from '@/lib/utils/path-forward.utils';
 import { PathForwardCmsData } from '@/lib/utils/types';
 import { extractParagraphsFromHtml, getPrincipleAnchorId } from '@/lib/utils/text.utils';
@@ -82,7 +82,6 @@ export default function PathForwardLayout({ data: dataProp }: PathForwardLayoutP
   const principles: Pillar[] = (data.principles ?? []).map((p, i) => mapRawPrincipleToPillar(p, i));
 
   const zonesRef = useRef<HTMLDivElement>(null);
-
 
   // Create event listener for width less than 1260px, if true hide the background image of the complex hero
   useEffect(() => {
@@ -187,10 +186,17 @@ function PrinciplesOverview({ principles }: { principles: Pillar[] }) {
   );
 }
 
+const REVEAL_RANDOM_TRANSPARENT = {
+  reveal: 'random' as const,
+  transparentBackground: true,
+  cellsPerFrame: 300,
+};
+
 function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
   const num = String(index + 1).padStart(2, '0');
   const anchorId = getPrincipleAnchorId(pillar.title, index + 1);
   const style = getPrincipleStyleByIndex(index);
+
   return (
     <FadeIn delay={0.1 * index}>
       <a
@@ -198,24 +204,32 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
         className="group flex flex-col items-center gap-8 sm:items-start sm:gap-[30px]"
       >
         <div
-          className="aspect-square w-[200px] max-w-full overflow-hidden rounded-full p-10 sm:p-5 mb:size-[242px]"
+          className="flex aspect-square w-[200px] max-w-full items-center justify-center overflow-hidden rounded-full mb:size-[242px]"
           style={{ backgroundColor: style.overviewCardBg }}
         >
-          <PrincipleIcon
-            kind="summary"
-            variant={pillar.imageVariant}
-            summarySrc={pillar.image}
-            detailSrc={pillar.imageDetail}
-            alt={pillar.title}
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105 mb:object-contain sm:p-3 p-0"
-          />
+          {pillar.imageVariant ? (
+            <P5PrincipleIcon
+              variant={pillar.imageVariant}
+              alt={pillar.title}
+              className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105 p-10"
+              bootDelayMs={500 + index}
+              glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 10 }}
+              rulesOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 50 }}
+              brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
+              robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 300 }}
+              justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 60 }}
+              missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 150 }}
+              pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 40 }}
+            />
+          ) : (
+            null
+          )}
         </div>
         <div className="flex flex-col gap-[10px] text-center sm:text-left">
           <p
             className="mb:text-[20px] font-sans text-[18px] leading-120 font-semibold"
             style={{ color: style.overviewIndexColor }}
           >
-            {/* Principle */}
             {num}
           </p>
           <p className="text-primary-blue mb:text-[20px] font-sans text-[16px] leading-120 font-semibold">
@@ -492,7 +506,7 @@ function ScrollingZoneVector({
     <div className="mb:block pointer-events-none absolute inset-0 z-10 hidden pt-[47px] pb-[47px]">
       <motion.div
         style={{ rotate }}
-        className="sticky top-[80px] mr-[3%] ml-auto h-[118px] w-[120px]"
+        className="sticky top-[80px] mr-[1%] ml-auto h-[118px] w-[120px]"
       >
         <svg
           viewBox="0 0 230 226"
@@ -527,16 +541,6 @@ function ScrollingZoneVector({
   );
 }
 
-const PRINCIPLE_DETAIL_IMAGE_SIZES: Record<number, { width: string; height: string }> = {
-  1: { width: '289px', height: '281px' },
-  2: { width: '203px', height: '269px' },
-  3: { width: '325px', height: '190px' },
-  4: { width: '243px', height: '325px' },
-  5: { width: '299px', height: '313px' },
-  6: { width: '378px', height: '222px' },
-  7: { width: '371px', height: '273px' },
-};
-
 function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex: number }) {
   const [expanded, setExpanded] = useState(false);
   const num = globalIndex + 1;
@@ -550,29 +554,29 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
       .slice(0, 2)
       .map((paragraph) => `<p>${paragraph}</p>`);
   }, [pillar.content]);
-  const imageSize = PRINCIPLE_DETAIL_IMAGE_SIZES[num];
   const anchorId = getPrincipleAnchorId(pillar.title, num);
 
   return (
     <div id={anchorId} className="mb:py-[80px] scroll-mt-24 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb:grid-cols-[292px_1fr] mb:gap-8 grid grid-cols-1 items-start gap-8">
+        <div className="mb:grid-cols-[360px_1fr] mb:gap-4 grid grid-cols-1 items-start gap-8">
           <FadeIn delay={0.2}>
             <div className="flex items-start justify-center">
-              <PrincipleIcon
-                kind="detail"
-                variant={pillar.imageVariant}
-                summarySrc={pillar.image}
-                detailSrc={pillar.imageDetail}
-                alt={pillar.title}
-                className="shrink-0 object-contain"
-                style={
-                  imageSize
-                    ? { width: imageSize.width, height: imageSize.height }
-                    : { maxWidth: '292px', height: 'auto' }
-                }
-              />
-              {!pillar.imageVariant && !pillar.imageDetail && !pillar.image && (
+              {pillar.imageVariant ? (
+                <P5PrincipleIcon
+                  variant={pillar.imageVariant}
+                  alt={pillar.title}
+                  className="w-full max-w-[360px] shrink-0 aspect-square"
+                  bootDelayMs={500}
+                  glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 20 }}
+                  rulesOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
+                  brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 70 }}
+                  robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 350 }}
+                  justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 50 }}
+                  missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 250 }}
+                  pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
+                />
+              ) : (
                 <div className="bg-neutral-light-gray size-[242px] rounded-full" />
               )}
             </div>
