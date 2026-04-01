@@ -1671,14 +1671,15 @@ hr {
 
 @media screen and (max-width: 1640px) and (min-width: 1300px) {
   .navbar-logo {
-    max-width: 230px;
+    max-width: 300px;
   }
 
   .navbar-link {
-    padding: 0 20px;
+    padding: 0 15px;
   }
 
-  .navbar-link span {
+  .navbar-link span,
+  a.navbar-wrapper-link {
     font-size: 15px;
   }
 }

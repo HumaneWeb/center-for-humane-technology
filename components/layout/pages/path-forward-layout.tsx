@@ -212,14 +212,14 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
               variant={pillar.imageVariant}
               alt={pillar.title}
               className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105 p-10"
-              bootDelayMs={200 + index * 150}
-              glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
-              rulesOptions={REVEAL_RANDOM_TRANSPARENT}
-              brainOptions={REVEAL_RANDOM_TRANSPARENT}
+              bootDelayMs={500 + index}
+              glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 10 }}
+              rulesOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 50 }}
+              brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
               robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 300 }}
-              justiceOptions={REVEAL_RANDOM_TRANSPARENT}
+              justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 60 }}
               missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
-              pieOptions={REVEAL_RANDOM_TRANSPARENT}
+              pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 40 }}
             />
           ) : (
             null
@@ -567,14 +567,14 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
                   variant={pillar.imageVariant}
                   alt={pillar.title}
                   className="w-full max-w-[360px] shrink-0 aspect-square"
-                  bootDelayMs={250}
-                  rulesOptions={REVEAL_RANDOM_TRANSPARENT}
-                  brainOptions={REVEAL_RANDOM_TRANSPARENT}
-                  robotOptions={REVEAL_RANDOM_TRANSPARENT}
-                  missileOptions={REVEAL_RANDOM_TRANSPARENT}
-                  glassOptions={REVEAL_RANDOM_TRANSPARENT}
-                  justiceOptions={REVEAL_RANDOM_TRANSPARENT}
-                  pieOptions={REVEAL_RANDOM_TRANSPARENT}
+                  bootDelayMs={500}
+                  glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 10 }}
+                  rulesOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 50 }}
+                  brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 40 }}
+                  robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 300 }}
+                  justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 30 }}
+                  missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 150 }}
+                  pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 70 }}
                 />
               ) : (
                 <div className="bg-neutral-light-gray size-[242px] rounded-full" />

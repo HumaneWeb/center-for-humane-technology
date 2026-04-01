@@ -156,7 +156,7 @@ export default function Navbar({ items }: Props) {
 
     const baseClasses = isMobile
       ? `uppercase text-primary-navy flex items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold tracking-018 hover:bg-accent transition-colors ${extraClassnames ? extraClassnames : ''}`
-      : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[17px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
+      : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[17px] leading-140 font-semibold tracking-018 navbar-wrapper-link ${extraClassnames ? extraClassnames : ''}`;
 
     const renderDropdownItem = (dropdownItem: NavbarChildren, depth = 1) => {
       const hasChildren = dropdownItem.children && dropdownItem.children.length > 0;
