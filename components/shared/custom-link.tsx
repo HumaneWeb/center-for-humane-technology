@@ -30,9 +30,19 @@ export default function CustomLink({
 
   const { path, external } = getLinkCmsUrl(content);
 
+  const href = (externalUrl?.trim() || String(path ?? '').trim()) || '';
+
+  if (!href || href === 'undefined' || href === '/undefined' || href === '/undefined/') {
+    return (
+      <span className={cn(extraClass)} role={role} onClick={onClick}>
+        {children}
+      </span>
+    );
+  }
+
   return (
     <Link
-      href={externalUrl ? externalUrl : path}
+      href={href}
       target={external || externalUrl ? '_blank' : undefined}
       className={cn(
         withActiveClass &&
