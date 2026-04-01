@@ -1669,6 +1669,14 @@ hr {
   }
 }
 
+.navbar-wrapper-link:hover {
+  color: var(--color-primary-teal);
+}
+
+.navbar-wrapper-link:hover svg path {
+  fill: var(--color-primary-teal);
+}
+
 @media screen and (max-width: 1640px) and (min-width: 1300px) {
   .navbar-logo {
     max-width: 300px;
