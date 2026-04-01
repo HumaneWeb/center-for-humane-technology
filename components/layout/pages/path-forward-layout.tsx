@@ -568,13 +568,13 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
                   alt={pillar.title}
                   className="w-full max-w-[360px] shrink-0 aspect-square"
                   bootDelayMs={500}
-                  glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 10 }}
-                  rulesOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 50 }}
-                  brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 40 }}
-                  robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 300 }}
-                  justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 30 }}
-                  missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 150 }}
-                  pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 70 }}
+                  glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 20 }}
+                  rulesOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
+                  brainOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 70 }}
+                  robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 350 }}
+                  justiceOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 50 }}
+                  missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 200 }}
+                  pieOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
                 />
               ) : (
                 <div className="bg-neutral-light-gray size-[242px] rounded-full" />

@@ -143,11 +143,25 @@ export function P5PrincipleIcon(props: P5PrincipleIconProps) {
 
       ioRef.current = new IntersectionObserver(
         ([entry]) => {
-          const visible = !!entry?.isIntersecting;
+          if (!entry) return;
+          // Consider visible only when a decent portion of the icon is on screen.
+          const visible = entry.isIntersecting && entry.intersectionRatio >= 0.4;
           setIsVisible(visible);
-          if (visible) setShouldBoot(true);
+          if (visible) {
+            setShouldBoot(true);
+            // We only need the first "real" visibility to boot + handle pause/resume.
+            // After that, we can stop observing to avoid flaky early triggers.
+            if (ioRef.current && node) {
+              ioRef.current.unobserve(node);
+            }
+          }
         },
-        { rootMargin: '200px' },
+        {
+          // No positive rootMargin so it does NOT trigger before entering viewport.
+          rootMargin: '0px',
+          // Require at least ~40% of the element to be visible.
+          threshold: [0.4, 0.6, 0.9],
+        },
       );
       ioRef.current.observe(node);
     },
