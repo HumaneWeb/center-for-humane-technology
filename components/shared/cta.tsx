@@ -1,12 +1,14 @@
 // @ts-nocheck
 import CustomLink, { CustomLinkProps } from './custom-link';
+import TextWithEmailLinks from './text-with-email-links';
 import { cn } from '@/lib/utils/css.utils';
+import { getLinkCmsUrl } from '@/lib/utils/cms.utils';
 
 export type CtaProps = {
   id: string;
   label: string;
   helperLabel?: string;
-  link: CustomLinkProps;
+  link: CustomLinkProps | null;
   externalUrl?: string;
   extraClass?: string;
   labelExtraClass?: string;
@@ -71,6 +73,26 @@ const ICON_MAP = {
 const defaultPrimaryFill = `bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 group rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in`;
 const invertedPrimaryFill = `bg-primary-blue text-neutral-white hover:bg-secondary-light-teal hover:text-primary-navy tracking-02 group rounded-[5px] px-5 py-4 text-xl leading-120 font-semibold transition-all duration-200 ease-in`;
 
+function resolveCtaMainHref(link: CustomLinkProps | null | undefined) {
+  if (!link) {
+    return '';
+  }
+  const { path } = getLinkCmsUrl({
+    externalUrl: link.externalUrl,
+    content: link.content,
+  });
+  return (link.externalUrl?.trim() || String(path ?? '').trim()) || '';
+}
+
+function isUsableCtaHref(href: string) {
+  return Boolean(
+    href &&
+      href !== 'undefined' &&
+      href !== '/undefined' &&
+      href !== '/undefined/',
+  );
+}
+
 export default function Cta(props: CtaProps) {
   const {
     label,
@@ -85,6 +107,9 @@ export default function Cta(props: CtaProps) {
     onClick,
     invertPrimaryButtons = false,
   } = props;
+
+  const mainHref = externalUrl?.trim() || resolveCtaMainHref(link);
+  const emailsNestedInAnchor = isUsableCtaHref(mainHref);
 
   const primaryFillClasses =
     invertPrimaryButtons && variant === 'default' ? invertedPrimaryFill : defaultPrimaryFill;
@@ -136,7 +161,7 @@ export default function Cta(props: CtaProps) {
               variant === 'underline-bold' && 'font-semibold underline',
             )}
           >
-            {label}
+            <TextWithEmailLinks text={label} nestedInAnchor={emailsNestedInAnchor} />
           </span>
           {helperLabel && (
             <span
@@ -145,7 +170,10 @@ export default function Cta(props: CtaProps) {
                 variant === 'underline-help' && 'tracking-02 mb:text-xl leading-120',
               )}
             >
-              {helperLabel}
+              <TextWithEmailLinks
+                text={helperLabel}
+                nestedInAnchor={emailsNestedInAnchor}
+              />
             </span>
           )}
         </span>
@@ -171,7 +199,7 @@ export default function Cta(props: CtaProps) {
             variant === 'underline-bold' && 'font-semibold underline',
           )}
         >
-          {label}
+          <TextWithEmailLinks text={label} nestedInAnchor={emailsNestedInAnchor} />
         </span>
         {helperLabel && (
           <span
@@ -180,7 +208,10 @@ export default function Cta(props: CtaProps) {
               variant === 'underline-help' && 'tracking-02 mb:text-xl leading-120',
             )}
           >
-            {helperLabel}
+            <TextWithEmailLinks
+              text={helperLabel}
+              nestedInAnchor={emailsNestedInAnchor}
+            />
           </span>
         )}
       </span>
