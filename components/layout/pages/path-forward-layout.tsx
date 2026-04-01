@@ -506,7 +506,7 @@ function ScrollingZoneVector({
     <div className="mb:block pointer-events-none absolute inset-0 z-10 hidden pt-[47px] pb-[47px]">
       <motion.div
         style={{ rotate }}
-        className="sticky top-[80px] mr-[3%] ml-auto h-[118px] w-[120px]"
+        className="sticky top-[80px] mr-[1%] ml-auto h-[118px] w-[120px]"
       >
         <svg
           viewBox="0 0 230 226"

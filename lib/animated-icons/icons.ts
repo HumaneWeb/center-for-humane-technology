@@ -1622,12 +1622,12 @@ export const renderPieIcon = (
     let cellIndex = 0;
     let cells: Array<[number, number]> = [];
 
-    // Warm chart palette: ligeramente más saturada para igualar el arte final.
+    // Warm chart palette: saturada, con manos claramente más naranjas que amarillas.
     const PALETTE: Array<[number, number, number]> = [
-      [45, 160, 148], // teal más saturado
-      [235, 158, 88], // naranja algo más fuerte
-      [247, 212, 122], // amarillo más brillante
-      [252, 247, 238], // crema algo más clara
+      [32, 182, 170], // teal muy vivo
+      [250, 168, 90], // naranja intenso (piel/zona media)
+      [252, 210, 132], // amarillo cálido pero menos dominante
+      [254, 250, 244], // crema casi blanca
     ];
 
     const CHARS = [
@@ -1732,45 +1732,50 @@ export const renderPieIcon = (
     };
 
     const getCellColor = (bright: number, n: number) => {
-      // Rango algo elevado para empujar el promedio hacia tonos más claros.
-      const stretched = p.constrain(p.map(bright, 75, 225, 30, 255), 0, 255);
+      // Rango elevado para empujar las luces hacia colores muy vivos.
+      const stretched = p.constrain(p.map(bright, 70, 225, 20, 255), 0, 255);
 
       let cr: number, cg: number, cb: number;
-      if (stretched < 80) {
-        // Deeper teal for crust shadows
-        const m = stretched / 80;
+      if (stretched < 85) {
+        // Sombras: teal profundo.
+        const m = stretched / 85;
         cr = p.lerp(25, PALETTE[0][0], m);
         cg = p.lerp(80, PALETTE[0][1], m);
         cb = p.lerp(90, PALETTE[0][2], m);
-      } else if (stretched < 150) {
-        // Teal → orange for mid slices
-        const m = p.map(stretched, 80, 150, 0, 1);
-        cr = p.lerp(PALETTE[0][0], PALETTE[1][0], m);
-        cg = p.lerp(PALETTE[0][1], PALETTE[1][1], m * 0.9);
-        cb = p.lerp(PALETTE[0][2], PALETTE[1][2], m * 0.8);
-      } else if (stretched < 210) {
-        // Orange → yellow
-        const m = p.map(stretched, 150, 210, 0, 1);
+      } else if (stretched < 155) {
+        // Bordes del pie: más verdosos (teal mezclado con amarillo para dar verde).
+        const m = p.map(stretched, 85, 155, 0, 1);
+        const edgeG: [number, number, number] = [
+          (PALETTE[0][0] + PALETTE[2][0]) / 2,
+          (PALETTE[0][1] + PALETTE[2][1]) / 2,
+          (PALETTE[0][2] + PALETTE[2][2]) / 2,
+        ];
+        cr = p.lerp(PALETTE[0][0], edgeG[0], m);
+        cg = p.lerp(PALETTE[0][1], edgeG[1], m);
+        cb = p.lerp(PALETTE[0][2], edgeG[2], m);
+      } else if (stretched < 220) {
+        // Caras superiores / manos: transicionamos de naranja a amarillo.
+        const m = p.map(stretched, 155, 220, 0, 1);
         cr = p.lerp(PALETTE[1][0], PALETTE[2][0], m);
-        cg = p.lerp(PALETTE[1][1], PALETTE[2][1], m);
-        cb = p.lerp(PALETTE[1][2], PALETTE[2][2], m);
+        cg = p.lerp(PALETTE[1][1], PALETTE[2][1], m * 0.9);
+        cb = p.lerp(PALETTE[1][2], PALETTE[2][2], m * 0.9);
       } else {
-        // Yellow → cream highlight
-        const m = p.map(stretched, 210, 255, 0, 1);
+        // Highlights muy claros.
+        const m = p.map(stretched, 220, 255, 0, 1);
         cr = p.lerp(PALETTE[2][0], PALETTE[3][0], m);
         cg = p.lerp(PALETTE[2][1], PALETTE[3][1], m);
         cb = p.lerp(PALETTE[2][2], PALETTE[3][2], m);
       }
 
-      // Very light teal tint to keep cohesion with other icons, pero un pelín más suave.
+      // Very light teal tint to keep cohesion with otros icons, muy sutil.
       const accent = PALETTE[0];
-      const accentMix = 0.03 + 0.05 * n;
+      const accentMix = 0.015 + 0.025 * n;
       cr = p.lerp(cr, accent[0], accentMix);
       cg = p.lerp(cg, accent[1], accentMix);
       cb = p.lerp(cb, accent[2], accentMix);
 
-      // Levantamos aún más la luminosidad global para acercarnos al PNG final.
-      const lift = 0.2;
+      // Levantamos moderadamente la luminosidad, para no blanquear las manos.
+      const lift = 0.12;
       cr = p.lerp(cr, 255, lift);
       cg = p.lerp(cg, 255, lift);
       cb = p.lerp(cb, 255, lift);
