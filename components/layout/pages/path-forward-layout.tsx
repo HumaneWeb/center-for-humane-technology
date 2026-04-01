@@ -559,14 +559,14 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
   return (
     <div id={anchorId} className="mb:py-[80px] scroll-mt-24 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb:grid-cols-[310px_1fr] mb:gap-8 grid grid-cols-1 items-start gap-8">
+        <div className="mb:grid-cols-[360px_1fr] mb:gap-4 grid grid-cols-1 items-start gap-8">
           <FadeIn delay={0.2}>
             <div className="flex items-start justify-center">
               {pillar.imageVariant ? (
                 <P5PrincipleIcon
                   variant={pillar.imageVariant}
                   alt={pillar.title}
-                  className="w-full shrink-0 aspect-square"
+                  className="w-full max-w-[360px] shrink-0 aspect-square"
                   bootDelayMs={250}
                   rulesOptions={REVEAL_RANDOM_TRANSPARENT}
                   brainOptions={REVEAL_RANDOM_TRANSPARENT}
