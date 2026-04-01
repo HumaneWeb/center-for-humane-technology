@@ -17,8 +17,7 @@ const loadP5 = () => {
 };
 
 /** Returns true when the viewport is narrower than 768 px (typical mobile). */
-const isMobileViewport = () =>
-  typeof window !== 'undefined' && window.innerWidth < 768;
+const isMobileViewport = () => typeof window !== 'undefined' && window.innerWidth < 768;
 
 export type RenderRulesIconOptions = {
   /** Defaults to 8 (bigger = chunkier / faster). */
@@ -141,7 +140,7 @@ export type RenderPieIconHandle = RenderRulesIconHandle;
 export type RenderRobotIconOptions = {
   /** Defaults to 3 (denser grid). */
   step?: number;
-  /** Defaults to `/robot.gif` (must live in `public/`). */
+  /** Defaults to `/robot.jpg` (must live in `public/`). */
   imageSrc?: string;
   /** Background color. Ignored if `transparentBackground` is true. Defaults to `[240, 247, 247]`. */
   backgroundRgb?: [number, number, number];
@@ -149,6 +148,12 @@ export type RenderRobotIconOptions = {
   scale?: number;
   /** When true, clears the canvas instead of painting a solid background. */
   transparentBackground?: boolean;
+  /** Cells to draw per frame when revealing. Defaults to ~rules/brain cadence. */
+  cellsPerFrame?: number;
+  /** How the image reveals over time. Defaults to `'random'`. */
+  reveal?: 'random' | 'scanline';
+  /** Random seed when using `'random'` reveal. Defaults to 42. */
+  randomSeed?: number;
 };
 
 export type RenderRobotIconHandle = RenderRulesIconHandle;
@@ -156,7 +161,7 @@ export type RenderRobotIconHandle = RenderRulesIconHandle;
 export type RenderMissileIconOptions = {
   /** Defaults to 2 (very dense grid). */
   step?: number;
-  /** Defaults to `/missile2.gif` (must live in `public/`). */
+  /** Defaults to `/missile.jpg` (must live in `public/`). */
   imageSrc?: string;
   /** Background color behind glyphs. Ignored if `transparentBackground` is true. Defaults to `[240, 247, 247]`. */
   backgroundRgb?: [number, number, number];
@@ -164,6 +169,12 @@ export type RenderMissileIconOptions = {
   scale?: number;
   /** When true, clears the canvas instead of painting a solid background. */
   transparentBackground?: boolean;
+  /** Cells to draw per frame when revealing. Defaults to ~justice/glass cadence. */
+  cellsPerFrame?: number;
+  /** How the image reveals over time. Defaults to `'random'`. */
+  reveal?: 'random' | 'scanline';
+  /** Random seed when using `'random'` reveal. Defaults to 101. */
+  randomSeed?: number;
 };
 
 export type RenderMissileIconHandle = RenderRulesIconHandle;
@@ -349,10 +360,12 @@ export const renderRulesIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(debounce(() => {
-        if (!container.isConnected) return;
-        applyCanvasSizeFromContainer();
-      }, 150));
+      resizeObserver = new ResizeObserver(
+        debounce(() => {
+          if (!container.isConnected) return;
+          applyCanvasSizeFromContainer();
+        }, 150),
+      );
       resizeObserver.observe(container);
 
       // p5 typings may treat `loadImage` as async; use callback form.
@@ -456,7 +469,10 @@ export const renderRulesIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) { rendered = true; p.noLoop(); }
+        if (renderY >= img.height) {
+          rendered = true;
+          p.noLoop();
+        }
         return;
       }
 
@@ -466,7 +482,10 @@ export const renderRulesIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
+      if (cellIndex >= cells.length) {
+        rendered = true;
+        p.noLoop();
+      }
     };
 
     pp.__rerender = () => {
@@ -728,10 +747,12 @@ export const renderBrainIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(debounce(() => {
-        if (!container.isConnected) return;
-        applyCanvasSizeFromContainer();
-      }, 150));
+      resizeObserver = new ResizeObserver(
+        debounce(() => {
+          if (!container.isConnected) return;
+          applyCanvasSizeFromContainer();
+        }, 150),
+      );
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -781,7 +802,10 @@ export const renderBrainIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) { rendered = true; p.noLoop(); }
+        if (renderY >= img.height) {
+          rendered = true;
+          p.noLoop();
+        }
         return;
       }
 
@@ -791,7 +815,10 @@ export const renderBrainIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
+      if (cellIndex >= cells.length) {
+        rendered = true;
+        p.noLoop();
+      }
     };
 
     pp.__rerender = () => {
@@ -1063,10 +1090,12 @@ export const renderJusticeIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(debounce(() => {
-        if (!container.isConnected) return;
-        applyCanvasSizeFromContainer();
-      }, 150));
+      resizeObserver = new ResizeObserver(
+        debounce(() => {
+          if (!container.isConnected) return;
+          applyCanvasSizeFromContainer();
+        }, 150),
+      );
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -1109,7 +1138,10 @@ export const renderJusticeIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) { rendered = true; p.noLoop(); }
+        if (renderY >= img.height) {
+          rendered = true;
+          p.noLoop();
+        }
         return;
       }
 
@@ -1119,7 +1151,10 @@ export const renderJusticeIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
+      if (cellIndex >= cells.length) {
+        rendered = true;
+        p.noLoop();
+      }
     };
 
     pp.__rerender = () => {
@@ -1419,10 +1454,12 @@ export const renderGlassIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(debounce(() => {
-        if (!container.isConnected) return;
-        applyCanvasSizeFromContainer();
-      }, 150));
+      resizeObserver = new ResizeObserver(
+        debounce(() => {
+          if (!container.isConnected) return;
+          applyCanvasSizeFromContainer();
+        }, 150),
+      );
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -1465,7 +1502,10 @@ export const renderGlassIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) { rendered = true; p.noLoop(); }
+        if (renderY >= img.height) {
+          rendered = true;
+          p.noLoop();
+        }
         return;
       }
 
@@ -1475,7 +1515,10 @@ export const renderGlassIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
+      if (cellIndex >= cells.length) {
+        rendered = true;
+        p.noLoop();
+      }
     };
 
     pp.__rerender = () => {
@@ -1743,10 +1786,12 @@ export const renderPieIcon = (
       p.rectMode(p.CENTER);
       p.noiseSeed(42);
 
-      resizeObserver = new ResizeObserver(debounce(() => {
-        if (!container.isConnected) return;
-        applyCanvasSizeFromContainer();
-      }, 150));
+      resizeObserver = new ResizeObserver(
+        debounce(() => {
+          if (!container.isConnected) return;
+          applyCanvasSizeFromContainer();
+        }, 150),
+      );
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -1789,7 +1834,10 @@ export const renderPieIcon = (
           for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
         }
         renderY = endY;
-        if (renderY >= img.height) { rendered = true; p.noLoop(); }
+        if (renderY >= img.height) {
+          rendered = true;
+          p.noLoop();
+        }
         return;
       }
 
@@ -1799,7 +1847,10 @@ export const renderPieIcon = (
         drawOne(c[0], c[1]);
       }
       cellIndex = end;
-      if (cellIndex >= cells.length) { rendered = true; p.noLoop(); }
+      if (cellIndex >= cells.length) {
+        rendered = true;
+        p.noLoop();
+      }
     };
 
     pp.__rerender = () => {
@@ -1833,18 +1884,22 @@ export const renderPieIcon = (
 };
 
 /**
- * Renders the "robot" icon from an animated GIF, applying a stylized mosaic effect.
- * This one is continuously animated (no reveal-by-cells), driven by the GIF frames.
+ * Renders the "robot" icon from a static image, applying a stylized mosaic effect.
+ * Uses the same cell-based reveal mechanics as the other mosaic icons.
  */
 export const renderRobotIcon = (
   container: HTMLElement,
   opts: RenderRobotIconOptions = {},
 ): Promise<RenderRobotIconHandle> => {
   const STEP = opts.step ?? 5;
-  const IMAGE_SRC = opts.imageSrc ?? '/robot.gif';
+  const IMAGE_SRC = opts.imageSrc ?? '/robot.jpg';
   const BG = opts.backgroundRgb ?? [240, 247, 247];
   const FIT = opts.scale ?? 0.95;
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
+  // Parámetros de reveal similares a brain/rules.
+  const REVEAL = opts.reveal ?? 'random';
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 220 : 420);
+  const RANDOM_SEED = opts.randomSeed ?? 42;
 
   if (typeof window === 'undefined') {
     return Promise.reject(new Error('renderRobotIcon must run in the browser'));
@@ -1936,14 +1991,17 @@ export const renderRobotIcon = (
       bufferReady = true;
     };
 
-    // Precompute drawable cells once after image loads (avoids per-frame pixel checks).
-    let cells: Array<{ x: number; y: number; bright: number; n: number }> = [];
+    // Precompute drawable cells once after image loads (evita chequeos costosos por frame).
+    let cells: Array<{ x: number; y: number }> = [];
+    let cellIndex = 0;
+    let renderY = 0;
+    let rendered = false;
 
     const precomputeCells = () => {
       if (!img || !buf) return;
       cells = [];
-      for (let x = 0; x < img.width; x += STEP) {
-        for (let y = 0; y < img.height; y += STEP) {
+      for (let y = 0; y < img.height; y += STEP) {
+        for (let x = 0; x < img.width; x += STEP) {
           const i = (y * pw + x) * 4;
           const a = buf.pixels[i + 3];
           if (a < 128) continue;
@@ -1952,9 +2010,34 @@ export const renderRobotIcon = (
           const b = buf.pixels[i + 2];
           const bright = (r + g + b) / 3;
           if (bright < 70) continue;
-          const n = p.noise(x * 0.05, y * 0.05);
-          cells.push({ x, y, bright, n });
+          cells.push({ x, y });
         }
+      }
+
+      // Orden aleatorio para reveal random.
+      p.randomSeed(RANDOM_SEED);
+      if (REVEAL === 'random') {
+        for (let i = cells.length - 1; i > 0; i--) {
+          const j = Math.floor(p.random(i + 1));
+          const tmp = cells[i]!;
+          cells[i] = cells[j]!;
+          cells[j] = tmp!;
+        }
+      }
+
+      cellIndex = 0;
+      renderY = 0;
+      rendered = false;
+    };
+
+    const clearAndReset = () => {
+      rendered = false;
+      cellIndex = 0;
+      renderY = 0;
+      if (TRANSPARENT_BG) {
+        p.clear();
+      } else {
+        p.background(BG[0], BG[1], BG[2]);
       }
     };
 
@@ -2022,10 +2105,12 @@ export const renderRobotIcon = (
       p.noiseSeed(42);
       p.frameRate(12);
 
-      resizeObserver = new ResizeObserver(debounce(() => {
-        if (!container.isConnected) return;
-        applyCanvasSizeFromContainer();
-      }, 150));
+      resizeObserver = new ResizeObserver(
+        debounce(() => {
+          if (!container.isConnected) return;
+          applyCanvasSizeFromContainer();
+        }, 150),
+      );
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -2033,6 +2118,7 @@ export const renderRobotIcon = (
         ensureBuffer();
         precomputeCells();
         computeLayout();
+        clearAndReset();
       });
     };
 
@@ -2041,24 +2127,27 @@ export const renderRobotIcon = (
     };
 
     pp.draw = () => {
-      if (!img || cells.length === 0) return;
+      if (!img || !buf || rendered) return;
 
-      if (TRANSPARENT_BG) {
-        p.clear();
-      } else {
-        p.background(BG[0], BG[1], BG[2]);
-      }
       const t = p.frameCount;
 
-      for (let k = 0; k < cells.length; k++) {
-        const c = cells[k];
-        const { x, y, bright, n } = c;
+      const drawOne = (x: number, y: number) => {
+        const i = (y * pw + x) * 4;
+        const r = buf!.pixels[i];
+        const g = buf!.pixels[i + 1];
+        const b = buf!.pixels[i + 2];
+        const a = buf!.pixels[i + 3];
+        if (a < 128) return;
+        const bright = (r + g + b) / 3;
+        if (bright < 70) return;
+
+        const n = p.noise(x * 0.05, y * 0.05);
         const [cr, cg, cb] = getPaletteColor(bright, n, t);
 
         const wobbleX = p.sin(t * 0.02 + n * 20) * 0.5;
         const wobbleY = p.cos(t * 0.015 + n * 20) * 0.3;
-        const dx = cx + (x - img.width / 2) * sc + wobbleX;
-        const dy = cy + (y - img.height / 2) * sc + wobbleY;
+        const dx = cx + (x - img!.width / 2) * sc + wobbleX;
+        const dy = cy + (y - img!.height / 2) * sc + wobbleY;
         const sz = STEP * sc * (0.8 + n * 0.2);
 
         if (n < 0.25) {
@@ -2076,12 +2165,39 @@ export const renderRobotIcon = (
           p.fill(cr, cg, cb);
           p.rect(dx, dy, sz, sz);
         }
+      };
+
+      if (REVEAL === 'scanline') {
+        const rowsPerFrame = 80;
+        const endY = Math.min(renderY + rowsPerFrame, img.height);
+        for (let y = renderY; y < endY; y += STEP) {
+          for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
+        }
+        renderY = endY;
+        if (renderY >= img.height) {
+          rendered = true;
+          p.noLoop();
+        }
+        return;
+      }
+
+      const end = Math.min(cellIndex + CELLS_PER_FRAME, cells.length);
+      for (let k = cellIndex; k < end; k++) {
+        const c = cells[k]!;
+        drawOne(c.x, c.y);
+      }
+      cellIndex = end;
+      if (cellIndex >= cells.length) {
+        rendered = true;
+        p.noLoop();
       }
       p.noStroke();
     };
 
     pp.__rerender = () => {
       computeLayout();
+      clearAndReset();
+      p.loop();
     };
 
     pp.__disconnectResizeObserver = () => {
@@ -2109,18 +2225,21 @@ export const renderRobotIcon = (
 };
 
 /**
- * Renders the "missile" icon from an animated GIF, using code-like glyphs and rects.
- * Continuously animated, driven by the GIF frames.
+ * Renders the "missile" icon from a static image, using code-like glyphs and rects.
+ * Uses the same cell-based reveal mechanics as the other mosaic icons.
  */
 export const renderMissileIcon = (
   container: HTMLElement,
   opts: RenderMissileIconOptions = {},
 ): Promise<RenderMissileIconHandle> => {
   const STEP = opts.step ?? 4;
-  const IMAGE_SRC = opts.imageSrc ?? '/missile2.gif';
+  const IMAGE_SRC = opts.imageSrc ?? '/missile.jpg';
   const BG = opts.backgroundRgb ?? [240, 247, 247];
   const FIT = opts.scale ?? 1.1;
   const TRANSPARENT_BG = opts.transparentBackground ?? false;
+  const REVEAL = opts.reveal ?? 'random';
+  const CELLS_PER_FRAME = opts.cellsPerFrame ?? (isMobileViewport() ? 220 : 420);
+  const RANDOM_SEED = opts.randomSeed ?? 101;
 
   if (typeof window === 'undefined') {
     return Promise.reject(new Error('renderMissileIcon must run in the browser'));
@@ -2304,13 +2423,16 @@ export const renderMissileIcon = (
     };
 
     // Precompute drawable cells once after image loads.
-    let cells: Array<{ x: number; y: number; r: number; g: number; b: number; n: number }> = [];
+    let cells: Array<{ x: number; y: number }> = [];
+    let cellIndex = 0;
+    let renderY = 0;
+    let rendered = false;
 
     const precomputeCells = () => {
       if (!img || !buf) return;
       cells = [];
-      for (let x = 0; x < img.width; x += STEP) {
-        for (let y = 0; y < img.height; y += STEP) {
+      for (let y = 0; y < img.height; y += STEP) {
+        for (let x = 0; x < img.width; x += STEP) {
           const i = (y * pw + x) * 4;
           const a = buf.pixels[i + 3];
           if (a < 128) continue;
@@ -2318,9 +2440,33 @@ export const renderMissileIcon = (
           const g = buf.pixels[i + 1];
           const b = buf.pixels[i + 2];
           if (isBackground(r, g, b)) continue;
-          const n = p.noise(x * 0.05, y * 0.05);
-          cells.push({ x, y, r, g, b, n });
+          cells.push({ x, y });
         }
+      }
+
+      p.randomSeed(RANDOM_SEED);
+      if (REVEAL === 'random') {
+        for (let i = cells.length - 1; i > 0; i--) {
+          const j = Math.floor(p.random(i + 1));
+          const tmp = cells[i]!;
+          cells[i] = cells[j]!;
+          cells[j] = tmp!;
+        }
+      }
+
+      cellIndex = 0;
+      renderY = 0;
+      rendered = false;
+    };
+
+    const clearAndReset = () => {
+      rendered = false;
+      cellIndex = 0;
+      renderY = 0;
+      if (TRANSPARENT_BG) {
+        p.clear();
+      } else {
+        p.background(BG[0], BG[1], BG[2]);
       }
     };
 
@@ -2396,10 +2542,12 @@ export const renderMissileIcon = (
       p.noiseSeed(42);
       p.frameRate(12);
 
-      resizeObserver = new ResizeObserver(debounce(() => {
-        if (!container.isConnected) return;
-        applyCanvasSizeFromContainer();
-      }, 150));
+      resizeObserver = new ResizeObserver(
+        debounce(() => {
+          if (!container.isConnected) return;
+          applyCanvasSizeFromContainer();
+        }, 150),
+      );
       resizeObserver.observe(container);
 
       p.loadImage(IMAGE_SRC, (loaded) => {
@@ -2407,6 +2555,7 @@ export const renderMissileIcon = (
         ensureBuffer();
         precomputeCells();
         computeLayout();
+        clearAndReset();
       });
     };
 
@@ -2415,25 +2564,26 @@ export const renderMissileIcon = (
     };
 
     pp.draw = () => {
-      if (!img || cells.length === 0) return;
-
-      if (TRANSPARENT_BG) {
-        p.clear();
-      } else {
-        p.background(BG[0], BG[1], BG[2]);
-      }
+      if (!img || !buf || cells.length === 0 || rendered) return;
 
       const t = p.frameCount;
 
-      for (let k = 0; k < cells.length; k++) {
-        const c = cells[k];
-        const { x, y, r, g, b, n } = c;
+      const drawOne = (x: number, y: number) => {
+        const i = (y * pw + x) * 4;
+        const r = buf!.pixels[i];
+        const g = buf!.pixels[i + 1];
+        const b = buf!.pixels[i + 2];
+        const a = buf!.pixels[i + 3];
+        if (a < 128) return;
+        if (isBackground(r, g, b)) return;
+
+        const n = p.noise(x * 0.05, y * 0.05);
         const [cr, cg, cb, alpha] = getCellColor(r, g, b, n, t);
 
         const wobbleX = p.sin(t * 0.01 + n * 20) * 0.5;
         const wobbleY = p.cos(t * 0.008 + n * 20) * 0.3;
-        const dx = cx + (x - img.width / 2) * sc + wobbleX;
-        const dy = cy + (y - img.height / 2) * sc + wobbleY;
+        const dx = cx + (x - img!.width / 2) * sc + wobbleX;
+        const dy = cy + (y - img!.height / 2) * sc + wobbleY;
         const sz = STEP * sc * (0.8 + n * 0.2);
 
         if (n < 0.3) {
@@ -2452,12 +2602,39 @@ export const renderMissileIcon = (
           p.fill(cr, cg, cb, alpha);
           p.rect(dx, dy, sz, sz);
         }
+      };
+
+      if (REVEAL === 'scanline') {
+        const rowsPerFrame = 80;
+        const endY = Math.min(renderY + rowsPerFrame, img.height);
+        for (let y = renderY; y < endY; y += STEP) {
+          for (let x = 0; x < img.width; x += STEP) drawOne(x, y);
+        }
+        renderY = endY;
+        if (renderY >= img.height) {
+          rendered = true;
+          p.noLoop();
+        }
+        return;
+      }
+
+      const end = Math.min(cellIndex + CELLS_PER_FRAME, cells.length);
+      for (let k = cellIndex; k < end; k++) {
+        const c = cells[k]!;
+        drawOne(c.x, c.y);
+      }
+      cellIndex = end;
+      if (cellIndex >= cells.length) {
+        rendered = true;
+        p.noLoop();
       }
       p.noStroke();
     };
 
     pp.__rerender = () => {
       computeLayout();
+      clearAndReset();
+      p.loop();
     };
 
     pp.__disconnectResizeObserver = () => {

@@ -186,13 +186,17 @@ function PrinciplesOverview({ principles }: { principles: Pillar[] }) {
   );
 }
 
-const REVEAL_RANDOM_TRANSPARENT = { reveal: 'random' as const, transparentBackground: true };
-const TRANSPARENT_ONLY = { transparentBackground: true };
+const REVEAL_RANDOM_TRANSPARENT = {
+  reveal: 'random' as const,
+  transparentBackground: true,
+  cellsPerFrame: 300,
+};
 
 function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
   const num = String(index + 1).padStart(2, '0');
   const anchorId = getPrincipleAnchorId(pillar.title, index + 1);
   const style = getPrincipleStyleByIndex(index);
+
   return (
     <FadeIn delay={0.1 * index}>
       <a
@@ -209,13 +213,13 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
               alt={pillar.title}
               className="flex h-full w-full items-center justify-center transition-transform duration-300 group-hover:scale-105 p-10"
               bootDelayMs={200 + index * 150}
+              glassOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
               rulesOptions={REVEAL_RANDOM_TRANSPARENT}
               brainOptions={REVEAL_RANDOM_TRANSPARENT}
-              robotOptions={TRANSPARENT_ONLY}
-              missileOptions={TRANSPARENT_ONLY}
-              glassOptions={TRANSPARENT_ONLY}
-              justiceOptions={TRANSPARENT_ONLY}
-              pieOptions={TRANSPARENT_ONLY}
+              robotOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 300 }}
+              justiceOptions={REVEAL_RANDOM_TRANSPARENT}
+              missileOptions={{ ...REVEAL_RANDOM_TRANSPARENT, cellsPerFrame: 100 }}
+              pieOptions={REVEAL_RANDOM_TRANSPARENT}
             />
           ) : (
             null
@@ -226,7 +230,6 @@ function PrincipleCard({ pillar, index }: { pillar: Pillar; index: number }) {
             className="mb:text-[20px] font-sans text-[18px] leading-120 font-semibold"
             style={{ color: style.overviewIndexColor }}
           >
-            {/* Principle */}
             {num}
           </p>
           <p className="text-primary-blue mb:text-[20px] font-sans text-[16px] leading-120 font-semibold">
@@ -567,11 +570,11 @@ function PrincipleDetail({ pillar, globalIndex }: { pillar: Pillar; globalIndex:
                   bootDelayMs={250}
                   rulesOptions={REVEAL_RANDOM_TRANSPARENT}
                   brainOptions={REVEAL_RANDOM_TRANSPARENT}
-                  robotOptions={TRANSPARENT_ONLY}
-                  missileOptions={TRANSPARENT_ONLY}
-                  glassOptions={TRANSPARENT_ONLY}
-                  justiceOptions={TRANSPARENT_ONLY}
-                  pieOptions={TRANSPARENT_ONLY}
+                  robotOptions={REVEAL_RANDOM_TRANSPARENT}
+                  missileOptions={REVEAL_RANDOM_TRANSPARENT}
+                  glassOptions={REVEAL_RANDOM_TRANSPARENT}
+                  justiceOptions={REVEAL_RANDOM_TRANSPARENT}
+                  pieOptions={REVEAL_RANDOM_TRANSPARENT}
                 />
               ) : (
                 <div className="bg-neutral-light-gray size-[242px] rounded-full" />
