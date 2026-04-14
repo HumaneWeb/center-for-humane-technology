@@ -964,6 +964,22 @@ export const DonateBlockFragment = graphql(
   [CTAFragment, ImageFragment],
 );
 
+export const PillarTabBlockFragment = graphql(`
+  fragment PillarTabBlockFragment on PillarTabBlockRecord {
+    __typename
+    id
+    title
+    pillars {
+      id
+      tabLabel
+      subtitle
+      content
+      readMoreLabel
+      readMoreUrl
+    }
+  }
+`);
+
 export const SocialNetworksFragment = graphql(`
   fragment SocialNetworksFragment on SocialNetworksBlockRecord {
     id
@@ -1030,6 +1046,7 @@ export const HomepageQuery = graphql(
           ...DepthAreasBlockFragment
           ...MediaBlockFragment
           ...DonateBlockFragment
+          ...PillarTabBlockFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -1061,6 +1078,7 @@ export const HomepageQuery = graphql(
     DepthAreasBlockFragment,
     MediaBlockFragment,
     DonateBlockFragment,
+    PillarTabBlockFragment,
     TagFragment,
     CTAFragment,
   ],
@@ -1445,6 +1463,7 @@ export const BasicPageQuery = graphql(
             ...GridFragment
             ...FootnoteFragment
             ...LogoGridFragment
+            ...PillarTabBlockFragment
           }
         }
         _seoMetaTags {
@@ -1491,6 +1510,7 @@ export const BasicPageQuery = graphql(
     GridFragment,
     FootnoteFragment,
     LogoGridFragment,
+    PillarTabBlockFragment,
   ],
 );
 
@@ -2033,6 +2053,7 @@ export const LandingPageQuery = graphql(
           ...EmbedFragment
           ...ContentCtaEmbedFragment
           ...LogoGridFragment
+          ...PillarTabBlockFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -2070,6 +2091,7 @@ export const LandingPageQuery = graphql(
     EmbedFragment,
     ContentCtaEmbedFragment,
     LogoGridFragment,
+    PillarTabBlockFragment,
   ],
 );
 

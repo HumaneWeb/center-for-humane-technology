@@ -16,6 +16,7 @@ import NumberedListBlock from './numbered-list-block';
 import ContentCardContainerBlock from './content-card-container-block';
 import ContentCtaEmbedBlock from './content-cta-embed-block';
 import EmbedBlock from './embed-block';
+import PillarTabBlock from './pillar-tab-block';
 
 type Props = {
   components: {
@@ -44,6 +45,7 @@ const BaseComponents: Record<string, React.ElementType | React.ReactNode> = {
   ContentCardContainerRecord: ContentCardContainerBlock,
   ContentCtaEmbedRecord: ContentCtaEmbedBlock,
   EmbedRecord: EmbedBlock,
+  PillarTabBlockRecord: PillarTabBlock,
 };
 
 const ExtraProps: Record<string, any> = {

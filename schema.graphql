@@ -395,7 +395,7 @@ type BannerRecord implements RecordInterface {
   ): String
 }
 
-union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | VideoItemRecord
+union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | PillarTabBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | VideoItemRecord
 
 type BasicPageModelContentField {
   blocks: [BasicPageModelContentBlocksField!]!
@@ -4861,7 +4861,7 @@ type LandingHighlightTextRecord implements RecordInterface {
   title: String
 }
 
-union LandingModelBlocksField = ButtonsBlockRecord | CenterCtaRecord | ContentBlockRecord | ContentCardContainerRecord | ContentCtaEmbedRecord | ContentMarkdownRecord | CtaRecord | EmbedRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | LogoGridRecord | NarrativeBlockRecord | NumberedListRecord | StatsBlockRecord | VideoItemRecord
+union LandingModelBlocksField = ButtonsBlockRecord | CenterCtaRecord | ContentBlockRecord | ContentCardContainerRecord | ContentCtaEmbedRecord | ContentMarkdownRecord | CtaRecord | EmbedRecord | ImageBlockRecord | ImageGalleryRecord | LandingHighlightCtaRecord | LandingHighlightTextRecord | LogoGridRecord | NarrativeBlockRecord | NumberedListRecord | PillarTabBlockRecord | StatsBlockRecord | VideoItemRecord
 
 input LandingModelFilter {
   _createdAt: CreatedAtFilter
@@ -5378,6 +5378,62 @@ type PathForwardRecord implements RecordInterface {
   ): String
   systemLabel: String
   title: String
+}
+
+"""Block of type Pillar Tab Block (pillar_tab_block)"""
+type PillarTabBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  pillars: [PillarTabItemRecord!]!
+  title: String!
+}
+
+"""Block of type Pillar Tab Item (pillar_tab_item)"""
+type PillarTabItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  id: ItemId!
+  readMoreLabel: String
+  readMoreUrl: String
+  subtitle: String
+  tabLabel: String!
 }
 
 """Block of type Podcast Card (podcast_card)"""
