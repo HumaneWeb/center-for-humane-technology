@@ -1046,7 +1046,6 @@ export const HomepageQuery = graphql(
           ...DepthAreasBlockFragment
           ...MediaBlockFragment
           ...DonateBlockFragment
-          ...PillarTabBlockFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -1078,7 +1077,6 @@ export const HomepageQuery = graphql(
     DepthAreasBlockFragment,
     MediaBlockFragment,
     DonateBlockFragment,
-    PillarTabBlockFragment,
     TagFragment,
     CTAFragment,
   ],

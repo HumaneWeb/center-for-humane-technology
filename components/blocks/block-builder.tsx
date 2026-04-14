@@ -12,7 +12,7 @@ import NewsletterBlock from './newsletter-block';
 import SubstackManualFeed from './generic-cards-grid';
 import ContentMarkdownBlock from './content-markdown-block';
 import ButtonsBlock from './buttons-block';
-import PillarTabBlock from './pillar-tab-block';
+
 
 type Props = {
   components: {
@@ -36,7 +36,6 @@ const BaseComponents: Record<string, any> = {
   ContentMarkdownRecord: ContentMarkdownBlock,
   ButtonsBlockRecord: ButtonsBlock,
   LogoGridRecord: LogoGridBlock,
-  PillarTabBlockRecord: PillarTabBlock,
 };
 
 const BlockBuilder: React.FC<Props> = ({ components = [] }) => {

@@ -42,10 +42,10 @@ export default function PillarTabBlock({ title, pillars }: Props) {
 
   return (
     <section className="mb:my-25 my-10">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ── Mobile: horizontal scrollable tabs ── */}
-        <div className="mb:hidden mb-6 block">
-          <p className="text-primary-navy tracking-049 mb-4 font-sans text-[22px] leading-120 font-semibold">
+      {/* ── Mobile: horizontal scrollable tabs ── */}
+      <div className="mb:hidden mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-6">
+          <p className="text-primary-navy tracking-049 mb-4 font-sans text-[29px] leading-120 font-semibold">
             {title}
           </p>
           <div
@@ -60,10 +60,10 @@ export default function PillarTabBlock({ title, pillars }: Props) {
                 }}
                 onClick={() => setActiveIndex(index)}
                 className={cn(
-                  'snap-start shrink-0 rounded-full border px-4 py-2 font-sans text-sm font-medium transition-all duration-200',
+                  'snap-start shrink-0 border px-5 py-2.5 font-sans text-sm font-medium transition-all duration-200',
                   activeIndex === index
                     ? 'border-primary-navy bg-primary-navy text-neutral-white'
-                    : 'border-neutral-300 text-primary-navy/50 hover:border-primary-navy/40 bg-transparent',
+                    : 'border-transparent bg-neutral-100 text-primary-navy/50',
                 )}
               >
                 {pillar.tabLabel}
@@ -73,15 +73,21 @@ export default function PillarTabBlock({ title, pillars }: Props) {
         </div>
 
         {/* ── Mobile: content panel ── */}
-        <div className="mb:hidden block">
-          <PillarContent pillar={activePillar} />
-        </div>
+        <PillarContent pillar={activePillar} />
+      </div>
 
-        {/* ── Desktop: two-column layout ── */}
-        <div className="mb:grid mb:grid-cols-[280px_1fr] mb:gap-16 hidden items-start">
-          {/* Left: title + tab list */}
-          <div className="sticky top-24">
-            <h2 className="text-primary-navy tracking-049 mb:text-4xl mb:leading-110 mb-8 font-sans text-[29px] leading-120 font-semibold">
+      {/* ── Desktop: full-width two-column, sidebar bleeds to left viewport edge ── */}
+      <div
+        className="hidden mb:grid items-stretch"
+        style={{ gridTemplateColumns: 'calc(max(0px, (100vw - 80rem) / 2) + 17.5rem) 1fr' }}
+      >
+        {/* Left: gray sidebar — fills column all the way to the left viewport edge */}
+        <div className="bg-[#eeeeee]">
+          <div
+            className="sticky top-24 py-16 pr-12"
+            style={{ paddingLeft: 'max(1rem, calc((100vw - 80rem) / 2 + 2rem))' }}
+          >
+            <h2 className="text-primary-navy tracking-049 mb:text-[32px] mb:leading-110 mb-8 font-sans text-[29px] leading-120 font-semibold">
               {title}
             </h2>
             <nav className="flex flex-col gap-0">
@@ -90,7 +96,7 @@ export default function PillarTabBlock({ title, pillars }: Props) {
                   key={pillar.id}
                   onClick={() => setActiveIndex(index)}
                   className={cn(
-                    'group flex items-start gap-3 py-3 text-left font-sans text-base transition-all duration-200',
+                    'group flex cursor-pointer items-start gap-1.5 py-3 text-left font-sans text-base transition-all duration-200',
                     'border-b border-neutral-200 last:border-b-0',
                     activeIndex === index
                       ? 'text-primary-navy'
@@ -99,7 +105,7 @@ export default function PillarTabBlock({ title, pillars }: Props) {
                 >
                   <span
                     className={cn(
-                      'w-6 shrink-0 text-[15px] leading-130',
+                      'w-7 shrink-0 text-[18px] leading-130',
                       activeIndex === index ? 'font-semibold' : 'font-normal',
                     )}
                   >
@@ -107,8 +113,10 @@ export default function PillarTabBlock({ title, pillars }: Props) {
                   </span>
                   <span
                     className={cn(
-                      'leading-130 text-[15px]',
-                      activeIndex === index ? 'font-semibold underline underline-offset-2' : 'font-normal',
+                      'leading-130 text-[18px]',
+                      activeIndex === index
+                        ? 'font-semibold underline underline-offset-2 decoration-2'
+                        : 'font-normal',
                     )}
                   >
                     {pillar.tabLabel}
@@ -117,11 +125,14 @@ export default function PillarTabBlock({ title, pillars }: Props) {
               ))}
             </nav>
           </div>
+        </div>
 
-          {/* Right: content panel */}
-          <div>
-            <PillarContent pillar={activePillar} />
-          </div>
+        {/* Right: content panel — aligns with container right edge */}
+        <div
+          className="py-16 pl-16"
+          style={{ paddingRight: 'max(1rem, calc((100vw - 80rem) / 2 + 2rem))' }}
+        >
+          <PillarContent pillar={activePillar} />
         </div>
       </div>
     </section>
@@ -131,25 +142,7 @@ export default function PillarTabBlock({ title, pillars }: Props) {
 function PillarContent({ pillar }: { pillar: PillarItem }) {
   return (
     <div key={pillar.id} className="animate-fade-in">
-      {/* Icon placeholder — teal rounded square */}
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-secondary-light-teal">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-7 w-7 text-primary-navy"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={1.5}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
-          />
-        </svg>
-      </div>
-
-      <h3 className="text-primary-navy mb:text-[39px] mb:leading-110 mb-4 font-sans text-[26px] leading-120 font-semibold">
+      <h3 className="text-primary-navy mb:text-[39px] mb:leading-110 mb-4 font-sans text-[23px] leading-120 font-semibold">
         {pillar.tabLabel}
       </h3>
 
