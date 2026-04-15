@@ -501,6 +501,9 @@ export const StatsBlockFragment = graphql(`
 export const ColumnsBlockFragment = graphql(`
   fragment ColumnsBlockFragment on ColumnsBlockRecord {
     title
+    backgroundColor {
+      hex
+    }
     items {
       ... on ColumnItemRecord {
         id

@@ -1167,6 +1167,7 @@ type ColumnsBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  backgroundColor: ColorField
   hideBlock: BooleanType!
   id: ItemId!
   items: [ColumnItemRecord!]!
