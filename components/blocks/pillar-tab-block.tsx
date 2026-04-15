@@ -10,6 +10,10 @@ type PillarItem = {
   content?: string | null;
   readMoreLabel?: string | null;
   readMoreUrl?: string | null;
+  buttonLabel?: string | null;
+  buttonUrl?: string | null;
+  icon?: { url: string; alt?: string | null; width?: number | null; height?: number | null } | null;
+  image?: { url: string; alt?: string | null; width?: number | null; height?: number | null } | null;
 };
 
 type Props = {
@@ -17,7 +21,9 @@ type Props = {
   pillars: PillarItem[];
 };
 
-const ROMAN = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
+function pad(n: number) {
+  return String(n).padStart(2, '0');
+}
 
 export default function PillarTabBlock({ title, pillars }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -76,63 +82,60 @@ export default function PillarTabBlock({ title, pillars }: Props) {
         <PillarContent pillar={activePillar} />
       </div>
 
-      {/* ── Desktop: full-width two-column, sidebar bleeds to left viewport edge ── */}
-      <div
-        className="hidden mb:grid items-stretch"
-        style={{ gridTemplateColumns: 'calc(max(0px, (100vw - 80rem) / 2) + 17.5rem) 1fr' }}
-      >
-        {/* Left: gray sidebar — fills column all the way to the left viewport edge */}
-        <div className="bg-[#eeeeee]">
-          <div
-            className="sticky top-24 py-16 pr-12"
-            style={{ paddingLeft: 'max(1rem, calc((100vw - 80rem) / 2 + 2rem))' }}
-          >
-            <h2 className="text-primary-navy tracking-049 mb:text-[32px] mb:leading-110 mb-8 font-sans text-[29px] leading-120 font-semibold">
-              {title}
-            </h2>
-            <nav className="flex flex-col gap-0">
-              {pillars.map((pillar, index) => (
-                <button
-                  key={pillar.id}
-                  onClick={() => setActiveIndex(index)}
-                  className={cn(
-                    'group flex cursor-pointer items-start gap-1.5 py-3 text-left font-sans text-base transition-all duration-200',
-                    'border-b border-neutral-200 last:border-b-0',
-                    activeIndex === index
-                      ? 'text-primary-navy'
-                      : 'text-primary-navy/40 hover:text-primary-navy/70',
-                  )}
-                >
-                  <span
-                    className={cn(
-                      'w-7 shrink-0 text-[18px] leading-130',
-                      activeIndex === index ? 'font-semibold' : 'font-normal',
-                    )}
-                  >
-                    {ROMAN[index]}.
-                  </span>
-                  <span
-                    className={cn(
-                      'leading-130 text-[18px]',
-                      activeIndex === index
-                        ? 'font-semibold underline underline-offset-2 decoration-2'
-                        : 'font-normal',
-                    )}
-                  >
-                    {pillar.tabLabel}
-                  </span>
-                </button>
-              ))}
-            </nav>
-          </div>
-        </div>
+      {/* ── Desktop ── */}
+      <div className="hidden mb:block mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-primary-navy tracking-049 mb:text-[32px] mb:leading-110 mb-10 font-sans text-[29px] leading-120 font-semibold">
+          {title}
+        </h2>
 
-        {/* Right: content panel — aligns with container right edge */}
-        <div
-          className="py-16 pl-16"
-          style={{ paddingRight: 'max(1rem, calc((100vw - 80rem) / 2 + 2rem))' }}
-        >
-          <PillarContent pillar={activePillar} />
+        <div className="grid grid-cols-[25%_75%] items-stretch">
+          {/* Left: sidebar */}
+          <div>
+            <div className="sticky top-0 py-8 pr-12">
+              <p className="tracking-[3px] text-neutral-gray mb-4 font-sans text-xs font-semibold uppercase">
+                Select Pillar
+              </p>
+              <nav className="flex flex-col gap-0">
+                {pillars.map((pillar, index) => (
+                  <button
+                    key={pillar.id}
+                    onClick={() => setActiveIndex(index)}
+                    className={cn(
+                      'group flex cursor-pointer items-start gap-1.5 py-3 text-left font-sans text-base transition-all duration-200',
+                      'border-b border-neutral-200 last:border-b-0',
+                      activeIndex === index
+                        ? 'text-primary-navy'
+                        : 'text-primary-navy/40 hover:text-primary-navy/70',
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        'w-7 shrink-0 text-[18px] leading-130',
+                        activeIndex === index ? 'font-semibold' : 'font-normal',
+                      )}
+                    >
+                      {pad(index + 1)}.
+                    </span>
+                    <span
+                      className={cn(
+                        'leading-130 text-[18px]',
+                        activeIndex === index
+                          ? 'font-semibold underline underline-offset-2 decoration-2'
+                          : 'font-normal',
+                      )}
+                    >
+                      {pillar.tabLabel}
+                    </span>
+                  </button>
+                ))}
+              </nav>
+            </div>
+          </div>
+
+          {/* Right: content panel */}
+          <div className="bg-neutral-white py-8 pl-16 pr-8">
+            <PillarContent pillar={activePillar} />
+          </div>
         </div>
       </div>
     </section>
@@ -142,6 +145,17 @@ export default function PillarTabBlock({ title, pillars }: Props) {
 function PillarContent({ pillar }: { pillar: PillarItem }) {
   return (
     <div key={pillar.id} className="animate-fade-in">
+      {pillar.icon && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={pillar.icon.url}
+          alt={pillar.icon.alt ?? ''}
+          width={pillar.icon.width ?? 56}
+          height={pillar.icon.height ?? 56}
+          className="mb-5 h-14 w-14 object-contain"
+        />
+      )}
+
       <h3 className="text-primary-navy mb:text-[39px] mb:leading-110 mb-4 font-sans text-[23px] leading-120 font-semibold">
         {pillar.tabLabel}
       </h3>
@@ -152,21 +166,47 @@ function PillarContent({ pillar }: { pillar: PillarItem }) {
         </p>
       )}
 
-      {pillar.content && (
-        <div
-          className="text-primary-navy mb:text-xl mb-8 font-sans text-base leading-140 [&>p]:mb-4"
-          dangerouslySetInnerHTML={{ __html: pillar.content }}
-        />
+      {(pillar.content || pillar.image) && (
+        <div className={cn('mb-8', pillar.image && 'mb:flex mb:items-start mb:gap-10')}>
+          {pillar.content && (
+            <div
+              className="text-primary-navy mb:text-xl min-w-0 flex-1 font-sans text-base leading-140 [&>p]:mb-4"
+              dangerouslySetInnerHTML={{ __html: pillar.content }}
+            />
+          )}
+          {pillar.image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={pillar.image.url}
+              alt={pillar.image.alt ?? ''}
+              width={pillar.image.width ?? 400}
+              height={pillar.image.height ?? 300}
+              className="mb:mt-0 mb:w-[42%] mb:shrink-0 mt-6 w-full rounded-lg object-cover"
+            />
+          )}
+        </div>
       )}
 
-      {pillar.readMoreLabel && pillar.readMoreUrl && (
-        <a
-          href={pillar.readMoreUrl}
-          className="text-primary-navy hover:text-primary-teal inline-flex items-center gap-2 font-sans text-base font-semibold transition-colors duration-200"
-        >
-          {pillar.readMoreLabel}
-          <span aria-hidden="true">→</span>
-        </a>
+      {(pillar.buttonLabel || pillar.readMoreLabel) && (
+        <div className="flex flex-wrap items-center gap-4">
+          {pillar.buttonLabel && pillar.buttonUrl && (
+            <a
+              href={pillar.buttonUrl}
+              className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 inline-block rounded-[5px] px-5 py-4 font-sans text-base font-semibold transition-all duration-200"
+            >
+              {pillar.buttonLabel}
+            </a>
+          )}
+          {pillar.readMoreLabel && pillar.readMoreUrl && (
+            <a
+              href={pillar.readMoreUrl}
+              className="text-primary-navy hover:text-primary-teal inline-flex items-center gap-2 font-sans text-base font-semibold transition-colors duration-200"
+            >
+              {pillar.readMoreLabel}
+              <span aria-hidden="true">→</span>
+            </a>
+          )}
+        </div>
       )}
     </div>
   );

@@ -5425,11 +5425,15 @@ type PillarTabItemRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  buttonLabel: String
+  buttonUrl: String
   content(
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  icon: FileField
   id: ItemId!
+  image: FileField
   readMoreLabel: String
   readMoreUrl: String
   subtitle: String
