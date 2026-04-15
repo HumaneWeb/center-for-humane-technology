@@ -2,6 +2,7 @@ import { FadeIn } from '../shared/fade-in';
 
 type Props = {
   title: string;
+  backgroundColor?: { hex: string } | null;
   items: {
     id: string;
     title: string;
@@ -9,9 +10,12 @@ type Props = {
   }[];
 };
 
-export default function ColumnsBlock({ title, items }: Props) {
+export default function ColumnsBlock({ title, backgroundColor, items }: Props) {
   return (
-    <section className="mb:mt-20 mb:mb-10 py-8">
+    <section
+      className="mb:mt-20 mb:mb-10 py-8"
+      style={backgroundColor?.hex ? { backgroundColor: backgroundColor.hex } : undefined}
+    >
       <div className="mb:mb-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <h3 className="tracking-049 text-primary-navy mb:text-5xl mb:leading-110 mb:mb-10 mb-5 font-sans text-[29px] leading-120 font-semibold">
