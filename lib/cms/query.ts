@@ -976,6 +976,20 @@ export const PillarTabBlockFragment = graphql(`
       content
       readMoreLabel
       readMoreUrl
+      buttonLabel
+      buttonUrl
+      icon {
+        url
+        alt
+        width
+        height
+      }
+      image {
+        url
+        alt
+        width
+        height
+      }
     }
   }
 `);
