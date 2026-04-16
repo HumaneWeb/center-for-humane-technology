@@ -18,6 +18,7 @@ type PillarItem = {
 
 type Props = {
   title: string;
+  copy?: string | null;
   pillars: PillarItem[];
 };
 
@@ -25,7 +26,7 @@ function pad(n: number) {
   return String(n).padStart(2, '0');
 }
 
-export default function PillarTabBlock({ title, pillars }: Props) {
+export default function PillarTabBlock({ title, copy, pillars }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -54,6 +55,12 @@ export default function PillarTabBlock({ title, pillars }: Props) {
           <p className="text-primary-navy tracking-049 mb-4 font-sans text-[29px] leading-120 font-semibold">
             {title}
           </p>
+          {copy && (
+            <div
+              className="text-primary-navy mb-4 font-sans text-base leading-140 [&>p]:mb-4 [&>p:last-child]:mb-0"
+              dangerouslySetInnerHTML={{ __html: copy }}
+            />
+          )}
           <div
             ref={tabsRef}
             className="scrollbar-hide flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1"
@@ -84,9 +91,15 @@ export default function PillarTabBlock({ title, pillars }: Props) {
 
       {/* ── Desktop ── */}
       <div className="hidden mb:block mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-primary-navy tracking-049 mb:text-[32px] mb:leading-110 mb-10 font-sans text-[29px] leading-120 font-semibold">
+        <h2 className="text-primary-navy tracking-049 mb:text-[32px] mb:leading-110 mb-4 font-sans text-[29px] leading-120 font-semibold">
           {title}
         </h2>
+        {copy && (
+          <div
+            className="text-primary-navy mb-10 font-sans text-base mb:text-xl leading-140 [&>p]:mb-4 [&>p:last-child]:mb-0"
+            dangerouslySetInnerHTML={{ __html: copy }}
+          />
+        )}
 
         <div className="grid grid-cols-[25%_75%] items-stretch">
           {/* Left: sidebar */}
@@ -138,6 +151,7 @@ export default function PillarTabBlock({ title, pillars }: Props) {
           </div>
         </div>
       </div>
+
     </section>
   );
 }

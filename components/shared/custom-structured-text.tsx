@@ -41,6 +41,7 @@ import ItemSelector from '../blocks/items-selector-block';
 import ButtonsBlock from '../blocks/buttons-block';
 import LogoGridBlock from '../blocks/logo-grid-block';
 import PillarTabBlock from '../blocks/pillar-tab-block';
+import ColumnCardBlock from '../blocks/column-card-block';
 
 export default function CustomStructuredText({
   data,
@@ -290,6 +291,9 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'PillarTabBlockRecord') {
           return <PillarTabBlock key={record.id} {...record} />;
+        }
+        if (record.__typename === 'ColumnCardBlockRecord') {
+          return <ColumnCardBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'ButtonsBlockRecord') {
           return (
