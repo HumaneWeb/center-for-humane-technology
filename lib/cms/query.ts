@@ -1505,6 +1505,8 @@ export const BasicPageQuery = graphql(
             ...LogoGridFragment
             ...PillarTabBlockFragment
             ...ColumnCardBlockFragment
+            ...ContentMarkdownFragment
+            ...LandingHighlightCtaFragment
           }
         }
         _seoMetaTags {
@@ -1553,6 +1555,8 @@ export const BasicPageQuery = graphql(
     LogoGridFragment,
     PillarTabBlockFragment,
     ColumnCardBlockFragment,
+    ContentMarkdownFragment,
+    LandingHighlightCtaFragment,
   ],
 );
 
