@@ -498,6 +498,30 @@ export const StatsBlockFragment = graphql(`
   }
 `);
 
+export const ColumnCardBlockFragment = graphql(`
+  fragment ColumnCardBlockFragment on ColumnCardBlockRecord {
+    __typename
+    id
+    headline
+    introduction(markdown: true)
+    backgroundColor {
+      hex
+    }
+    columns
+    cards {
+      id
+      headline
+      copy(markdown: true)
+      icon {
+        url
+        alt
+        width
+        height
+      }
+    }
+  }
+`);
+
 export const ColumnsBlockFragment = graphql(`
   fragment ColumnsBlockFragment on ColumnsBlockRecord {
     title
@@ -972,6 +996,7 @@ export const PillarTabBlockFragment = graphql(`
     __typename
     id
     title
+    copy(markdown: true)
     pillars {
       id
       tabLabel
@@ -1479,6 +1504,7 @@ export const BasicPageQuery = graphql(
             ...FootnoteFragment
             ...LogoGridFragment
             ...PillarTabBlockFragment
+            ...ColumnCardBlockFragment
           }
         }
         _seoMetaTags {
@@ -1526,6 +1552,7 @@ export const BasicPageQuery = graphql(
     FootnoteFragment,
     LogoGridFragment,
     PillarTabBlockFragment,
+    ColumnCardBlockFragment,
   ],
 );
 
