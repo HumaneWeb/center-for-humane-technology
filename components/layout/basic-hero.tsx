@@ -13,7 +13,7 @@ type Props = {
   cta?: CustomLinkProps | null;
   backCta?: string | null;
   backgroundImage?: CustomImageProps | null;
-  variant?: 'default' | 'purple' | 'white' | 'dark' | 'blue' | 'green';
+  variant?: 'default' | 'purple' | 'white' | 'dark' | 'blue' | 'green' | 'light-orange';
   children?: React.ReactElement;
 };
 
@@ -24,6 +24,7 @@ const variantClasses: Record<NonNullable<Props['variant']>, string> = {
   dark: 'pt-40 pb-15',
   blue: 'bg-basic-hero-blue',
   green: 'bg-path-forward-hero mb:pb-20',
+  'light-orange': 'bg-landing-page-orange',
 };
 
 export default function BasicHero({
@@ -63,6 +64,7 @@ export default function BasicHero({
               className={cn(
                 'text-secondary-light-purple mb:text-xl mb:leading-135 mb:tracking-[1px] mb:mb-5 mb-2 font-sans text-[15px] leading-120 font-semibold tracking-[0.9px] uppercase',
                 variant === 'green' && 'text-[#ACFFFC]',
+                variant === 'light-orange' && 'text-primary-navy',
               )}
             >
               {preTitle}
@@ -76,6 +78,7 @@ export default function BasicHero({
               variant === 'dark' && 'text-primary-navy tracking-049 mb:text-[49px] leading-110',
               variant === 'blue' && 'text-primary-cream',
               variant === 'green' && 'text-primary-cream max-w-[838px]',
+              variant === 'light-orange' && 'text-primary-navy',
             )}
           >
             {title}
@@ -86,6 +89,7 @@ export default function BasicHero({
                 'mb:text-[25px] mt-6 font-sans text-xl leading-140',
                 variant === 'white' && 'text-primary-cream',
                 variant === 'dark' && 'text-neutral-white',
+                variant === 'light-orange' && 'text-primary-navy',
               )}
               dangerouslySetInnerHTML={{ __html: introduction }}
             />

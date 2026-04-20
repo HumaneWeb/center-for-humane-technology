@@ -11,7 +11,7 @@ type Props = {
   introduction: string;
   image: CustomImageProps;
   mobileImage?: CustomImageProps;
-  variant: 'blue' | 'light-blue' | 'green' | 'purple' | 'green-ai';
+  variant: 'blue' | 'light-blue' | 'green' | 'purple' | 'green-ai' | 'light-orange';
 };
 
 export default function ComplexHero({
@@ -33,6 +33,7 @@ export default function ComplexHero({
         variant === 'green' && 'bg-complex-hero-green',
         variant === 'purple' && 'bg-complex-hero-purple',
         variant === 'green-ai' && 'bg-[#FCF1E6]',
+        variant === 'light-orange' && 'bg-landing-page-orange',
       )}
     >
       <FadeIn
@@ -47,7 +48,8 @@ export default function ComplexHero({
       >
         <div className={cn(
           "complex-hero-grid-content mb:pb-25 mb:h-[620px] mb:pt-0 mx-auto flex max-w-7xl items-end px-4 pt-35 pb-10 sm:px-6 lg:px-8",
-          variant === 'green-ai' && 'mb:pt-55 mb:pb-20 pt-35 pb-8 mb:h-auto mb:mt-16',
+          (variant === 'green-ai' || variant === 'light-orange') &&
+            'mb:pt-55 mb:pb-20 pt-35 pb-8 mb:h-auto mb:mt-16',
         )}>
           <div className="max-w-[750px]">
             {preTitle && (
@@ -57,6 +59,7 @@ export default function ComplexHero({
                     'mb:text-xl mb:leading-135 tracking-08 mb:tracking-[1px] mb:mb-3.5 mb-2 font-sans text-[16px] leading-120 font-semibold text-[#93C0FF] uppercase',
                     variant === 'green' && 'text-[#ACFFFC]',
                     variant === 'green-ai' && 'text-[#007981] mb:mb-5 mb-2',
+                    variant === 'light-orange' && 'text-primary-navy mb:mb-5 mb-2',
                   )}
                 >
                   {preTitle}
@@ -68,6 +71,7 @@ export default function ComplexHero({
                 className={cn(
                   'text-primary-cream mb:tracking-061 mb:text-6xl mb:mb-5 mb-2 font-sans text-[32px] leading-110 font-semibold tracking-[-0.32px]',
                   variant === 'green-ai' && 'text-[#293462]',
+                  variant === 'light-orange' && 'text-primary-navy',
                 )}
               >
                 {title}
@@ -76,7 +80,10 @@ export default function ComplexHero({
             {introduction && (
               <FadeIn delay={0.4}>
                 <div
-                  className="text-neutral-white mb:text-2xl max-w-[600px] font-sans text-xl leading-140"
+                  className={cn(
+                    'mb:text-2xl max-w-[600px] font-sans text-xl leading-140',
+                    variant === 'light-orange' ? 'text-primary-navy' : 'text-neutral-white',
+                  )}
                   dangerouslySetInnerHTML={{ __html: introduction }}
                 />
               </FadeIn>
