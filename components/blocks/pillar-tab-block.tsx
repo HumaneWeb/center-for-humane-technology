@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils/css.utils';
 
 type PillarItem = {
@@ -61,27 +62,51 @@ export default function PillarTabBlock({ title, copy, pillars }: Props) {
               dangerouslySetInnerHTML={{ __html: copy }}
             />
           )}
-          <div
-            ref={tabsRef}
-            className="scrollbar-hide flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1"
-          >
-            {pillars.map((pillar, index) => (
-              <button
-                key={pillar.id}
-                ref={(el) => {
-                  tabRefs.current[index] = el;
-                }}
-                onClick={() => setActiveIndex(index)}
-                className={cn(
-                  'snap-start shrink-0 border px-5 py-2.5 font-sans text-sm font-medium transition-all duration-200',
-                  activeIndex === index
-                    ? 'border-primary-navy bg-primary-navy text-neutral-white'
-                    : 'border-transparent bg-neutral-100 text-primary-navy/50',
+          <div className="flex items-center gap-1">
+            <button
+              aria-label="Previous tab"
+              onClick={() => setActiveIndex((i) => Math.max(0, i - 1))}
+              className={cn(
+                  'shrink-0 p-1 text-primary-navy transition-opacity duration-200',
+                  activeIndex === 0 ? 'pointer-events-none opacity-25' : 'opacity-100',
                 )}
-              >
-                {pillar.tabLabel}
-              </button>
-            ))}
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            <div
+              ref={tabsRef}
+              className="scrollbar-hide flex min-w-0 flex-1 snap-x snap-mandatory gap-2 overflow-x-auto pb-1"
+            >
+              {pillars.map((pillar, index) => (
+                <button
+                  key={pillar.id}
+                  ref={(el) => {
+                    tabRefs.current[index] = el;
+                  }}
+                  onClick={() => setActiveIndex(index)}
+                  className={cn(
+                    'snap-start shrink-0 border px-5 py-2.5 font-sans text-sm font-medium transition-all duration-200',
+                    activeIndex === index
+                      ? 'border-primary-navy bg-primary-navy text-neutral-white'
+                      : 'border-transparent bg-neutral-100 text-primary-navy/50',
+                  )}
+                >
+                  {pillar.tabLabel}
+                </button>
+              ))}
+            </div>
+
+            <button
+              aria-label="Next tab"
+              onClick={() => setActiveIndex((i) => Math.min(pillars.length - 1, i + 1))}
+              className={cn(
+                  'shrink-0 p-1 text-primary-navy transition-opacity duration-200',
+                  activeIndex === pillars.length - 1 ? 'pointer-events-none opacity-25' : 'opacity-100',
+                )}
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
 
