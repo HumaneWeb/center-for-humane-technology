@@ -1022,6 +1022,27 @@ export const PillarTabBlockFragment = graphql(`
   }
 `);
 
+export const TopNavCardBlockFragment = graphql(`
+  fragment TopNavCardBlockFragment on TopNavCardRecord {
+    __typename
+    id
+    title
+    copy(markdown: true)
+    cards {
+      id
+      tabLabel
+      subtitle
+      content
+      image {
+        url
+        alt
+        width
+        height
+      }
+    }
+  }
+`);
+
 export const SocialNetworksFragment = graphql(`
   fragment SocialNetworksFragment on SocialNetworksBlockRecord {
     id
@@ -1507,6 +1528,7 @@ export const BasicPageQuery = graphql(
             ...ColumnCardBlockFragment
             ...ContentMarkdownFragment
             ...LandingHighlightCtaFragment
+            ...TopNavCardBlockFragment
           }
         }
         _seoMetaTags {
@@ -1557,6 +1579,7 @@ export const BasicPageQuery = graphql(
     ColumnCardBlockFragment,
     ContentMarkdownFragment,
     LandingHighlightCtaFragment,
+    TopNavCardBlockFragment,
   ],
 );
 

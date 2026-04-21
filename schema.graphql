@@ -395,7 +395,7 @@ type BannerRecord implements RecordInterface {
   ): String
 }
 
-union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnCardBlockRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | ContentMarkdownRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LandingHighlightCtaRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | PillarTabBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | VideoItemRecord
+union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnCardBlockRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | ContentMarkdownRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LandingHighlightCtaRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | PillarTabBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | TopNavCardItemRecord | TopNavCardRecord | VideoItemRecord
 
 type BasicPageModelContentField {
   blocks: [BasicPageModelContentBlocksField!]!
@@ -7946,6 +7946,65 @@ type ToolkitRecord implements RecordInterface {
   textColor: String
   title: String!
   variant: String
+}
+
+"""Block of type Top-Nav Card Item (top_nav_card_item)"""
+type TopNavCardItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  id: ItemId!
+  image: FileField
+  subtitle: String
+  tabLabel: String!
+}
+
+"""Block of type Top-Nav Card Block (top_nav_card)"""
+type TopNavCardRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  cards: [TopNavCardItemRecord!]!
+  copy(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  id: ItemId!
+  title: String!
 }
 
 """Specifies how to filter by upload type"""
