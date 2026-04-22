@@ -344,7 +344,7 @@ export default function CustomStructuredText({
                           'p',
                           {
                             className: cn(
-                              'font-sans text-[18px] mb:text-xl [&>a]:font-semibold [&>a]:text-primary-teal font-normal leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              'font-sans text-[18px] mb:text-xl [&>a]:font-semibold [&>a]:text-primary-teal font-normal leading-140 text-primary-navy mb-5',
                               centerContent && '',
                               isInnerContainer && 'text-[16px]',
                               fullWidth && 'max-w-full',
@@ -361,7 +361,7 @@ export default function CustomStructuredText({
                           'p',
                           {
                             className: cn(
-                              'font-sans text-[18px] mb:text-xl [&>a]:font-semibold [&>a]:text-primary-teal font-normal leading-140 text-primary-navy mb-5 max-w-[840px]',
+                              'font-sans text-[18px] mb:text-xl [&>a]:font-semibold [&>a]:text-primary-teal font-normal leading-140 text-primary-navy mb-5',
                               centerContent && '',
                               fullWidth && 'max-w-full',
                             ),
