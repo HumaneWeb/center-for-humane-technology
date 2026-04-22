@@ -67,7 +67,7 @@ export default function ColumnCardBlock({
 
   return (
     <section
-      className={cn('mb:my-11 my-8', backgroundColor?.hex ? 'py-12 mb:py-20' : 'py-1')}
+      className={cn('mb:my-11 my-8', backgroundColor?.hex ? 'py-10 mb:pt-20' : 'py-1')}
       style={backgroundColor?.hex ? { backgroundColor: backgroundColor.hex } : undefined}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
