@@ -1142,12 +1142,23 @@ type ColumnCardBlockRecord implements RecordInterface {
   backgroundColor: ColorField
   cards: [ColumnCardItemRecord!]!
   columns: IntType!
+  ctaButtonLabel: String
+  ctaButtonUrl: String
+  ctaContent(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  footerContent(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
   headline: String
   id: ItemId!
   introduction(
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  showCtaBox: BooleanType!
 }
 
 """Block of type Column Card Item (column_card_item)"""

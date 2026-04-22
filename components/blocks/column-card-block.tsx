@@ -13,6 +13,11 @@ type Props = {
   backgroundColor?: { hex: string } | null;
   columns: number;
   cards: CardItem[];
+  showCtaBox?: boolean | null;
+  ctaContent?: string | null;
+  ctaButtonLabel?: string | null;
+  ctaButtonUrl?: string | null;
+  footerContent?: string | null;
 };
 
 function gridColsClass(n: number): string {
@@ -28,8 +33,22 @@ function gridColsClass(n: number): string {
   return map[c] ?? map[2];
 }
 
-export default function ColumnCardBlock({ headline, introduction, backgroundColor, columns, cards }: Props) {
+export default function ColumnCardBlock({
+  headline,
+  introduction,
+  backgroundColor,
+  columns,
+  cards,
+  showCtaBox,
+  ctaContent,
+  ctaButtonLabel,
+  ctaButtonUrl,
+  footerContent,
+}: Props) {
   if (!cards?.length) return null;
+
+  const isExternalUrl = (url: string) =>
+    url.startsWith('http://') || url.startsWith('https://');
 
   return (
     <section
@@ -80,6 +99,35 @@ export default function ColumnCardBlock({ headline, introduction, backgroundColo
             </article>
           ))}
         </div>
+
+        {showCtaBox && (ctaContent || (ctaButtonLabel && ctaButtonUrl)) && (
+          <div className="mt-8 mb:mt-10 flex flex-col items-start justify-between gap-24 rounded-xl bg-primary-teal px-8 py-7 sm:flex-row sm:items-center mb:px-10 mb:py-8">
+            {ctaContent && (
+              <div
+                className="flex-1 font-sans text-xl font-semibold leading-140 text-neutral-white [&>p]:mb-0"
+                dangerouslySetInnerHTML={{ __html: ctaContent }}
+              />
+            )}
+            {ctaButtonLabel && ctaButtonUrl && (
+              <a
+                href={ctaButtonUrl}
+                className="shrink-0 inline-flex items-center justify-center rounded-lg bg-secondary-light-teal px-6 py-3 font-sans text-base font-semibold text-primary-navy transition-colors duration-200 hover:bg-secondary-light-teal/80"
+                {...(isExternalUrl(ctaButtonUrl)
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+              >
+                {ctaButtonLabel}
+              </a>
+            )}
+          </div>
+        )}
+
+        {footerContent && (
+          <div
+            className="mt-6 text-center font-sans text-sm leading-140 text-primary-navy [&>p]:mb-0 [&_a]:underline [&_a]:underline-offset-2"
+            dangerouslySetInnerHTML={{ __html: footerContent }}
+          />
+        )}
       </div>
     </section>
   );
