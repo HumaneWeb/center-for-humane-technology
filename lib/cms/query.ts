@@ -519,6 +519,11 @@ export const ColumnCardBlockFragment = graphql(`
         height
       }
     }
+    showCtaBox
+    ctaContent(markdown: true)
+    ctaButtonLabel
+    ctaButtonUrl
+    footerContent(markdown: true)
   }
 `);
 
