@@ -33,6 +33,21 @@ function gridColsClass(n: number): string {
   return map[c] ?? map[2];
 }
 
+function autolinkEmails(html: string): string {
+  // Wrap bare email addresses (not already inside an href) with mailto links
+  return html.replace(
+    /(?<!href=["']mailto:[^"']*)(?<!href=["'][^"']*?)([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g,
+    (match, email, offset) => {
+      const before = html.slice(0, offset);
+      // Skip if already inside an <a> tag
+      const lastOpen = before.lastIndexOf('<a ');
+      const lastClose = before.lastIndexOf('</a>');
+      if (lastOpen > lastClose) return match;
+      return `<a href="mailto:${email}">${email}</a>`;
+    },
+  );
+}
+
 export default function ColumnCardBlock({
   headline,
   introduction,
@@ -124,8 +139,8 @@ export default function ColumnCardBlock({
 
         {footerContent && (
           <div
-            className="mt-6 text-center font-sans text-sm leading-140 text-primary-navy [&>p]:mb-0 [&_a]:underline [&_a]:underline-offset-2"
-            dangerouslySetInnerHTML={{ __html: footerContent }}
+            className="mt-10 text-center text-xl font-sans font-semibold leading-140 text-primary-navy [&>p]:mb-0 [&_a]:underline [&_a]:underline-offset-2"
+            dangerouslySetInnerHTML={{ __html: autolinkEmails(footerContent) }}
           />
         )}
       </div>
