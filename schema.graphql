@@ -2604,6 +2604,8 @@ type ImageContentBlockRecord implements RecordInterface {
   hideBlock: BooleanType!
   id: ItemId!
   image: FileField!
+  imagePosition: String
+  imageSize: String
 }
 
 """Block of type Image Gallery (image_gallery)"""

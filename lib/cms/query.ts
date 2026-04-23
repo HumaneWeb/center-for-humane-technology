@@ -258,6 +258,8 @@ export const ImageContentBlockFragment = graphql(
       image {
         ...ImageFragment
       }
+      imagePosition
+      imageSize
       hideBlock
     }
   `,
