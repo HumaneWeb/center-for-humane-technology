@@ -67,11 +67,11 @@ export default function PillarTabBlock({ title, copy, pillars }: Props) {
               aria-label="Previous tab"
               onClick={() => setActiveIndex((i) => Math.max(0, i - 1))}
               className={cn(
-                  'shrink-0 p-1 text-primary-navy transition-opacity duration-200',
+                  'shrink-0 p-3 text-primary-navy transition-opacity duration-200',
                   activeIndex === 0 ? 'pointer-events-none opacity-25' : 'opacity-100',
                 )}
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
 
             <div
@@ -101,11 +101,11 @@ export default function PillarTabBlock({ title, copy, pillars }: Props) {
               aria-label="Next tab"
               onClick={() => setActiveIndex((i) => Math.min(pillars.length - 1, i + 1))}
               className={cn(
-                  'shrink-0 p-1 text-primary-navy transition-opacity duration-200',
+                  'shrink-0 p-3 text-primary-navy transition-opacity duration-200',
                   activeIndex === pillars.length - 1 ? 'pointer-events-none opacity-25' : 'opacity-100',
                 )}
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-6 w-6" />
             </button>
           </div>
         </div>

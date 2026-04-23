@@ -22,8 +22,22 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const swipeStartX = useRef<number | null>(null);
 
   const activeCard = cards[activeIndex];
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    swipeStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (swipeStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - swipeStartX.current;
+    swipeStartX.current = null;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0) setActiveIndex((i) => Math.min(cards.length - 1, i + 1));
+    else setActiveIndex((i) => Math.max(0, i - 1));
+  };
 
   useEffect(() => {
     const activeTab = tabRefs.current[activeIndex];
@@ -53,17 +67,17 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
         )}
 
         {/* Horizontal tab nav */}
-        <div className="flex items-center gap-1 mb:gap-0">
+        <div className="flex items-center gap-1 mb:gap-0 -mx-4 mb:mx-0">
           {/* Left chevron – mobile only */}
           <button
             aria-label="Previous tab"
             onClick={() => setActiveIndex((i) => Math.max(0, i - 1))}
             className={cn(
-              'mb:hidden shrink-0 p-1 text-primary-navy transition-opacity duration-200',
+              'mb:hidden shrink-0 p-3 text-primary-navy transition-opacity duration-200',
               activeIndex === 0 ? 'pointer-events-none opacity-25' : 'opacity-100',
             )}
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-6 w-6" />
           </button>
 
           <div
@@ -78,7 +92,7 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
                 }}
                 onClick={() => setActiveIndex(index)}
                 className={cn(
-                  'cursor-pointer snap-start shrink-0 flex flex-col items-center gap-2 px-5 pb-4 pt-3 font-sans text-sm font-semibold uppercase tracking-[0.12em] transition-all duration-200 border-b-2 -mb-px',
+                  'cursor-pointer snap-start shrink-0 flex flex-col items-center gap-2 px-5 pb-4 pt-3 font-sans text-xs mb:text-sm font-semibold uppercase tracking-[0.12em] transition-all duration-200 border-b-2 -mb-px',
                   activeIndex === index
                     ? 'border-primary-navy text-primary-navy'
                     : 'border-transparent text-primary-navy/60 hover:text-primary-navy/80 hover:border-primary-navy/30',
@@ -94,16 +108,20 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
             aria-label="Next tab"
             onClick={() => setActiveIndex((i) => Math.min(cards.length - 1, i + 1))}
             className={cn(
-              'mb:hidden shrink-0 p-1 text-primary-navy transition-opacity duration-200',
+              'mb:hidden shrink-0 p-3 text-primary-navy transition-opacity duration-200',
               activeIndex === cards.length - 1 ? 'pointer-events-none opacity-25' : 'opacity-100',
             )}
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-6 w-6" />
           </button>
         </div>
 
-        {/* Content panel */}
-        <div className="pt-8 mb:pt-10">
+        {/* Content panel – swipeable on mobile */}
+        <div
+          className="pt-8 mb:pt-10"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <CardContent card={activeCard} />
         </div>
       </div>
@@ -115,19 +133,7 @@ function CardContent({ card }: { card: CardItem }) {
   return (
     <div key={card.id} className="animate-fade-in">
       <div className={cn(card.image ? 'mb:flex mb:items-start mb:gap-12' : '')}>
-        {/* Image – left on desktop */}
-        {card.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={card.image.url}
-            alt={card.image.alt ?? ''}
-            width={card.image.width ?? 400}
-            height={card.image.height ?? 300}
-            className="mb:w-[40%] mb:shrink-0 mb:mt-0 mb-6 w-full rounded-lg object-cover"
-          />
-        )}
-
-        {/* Text content – right on desktop */}
+        {/* Text content – above image on mobile, right of image on desktop */}
         <div className="min-w-0 flex-1">
           <h3 className="text-primary-navy mb-4 font-sans text-[23px] leading-120 font-semibold mb:text-[39px] mb:leading-110">
             {card.tabLabel}
@@ -146,6 +152,18 @@ function CardContent({ card }: { card: CardItem }) {
             />
           )}
         </div>
+
+        {/* Image – below text on mobile, left on desktop */}
+        {card.image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={card.image.url}
+            alt={card.image.alt ?? ''}
+            width={card.image.width ?? 400}
+            height={card.image.height ?? 300}
+            className="mb:w-[40%] mb:shrink-0 mb:mt-0 mb:order-first mt-6 w-full max-h-[45vh] mb:max-h-none rounded-lg object-contain"
+          />
+        )}
       </div>
     </div>
   );
