@@ -123,7 +123,7 @@ function CardContent({ card }: { card: CardItem }) {
             alt={card.image.alt ?? ''}
             width={card.image.width ?? 400}
             height={card.image.height ?? 300}
-            className="mb:w-[42%] mb:shrink-0 mb:mt-0 mb-6 w-full rounded-lg object-cover"
+            className="mb:w-[40%] mb:shrink-0 mb:mt-0 mb-6 w-full rounded-lg object-cover"
           />
         )}
 
