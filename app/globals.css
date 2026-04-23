@@ -1663,6 +1663,10 @@ hr {
   min-width: 2.25ch;
 }
 
+.numbered-list-block__item--has-icon::before {
+  content: none;
+}
+
 @media (min-width: 992px) {
   .numbered-list-block__item::before {
     min-width: 2.5ch;
