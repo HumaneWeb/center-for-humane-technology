@@ -78,10 +78,10 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
                 }}
                 onClick={() => setActiveIndex(index)}
                 className={cn(
-                  'cursor-pointer snap-start shrink-0 flex flex-col items-center gap-2 px-5 pb-4 pt-3 font-sans text-xs font-semibold uppercase tracking-[0.12em] transition-all duration-200 border-b-2 -mb-px',
+                  'cursor-pointer snap-start shrink-0 flex flex-col items-center gap-2 px-5 pb-4 pt-3 font-sans text-sm font-semibold uppercase tracking-[0.12em] transition-all duration-200 border-b-2 -mb-px',
                   activeIndex === index
                     ? 'border-primary-navy text-primary-navy'
-                    : 'border-transparent text-primary-navy/40 hover:text-primary-navy/70 hover:border-primary-navy/30',
+                    : 'border-transparent text-primary-navy/60 hover:text-primary-navy/80 hover:border-primary-navy/30',
                 )}
               >
                 <span>{card.tabLabel}</span>
