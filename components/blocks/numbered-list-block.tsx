@@ -76,64 +76,68 @@ export default function NumberedListBlock({
                   /* ::before counter inherits `color` from the li — body default was leaving it navy */
                   !isTextDark && 'text-white/50',
                   isTextDark && 'text-primary-navy',
-                  hasIcon && 'numbered-list-block__item--has-icon items-start',
+                  hasIcon && 'numbered-list-block__item--has-icon',
                 )}
               >
-                {hasIcon && (
-                  <div className="numbered-list-block__icon -mt-0.5 shrink-0">
-                    <Image
-                      src={item.icon!.url}
-                      alt={item.icon!.alt ?? ''}
-                      width={item.icon!.width ?? 32}
-                      height={item.icon!.height ?? 32}
-                      className="h-8 w-8 object-contain"
-                    />
-                  </div>
-                )}
                 <div className="numbered-list-block__stack min-w-0 flex-1">
-                  {hasTitle &&
-                    (isInteractive ? (
-                      <button
-                        type="button"
-                        onClick={() => toggleItem(item.id)}
-                        aria-expanded={isExpanded}
-                        className={cn(
-                          'mb:mb-3 mb:text-xl mb-2 flex w-full cursor-pointer items-center justify-between gap-3 text-left font-sans text-lg leading-130 font-semibold',
-                          isTextDark ? 'text-primary-navy' : 'text-neutral-white',
-                        )}
-                      >
-                        <span>{item.title}</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 30 31"
-                          fill="none"
-                          className={cn(
-                            'shrink-0 transition-transform duration-300',
-                            isExpanded ? 'rotate-180' : 'rotate-0',
-                          )}
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M24.375 10.979L15 20.354L5.625 10.979"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                  {(hasTitle || hasIcon) && (
+                    <div className="mb:gap-8 flex items-center gap-5">
+                      {hasIcon && (
+                        <div className="numbered-list-block__icon shrink-0">
+                          <Image
+                            src={item.icon!.url}
+                            alt={item.icon!.alt ?? ''}
+                            width={item.icon!.width ?? 56}
+                            height={item.icon!.height ?? 56}
+                            className="h-14 w-14 object-contain"
                           />
-                        </svg>
-                      </button>
-                    ) : (
-                      <h3
-                        className={cn(
-                          'mb:mb-3 mb:text-xl mb-2 font-sans text-lg leading-130 font-semibold',
-                          isTextDark ? 'text-primary-navy' : 'text-neutral-white',
-                        )}
-                      >
-                        {item.title}
-                      </h3>
-                    ))}
+                        </div>
+                      )}
+                      {hasTitle &&
+                        (isInteractive ? (
+                          <button
+                            type="button"
+                            onClick={() => toggleItem(item.id)}
+                            aria-expanded={isExpanded}
+                            className={cn(
+                              'mb:text-xl flex flex-1 cursor-pointer items-center justify-between gap-3 text-left font-sans text-lg leading-130 font-semibold',
+                              isTextDark ? 'text-primary-navy' : 'text-neutral-white',
+                            )}
+                          >
+                            <span>{item.title}</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 30 31"
+                              fill="none"
+                              className={cn(
+                                'shrink-0 transition-transform duration-300',
+                                isExpanded ? 'rotate-180' : 'rotate-0',
+                              )}
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M24.375 10.979L15 20.354L5.625 10.979"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+                        ) : (
+                          <h3
+                            className={cn(
+                              'mb:text-xl flex-1 font-sans text-lg leading-130 font-semibold',
+                              isTextDark ? 'text-primary-navy' : 'text-neutral-white',
+                            )}
+                          >
+                            {item.title}
+                          </h3>
+                        ))}
+                    </div>
+                  )}
                   {hasBody && (
                     <div
                       className={cn(
@@ -150,7 +154,7 @@ export default function NumberedListBlock({
                             'text-primary-navy [&_p]:text-primary-navy [&_li]:text-primary-navy [&_strong]:text-primary-navy [&_a]:text-primary-teal',
                           !isTextDark &&
                             'text-neutral-white/85 [&_p]:text-neutral-white/85 [&_li]:text-neutral-white/85 [&_ul]:text-neutral-white/85 [&_ol]:text-neutral-white/85 [&_strong]:text-neutral-white [&_em]:text-neutral-white/90 [&_h1]:text-neutral-white [&_h2]:text-neutral-white [&_h3]:text-neutral-white [&_h4]:text-neutral-white [&_a]:text-secondary-light-teal [&_a]:underline',
-                          accordionMode && hasTitle && 'mt-3',
+                          hasTitle && 'mt-3',
                         )}
                         dangerouslySetInnerHTML={{ __html: item.content! }}
                       />
