@@ -87,9 +87,9 @@ export default function NumberedListBlock({
                           <Image
                             src={item.icon!.url}
                             alt={item.icon!.alt ?? ''}
-                            width={item.icon!.width ?? 56}
-                            height={item.icon!.height ?? 56}
-                            className="h-14 w-14 object-contain"
+                            width={item.icon!.width ?? 64}
+                            height={item.icon!.height ?? 64}
+                            className="h-16 w-16 object-contain"
                           />
                         </div>
                       )}
