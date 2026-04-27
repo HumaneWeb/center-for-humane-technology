@@ -14,7 +14,7 @@ export default function ImageContentBlock({ content, image, imagePosition, image
   const isSmall = imageSize === 'small';
 
   return (
-    <div className="mx-auto mt-20 mb-36 max-w-7xl items-end px-4 sm:px-6 lg:px-8">
+    <div className="image-content-block mx-auto mt-20 mb-36 max-w-7xl items-end px-4 sm:px-6 lg:px-8">
       <div
         className={cn(
           'grid items-center gap-12',

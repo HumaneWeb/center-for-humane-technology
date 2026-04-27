@@ -997,6 +997,10 @@ hr {
   margin-top: 0;
 }
 
+#complex-hero + .key-template-layout > * > :first-child.image-content-block {
+  margin-top: 0;
+}
+
 .logos-swiper {
   padding: 10px 0;
 }
