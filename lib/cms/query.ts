@@ -847,6 +847,11 @@ export const NumberedListFragment = graphql(
     fragment NumberedListFragment on NumberedListRecord {
       __typename
       id
+      title
+      intro(markdown: true)
+      backgroundColor {
+        hex
+      }
       accordionMode
       listItems {
         ...NumberedListItemFragment
