@@ -82,7 +82,7 @@ export default function NumberedListBlock({
             {hasIntro && (
               <div
                 className={cn(
-                  'font-sans text-base leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0',
+                  'font-sans text-lg leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0',
                   isTextDark
                     ? 'text-primary-navy [&_p]:text-primary-navy [&_a]:text-primary-teal'
                     : 'text-neutral-white/85 [&_p]:text-neutral-white/85 [&_a]:text-secondary-light-teal [&_a]:underline',
@@ -186,7 +186,8 @@ export default function NumberedListBlock({
                     >
                       <div
                         className={cn(
-                          'numbered-list-block__body font-sans text-base leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0',
+                          'numbered-list-block__body font-sans leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0',
+                          accordionMode ? 'text-lg' : 'text-base',
                           /* CMS HTML puts copy in <p>, <li>, nested headings, etc. — set color on descendants so it wins over body {} and Dato classes. */
                           isTextDark &&
                             'text-primary-navy [&_p]:text-primary-navy [&_li]:text-primary-navy [&_strong]:text-primary-navy [&_a]:text-primary-teal',
