@@ -23,12 +23,18 @@ function listItemHasContent(item: ListItem) {
 
 type Props = {
   id: string;
+  title?: string | null;
+  intro?: string | null;
+  backgroundColor?: { hex: string } | null;
   listItems: ListItem[];
   accordionMode?: boolean;
   isTextDark?: boolean;
 };
 
 export default function NumberedListBlock({
+  title,
+  intro,
+  backgroundColor,
   listItems,
   accordionMode = false,
   isTextDark = false,
@@ -51,9 +57,41 @@ export default function NumberedListBlock({
     return null;
   }
 
+  const hasTitle = Boolean(title?.trim());
+  const hasIntro = Boolean(intro?.trim());
+
   return (
-    <section className="mb:mb-13.5 my-5">
+    <section
+      className={cn('mb:mb-13.5 my-5', backgroundColor?.hex ? 'py-10 mb:py-20' : 'py-1')}
+      style={backgroundColor?.hex ? { backgroundColor: backgroundColor.hex } : undefined}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {(hasTitle || hasIntro) && (
+          <div className="mb-8">
+            {hasTitle && (
+              <h2
+                className={cn(
+                  'font-sans text-2xl leading-130 font-semibold mb:text-3xl',
+                  isTextDark ? 'text-primary-navy' : 'text-neutral-white',
+                  hasIntro && 'mb-3',
+                )}
+              >
+                {title}
+              </h2>
+            )}
+            {hasIntro && (
+              <div
+                className={cn(
+                  'font-sans text-base leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0',
+                  isTextDark
+                    ? 'text-primary-navy [&_p]:text-primary-navy [&_a]:text-primary-teal'
+                    : 'text-neutral-white/85 [&_p]:text-neutral-white/85 [&_a]:text-secondary-light-teal [&_a]:underline',
+                )}
+                dangerouslySetInnerHTML={{ __html: intro! }}
+              />
+            )}
+          </div>
+        )}
         <ul
           className={cn(
             'numbered-list-block list-none divide-y',

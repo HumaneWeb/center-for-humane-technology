@@ -5389,8 +5389,14 @@ type NumberedListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   accordionMode: BooleanType!
+  backgroundColor: ColorField
   id: ItemId!
+  intro(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
   listItems: [NumberedListItemRecord!]!
+  title: String
 }
 
 """Specifies how to filter by image orientation"""
