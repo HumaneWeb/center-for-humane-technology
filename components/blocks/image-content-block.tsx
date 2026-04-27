@@ -14,20 +14,35 @@ export default function ImageContentBlock({ content, image, imagePosition, image
   const isSmall = imageSize === 'small';
 
   return (
-    <div className="image-content-block mx-auto mt-20 mb-36 max-w-7xl items-end px-4 sm:px-6 lg:px-8">
+    <div className="image-content-block mx-auto mt-10 mb-20 max-w-7xl items-end px-4 sm:px-6 lg:px-8 mb:mt-20 mb:mb-36">
       <div
         className={cn(
-          'grid items-center gap-12',
-          !isSmall && 'grid-cols-2',
-          isSmall && !imageOnRight && 'grid-cols-[3fr_7fr]',
-          isSmall && imageOnRight && 'grid-cols-[7fr_3fr]',
+          'grid items-center gap-8 grid-cols-1 mb:gap-12',
+          !isSmall && 'mb:grid-cols-2',
+          isSmall && !imageOnRight && 'mb:grid-cols-[3fr_7fr]',
+          isSmall && imageOnRight && 'mb:grid-cols-[7fr_3fr]',
         )}
       >
-        <div className={cn(imageOnRight && 'order-last')}>
-          <CustomImage {...image} />
+        <div
+          className={cn(
+            'min-w-0',
+            imageOnRight ? 'order-last' : 'order-last mb:order-none',
+          )}
+        >
+          <CustomImage
+            {...image}
+            extraClass={cn(
+              'h-auto w-full max-w-full object-contain min-w-0',
+              'mb:w-auto mb:max-w-none',
+              image.extraClass,
+            )}
+          />
         </div>
         <div
-          className="text-primary-navy font-sans text-xl leading-140 [&>p]:mb-4"
+          className={cn(
+            'min-w-0 text-primary-navy font-sans text-base leading-140 mb:text-xl [&>p]:mb-4',
+            imageOnRight ? 'order-first' : 'order-first mb:order-none',
+          )}
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
