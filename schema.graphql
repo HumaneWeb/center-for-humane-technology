@@ -395,7 +395,7 @@ type BannerRecord implements RecordInterface {
   ): String
 }
 
-union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnCardBlockRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | ContentMarkdownRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LandingHighlightCtaRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | PillarTabBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | TopNavCardItemRecord | TopNavCardRecord | VideoItemRecord
+union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnCardBlockRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | ContentMarkdownRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LandingHighlightCtaRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | NumberedListRecord | PillarTabBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | TopNavCardItemRecord | TopNavCardRecord | VideoItemRecord
 
 type BasicPageModelContentField {
   blocks: [BasicPageModelContentBlocksField!]!
@@ -2604,6 +2604,8 @@ type ImageContentBlockRecord implements RecordInterface {
   hideBlock: BooleanType!
   id: ItemId!
   image: FileField!
+  imagePosition: String
+  imageSize: String
 }
 
 """Block of type Image Gallery (image_gallery)"""
@@ -5361,6 +5363,7 @@ type NumberedListItemRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  icon: FileField
   id: ItemId!
   title: String
 }
@@ -5385,6 +5388,7 @@ type NumberedListRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  accordionMode: BooleanType!
   id: ItemId!
   listItems: [NumberedListItemRecord!]!
 }

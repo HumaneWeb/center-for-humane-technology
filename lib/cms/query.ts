@@ -258,6 +258,8 @@ export const ImageContentBlockFragment = graphql(
       image {
         ...ImageFragment
       }
+      imagePosition
+      imageSize
       hideBlock
     }
   `,
@@ -825,20 +827,27 @@ export const ContentCardFragment = graphql(
   [ButtonFragment],
 );
 
-export const NumberedListItemFragment = graphql(`
-  fragment NumberedListItemFragment on NumberedListItemRecord {
-    __typename
-    id
-    title
-    content(markdown: true)
-  }
-`);
+export const NumberedListItemFragment = graphql(
+  `
+    fragment NumberedListItemFragment on NumberedListItemRecord {
+      __typename
+      id
+      title
+      content(markdown: true)
+      icon {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
 
 export const NumberedListFragment = graphql(
   `
     fragment NumberedListFragment on NumberedListRecord {
       __typename
       id
+      accordionMode
       listItems {
         ...NumberedListItemFragment
       }
@@ -1534,6 +1543,7 @@ export const BasicPageQuery = graphql(
             ...ContentMarkdownFragment
             ...LandingHighlightCtaFragment
             ...TopNavCardBlockFragment
+            ...NumberedListFragment
           }
         }
         _seoMetaTags {
@@ -1585,6 +1595,7 @@ export const BasicPageQuery = graphql(
     ContentMarkdownFragment,
     LandingHighlightCtaFragment,
     TopNavCardBlockFragment,
+    NumberedListFragment,
   ],
 );
 
