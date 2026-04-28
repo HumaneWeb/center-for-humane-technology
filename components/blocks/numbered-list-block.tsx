@@ -71,9 +71,8 @@ export default function NumberedListBlock({
             {hasTitle && (
               <h2
                 className={cn(
-                  'font-sans text-2xl leading-130 font-semibold mb:text-3xl',
+                  'tracking-049 mb:text-[39px] mb:leading-110 mb-10 font-sans text-[29px] leading-120 font-semibold',
                   isTextDark ? 'text-primary-navy' : 'text-neutral-white',
-                  hasIntro && 'mb-3',
                 )}
               >
                 {title}
@@ -82,7 +81,7 @@ export default function NumberedListBlock({
             {hasIntro && (
               <div
                 className={cn(
-                  'font-sans text-lg leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0',
+                  'font-sans text-center text-lg leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0 mb-10',
                   isTextDark
                     ? 'text-primary-navy [&_p]:text-primary-navy [&_a]:text-primary-teal'
                     : 'text-neutral-white/85 [&_p]:text-neutral-white/85 [&_a]:text-secondary-light-teal [&_a]:underline',
