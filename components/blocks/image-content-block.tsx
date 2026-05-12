@@ -1,5 +1,5 @@
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
-import { cn } from '@/lib/utils/css.utils';
+import { cn, richHtmlBlockStackClass } from '@/lib/utils/css.utils';
 
 export type ImageContentProps = {
   id?: string;
@@ -40,7 +40,21 @@ export default function ImageContentBlock({ content, image, imagePosition, image
         </div>
         <div
           className={cn(
-            'min-w-0 text-primary-navy font-sans text-base leading-140 mb:text-xl [&>p]:mb-4',
+            richHtmlBlockStackClass,
+            'image-content-block__copy text-left font-sans text-base leading-140 text-primary-navy mb:text-xl',
+            '[&>h1]:mb-0 [&>h1]:font-sans [&>h1]:text-[23px] [&>h1]:leading-120 [&>h1]:font-semibold [&>h1]:tracking-039 mb:[&>h1]:text-[29px] mb:[&>h1]:leading-110',
+            '[&>h2]:mb-0 [&>h2]:font-sans [&>h2]:text-[20px] [&>h2]:leading-120 [&>h2]:font-semibold [&>h2]:tracking-039 mb:[&>h2]:text-[32px] mb:[&>h2]:leading-110',
+            '[&>h3]:mb-0 [&>h3]:font-sans [&>h3]:text-[18px] [&>h3]:leading-130 [&>h3]:font-semibold mb:[&>h3]:text-[25px]',
+            '[&_ul]:mx-0 [&_ul]:max-w-none [&_ul]:list-disc [&_ul]:pl-10 [&_ul]:text-left',
+            '[&_ol]:mx-0 [&_ol]:max-w-none [&_ol]:list-decimal [&_ol]:pl-10 [&_ol]:text-left',
+            '[&_li]:mb-3 [&_li]:text-left [&_li]:last:mb-0',
+            '[&_li_ul]:mt-2 [&_li_ol]:mt-2',
+            '[&_a]:font-semibold [&_a]:text-primary-teal [&_a]:underline [&_a]:hover:opacity-80',
+            '[&>blockquote]:my-0 [&>blockquote]:border-l-4 [&>blockquote]:border-primary-blue [&>blockquote]:py-2 [&>blockquote]:pl-5 [&>blockquote]:italic',
+            '[&>code]:rounded [&>code]:bg-gray-100 [&>code]:px-2 [&>code]:py-1 [&>code]:text-sm',
+            '[&>pre]:my-0 [&>pre]:overflow-x-auto [&>pre]:rounded [&>pre]:bg-gray-100 [&>pre]:p-4 [&>pre]:text-left',
+            '[&>pre>code]:bg-transparent [&>pre>code]:p-0',
+            '[&_strong]:font-semibold [&_em]:italic',
             imageOnRight ? 'order-first' : 'order-first mb:order-none',
           )}
           dangerouslySetInnerHTML={{ __html: content }}
