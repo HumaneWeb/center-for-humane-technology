@@ -395,7 +395,7 @@ type BannerRecord implements RecordInterface {
   ): String
 }
 
-union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnCardBlockRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | ContentMarkdownRecord | CtaRecord | DonateBlockRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LandingHighlightCtaRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | NumberedListRecord | PillarTabBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | TopNavCardItemRecord | TopNavCardRecord | VideoItemRecord
+union BasicPageModelContentBlocksField = AccordionBlockRecord | ApproachBlockRecord | BlockquoteRecord | ColumnCardBlockRecord | ColumnsBlockRecord | ContactWidgetBlockRecord | ContentMarkdownRecord | CtaRecord | DonateBlockRecord | DualColumnComparisonTableRecord | FootnoteRecord | GalleryImageInformationBlockRecord | GenericCardRecord | GenericCardsGridRecord | GridRecord | GuideCardRecord | HighlightedBlockRecord | ImageBlockRecord | ImageContentBlockRecord | ImpactBlockRecord | LandingHighlightCtaRecord | LinksBlockRecord | LinksGridRecord | LogoGridRecord | MediaBlockRecord | NarrativeBlockRecord | NumberedListRecord | PillarTabBlockRecord | RelatedAnchorBlockRecord | SignUpBlockRecord | StatsBlockRecord | TableRecord | ThinkingBlockRecord | TopNavCardItemRecord | TopNavCardRecord | VideoItemRecord
 
 type BasicPageModelContentField {
   blocks: [BasicPageModelContentBlocksField!]!
@@ -414,6 +414,7 @@ input BasicPageModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  gapSizeUnderHero: StringFilter
   backgroundColor: StringFilter
   title: StringFilter
   seo: SeoFilter
@@ -450,6 +451,8 @@ enum BasicPageModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  gapSizeUnderHero_ASC
+  gapSizeUnderHero_DESC
   backgroundColor_ASC
   backgroundColor_DESC
   title_ASC
@@ -492,6 +495,7 @@ type BasicPageRecord implements RecordInterface {
   contentAnchors: String
   contentBackgroundColor: String
   cta: CtaRecord
+  gapSizeUnderHero: String
   headerTextColor: String
   id: ItemId!
   image: FileField
@@ -1741,6 +1745,67 @@ type DonateRecord implements RecordInterface {
   seo: SeoField
   slug: String!
   title: String!
+}
+
+"""
+Block of type Dual-Column Comparison Table Item (dual_column_comparison_table_item)
+"""
+type DualColumnComparisonTableItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  copy(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  header: String!
+  id: ItemId!
+}
+
+"""
+Block of type Dual-Column Comparison Table (dual_column_comparison_table)
+"""
+type DualColumnComparisonTableRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  leftColumnColor: ColorField
+  leftColumnHeader: String!
+  leftColumnItems: [DualColumnComparisonTableItemRecord!]!
+  rightColumnColor: ColorField
+  rightColumnHeader: String!
+  rightColumnItems: [DualColumnComparisonTableItemRecord!]!
 }
 
 """Block of type Embed (embed)"""

@@ -46,6 +46,7 @@ import ColumnCardBlock from '../blocks/column-card-block';
 import ContentMarkdownBlock from '../blocks/content-markdown-block';
 import LandingHighlightCtaBlock from '../blocks/landing-highlight-cta-block';
 import NumberedListBlock from '../blocks/numbered-list-block';
+import DualColumnComparisonTableBlock from '../blocks/dual-column-comparison-table-block';
 
 export default function CustomStructuredText({
   data,
@@ -310,6 +311,9 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'NumberedListRecord') {
           return <NumberedListBlock key={record.id} {...record} isTextDark />;
+        }
+        if (record.__typename === 'DualColumnComparisonTableRecord') {
+          return <DualColumnComparisonTableBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'ButtonsBlockRecord') {
           return (
