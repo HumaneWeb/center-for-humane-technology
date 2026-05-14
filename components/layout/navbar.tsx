@@ -156,7 +156,7 @@ export default function Navbar({ items }: Props) {
 
     const baseClasses = isMobile
       ? `uppercase text-primary-navy flex items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold tracking-018 hover:bg-accent transition-colors ${extraClassnames ? extraClassnames : ''}`
-      : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2.5 border-l-[1px] px-4 xl:px-8 font-sans text-[16px] xl:text-[17px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
+      : `uppercase text-primary-navy border-primary-navy flex h-full items-center justify-center gap-2 border-l-[1px] px-3 wide:gap-2.5 wide:px-8 font-sans text-[15px] wide:text-[17px] leading-140 font-semibold tracking-018 ${extraClassnames ? extraClassnames : ''}`;
 
     const renderDropdownItem = (dropdownItem: NavbarChildren, depth = 1) => {
       const hasChildren = dropdownItem.children && dropdownItem.children.length > 0;
@@ -213,7 +213,7 @@ export default function Navbar({ items }: Props) {
             <div
               className={cn(
                 'text-primary-navy tracking-02 hover:text-primary-teal flex items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
-                isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[17px]',
+                isMobile ? 'px-4 py-2 text-[16px]' : 'text-[15px] wide:text-[17px]',
               )}
             >
               {dropdownItem.label}
@@ -243,7 +243,7 @@ export default function Navbar({ items }: Props) {
             ref={buttonRef}
             className={cn(
               'text-primary-navy tracking-02 hover:text-primary-teal flex cursor-pointer items-center justify-between gap-2 font-sans leading-120 font-medium transition-all duration-200',
-              isMobile ? 'px-4 py-2 text-[16px]' : 'text-[16px] xl:text-[17px]',
+              isMobile ? 'px-4 py-2 text-[16px]' : 'text-[15px] wide:text-[17px]',
             )}
             onClick={() => {
               setSubmenuOpen((prev) => !prev);
@@ -323,7 +323,7 @@ export default function Navbar({ items }: Props) {
           className={cn(
             isMobile
               ? 'text-primary-navy tracking-018 hover:text-primary-teal flex w-full cursor-pointer items-center justify-between px-4 py-3 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200'
-              : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2.5 border-l-[1px] px-6 font-sans text-[16px] leading-140 font-semibold uppercase transition-all duration-200 xl:px-8 xl:text-[17px]',
+              : 'text-primary-navy border-primary-navy tracking-018 hover:text-primary-teal flex h-full cursor-pointer items-center justify-center gap-2 border-l-[1px] px-4 font-sans text-[15px] leading-140 font-semibold uppercase transition-all duration-200 wide:gap-2.5 wide:px-8 wide:text-[17px]',
             extraClassnames,
           )}
           aria-expanded={isOpen}
@@ -389,7 +389,7 @@ export default function Navbar({ items }: Props) {
               height="40"
               viewBox="0 0 372 40"
               fill="none"
-              className="max-w-[250px] max-w-full"
+              className="ui-navbar-logo"
             >
               <g clipPath="url(#clip0_3098_2373)">
                 <path
@@ -559,7 +559,7 @@ export default function Navbar({ items }: Props) {
 
           {/* Search engine */}
           <button
-            className="hover:text-primary-teal cursor-pointer border-l-[1px] px-5 transition-all duration-200 xl:px-8"
+            className="hover:text-primary-teal cursor-pointer border-l-[1px] px-4 transition-all duration-200 wide:px-8"
             onClick={() => setOpenSearchEngine((prev) => !prev)}
           >
             <span className="sr-only">Search</span>
