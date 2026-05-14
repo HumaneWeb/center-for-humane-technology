@@ -992,6 +992,31 @@ export const LogoGridFragment = graphql(
   [ImageFragment],
 );
 
+export const DualColumnComparisonTableFragment = graphql(`
+  fragment DualColumnComparisonTableFragment on DualColumnComparisonTableRecord {
+    __typename
+    id
+    leftColumnHeader
+    leftColumnColor {
+      hex
+    }
+    leftColumnItems {
+      id
+      header
+      copy(markdown: true)
+    }
+    rightColumnHeader
+    rightColumnColor {
+      hex
+    }
+    rightColumnItems {
+      id
+      header
+      copy(markdown: true)
+    }
+  }
+`);
+
 export const DonateBlockFragment = graphql(
   `
     fragment DonateBlockFragment on DonateBlockRecord {
@@ -1499,6 +1524,7 @@ export const BasicPageQuery = graphql(
         introduction
         backgroundColor
         textColor: headerTextColor
+        gapSizeUnderHero
         contentBackgroundColor
         image {
           ...ImageFragment
@@ -1549,6 +1575,7 @@ export const BasicPageQuery = graphql(
             ...LandingHighlightCtaFragment
             ...TopNavCardBlockFragment
             ...NumberedListFragment
+            ...DualColumnComparisonTableFragment
           }
         }
         _seoMetaTags {
@@ -1601,6 +1628,7 @@ export const BasicPageQuery = graphql(
     LandingHighlightCtaFragment,
     TopNavCardBlockFragment,
     NumberedListFragment,
+    DualColumnComparisonTableFragment,
   ],
 );
 

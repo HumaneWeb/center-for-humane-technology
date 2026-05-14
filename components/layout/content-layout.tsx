@@ -27,6 +27,7 @@ export default function ContentLayout({
     contentAnchors,
     anchors,
     textColor,
+    gapSizeUnderHero,
     content,
   } = page!;
   const { donateTitle, donateCta, donateImage } = configuration!;
@@ -50,7 +51,8 @@ export default function ContentLayout({
       <div className={containerClassNames}>
         <div
           className={cn(
-            'mb:mt-35 mb:mx-auto mb:max-w-7xl mb:px-4 mt-10 px-0',
+            'mb:mx-auto mb:max-w-7xl mb:px-4 px-0',
+            gapSizeUnderHero === 'small' ? 'mt-10 mb:mt-20' : 'mt-10 mb:mt-35',
             none && 'px-4 sm:px-6 lg:px-8',
             containerClassNames,
           )}
