@@ -41,6 +41,8 @@
   --breakpoint-mb: 992px;
   --breakpoint-sxl: 1300px;
   --breakpoint-xl: 1450px;
+  /* Comfortable desktop navbar / wide layouts (compact tier below this) */
+  --breakpoint-wide: 1700px;
 }
 
 html {
@@ -51,6 +53,25 @@ body {
   background: var(--color-neutral-white);
   color: var(--color-primary-navy);
   font-family: var(--font-sans);
+}
+
+/* Navbar logo width — px values match @theme --breakpoint-sxl (1300) and --breakpoint-wide (1700) */
+.ui-navbar .ui-navbar-logo {
+  height: auto;
+  width: auto;
+  max-width: 100%;
+}
+
+@media (min-width: 1300px) {
+  .ui-navbar .ui-navbar-logo {
+    max-width: 25vw;
+  }
+}
+
+@media (min-width: 1700px) {
+  .ui-navbar .ui-navbar-logo {
+    max-width: 100%;
+  }
 }
 
 .in-the-press-card .special-introduction {
