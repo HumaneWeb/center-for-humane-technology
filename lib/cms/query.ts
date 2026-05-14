@@ -1524,6 +1524,7 @@ export const BasicPageQuery = graphql(
         introduction
         backgroundColor
         textColor: headerTextColor
+        gapSizeUnderHero
         contentBackgroundColor
         image {
           ...ImageFragment
