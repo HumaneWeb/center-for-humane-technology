@@ -81,7 +81,7 @@ export default function NumberedListBlock({
             {hasIntro && (
               <div
                 className={cn(
-                  'font-sans text-center text-lg leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0 mb-10',
+                  'font-sans text-lg leading-140 [&>p]:mb-3 [&>p:last-child]:mb-0 mb-10',
                   isTextDark
                     ? 'text-primary-navy [&_p]:text-primary-navy [&_a]:text-primary-teal'
                     : 'text-neutral-white/85 [&_p]:text-neutral-white/85 [&_a]:text-secondary-light-teal [&_a]:underline',
