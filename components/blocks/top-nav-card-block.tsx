@@ -23,6 +23,7 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
   const tabsRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const swipeStartX = useRef<number | null>(null);
+  const hasMounted = useRef(false);
 
   const activeCard = cards[activeIndex];
 
@@ -39,7 +40,13 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
     else setActiveIndex((i) => Math.max(0, i - 1));
   };
 
+  // Scroll the active tab into view when the user changes tabs.
+  // Skip on initial mount to avoid the page scrolling down on load.
   useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
     const activeTab = tabRefs.current[activeIndex];
     if (activeTab && tabsRef.current) {
       activeTab.scrollIntoView({

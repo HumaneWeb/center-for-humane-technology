@@ -31,11 +31,17 @@ export default function PillarTabBlock({ title, copy, pillars }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const hasMounted = useRef(false);
 
   const activePillar = pillars[activeIndex];
 
-  // On mobile, scroll the active tab into view whenever it changes
+  // On mobile, scroll the active tab into view when the user changes tabs.
+  // Skip on initial mount to avoid the page scrolling down on load.
   useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
     const activeTab = tabRefs.current[activeIndex];
     if (activeTab && tabsRef.current) {
       activeTab.scrollIntoView({
