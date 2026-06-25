@@ -1056,6 +1056,7 @@ export const PillarTabBlockFragment = graphql(`
     __typename
     id
     title
+    selectLabel
     copy(markdown: true)
     pillars {
       id

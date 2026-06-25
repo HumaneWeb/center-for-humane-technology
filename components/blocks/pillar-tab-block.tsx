@@ -20,6 +20,7 @@ type PillarItem = {
 type Props = {
   title: string;
   copy?: string | null;
+  selectLabel?: string | null;
   pillars: PillarItem[];
 };
 
@@ -27,7 +28,7 @@ function pad(n: number) {
   return String(n).padStart(2, '0');
 }
 
-export default function PillarTabBlock({ title, copy, pillars }: Props) {
+export default function PillarTabBlock({ title, copy, selectLabel, pillars }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -137,7 +138,7 @@ export default function PillarTabBlock({ title, copy, pillars }: Props) {
           <div>
             <div className="sticky top-0 py-8 pr-12">
               <p className="tracking-[3px] text-neutral-gray mb-4 font-sans text-xs font-semibold uppercase">
-                Select Pillar
+                {selectLabel || 'Select Pillar'}
               </p>
               <nav className="flex flex-col gap-0">
                 {pillars.map((pillar, index) => (

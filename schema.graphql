@@ -5572,6 +5572,7 @@ type PillarTabBlockRecord implements RecordInterface {
   ): String
   id: ItemId!
   pillars: [PillarTabItemRecord!]!
+  selectLabel: String
   title: String!
 }
 
