@@ -1,4 +1,4 @@
-import CustomImage, { CustomImageProps } from '../shared/custom-image';
+import CustomMedia, { CustomMediaProps } from '../shared/custom-media';
 import CtaList from '../shared/cta-list';
 import { cn } from '@/lib/utils/css.utils';
 import { CtaProps } from '../shared/cta';
@@ -9,7 +9,7 @@ type Props = {
   title: string;
   introduction: string;
   ctas?: CtaProps[];
-  image: CustomImageProps;
+  image?: CustomMediaProps | null;
   imagePosition?: 'right' | 'left';
   extraClass?: string;
   headingExtraClass?: string;
@@ -39,7 +39,7 @@ export default function NarrativeBlock({
           {image && (
             <div className={cn('image-div', isImageLeft ? 'mb:order-1' : 'mb:order-2')}>
               <FadeIn>
-                <CustomImage {...image} />{' '}
+                <CustomMedia {...image} />
               </FadeIn>
             </div>
           )}

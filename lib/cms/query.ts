@@ -674,6 +674,22 @@ export const ImpactBlockFragment = graphql(
   [CTAFragment],
 );
 
+export const NarrativeMediaFragment = graphql(
+  `
+    fragment NarrativeMediaFragment on FileField {
+      ...ImageFragment
+      mimeType
+      video {
+        streamingUrl
+        mp4Url(res: high)
+        thumbnailUrl
+        alt
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
 export const NarrativeBlockFragment = graphql(
   `
     fragment NarrativeBlockFragment on NarrativeBlockRecord {
@@ -685,13 +701,13 @@ export const NarrativeBlockFragment = graphql(
         ...CTAFragment
       }
       image {
-        ...ImageFragment
+        ...NarrativeMediaFragment
       }
       imagePosition
       hideBlock
     }
   `,
-  [CTAFragment, ImageFragment],
+  [CTAFragment, NarrativeMediaFragment],
 );
 
 export const LandingHighlightTexFragment = graphql(
