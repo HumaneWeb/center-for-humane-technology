@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { cn } from '@/lib/utils/css.utils';
+import { cn, gapUnderHeroClasses } from '@/lib/utils/css.utils';
 import ComplexHero from './complex-hero';
 import CustomStructuredText from '../shared/custom-structured-text';
 import DonateBlock from '../blocks/donate-block';
@@ -23,7 +23,8 @@ export default function KeyTemplateLayout({ page, configuration, variant = 'key-
       )}
       <div
         className={cn(
-          'key-template-layout mb:pt-20 pt-10',
+          'key-template-layout',
+          gapUnderHeroClasses(page?.gapSizeUnderHero, 'key-template'),
           page?.contentBackgroundColor === 'purple-gradient' && 'bg-basic-page',
           page?.contentBackgroundColor === 'white' && 'bg-white-page',
         )}
