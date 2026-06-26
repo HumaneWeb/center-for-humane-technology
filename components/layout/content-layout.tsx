@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { cn } from '@/lib/utils/css.utils';
+import { cn, gapUnderHeroClasses } from '@/lib/utils/css.utils';
 import BasicHero from './basic-hero';
 import CustomStructuredText from '../shared/custom-structured-text';
 import DonateBlock from '../blocks/donate-block';
@@ -52,7 +52,7 @@ export default function ContentLayout({
         <div
           className={cn(
             'mb:mx-auto mb:max-w-7xl mb:px-4 px-0',
-            gapSizeUnderHero === 'small' ? 'mt-10 mb:mt-20' : 'mt-10 mb:mt-35',
+            gapUnderHeroClasses(gapSizeUnderHero),
             none && 'px-4 sm:px-6 lg:px-8',
             containerClassNames,
           )}

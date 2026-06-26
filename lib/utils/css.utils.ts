@@ -12,3 +12,14 @@ export const richHtmlBlockStackClass =
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(...inputs));
 }
+
+export function gapUnderHeroClasses(
+  gapSizeUnderHero?: string | null,
+  layout: 'content' | 'key-template' = 'content',
+) {
+  if (layout === 'key-template') {
+    return gapSizeUnderHero === 'small' ? 'pt-10 mb:pt-10' : 'pt-10 mb:pt-20';
+  }
+
+  return gapSizeUnderHero === 'small' ? 'mt-10 mb:mt-20' : 'mt-10 mb:mt-35';
+}
