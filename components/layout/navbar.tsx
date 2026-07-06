@@ -375,7 +375,7 @@ export default function Navbar({ items }: Props) {
 
   return (
     <motion.header
-      className="ui-navbar border-primary-navy bg-neutral-white fixed top-0 right-0 left-0 z-40 border-b-[1px]"
+      className="ui-navbar border-primary-navy bg-neutral-white fixed top-[var(--notification-bar-height,0px)] right-0 left-0 z-40 border-b-[1px]"
       initial={{ y: 0 }}
       animate={shouldNavbarBeFixed ? {} : { y: isVisible ? 0 : -1000 }}
       transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}

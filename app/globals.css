@@ -46,7 +46,8 @@
 }
 
 html {
-  scroll-padding-top: 60px;
+  --notification-bar-height: 0px;
+  scroll-padding-top: calc(4rem + var(--notification-bar-height));
 }
 
 body {
@@ -1151,7 +1152,7 @@ hr {
   }
 
   .homepage-grid {
-    padding-top: 4rem;
+    padding-top: calc(4rem + var(--notification-bar-height));
   }
 
   .desktop-videos {
@@ -1397,7 +1398,7 @@ hr {
   }
 
   .podcast-list-hero-wrapper-content {
-    padding-top: 4rem;
+    padding-top: calc(4rem + var(--notification-bar-height));
     padding-bottom: 2rem;
   }
 }

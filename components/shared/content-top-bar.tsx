@@ -18,7 +18,7 @@ export default function ContentTopBar({ items }: ContentTopBarProps) {
     <FadeIn
       className={cn(
         'jump-to-section-ui bg-neutral-white mb:mt-10 sticky top-0 self-start border border-[#A8ADB6]',
-        shouldNavbarBeFixed && 'top-16',
+        shouldNavbarBeFixed && 'top-[calc(4rem+var(--notification-bar-height,0px))]',
       )}
     >
       <ul className="text-primary-teal mb:flex-row mb:gap-20 mb:overflow-x-hidden mx-auto flex max-w-7xl items-center gap-5 overflow-x-scroll px-4 py-3.5 font-sans text-[16px] leading-140 font-semibold sm:px-6 lg:px-8">

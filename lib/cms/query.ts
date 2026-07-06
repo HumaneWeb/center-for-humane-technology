@@ -2477,3 +2477,29 @@ export const BannerQuery = graphql(`
     }
   }
 `);
+
+export const NotificationBarQuery = graphql(`
+  query NotificationBarQuery {
+    notificationBar {
+      _updatedAt
+      enabled
+      delay
+      dismissedDuration
+      text(markdown: true)
+      buttonText
+      buttonUrl
+      pageExclusions {
+        __typename
+        ... on BasicPageRecord {
+          slug
+        }
+        ... on LandingRecord {
+          slug
+        }
+        ... on PathForwardRecord {
+          id
+        }
+      }
+    }
+  }
+`);
