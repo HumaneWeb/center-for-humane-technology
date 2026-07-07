@@ -19,7 +19,7 @@ function ContentSidebar({ items, className = '' }: ContentSidebarProps) {
   };
 
   return (
-    <div className="sticky top-20 self-start">
+    <div className="sticky top-[calc(5rem+var(--notification-bar-height,0px))] self-start">
       <FadeIn>
         {items.map((item, index) => {
           const isActive = expandedItem === index;

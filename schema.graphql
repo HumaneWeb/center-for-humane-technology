@@ -414,6 +414,7 @@ input BasicPageModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   gapSizeUnderHero: StringFilter
   backgroundColor: StringFilter
   title: StringFilter
@@ -426,7 +427,6 @@ input BasicPageModelFilter {
   contentAnchors: StringFilter
   mobileImage: FileFilter
   headerTextColor: StringFilter
-  slug: SlugFilter
   content: StructuredTextFilter
   OR: [BasicPageModelFilter]
   AND: [BasicPageModelFilter]
@@ -589,6 +589,7 @@ input BlogModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   title: StringFilter
   seo: SeoFilter
   introduction: TextFilter
@@ -599,7 +600,6 @@ input BlogModelFilter {
   source: StringFilter
   category: LinksFilter
   test: TextFilter
-  slug: SlugFilter
   content: StructuredTextFilter
   OR: [BlogModelFilter]
   AND: [BlogModelFilter]
@@ -786,10 +786,10 @@ input CareerModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   title: StringFilter
   introduction: TextFilter
   seo: SeoFilter
-  slug: SlugFilter
   content: StructuredTextFilter
   OR: [CareerModelFilter]
   AND: [CareerModelFilter]
@@ -920,6 +920,7 @@ input CaseStudyModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   backgroundColor: StringFilter
   contentAnchors: StringFilter
   contentBackgroundColor: StringFilter
@@ -929,7 +930,6 @@ input CaseStudyModelFilter {
   seo: SeoFilter
   title: StringFilter
   variant: StringFilter
-  slug: SlugFilter
   content: StructuredTextFilter
   OR: [CaseStudyModelFilter]
   AND: [CaseStudyModelFilter]
@@ -1017,8 +1017,8 @@ input CategoryModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  name: StringFilter
   slug: SlugFilter
+  name: StringFilter
   OR: [CategoryModelFilter]
   AND: [CategoryModelFilter]
 }
@@ -4767,6 +4767,7 @@ input InsightModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   title: StringFilter
   seo: SeoFilter
   contentType: StringFilter
@@ -4778,7 +4779,6 @@ input InsightModelFilter {
   tags: LinksFilter
   relatedArticles: LinksFilter
   date: DateFilter
-  slug: SlugFilter
   OR: [InsightModelFilter]
   AND: [InsightModelFilter]
 }
@@ -5012,6 +5012,7 @@ input LandingModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   hideSubstackFooter: BooleanFilter
   backgroundColor: StringFilter
   internalTitle: StringFilter
@@ -5023,7 +5024,6 @@ input LandingModelFilter {
   subheading: StringFilter
   heroTextColor: StringFilter
   introduction: TextFilter
-  slug: SlugFilter
   OR: [LandingModelFilter]
   AND: [LandingModelFilter]
 }
@@ -5423,6 +5423,41 @@ type NarrativeBlockRecord implements RecordInterface {
   title: String!
 }
 
+union NotificationBarModelPageExclusionsField = BasicPageRecord | LandingRecord | PathForwardRecord
+
+"""Record of type Notification Bar (notification_bar)"""
+type NotificationBarRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  buttonText: String
+  buttonUrl: String
+  delay: IntType
+  dismissedDuration: IntType
+  enabled: BooleanType!
+  id: ItemId!
+  pageExclusions: [NotificationBarModelPageExclusionsField!]!
+  text(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+}
+
 """Block of type Numbered List Item (numbered_list_item)"""
 type NumberedListItemRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -5572,7 +5607,6 @@ type PillarTabBlockRecord implements RecordInterface {
   ): String
   id: ItemId!
   pillars: [PillarTabItemRecord!]!
-  selectLabel: String
   title: String!
 }
 
@@ -5699,6 +5733,7 @@ input PodcastModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   applePodcastsUrl: StringFilter
   spotifyUrl: StringFilter
   youtubeUrl: StringFilter
@@ -5720,7 +5755,6 @@ input PodcastModelFilter {
   categories: LinksFilter
   transcript: FileFilter
   moreListening: LinksFilter
-  slug: SlugFilter
   content: StructuredTextFilter
   guestBio: StructuredTextFilter
   guestBio2: StructuredTextFilter
@@ -5904,6 +5938,7 @@ input PressModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   title: StringFilter
   seo: SeoFilter
   externalUrl: StringFilter
@@ -5914,7 +5949,6 @@ input PressModelFilter {
   length: StringFilter
   category: StringFilter
   rawCategory: LinksFilter
-  slug: SlugFilter
   OR: [PressModelFilter]
   AND: [PressModelFilter]
 }
@@ -6802,6 +6836,17 @@ type Query {
   ): MenuItemRecord
 
   """Returns the single instance record"""
+  notificationBar(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): NotificationBarRecord
+
+  """Returns the single instance record"""
   pathForward(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -7624,8 +7669,8 @@ input TagModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  name: StringFilter
   slug: SlugFilter
+  name: StringFilter
   OR: [TagModelFilter]
   AND: [TagModelFilter]
 }
@@ -7717,6 +7762,7 @@ input TeamMemberModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   fullName: StringFilter
   teamPosition: StringFilter
   image: FileFilter
@@ -7726,7 +7772,6 @@ input TeamMemberModelFilter {
   twitterXUrl: StringFilter
   linkedinUrl: StringFilter
   email: StringFilter
-  slug: SlugFilter
   information: StructuredTextFilter
   OR: [TeamMemberModelFilter]
   AND: [TeamMemberModelFilter]
@@ -7963,6 +8008,7 @@ input ToolkitModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
   backgroundColor: StringFilter
   contentAnchors: StringFilter
   contentBackgroundColor: StringFilter
@@ -7973,7 +8019,6 @@ input ToolkitModelFilter {
   title: StringFilter
   variant: StringFilter
   textColor: StringFilter
-  slug: SlugFilter
   content: StructuredTextFilter
   OR: [ToolkitModelFilter]
   AND: [ToolkitModelFilter]
