@@ -116,6 +116,8 @@ export default function NotificationBar({ notificationBar }: Props) {
     setIsVisible(false);
   };
 
+  const isCentered = notificationBar.alignment === 'centered';
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -130,39 +132,59 @@ export default function NotificationBar({ notificationBar }: Props) {
           transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="bg-primary-navy text-neutral-white fixed top-0 right-0 left-0 z-50 border-b border-white/10"
         >
-          <div className="mx-auto flex max-w-7xl items-start justify-between gap-3 px-4 py-3 sm:items-center sm:gap-4 sm:px-6 lg:px-8">
-            <div className="flex min-w-0 flex-1 flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
-              {notificationBar.text && (
-                <div
-                  dangerouslySetInnerHTML={{ __html: notificationBar.text }}
-                  className={cn(
-                    'text-neutral-white min-w-0 flex-1 font-sans text-[15px] leading-140 sm:text-base',
-                    '[&>p]:mb-0 [&>p:last-child]:mb-0',
-                    '[&_a]:text-secondary-light-teal [&_a]:font-semibold [&_a]:underline [&_a]:hover:opacity-80',
-                    '[&>ul]:list-disc [&>ul]:pl-5 [&>ul>li]:mb-1',
-                    '[&>ol]:list-decimal [&>ol]:pl-5 [&>ol>li]:mb-1',
-                  )}
-                />
+          <div className="relative">
+            <div
+              className={cn(
+                'mx-auto flex min-w-0 max-w-7xl items-start gap-3 py-3 sm:items-center sm:gap-4',
+                isCentered
+                  ? 'justify-center px-14 sm:px-16'
+                  : 'pr-14 pl-4 sm:pr-16 sm:pl-6 lg:pl-8',
               )}
+            >
+              <div
+                className={cn(
+                  'flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-4',
+                  isCentered
+                    ? 'w-full items-center justify-center text-center'
+                    : 'flex-1 items-start',
+                )}
+              >
+                {notificationBar.text && (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: notificationBar.text }}
+                    className={cn(
+                      'text-neutral-white min-w-0 font-sans text-[18px] leading-140 sm:text-[19px]',
+                      !isCentered && 'flex-1',
+                      isCentered && 'text-center [&>p]:text-center',
+                      '[&>p]:mb-0 [&>p:last-child]:mb-0',
+                      '[&_a]:text-secondary-light-teal [&_a]:font-semibold [&_a]:underline [&_a]:hover:opacity-80',
+                      '[&>ul]:list-disc [&>ul]:pl-5 [&>ul>li]:mb-1',
+                      '[&>ol]:list-decimal [&>ol]:pl-5 [&>ol>li]:mb-1',
+                    )}
+                  />
+                )}
 
-              {notificationBar.buttonUrl && notificationBar.buttonText && (
-                <Link
-                  href={notificationBar.buttonUrl}
-                  className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-[5px] px-4 py-2.5 font-sans text-[15px] leading-120 font-semibold transition-all duration-200 ease-in sm:px-5 sm:py-3 sm:text-[16px]"
-                >
-                  {notificationBar.buttonText}
-                </Link>
-              )}
+                {notificationBar.buttonUrl && notificationBar.buttonText && (
+                  <Link
+                    href={notificationBar.buttonUrl}
+                    className="bg-secondary-light-teal text-primary-navy hover:bg-primary-blue hover:text-neutral-white tracking-02 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-[5px] px-4 py-2.5 font-sans text-[18px] leading-120 font-semibold transition-all duration-200 ease-in sm:px-5 sm:py-3 sm:text-[19px]"
+                  >
+                    {notificationBar.buttonText}
+                  </Link>
+                )}
+              </div>
             </div>
 
-            <button
-              type="button"
-              onClick={handleClose}
-              aria-label="Dismiss notification"
-              className="text-neutral-white hover:bg-neutral-white/10 flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors duration-200"
-            >
-              <X size={18} strokeWidth={2.5} />
-            </button>
+            <div className="absolute inset-y-0 right-0 flex items-start pt-3 pr-3 sm:items-center sm:pt-0 sm:pr-4">
+              <button
+                type="button"
+                onClick={handleClose}
+                aria-label="Dismiss notification"
+                className="text-neutral-white hover:bg-neutral-white/10 flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors duration-200"
+              >
+                <X size={18} strokeWidth={2.5} />
+              </button>
+            </div>
           </div>
         </motion.div>
       )}
