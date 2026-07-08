@@ -2483,6 +2483,7 @@ export const NotificationBarQuery = graphql(`
     notificationBar {
       _updatedAt
       enabled
+      alignment
       delay
       dismissedDuration
       text(markdown: true)
