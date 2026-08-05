@@ -104,12 +104,18 @@ export function getFirstParagraph(html: string): string {
   return text;
 }
 
-export function getPrincipleAnchorId(title: string, index: number): string {
-  const slug = title
+/** URL-safe slug for hash anchors (e.g. "Julie Guirado" → "julie-guirado"). */
+export function toAnchorSlug(value: string): string {
+  return value
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function getPrincipleAnchorId(title: string, index: number): string {
+  const slug = toAnchorSlug(title);
   return `principle-${index}-${slug || 'item'}`;
 }
