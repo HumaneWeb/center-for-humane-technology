@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils/css.utils';
+import { toAnchorSlug } from '@/lib/utils/text.utils';
 
 type CardItem = {
   id: string;
@@ -18,6 +19,10 @@ type Props = {
   cards?: CardItem[];
 };
 
+function getTabAnchor(label: string) {
+  return toAnchorSlug(label);
+}
+
 export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabsRef = useRef<HTMLDivElement>(null);
@@ -26,6 +31,29 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
   const hasMounted = useRef(false);
 
   const activeCard = cards[activeIndex];
+
+  const selectTab = (index: number) => {
+    if (index < 0 || index >= cards.length) return;
+    setActiveIndex(index);
+    const slug = getTabAnchor(cards[index].tabLabel);
+    if (!slug || typeof window === 'undefined') return;
+    const nextUrl = `${window.location.pathname}${window.location.search}#${slug}`;
+    window.history.replaceState(null, '', nextUrl);
+  };
+
+  // Open the tab matching the URL hash on load and when the hash changes.
+  useEffect(() => {
+    const syncFromHash = () => {
+      const hash = window.location.hash.replace(/^#/, '');
+      if (!hash) return;
+      const index = cards.findIndex((card) => getTabAnchor(card.tabLabel) === hash);
+      if (index >= 0) setActiveIndex(index);
+    };
+
+    syncFromHash();
+    window.addEventListener('hashchange', syncFromHash);
+    return () => window.removeEventListener('hashchange', syncFromHash);
+  }, [cards]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     swipeStartX.current = e.touches[0].clientX;
@@ -36,8 +64,8 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
     const dx = e.changedTouches[0].clientX - swipeStartX.current;
     swipeStartX.current = null;
     if (Math.abs(dx) < 40) return;
-    if (dx < 0) setActiveIndex((i) => Math.min(cards.length - 1, i + 1));
-    else setActiveIndex((i) => Math.max(0, i - 1));
+    if (dx < 0) selectTab(Math.min(cards.length - 1, activeIndex + 1));
+    else selectTab(Math.max(0, activeIndex - 1));
   };
 
   // Scroll the active tab into view when the user changes tabs.
@@ -78,7 +106,7 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
           {/* Left chevron – mobile only */}
           <button
             aria-label="Previous tab"
-            onClick={() => setActiveIndex((i) => Math.max(0, i - 1))}
+            onClick={() => selectTab(Math.max(0, activeIndex - 1))}
             className={cn(
               'mb:hidden shrink-0 p-3 text-primary-navy transition-opacity duration-200',
               activeIndex === 0 ? 'pointer-events-none opacity-25' : 'opacity-100',
@@ -90,32 +118,39 @@ export default function TopNavCardBlock({ title, copy, cards = [] }: Props) {
           <div
             ref={tabsRef}
             className="scrollbar-hide flex min-w-0 flex-1 snap-x snap-mandatory overflow-x-auto border-b border-neutral-200"
+            role="tablist"
           >
-            {cards.map((card, index) => (
-              <button
-                key={card.id}
-                ref={(el) => {
-                  tabRefs.current[index] = el;
-                }}
-                onClick={() => setActiveIndex(index)}
-                className={cn(
-                  'cursor-pointer snap-start flex w-max min-w-0 max-w-[min(100%,32ch)] shrink-0 flex-col items-center justify-center gap-0 px-4 pb-4 pt-3 text-center font-sans text-sm mb:text-base font-semibold uppercase tracking-[0.12em] transition-all duration-200 border-b-2 -mb-px mb:px-5',
-                  activeIndex === index
-                    ? 'border-primary-navy text-primary-navy'
-                    : 'border-transparent text-primary-navy/60 hover:text-primary-navy/80 hover:border-primary-navy/30',
-                )}
-              >
-                <span className="line-clamp-2 w-full min-w-0 break-words leading-tight">
-                  {card.tabLabel}
-                </span>
-              </button>
-            ))}
+            {cards.map((card, index) => {
+              const anchor = getTabAnchor(card.tabLabel);
+              return (
+                <button
+                  key={card.id}
+                  id={anchor || undefined}
+                  role="tab"
+                  aria-selected={activeIndex === index}
+                  ref={(el) => {
+                    tabRefs.current[index] = el;
+                  }}
+                  onClick={() => selectTab(index)}
+                  className={cn(
+                    'cursor-pointer snap-start flex w-max min-w-0 max-w-[min(100%,32ch)] shrink-0 flex-col items-center justify-center gap-0 px-4 pb-4 pt-3 text-center font-sans text-sm mb:text-base font-semibold uppercase tracking-[0.12em] transition-all duration-200 border-b-2 -mb-px mb:px-5',
+                    activeIndex === index
+                      ? 'border-primary-navy text-primary-navy'
+                      : 'border-transparent text-primary-navy/60 hover:text-primary-navy/80 hover:border-primary-navy/30',
+                  )}
+                >
+                  <span className="line-clamp-2 w-full min-w-0 break-words leading-tight">
+                    {card.tabLabel}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Right chevron – mobile only */}
           <button
             aria-label="Next tab"
-            onClick={() => setActiveIndex((i) => Math.min(cards.length - 1, i + 1))}
+            onClick={() => selectTab(Math.min(cards.length - 1, activeIndex + 1))}
             className={cn(
               'mb:hidden shrink-0 p-3 text-primary-navy transition-opacity duration-200',
               activeIndex === cards.length - 1 ? 'pointer-events-none opacity-25' : 'opacity-100',
