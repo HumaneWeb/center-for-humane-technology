@@ -43,6 +43,7 @@ import LogoGridBlock from '../blocks/logo-grid-block';
 import PillarTabBlock from '../blocks/pillar-tab-block';
 import TopNavCardBlock from '../blocks/top-nav-card-block';
 import ColumnCardBlock from '../blocks/column-card-block';
+import IconTextColumnBlock from '../blocks/icon-text-column-block';
 import ContentMarkdownBlock from '../blocks/content-markdown-block';
 import LandingHighlightCtaBlock from '../blocks/landing-highlight-cta-block';
 import NumberedListBlock from '../blocks/numbered-list-block';
@@ -302,6 +303,9 @@ export default function CustomStructuredText({
         }
         if (record.__typename === 'ColumnCardBlockRecord') {
           return <ColumnCardBlock key={record.id} {...record} />;
+        }
+        if (record.__typename === 'IconTextColumnBlockRecord') {
+          return <IconTextColumnBlock key={record.id} {...record} />;
         }
         if (record.__typename === 'ContentMarkdownRecord') {
           return <ContentMarkdownBlock key={record.id} {...record} isTextDark align="left" />;

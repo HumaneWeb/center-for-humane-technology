@@ -529,6 +529,25 @@ export const ColumnCardBlockFragment = graphql(`
   }
 `);
 
+export const IconTextColumnBlockFragment = graphql(
+  `
+    fragment IconTextColumnBlockFragment on IconTextColumnBlockRecord {
+      __typename
+      id
+      columns
+      blocks {
+        id
+        heading
+        copy(markdown: true)
+        iconImage {
+          ...ImageFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
 export const ColumnsBlockFragment = graphql(`
   fragment ColumnsBlockFragment on ColumnsBlockRecord {
     title
@@ -1588,6 +1607,7 @@ export const BasicPageQuery = graphql(
             ...LogoGridFragment
             ...PillarTabBlockFragment
             ...ColumnCardBlockFragment
+            ...IconTextColumnBlockFragment
             ...ContentMarkdownFragment
             ...LandingHighlightCtaFragment
             ...TopNavCardBlockFragment
@@ -1641,6 +1661,7 @@ export const BasicPageQuery = graphql(
     LogoGridFragment,
     PillarTabBlockFragment,
     ColumnCardBlockFragment,
+    IconTextColumnBlockFragment,
     ContentMarkdownFragment,
     LandingHighlightCtaFragment,
     TopNavCardBlockFragment,
