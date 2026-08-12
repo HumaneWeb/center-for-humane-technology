@@ -1,6 +1,6 @@
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
 import { FadeIn } from '../shared/fade-in';
-import { cn } from '@/lib/utils/css.utils';
+import { cn, richHtmlBlockStackClass } from '@/lib/utils/css.utils';
 
 type ColumnItem = {
   id: string;
@@ -47,7 +47,21 @@ export default function IconTextColumnBlock({ columns, blocks }: Props) {
               )}
               {block.copy && (
                 <div
-                  className="text-primary-navy mb:text-xl font-sans text-[18px] leading-140 font-normal [&>p]:mb-3 [&>p:last-child]:mb-0"
+                  className={cn(
+                    richHtmlBlockStackClass,
+                    'w-full text-primary-navy mb:text-xl font-sans text-[18px] leading-140 font-normal',
+                    '[&>p]:text-center',
+                    '[&_ul]:mx-auto [&_ul]:max-w-fit [&_ul]:list-disc [&_ul]:pl-10 [&_ul]:text-left',
+                    '[&_ol]:mx-auto [&_ol]:max-w-fit [&_ol]:list-decimal [&_ol]:pl-10 [&_ol]:text-left',
+                    '[&_li]:mb-3 [&_li]:text-left [&_li]:last:mb-0',
+                    '[&_li_ul]:mt-2 [&_li_ol]:mt-2',
+                    '[&_a]:font-semibold [&_a]:text-primary-teal [&_a]:underline [&_a]:hover:opacity-80',
+                    '[&>blockquote]:border-primary-blue [&>blockquote]:my-0 [&>blockquote]:border-l-4 [&>blockquote]:py-2 [&>blockquote]:pl-5 [&>blockquote]:italic',
+                    '[&>code]:rounded [&>code]:bg-gray-100 [&>code]:px-2 [&>code]:py-1 [&>code]:text-sm',
+                    '[&>pre]:my-0 [&>pre]:overflow-x-auto [&>pre]:rounded [&>pre]:bg-gray-100 [&>pre]:p-4 [&>pre]:text-left',
+                    '[&>pre>code]:bg-transparent [&>pre>code]:p-0',
+                    '[&_strong]:font-semibold [&_em]:italic',
+                  )}
                   dangerouslySetInnerHTML={{ __html: block.copy }}
                 />
               )}
