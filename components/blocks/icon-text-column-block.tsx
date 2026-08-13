@@ -38,7 +38,7 @@ export default function IconTextColumnBlock({ columns, blocks }: Props) {
             <div key={block.id} className="flex flex-col items-center text-center">
               <CustomImage
                 {...block.iconImage}
-                extraClass="mb-6 h-auto w-full max-w-[280px] object-contain"
+                extraClass="mb-6 mx-auto h-auto w-auto max-w-[280px] object-contain"
               />
               {block.heading && (
                 <h4 className="text-primary-navy mb:text-2xl mb:leading-130 mb:mb-4 mb-2 font-sans text-xl leading-120 font-semibold">
