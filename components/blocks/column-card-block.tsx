@@ -25,12 +25,30 @@ function gridColsClass(n: number): string {
   const map: Record<number, string> = {
     1: 'grid-cols-1',
     2: 'grid-cols-1 sm:grid-cols-2',
-    3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+    // 6-col track lets an incomplete last row (e.g. 5 cards) sit centered
+    3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-6',
     4: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
-    5: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5',
-    6: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6',
+    5: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-5',
+    6: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6',
   };
   return map[c] ?? map[2];
+}
+
+function cardPlacementClass(columns: number, total: number, index: number): string | undefined {
+  // 5/6-col blocks also use a 3-col layout between lg and xl
+  const usesThreeColAtLg = columns === 3 || columns === 5 || columns === 6;
+  if (!usesThreeColAtLg) return undefined;
+
+  const remainder = total % 3;
+  const firstOfLastRow = total - remainder;
+  const resetAtXl = columns === 5 || columns === 6;
+
+  return cn(
+    'lg:col-span-2',
+    remainder === 2 && index === firstOfLastRow && 'lg:col-start-2',
+    remainder === 1 && index === firstOfLastRow && 'lg:col-start-3',
+    resetAtXl && 'xl:col-span-1 xl:col-start-auto',
+  );
 }
 
 function autolinkEmails(html: string): string {
@@ -87,10 +105,13 @@ export default function ColumnCardBlock({
           </div>
         )}
         <div className={cn('grid gap-6 mb:gap-8', gridColsClass(columns))}>
-          {cards.map((card) => (
+          {cards.map((card, index) => (
             <article
               key={card.id}
-              className="flex flex-col bg-neutral-white p-8 mb:p-10 shadow-[0_4px_24px_rgba(11,16,35,0.06)]"
+              className={cn(
+                'flex flex-col bg-neutral-white p-8 mb:p-10 shadow-[0_4px_24px_rgba(11,16,35,0.06)]',
+                cardPlacementClass(columns, cards.length, index),
+              )}
             >
               {card.icon && (
                 // eslint-disable-next-line @next/next/no-img-element
