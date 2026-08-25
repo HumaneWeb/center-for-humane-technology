@@ -16,6 +16,7 @@ type Props = {
   textExtraClass?: string;
   isTextDark?: boolean;
   invertPrimaryButtons?: boolean;
+  backgroundColor?: { hex: string } | null;
 };
 
 export default function NarrativeBlock({
@@ -29,11 +30,19 @@ export default function NarrativeBlock({
   headingExtraClass,
   isTextDark = false,
   invertPrimaryButtons,
+  backgroundColor,
 }: Props) {
   const isImageLeft = imagePosition === 'left';
 
   return (
-    <section className={cn('narrative-block mb:pb-36 pb-5', extraClass)}>
+    <section
+      className={cn(
+        'narrative-block',
+        backgroundColor?.hex ? 'py-10 mb:py-20' : 'mb:pb-36 pb-5',
+        extraClass,
+      )}
+      style={backgroundColor?.hex ? { backgroundColor: backgroundColor.hex } : undefined}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="narrative-grid mb:gap-15 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
           {image && (

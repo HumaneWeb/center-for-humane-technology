@@ -5465,6 +5465,7 @@ type NarrativeBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  backgroundColor: ColorField
   ctas: [CtaRecord!]!
   hideBlock: BooleanType!
   id: ItemId!

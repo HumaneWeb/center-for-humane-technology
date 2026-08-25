@@ -723,6 +723,9 @@ export const NarrativeBlockFragment = graphql(
         ...NarrativeMediaFragment
       }
       imagePosition
+      backgroundColor {
+        hex
+      }
       hideBlock
     }
   `,
