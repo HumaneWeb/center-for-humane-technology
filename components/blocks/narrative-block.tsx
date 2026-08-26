@@ -33,15 +33,18 @@ export default function NarrativeBlock({
   backgroundColor,
 }: Props) {
   const isImageLeft = imagePosition === 'left';
+  const hasBg = Boolean(backgroundColor?.hex);
 
   return (
     <section
       className={cn(
         'narrative-block',
-        backgroundColor?.hex ? 'py-10 mb:py-20' : 'mb:pb-36 pb-5',
+        hasBg ? 'py-10 mb:py-20' : 'mb:pb-36 pb-5',
         extraClass,
+        // extraClass often adds my-8 / mb:mt-[150px] — keep a colored band flush
+        hasBg && 'my-0 mt-0 mb-0 mb:my-0 mb:mt-0 mb:mb-0',
       )}
-      style={backgroundColor?.hex ? { backgroundColor: backgroundColor.hex } : undefined}
+      style={hasBg ? { backgroundColor: backgroundColor.hex } : undefined}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="narrative-grid mb:gap-15 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
