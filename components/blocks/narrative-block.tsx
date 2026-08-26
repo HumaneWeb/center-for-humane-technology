@@ -44,7 +44,7 @@ export default function NarrativeBlock({
         // extraClass often adds my-8 / mb:mt-[150px] — keep a colored band flush
         hasBg && 'my-0 mt-0 mb-0 mb:my-0 mb:mt-0 mb:mb-0',
       )}
-      style={hasBg ? { backgroundColor: backgroundColor.hex } : undefined}
+      style={hasBg ? { backgroundColor: backgroundColor?.hex } : undefined}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="narrative-grid mb:gap-15 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
