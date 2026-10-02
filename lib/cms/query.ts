@@ -723,6 +723,7 @@ export const NarrativeBlockFragment = graphql(
         ...NarrativeMediaFragment
       }
       imagePosition
+      fullWidth
       backgroundColor {
         hex
       }

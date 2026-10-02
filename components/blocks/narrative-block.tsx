@@ -17,6 +17,7 @@ type Props = {
   isTextDark?: boolean;
   invertPrimaryButtons?: boolean;
   backgroundColor?: { hex: string } | null;
+  fullWidth?: boolean | null;
 };
 
 export default function NarrativeBlock({
@@ -31,6 +32,7 @@ export default function NarrativeBlock({
   isTextDark = false,
   invertPrimaryButtons,
   backgroundColor,
+  fullWidth = false,
 }: Props) {
   const isImageLeft = imagePosition === 'left';
   const hasBg = Boolean(backgroundColor?.hex);
@@ -47,7 +49,12 @@ export default function NarrativeBlock({
       style={hasBg ? { backgroundColor: backgroundColor?.hex } : undefined}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="narrative-grid mb:gap-15 grid grid-cols-1 items-center gap-5 lg:grid-cols-2">
+        <div
+          className={cn(
+            'narrative-grid grid grid-cols-1 items-center gap-5',
+            fullWidth ? 'mb:gap-10' : 'mb:gap-15 lg:grid-cols-2',
+          )}
+        >
           {image && (
             <div className={cn('image-div', isImageLeft ? 'mb:order-1' : 'mb:order-2')}>
               <FadeIn>

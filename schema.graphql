@@ -426,8 +426,8 @@ input BasicPageModelFilter {
   contentAnchors: StringFilter
   mobileImage: FileFilter
   headerTextColor: StringFilter
-  slug: SlugFilter
   content: StructuredTextFilter
+  slug: SlugFilter
   OR: [BasicPageModelFilter]
   AND: [BasicPageModelFilter]
 }
@@ -599,8 +599,8 @@ input BlogModelFilter {
   source: StringFilter
   category: LinksFilter
   test: TextFilter
-  slug: SlugFilter
   content: StructuredTextFilter
+  slug: SlugFilter
   OR: [BlogModelFilter]
   AND: [BlogModelFilter]
 }
@@ -789,8 +789,8 @@ input CareerModelFilter {
   title: StringFilter
   introduction: TextFilter
   seo: SeoFilter
-  slug: SlugFilter
   content: StructuredTextFilter
+  slug: SlugFilter
   OR: [CareerModelFilter]
   AND: [CareerModelFilter]
 }
@@ -929,8 +929,8 @@ input CaseStudyModelFilter {
   seo: SeoFilter
   title: StringFilter
   variant: StringFilter
-  slug: SlugFilter
   content: StructuredTextFilter
+  slug: SlugFilter
   OR: [CaseStudyModelFilter]
   AND: [CaseStudyModelFilter]
 }
@@ -5467,6 +5467,7 @@ type NarrativeBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   backgroundColor: ColorField
   ctas: [CtaRecord!]!
+  fullWidth: BooleanType!
   hideBlock: BooleanType!
   id: ItemId!
   image: FileField
@@ -5811,13 +5812,13 @@ input PodcastModelFilter {
   categories: LinksFilter
   transcript: FileFilter
   moreListening: LinksFilter
-  slug: SlugFilter
   content: StructuredTextFilter
   guestBio: StructuredTextFilter
   guestBio2: StructuredTextFilter
   majorTakeaways: StructuredTextFilter
   takeAction: StructuredTextFilter
   recommendedMedia: StructuredTextFilter
+  slug: SlugFilter
   OR: [PodcastModelFilter]
   AND: [PodcastModelFilter]
 }
@@ -7828,8 +7829,8 @@ input TeamMemberModelFilter {
   twitterXUrl: StringFilter
   linkedinUrl: StringFilter
   email: StringFilter
-  slug: SlugFilter
   information: StructuredTextFilter
+  slug: SlugFilter
   OR: [TeamMemberModelFilter]
   AND: [TeamMemberModelFilter]
 }
@@ -8075,8 +8076,8 @@ input ToolkitModelFilter {
   title: StringFilter
   variant: StringFilter
   textColor: StringFilter
-  slug: SlugFilter
   content: StructuredTextFilter
+  slug: SlugFilter
   OR: [ToolkitModelFilter]
   AND: [ToolkitModelFilter]
 }
