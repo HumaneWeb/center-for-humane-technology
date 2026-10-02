@@ -36,12 +36,12 @@ export default function ImpactImageGridBlock({ introduction, items }: Props) {
   }
 
   return (
-    <section className="mb:pt-4 mb:pb-10 pt-2 pb-6">
+    <section className={introduction ? 'mb:pt-16 mb:pb-8 pt-12 pb-6' : 'mb:pb-8 pt-0 pb-6'}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {introduction && (
           <FadeIn>
             <div
-              className="text-primary-navy mb:text-xl mb:mb-10 mb-6 font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p:last-child]:mb-0 [&_strong]:font-semibold"
+              className="text-primary-navy mb:text-xl mb:mb-4 mb-3 font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p:last-child]:mb-0 [&_strong]:font-semibold"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
           </FadeIn>

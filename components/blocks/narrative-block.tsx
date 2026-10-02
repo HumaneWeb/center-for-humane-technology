@@ -43,7 +43,13 @@ export default function NarrativeBlock({
     <section
       className={cn(
         'narrative-block',
-        hasBg ? 'py-10 mb:py-20' : textOnly ? 'pt-12 pb-2 mb:pt-20 mb:pb-4' : 'mb:pb-36 pb-5',
+        hasBg
+          ? 'py-10 mb:py-20'
+          : textOnly
+            ? title === 'Our Impact'
+              ? 'pt-12 pb-3 mb:pt-20 mb:pb-4'
+              : 'pt-12 pb-2 mb:pt-20 mb:pb-4'
+            : 'mb:pb-36 pb-5',
         extraClass,
         // extraClass often adds my-8 / mb:mt-[150px] — keep a colored band flush
         hasBg && 'my-0 mt-0 mb-0 mb:my-0 mb:mt-0 mb:mb-0',
@@ -69,7 +75,8 @@ export default function NarrativeBlock({
             <FadeIn delay={0.5}>
               <h2
                 className={cn(
-                  'text-primary-navy tracking-049 mb:text-[39px] mb:leading-110 mb:mb-[30px] mb-5 font-sans text-[29px] leading-120 font-semibold',
+                  'text-primary-navy tracking-049 mb:text-[39px] mb:leading-110 font-sans text-[29px] leading-120 font-semibold',
+                  title === 'Our Impact' ? 'mb:mb-14 mb-8' : 'mb:mb-[30px] mb-5',
                   textExtraClass,
                   headingExtraClass,
                   isTextDark && 'text-primary-navy',
