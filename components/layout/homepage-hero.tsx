@@ -24,8 +24,8 @@ export default function HomepageHero({ homepage, configuration }: Props) {
   const mobileColumn2 = mobileVideos.filter((_: any, index: number) => index % 2 === 1);
 
   return (
-    <section className="homepage-hero mb:bg-contain mb:bg-right mb:bg-no-repeat mb:bg-[url('/homepage-circles.svg')] mb:h-dvh mb:py-20 bg-[#F8F4EF] pt-30 pb-10">
-      <div className="homepage-grid-parent relative mx-auto flex h-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
+    <section className="homepage-hero mb:bg-contain mb:bg-right mb:bg-no-repeat mb:bg-[url('/homepage-circles.svg')] bg-[#F8F4EF]">
+      <div className="homepage-grid-parent relative mx-auto flex w-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="homepage-grid grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <FadeIn>
             <div className="homepage-metadata space-y-0">
