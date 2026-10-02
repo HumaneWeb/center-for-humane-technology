@@ -42,6 +42,7 @@ const BaseComponents: Record<string, any> = {
 
 const ExtraProps: Record<string, Record<string, unknown>> = {
   LogoGridRecord: { variant: 'inline' },
+  SignUpBlockRecord: { className: 'mt-4 mb:mt-8' },
 };
 
 const BlockBuilder: React.FC<Props> = ({ components = [] }) => {

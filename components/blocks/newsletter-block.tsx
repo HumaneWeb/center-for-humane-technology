@@ -14,6 +14,7 @@ type Props = {
   featuredImage: CustomImageProps;
   featuredLink: CustomLinkProps;
   variant?: 'default' | 'vertical';
+  className?: string;
 };
 
 export default function NewsletterBlock({
@@ -24,9 +25,10 @@ export default function NewsletterBlock({
   featuredImage,
   featuredLink,
   variant = 'default',
+  className,
 }: Props) {
   const renderFeaturedBlock = () => (
-    <section className="newsletter-grid-featured flex w-full flex-col md:flex-row">
+    <section className={cn('newsletter-grid-featured flex w-full flex-col md:flex-row', className)}>
       <div
         className="newsletter-grid-featured-item mb:justify-end mb:px-12 mb:pb-7 mb:pt-44 flex w-full items-end bg-cover bg-center bg-no-repeat px-7 py-4 pt-20 md:w-1/2"
         style={{ backgroundImage: `url(${featuredImage!.url})` }}
@@ -67,6 +69,7 @@ export default function NewsletterBlock({
     <div
       className={cn(
         'bg-neutral-white',
+        className,
         variant === 'vertical' && 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8',
       )}
     >
