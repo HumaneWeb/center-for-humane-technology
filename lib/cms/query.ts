@@ -723,6 +723,7 @@ export const NarrativeBlockFragment = graphql(
         ...NarrativeMediaFragment
       }
       imagePosition
+      fullWidth
       backgroundColor {
         hex
       }
@@ -1010,6 +1011,26 @@ export const MediaBlockFragment = graphql(
   [ImageBlockFragment, CTAFragment],
 );
 
+export const ImpactImageGridFragment = graphql(
+  `
+    fragment ImpactImageGridFragment on ImpactImageGridRecord {
+      __typename
+      id
+      introduction(markdown: true)
+      hideBlock
+      items {
+        id
+        caption
+        link
+        image {
+          ...ImageFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
 export const LogoGridFragment = graphql(
   `
     fragment LogoGridFragment on LogoGridRecord {
@@ -1192,6 +1213,7 @@ export const HomepageQuery = graphql(
           ...DepthAreasBlockFragment
           ...MediaBlockFragment
           ...DonateBlockFragment
+          ...ImpactImageGridFragment
         }
         _seoMetaTags {
           ...TagFragment
@@ -1223,6 +1245,7 @@ export const HomepageQuery = graphql(
     DepthAreasBlockFragment,
     MediaBlockFragment,
     DonateBlockFragment,
+    ImpactImageGridFragment,
     TagFragment,
     CTAFragment,
   ],

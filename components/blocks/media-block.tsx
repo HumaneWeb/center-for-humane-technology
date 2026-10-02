@@ -56,23 +56,27 @@ export default function MediaBlock({ title, items, ctas }: Props) {
     return <div key={item.id}>{content}</div>;
   };
 
+  const hasCtas = Array.isArray(ctas) && ctas.length > 0;
+
   return (
-    <section className="mb:my-24 py-8">
+    <section className={title ? 'mb:my-24 py-8' : 'mb:pt-8 mb:pb-4 pt-6 pb-2'}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div>
-          <FadeIn>
-            <h2 className="text-primary-navy mb:text-center mb:text-3xl mb:leading-135 mb:mb-12 mb-10 font-sans text-[23px] leading-120 font-semibold">
-              {title}
-            </h2>
-          </FadeIn>
+          {title && (
+            <FadeIn>
+              <h2 className="text-primary-navy mb:text-center mb:text-3xl mb:leading-135 mb:mb-12 mb-10 font-sans text-[23px] leading-120 font-semibold">
+                {title}
+              </h2>
+            </FadeIn>
+          )}
 
           <FadeIn>
-            <div className="mb:justify-center mb-16 hidden flex-wrap items-center gap-x-14 gap-y-8 md:flex">
+            <div className="mb:justify-center hidden flex-wrap items-center gap-x-14 gap-y-8 md:flex">
               {items.map((item: any) => renderItem(item))}
             </div>
           </FadeIn>
 
-          <FadeIn className="mb-16 md:hidden">
+          <FadeIn className="md:hidden">
             <Swiper
               modules={[Autoplay]}
               spaceBetween={20}
@@ -87,7 +91,7 @@ export default function MediaBlock({ title, items, ctas }: Props) {
             </Swiper>
           </FadeIn>
 
-          {ctas && (
+          {hasCtas && (
             <FadeIn>
               <CtaList
                 items={ctas}
