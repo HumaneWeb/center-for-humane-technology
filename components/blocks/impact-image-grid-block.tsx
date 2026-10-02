@@ -41,7 +41,7 @@ export default function ImpactImageGridBlock({ introduction, items }: Props) {
         {introduction && (
           <FadeIn>
             <div
-              className="text-primary-navy mb:text-xl mb:mb-10 mb-6 font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p:last-child]:mb-0"
+              className="text-primary-navy mb:text-xl mb:mb-10 mb-6 font-sans text-[18px] leading-140 [&>p]:mb-4 [&>p:last-child]:mb-0 [&_strong]:font-semibold"
               dangerouslySetInnerHTML={{ __html: introduction }}
             />
           </FadeIn>
@@ -53,9 +53,10 @@ export default function ImpactImageGridBlock({ introduction, items }: Props) {
                 <figure>
                   <CustomImage {...item.image} extraClass="h-auto w-full" />
                   {item.caption && (
-                    <figcaption className="text-primary-navy mt-3 font-sans text-[16px] leading-140">
-                      {item.caption}
-                    </figcaption>
+                    <figcaption
+                      className="text-primary-navy mt-3 font-sans text-[16px] leading-140 [&_em]:italic"
+                      dangerouslySetInnerHTML={{ __html: item.caption }}
+                    />
                   )}
                 </figure>
               );
