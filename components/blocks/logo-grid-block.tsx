@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import CustomImage from '../shared/custom-image';
 import { FadeIn } from '../shared/fade-in';
 import { cn } from '@/lib/utils/css.utils';
@@ -22,6 +23,7 @@ type LogoItem = {
 type Props = {
   columns?: number | null;
   logos?: LogoItem[] | null;
+  variant?: 'cards' | 'inline' | null;
 };
 
 const DESKTOP_COLS: Record<number, string> = {
@@ -59,10 +61,64 @@ const CardContent = ({ item }: { item: LogoItem }) => (
   </>
 );
 
-export default function LogoGridBlock({ columns = 4, logos }: Props) {
+const LogoImage = ({ item, extraClass }: { item: LogoItem; extraClass?: string }) => (
+  <CustomImage
+    {...item.logo}
+    alt={item.altText ?? item.logo.alt ?? ''}
+    extraClass={extraClass}
+  />
+);
+
+const LogoWrap = ({
+  item,
+  className,
+  children,
+}: {
+  item: LogoItem;
+  className?: string;
+  children: ReactNode;
+}) => {
+  if (!item.linkUrl) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <Link
+      href={item.linkUrl}
+      target={item.openNewTab ? '_blank' : '_self'}
+      rel={item.openNewTab ? 'noopener noreferrer' : undefined}
+      className={className}
+    >
+      {children}
+    </Link>
+  );
+};
+
+export default function LogoGridBlock({ columns = 4, logos, variant = 'cards' }: Props) {
   const list = (logos ?? []).filter((item) => item?.logo?.url);
   if (list.length === 0) {
     return null;
+  }
+
+  if (variant === 'inline') {
+    return (
+      <section className="mb:py-10 py-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+              {list.map((item) => (
+                <LogoWrap key={item.id} item={item} className="block">
+                  <LogoImage
+                    item={item}
+                    extraClass="h-8 w-auto max-h-10 max-w-[148px] object-contain md:h-10"
+                  />
+                </LogoWrap>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+    );
   }
 
   const desktopCols = DESKTOP_COLS[columns ?? 4] ?? 'lg:grid-cols-4';
@@ -74,23 +130,11 @@ export default function LogoGridBlock({ columns = 4, logos }: Props) {
           <div
             className={cn('grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:gap-8', desktopCols)}
           >
-            {list.map((item) =>
-              item.linkUrl ? (
-                <Link
-                  key={item.id}
-                  href={item.linkUrl}
-                  target={item.openNewTab ? '_blank' : '_self'}
-                  rel={item.openNewTab ? 'noopener noreferrer' : undefined}
-                  className={cardClass}
-                >
-                  <CardContent item={item} />
-                </Link>
-              ) : (
-                <div key={item.id} className={cardClass}>
-                  <CardContent item={item} />
-                </div>
-              ),
-            )}
+            {list.map((item) => (
+              <LogoWrap key={item.id} item={item} className={cardClass}>
+                <CardContent item={item} />
+              </LogoWrap>
+            ))}
           </div>
         </FadeIn>
       </div>

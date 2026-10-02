@@ -36,12 +36,14 @@ export default function NarrativeBlock({
 }: Props) {
   const isImageLeft = imagePosition === 'left';
   const hasBg = Boolean(backgroundColor?.hex);
+  const textOnly = !image && !hasBg;
+  const hasCtas = Boolean(ctas?.length);
 
   return (
     <section
       className={cn(
         'narrative-block',
-        hasBg ? 'py-10 mb:py-20' : 'mb:pb-36 pb-5',
+        hasBg ? 'py-10 mb:py-20' : textOnly ? 'pt-12 pb-2 mb:pt-20 mb:pb-4' : 'mb:pb-36 pb-5',
         extraClass,
         // extraClass often adds my-8 / mb:mt-[150px] — keep a colored band flush
         hasBg && 'my-0 mt-0 mb-0 mb:my-0 mb:mt-0 mb:mb-0',
@@ -79,7 +81,8 @@ export default function NarrativeBlock({
                 {introduction && (
                   <div
                     className={cn(
-                      'text-primary-navy mb:mb-[30px] mb:text-xl mb-5 font-sans text-[18px] leading-140 font-normal [&>p]:mb-4',
+                      'text-primary-navy mb:text-xl font-sans text-[18px] leading-140 font-normal [&>p]:mb-4 [&>p:last-child]:mb-0',
+                      hasCtas && 'mb:mb-[30px] mb-5',
                       textExtraClass,
                       isTextDark && 'text-primary-navy',
                     )}

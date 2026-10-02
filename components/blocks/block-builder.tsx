@@ -12,6 +12,7 @@ import NewsletterBlock from './newsletter-block';
 import SubstackManualFeed from './generic-cards-grid';
 import ContentMarkdownBlock from './content-markdown-block';
 import ButtonsBlock from './buttons-block';
+import ImpactImageGridBlock from './impact-image-grid-block';
 
 
 type Props = {
@@ -36,6 +37,11 @@ const BaseComponents: Record<string, any> = {
   ContentMarkdownRecord: ContentMarkdownBlock,
   ButtonsBlockRecord: ButtonsBlock,
   LogoGridRecord: LogoGridBlock,
+  ImpactImageGridRecord: ImpactImageGridBlock,
+};
+
+const ExtraProps: Record<string, Record<string, unknown>> = {
+  LogoGridRecord: { variant: 'inline' },
 };
 
 const BlockBuilder: React.FC<Props> = ({ components = [] }) => {
@@ -54,7 +60,9 @@ const BlockBuilder: React.FC<Props> = ({ components = [] }) => {
           return null;
         }
 
-        return <BlockComponent key={id} {...rest} />;
+        const extraProps = ExtraProps[__typename] || {};
+
+        return <BlockComponent key={id} {...rest} {...extraProps} />;
       })}
     </>
   );
