@@ -221,6 +221,29 @@ body {
   background: linear-gradient(132deg, #a68ff4 -56.72%, #2e3f85 83.57%);
 }
 
+.homepage-hero {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 100dvh;
+  padding-top: calc(5.25rem + var(--notification-bar-height, 0px));
+  padding-bottom: 2.5rem;
+}
+
+.homepage-grid-parent {
+  height: auto;
+  min-height: calc(100dvh - 5.25rem - var(--notification-bar-height, 0px) - 2.5rem);
+}
+
+@media screen and (min-width: 992px) {
+  .homepage-hero {
+    padding-bottom: 4rem;
+  }
+
+  .homepage-grid-parent {
+    min-height: calc(100dvh - 5.25rem - var(--notification-bar-height, 0px) - 4rem);
+  }
+}
+
 .homepage-hero mux-player {
   /* Hide all controls at once */
   --controls: none;
@@ -1147,12 +1170,7 @@ hr {
 
 @media screen and (max-width: 1320px) {
   .homepage-hero {
-    height: 80dvh;
     background-image: none;
-  }
-
-  .homepage-grid {
-    padding-top: calc(4rem + var(--notification-bar-height));
   }
 
   .desktop-videos {
@@ -1220,12 +1238,7 @@ hr {
 }
 
 @media screen and (max-width: 600px) {
-  .homepage-hero {
-    height: 100%;
-  }
-
   .homepage-grid {
-    height: 100%;
     grid-template-columns: 1fr;
   }
 
@@ -1261,10 +1274,6 @@ hr {
 
   .homepage-grid-parent {
     align-items: center;
-  }
-
-  .homepage-grid {
-    padding-top: 0;
   }
 }
 
