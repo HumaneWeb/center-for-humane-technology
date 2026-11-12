@@ -414,19 +414,19 @@ input BasicPageModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  gapSizeUnderHero: StringFilter
-  backgroundColor: StringFilter
-  title: StringFilter
-  seo: SeoFilter
-  introduction: TextFilter
-  preTitle: StringFilter
-  image: FileFilter
-  contentBackgroundColor: StringFilter
-  variant: StringFilter
-  contentAnchors: StringFilter
   mobileImage: FileFilter
-  headerTextColor: StringFilter
+  gapSizeUnderHero: StringFilter
+  seo: SeoFilter
+  preTitle: StringFilter
+  contentAnchors: StringFilter
+  contentBackgroundColor: StringFilter
+  introduction: TextFilter
+  title: StringFilter
+  image: FileFilter
+  backgroundColor: StringFilter
   content: StructuredTextFilter
+  headerTextColor: StringFilter
+  variant: StringFilter
   slug: SlugFilter
   OR: [BasicPageModelFilter]
   AND: [BasicPageModelFilter]
@@ -453,20 +453,20 @@ enum BasicPageModelOrderBy {
   _isValid_DESC
   gapSizeUnderHero_ASC
   gapSizeUnderHero_DESC
-  backgroundColor_ASC
-  backgroundColor_DESC
-  title_ASC
-  title_DESC
   preTitle_ASC
   preTitle_DESC
-  contentBackgroundColor_ASC
-  contentBackgroundColor_DESC
-  variant_ASC
-  variant_DESC
   contentAnchors_ASC
   contentAnchors_DESC
+  contentBackgroundColor_ASC
+  contentBackgroundColor_DESC
+  title_ASC
+  title_DESC
+  backgroundColor_ASC
+  backgroundColor_DESC
   headerTextColor_ASC
   headerTextColor_DESC
+  variant_ASC
+  variant_DESC
 }
 
 """Record of type Basic Page (basic_page)"""
@@ -589,17 +589,17 @@ input BlogModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  title: StringFilter
-  seo: SeoFilter
+  test: TextFilter
   introduction: TextFilter
-  externalUrl: StringFilter
+  content: StructuredTextFilter
+  seo: SeoFilter
   date: DateFilter
   image: FileFilter
-  estTime: StringFilter
-  source: StringFilter
   category: LinksFilter
-  test: TextFilter
-  content: StructuredTextFilter
+  title: StringFilter
+  source: StringFilter
+  externalUrl: StringFilter
+  estTime: StringFilter
   slug: SlugFilter
   OR: [BlogModelFilter]
   AND: [BlogModelFilter]
@@ -624,16 +624,16 @@ enum BlogModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  title_ASC
-  title_DESC
-  externalUrl_ASC
-  externalUrl_DESC
   date_ASC
   date_DESC
-  estTime_ASC
-  estTime_DESC
+  title_ASC
+  title_DESC
   source_ASC
   source_DESC
+  externalUrl_ASC
+  externalUrl_DESC
+  estTime_ASC
+  estTime_DESC
 }
 
 """Record of type Blog (blog)"""
@@ -786,10 +786,10 @@ input CareerModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  title: StringFilter
   introduction: TextFilter
-  seo: SeoFilter
   content: StructuredTextFilter
+  title: StringFilter
+  seo: SeoFilter
   slug: SlugFilter
   OR: [CareerModelFilter]
   AND: [CareerModelFilter]
@@ -921,15 +921,15 @@ input CaseStudyModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   backgroundColor: StringFilter
-  contentAnchors: StringFilter
-  contentBackgroundColor: StringFilter
-  image: FileFilter
-  introduction: TextFilter
-  preTitle: StringFilter
   seo: SeoFilter
-  title: StringFilter
-  variant: StringFilter
   content: StructuredTextFilter
+  title: StringFilter
+  contentBackgroundColor: StringFilter
+  preTitle: StringFilter
+  image: FileFilter
+  contentAnchors: StringFilter
+  variant: StringFilter
+  introduction: TextFilter
   slug: SlugFilter
   OR: [CaseStudyModelFilter]
   AND: [CaseStudyModelFilter]
@@ -956,14 +956,14 @@ enum CaseStudyModelOrderBy {
   _isValid_DESC
   backgroundColor_ASC
   backgroundColor_DESC
-  contentAnchors_ASC
-  contentAnchors_DESC
+  title_ASC
+  title_DESC
   contentBackgroundColor_ASC
   contentBackgroundColor_DESC
   preTitle_ASC
   preTitle_DESC
-  title_ASC
-  title_DESC
+  contentAnchors_ASC
+  contentAnchors_DESC
   variant_ASC
   variant_DESC
 }
@@ -2165,9 +2165,9 @@ input FoundingAllieModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  description: TextFilter
   name: StringFilter
   externalUrl: StringFilter
-  description: TextFilter
   OR: [FoundingAllieModelFilter]
   AND: [FoundingAllieModelFilter]
 }
@@ -2344,8 +2344,8 @@ input GlobalLinkModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  internalTitle: StringFilter
   externalUrl: StringFilter
+  internalTitle: StringFilter
   content: LinkFilter
   OR: [GlobalLinkModelFilter]
   AND: [GlobalLinkModelFilter]
@@ -2370,10 +2370,10 @@ enum GlobalLinkModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  internalTitle_ASC
-  internalTitle_DESC
   externalUrl_ASC
   externalUrl_DESC
+  internalTitle_ASC
+  internalTitle_DESC
 }
 
 """Record of type Global Link (global_link)"""
@@ -4877,16 +4877,16 @@ input InsightModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   title: StringFilter
-  seo: SeoFilter
-  contentType: StringFilter
   subheader: StringFilter
-  content: TextFilter
-  introduction: TextFilter
+  seo: SeoFilter
   image: FileFilter
-  authors: StringFilter
-  tags: LinksFilter
-  relatedArticles: LinksFilter
   date: DateFilter
+  introduction: TextFilter
+  authors: StringFilter
+  relatedArticles: LinksFilter
+  tags: LinksFilter
+  contentType: StringFilter
+  content: TextFilter
   slug: SlugFilter
   OR: [InsightModelFilter]
   AND: [InsightModelFilter]
@@ -4913,14 +4913,14 @@ enum InsightModelOrderBy {
   _isValid_DESC
   title_ASC
   title_DESC
-  contentType_ASC
-  contentType_DESC
   subheader_ASC
   subheader_DESC
-  authors_ASC
-  authors_DESC
   date_ASC
   date_DESC
+  authors_ASC
+  authors_DESC
+  contentType_ASC
+  contentType_DESC
 }
 
 """Record of type Insights (insight)"""
@@ -5121,17 +5121,17 @@ input LandingModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  hideSubstackFooter: BooleanFilter
-  backgroundColor: StringFilter
-  internalTitle: StringFilter
-  logo: FileFilter
   title: StringFilter
-  seo: SeoFilter
   variant: StringFilter
-  heroBackgroundImage: FileFilter
   subheading: StringFilter
-  heroTextColor: StringFilter
+  heroBackgroundImage: FileFilter
+  seo: SeoFilter
+  logo: FileFilter
   introduction: TextFilter
+  backgroundColor: StringFilter
+  heroTextColor: StringFilter
+  hideSubstackFooter: BooleanFilter
+  internalTitle: StringFilter
   slug: SlugFilter
   OR: [LandingModelFilter]
   AND: [LandingModelFilter]
@@ -5156,20 +5156,20 @@ enum LandingModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  hideSubstackFooter_ASC
-  hideSubstackFooter_DESC
-  backgroundColor_ASC
-  backgroundColor_DESC
-  internalTitle_ASC
-  internalTitle_DESC
   title_ASC
   title_DESC
   variant_ASC
   variant_DESC
   subheading_ASC
   subheading_DESC
+  backgroundColor_ASC
+  backgroundColor_DESC
   heroTextColor_ASC
   heroTextColor_DESC
+  hideSubstackFooter_ASC
+  hideSubstackFooter_DESC
+  internalTitle_ASC
+  internalTitle_DESC
 }
 
 """Record of type Landing (landing)"""
@@ -5406,9 +5406,9 @@ input MenuItemModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  label: StringFilter
   asButton: BooleanFilter
   link: LinkFilter
+  label: StringFilter
   hideItem: BooleanFilter
   OR: [MenuItemModelFilter]
   AND: [MenuItemModelFilter]
@@ -5435,10 +5435,10 @@ enum MenuItemModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  label_ASC
-  label_DESC
   asButton_ASC
   asButton_DESC
+  label_ASC
+  label_DESC
   hideItem_ASC
   hideItem_DESC
 }
@@ -5846,33 +5846,33 @@ input PodcastModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  applePodcastsUrl: StringFilter
-  spotifyUrl: StringFilter
-  youtubeUrl: StringFilter
-  episodeUrl: StringFilter
-  videoUrl: StringFilter
-  substackUrl: StringFilter
   title: StringFilter
-  introduction: TextFilter
   image: FileFilter
-  seo: SeoFilter
-  episode: StringFilter
-  guestName: StringFilter
-  guestImage: FileFilter
-  guestName2: StringFilter
   guestImage2: FileFilter
+  moreListening: LinksFilter
+  transcript: FileFilter
+  videoUrl: StringFilter
+  guestBio: StructuredTextFilter
+  episodeUrl: StringFilter
+  guestBio2: StructuredTextFilter
+  content: StructuredTextFilter
+  guestName2: StringFilter
+  seo: SeoFilter
   simplecastPodcastId: StringFilter
+  episode: StringFilter
+  introduction: TextFilter
+  applePodcastsUrl: StringFilter
+  guestImage: FileFilter
+  takeAction: StructuredTextFilter
+  majorTakeaways: StructuredTextFilter
+  substackUrl: StringFilter
+  recommendedMedia: StructuredTextFilter
+  youtubeUrl: StringFilter
+  guestName: StringFilter
+  categories: LinksFilter
   directDownloadLink: StringFilter
   date: DateFilter
-  categories: LinksFilter
-  transcript: FileFilter
-  moreListening: LinksFilter
-  content: StructuredTextFilter
-  guestBio: StructuredTextFilter
-  guestBio2: StructuredTextFilter
-  majorTakeaways: StructuredTextFilter
-  takeAction: StructuredTextFilter
-  recommendedMedia: StructuredTextFilter
+  spotifyUrl: StringFilter
   slug: SlugFilter
   OR: [PodcastModelFilter]
   AND: [PodcastModelFilter]
@@ -5918,32 +5918,32 @@ enum PodcastModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  applePodcastsUrl_ASC
-  applePodcastsUrl_DESC
-  spotifyUrl_ASC
-  spotifyUrl_DESC
-  youtubeUrl_ASC
-  youtubeUrl_DESC
-  episodeUrl_ASC
-  episodeUrl_DESC
-  videoUrl_ASC
-  videoUrl_DESC
-  substackUrl_ASC
-  substackUrl_DESC
   title_ASC
   title_DESC
-  episode_ASC
-  episode_DESC
-  guestName_ASC
-  guestName_DESC
+  videoUrl_ASC
+  videoUrl_DESC
+  episodeUrl_ASC
+  episodeUrl_DESC
   guestName2_ASC
   guestName2_DESC
   simplecastPodcastId_ASC
   simplecastPodcastId_DESC
+  episode_ASC
+  episode_DESC
+  applePodcastsUrl_ASC
+  applePodcastsUrl_DESC
+  substackUrl_ASC
+  substackUrl_DESC
+  youtubeUrl_ASC
+  youtubeUrl_DESC
+  guestName_ASC
+  guestName_DESC
   directDownloadLink_ASC
   directDownloadLink_DESC
   date_ASC
   date_DESC
+  spotifyUrl_ASC
+  spotifyUrl_DESC
 }
 
 type PodcastModelRecommendedMediaField {
@@ -6051,16 +6051,16 @@ input PressModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  title: StringFilter
-  seo: SeoFilter
   externalUrl: StringFilter
-  source: StringFilter
   image: FileFilter
+  title: StringFilter
   format: StringFilter
-  date: DateFilter
-  length: StringFilter
-  category: StringFilter
   rawCategory: LinksFilter
+  length: StringFilter
+  date: DateFilter
+  source: StringFilter
+  seo: SeoFilter
+  category: StringFilter
   slug: SlugFilter
   OR: [PressModelFilter]
   AND: [PressModelFilter]
@@ -6085,18 +6085,18 @@ enum PressModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  title_ASC
-  title_DESC
   externalUrl_ASC
   externalUrl_DESC
-  source_ASC
-  source_DESC
+  title_ASC
+  title_DESC
   format_ASC
   format_DESC
-  date_ASC
-  date_DESC
   length_ASC
   length_DESC
+  date_ASC
+  date_DESC
+  source_ASC
+  source_DESC
   category_ASC
   category_DESC
 }
@@ -7679,8 +7679,8 @@ input SupporterModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   internalTitle: StringFilter
-  logo: FileFilter
   externalUrl: StringFilter
+  logo: FileFilter
   OR: [SupporterModelFilter]
   AND: [SupporterModelFilter]
 }
@@ -7875,16 +7875,16 @@ input TeamMemberModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  fullName: StringFilter
-  teamPosition: StringFilter
-  image: FileFilter
-  category: StringFilter
-  organization: StringFilter
-  seo: SeoFilter
   twitterXUrl: StringFilter
+  teamPosition: StringFilter
   linkedinUrl: StringFilter
-  email: StringFilter
+  fullName: StringFilter
+  category: StringFilter
+  seo: SeoFilter
   information: StructuredTextFilter
+  image: FileFilter
+  email: StringFilter
+  organization: StringFilter
   slug: SlugFilter
   OR: [TeamMemberModelFilter]
   AND: [TeamMemberModelFilter]
@@ -7918,20 +7918,20 @@ enum TeamMemberModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  fullName_ASC
-  fullName_DESC
-  teamPosition_ASC
-  teamPosition_DESC
-  category_ASC
-  category_DESC
-  organization_ASC
-  organization_DESC
   twitterXUrl_ASC
   twitterXUrl_DESC
+  teamPosition_ASC
+  teamPosition_DESC
   linkedinUrl_ASC
   linkedinUrl_DESC
+  fullName_ASC
+  fullName_DESC
+  category_ASC
+  category_DESC
   email_ASC
   email_DESC
+  organization_ASC
+  organization_DESC
 }
 
 """Record of type Team Member (team_member)"""
@@ -8121,17 +8121,17 @@ input ToolkitModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  backgroundColor: StringFilter
-  contentAnchors: StringFilter
-  contentBackgroundColor: StringFilter
   image: FileFilter
-  introduction: TextFilter
-  preTitle: StringFilter
-  seo: SeoFilter
   title: StringFilter
-  variant: StringFilter
-  textColor: StringFilter
+  introduction: TextFilter
   content: StructuredTextFilter
+  backgroundColor: StringFilter
+  preTitle: StringFilter
+  contentBackgroundColor: StringFilter
+  contentAnchors: StringFilter
+  textColor: StringFilter
+  variant: StringFilter
+  seo: SeoFilter
   slug: SlugFilter
   OR: [ToolkitModelFilter]
   AND: [ToolkitModelFilter]
@@ -8156,20 +8156,20 @@ enum ToolkitModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  backgroundColor_ASC
-  backgroundColor_DESC
-  contentAnchors_ASC
-  contentAnchors_DESC
-  contentBackgroundColor_ASC
-  contentBackgroundColor_DESC
-  preTitle_ASC
-  preTitle_DESC
   title_ASC
   title_DESC
-  variant_ASC
-  variant_DESC
+  backgroundColor_ASC
+  backgroundColor_DESC
+  preTitle_ASC
+  preTitle_DESC
+  contentBackgroundColor_ASC
+  contentBackgroundColor_DESC
+  contentAnchors_ASC
+  contentAnchors_DESC
   textColor_ASC
   textColor_DESC
+  variant_ASC
+  variant_DESC
 }
 
 """Record of type Toolkit (toolkit)"""
