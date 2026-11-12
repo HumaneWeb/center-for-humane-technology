@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import useIsMobile from '../hooks/is-mobile';
 import CustomImage, { CustomImageProps } from '../shared/custom-image';
 import { FadeIn } from '../shared/fade-in';
@@ -63,12 +64,12 @@ export default function PodcastListHero({
               />
             )}
 
-            <div className="mb:items-center mb:gap-10 mb:justify-start flex items-start justify-between gap-8">
+            <div className="mb:w-fit mb:grid-cols-[auto_auto_auto] mb:justify-items-start mb:gap-x-10 mb:pb-6 grid w-full grid-cols-3 items-center gap-x-8 gap-y-6 pb-4">
               {applePodcastsUrl && (
                 <a
                   href={applePodcastsUrl}
                   target="_blank"
-                  className="mb:flex-row mb:text-left mb:flex-none flex flex-1 flex-col items-center justify-center gap-2.5 text-center"
+                  className="mb:flex-row mb:justify-self-start mb:text-left col-start-1 row-start-1 flex min-w-0 flex-col items-center justify-center gap-2.5 justify-self-center text-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +95,7 @@ export default function PodcastListHero({
                 <a
                   href={spotifyUrl}
                   target="_blank"
-                  className="mb:flex-row mb:text-left mb:flex-none flex flex-1 flex-col items-center justify-center gap-2.5 text-center"
+                  className="mb:flex-row mb:justify-self-start mb:text-left col-start-2 row-start-1 flex min-w-0 flex-col items-center justify-center gap-2.5 justify-self-center text-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +122,7 @@ export default function PodcastListHero({
                 <a
                   href={youtubeUrl}
                   target="_blank"
-                  className="mb:flex-row mb:text-left mb:flex-none flex flex-1 flex-col items-center justify-center gap-2.5 text-center"
+                  className="mb:flex-row mb:justify-self-start mb:text-left col-start-3 row-start-1 flex min-w-0 flex-col items-center justify-center gap-2.5 justify-self-center text-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -143,6 +144,21 @@ export default function PodcastListHero({
                   </span>
                 </a>
               )}
+
+              <Image
+                src="/signal-awards-2026-silver.png"
+                alt="2026 Signal Awards Silver Winner"
+                width={96}
+                height={101}
+                className="mb:w-24 col-span-2 col-start-1 row-start-2 h-auto w-[4.75rem] max-w-full justify-self-center"
+              />
+              <Image
+                src="/signal-awards-2026-bronze.png"
+                alt="2026 Signal Awards Bronze Winner"
+                width={96}
+                height={97}
+                className="mb:w-24 col-span-2 col-start-2 row-start-2 h-auto w-[4.75rem] max-w-full justify-self-center"
+              />
             </div>
           </div>
         </FadeIn>
